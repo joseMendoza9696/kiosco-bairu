@@ -5,6 +5,8 @@ import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 
+// pasar a config.ts
+
 const client: any = new ApolloClient({
   uri: 'https://bairu-main-backend-production.up.railway.app/graphql',
   cache: new InMemoryCache(),

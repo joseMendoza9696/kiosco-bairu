@@ -1,10 +1,11 @@
 import { Routes, Route } from 'react-router';
 import { Home } from './components/Home';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ProtectedRoute } from './utils/ProtectedRoute';
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 
+// pasar al mutation a mutations
 interface KioscoLoginData {
   KIOSCO_login: {
     id: number;
@@ -19,7 +20,7 @@ interface KioscoLoginVariables {
     licenciaId: string;
   };
 }
-
+//pasar a mutations.ts
 const LOGIN_MUTATION = gql`
   mutation KIOSCO_login($login: KioscoLogin!) {
     KIOSCO_login(login: $login) {
@@ -30,16 +31,24 @@ const LOGIN_MUTATION = gql`
     }
   }
 `;
+// pages maneja el login el protected routes, el home el about
+// protected routes maneja el login
+// componentes, input
 
 function App() {
-  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [token, setToken] = useState<string | null>(
+    localStorage.getItem('token'),
+  );
+  const [theme, setTheme] = useState<string>('light');
 
   const [licenseId, setLicenseId] = useState('');
 
+  // se queda
+  // sacar fueran kioscoLoginData, KioscoLoginVariables
   const [loginMutation] = useMutation<KioscoLoginData, KioscoLoginVariables>(
     LOGIN_MUTATION,
   );
-
+  //sacar login y handleLogin
   const handleLogin = async () => {
     try {
       const { data } = await loginMutation({
@@ -63,6 +72,25 @@ function App() {
     setToken('');
     localStorage.removeItem('user');
   };
+
+  useEffect(() => {
+    document.querySelector('html')?.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  useEffect(() => {
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === 'theme') {
+        setTheme(event.newValue || 'light');
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
 
   return (
     <>
