@@ -1,0 +1,54 @@
+import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { LOGIN_MUTATION } from '../api/graphql/mutations';
+
+interface LoginProps {
+  setToken: (token: string) => void;
+}
+
+const Login: React.FC<LoginProps> = ({ setToken }) => {
+  const [licenseId, setLicenseId] = useState('');
+  const [loginMutation] = useMutation(LOGIN_MUTATION);
+
+  const handleLogin = async () => {
+    try {
+      const { data } = await loginMutation({
+        variables: {
+          login: {
+            licenciaId: licenseId,
+          },
+        },
+      });
+
+      if (data && data.KIOSCO_login && data.KIOSCO_login.token) {
+        setToken(data.KIOSCO_login.token);
+        localStorage.setItem('token', data.KIOSCO_login.token);
+      }
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+    }
+  };
+
+  return (
+    <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 ">
+      <div className="mb-8 text-center">
+        <h1 className="my-3 text-4xl font-bold">Login</h1>
+      </div>
+      <div className="space-y-4">
+        <input
+          type="text"
+          placeholder="licencia"
+          value={licenseId}
+          className="w-full px-3 py-2 border rounded-md"
+          onChange={(e) => setLicenseId(e.target.value)}
+        />
+      </div>
+      <br />
+      <button onClick={handleLogin} className="btn btn-error">
+        login
+      </button>
+    </div>
+  );
+};
+
+export default Login;

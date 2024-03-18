@@ -1,24 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
-
-import gql from 'graphql-tag';
-
-const PROFILE_QUERY = gql`
-  query {
-    KIOSCO_getPerfilActivo {
-      id
-      contextStyle {
-        colors {
-          primary
-          secondary
-          tertiary
-          quartiary
-        }
-        logo
-      }
-    }
-  }
-`;
+import { PROFILE_QUERY } from '../api/graphql/query';
 
 export const Home = () => {
   const [customColors, setCustomColors] = useState({
@@ -44,7 +26,7 @@ export const Home = () => {
   return (
     <div className={`bg-${customColors.primary}`}>
       <h1>Home</h1>
-      <p className="text-white">Welcome to the Home page</p>
+      <p className="text-dark">Welcome to the Home page</p>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error.message}</p>}
       {profileData && (
