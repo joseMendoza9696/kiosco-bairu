@@ -8,4 +8,6 @@ const client = new ApolloClient({
   },
 });
 
+// console.log('estoy en el client:', client);
+
 export default client;
