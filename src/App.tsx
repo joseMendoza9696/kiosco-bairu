@@ -6,11 +6,6 @@ import Login from './pages/Login';
 import { Menu } from './pages/Menu';
 
 function App() {
-  const handleLogout = () => {
-    setToken('');
-    localStorage.removeItem('user');
-  };
-
   const [token, setToken] = useState<string | null>(
     localStorage.getItem('token'),
   );
@@ -42,13 +37,7 @@ function App() {
 
   return (
     <>
-      {token ? (
-        <button onClick={handleLogout} className="btn btn-error">
-          logout
-        </button>
-      ) : (
-        <Login setToken={setToken} />
-      )}
+      {!token && <Login setToken={setToken} />}
       <Routes>
         <Route
           path="/"
