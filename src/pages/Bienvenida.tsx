@@ -26,11 +26,11 @@ export const Bienvenida = () => {
         <img
           src={profileData?.contextStyle.logo}
           alt="logo"
-          className="rounded-full h-40 w-40 mr-4"
+          className="rounded-full h-[192px] w-[207px] mr-4"
         />
       </div>
       <div>
-        <h1 className=" text-4xl lg:text-9xl font-bold text-dark text-center ">
+        <h1 className=" lg:text-[90px] font-bold text-dark text-center ">
           LA VIDA ES MÁS FÁCIL PIDIENDO ASÍ
           <span className="p-10">
             <Icon
@@ -48,8 +48,11 @@ export const Bienvenida = () => {
         <button className="mx-4 px-6 py-3 btn btn-primary btn-secondary text-2xl w-72 h-72 flex flex-col items-center justify-center rounded-3xl">
           <a href="/menu">
             <div className="flex flex-col items-center">
-              <Icon icon="zondicons:location-food" className="text-8xl mb-6" />
-              <span className="text-3xl">Comer aquí</span>
+              <Icon
+                icon="zondicons:location-food"
+                className="text-[112px] mb-6 "
+              />
+              <span className="text-[36px]">Comer aquí</span>
             </div>
           </a>
         </button>
@@ -58,9 +61,9 @@ export const Bienvenida = () => {
             <div className="flex flex-col items-center">
               <Icon
                 icon="fa6-solid:basket-shopping"
-                className="text-8xl mb-6"
+                className="text-[128px] mb-6"
               />
-              <span className="text-3xl">Para llevar</span>
+              <span className="text-[36px]">Para llevar</span>
             </div>
           </a>
         </button>

@@ -50,7 +50,7 @@ export const Menu = () => {
           <h1 className="text-5xl font-bold text-primary">
             Nuestras categorías
           </h1>
-          <div className="carousel rounded-box bg-base-100 shadow-xl">
+          <div className="carousel rounded-box bg-base-100 shadow-xl ">
             {categorias.map((categoria: Categoria) => (
               <button
                 key={categoria.id}
