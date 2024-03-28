@@ -22,7 +22,7 @@ export const Bienvenida = () => {
 
   return (
     <div className="container mx-auto mt-8 p-4">
-      <div className="flex justify-center items-center pb-40 pt-10">
+      <div className="flex justify-center items-center pb-[174px] pt-86">
         <img
           src={profileData?.contextStyle.logo}
           alt="logo"
@@ -30,19 +30,19 @@ export const Bienvenida = () => {
         />
       </div>
       <div>
-        <h1 className=" lg:text-[90px] font-bold text-dark text-center ">
-          LA VIDA ES MÁS FÁCIL PIDIENDO ASÍ
-          <span className="p-10">
-            <Icon
-              icon="mdi:arrow-down-bold"
-              style={{
-                height: '190px',
-                width: ' 190px',
-                margin: '10 auto',
-              }}
-            />
-          </span>
+        <h1 className=" lg:text-[100px] font-bold text-dark text-center ">
+          <div className="px-10">LA VIDA ES MÁS FÁCIL PIDIENDO ASÍ</div>
         </h1>
+        <span className="p-2">
+          <Icon
+            icon="mdi:arrow-down-bold"
+            style={{
+              height: '190px',
+              width: ' 190px',
+              margin: '10 auto',
+            }}
+          />
+        </span>
       </div>
       <div className="flex justify-center mt-8 space-x-20 ">
         <button className="mx-4 px-6 py-3 btn btn-primary btn-secondary text-2xl w-72 h-72 flex flex-col items-center justify-center rounded-3xl">

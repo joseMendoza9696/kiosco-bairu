@@ -14,6 +14,16 @@ interface Subcategoria {
   id: string;
   nombre: string;
   imagen: string;
+  productos: Producto[];
+}
+
+interface Producto {
+  id: string;
+  idSistema: string;
+  nombre: string;
+  imagen: string;
+  precio: number;
+  descripcion: string;
 }
 
 export const Menu = () => {
@@ -23,65 +33,66 @@ export const Menu = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   const categorias = data?.KIOSCO_getMenu?.categorias || [];
-  const subcategorias =
-    categorias.find((categoria: Categoria) => categoria.id === selectedCategory)
-      ?.subcategorias || [];
+  let productos: Producto[] = [];
+
+  if (selectedCategory) {
+    const categoriaSeleccionada = categorias.find(
+      (categoria: Categoria) => categoria.id === selectedCategory,
+    );
+    if (categoriaSeleccionada) {
+      categoriaSeleccionada.subcategorias.forEach(
+        (subcategoria: Subcategoria) => {
+          productos = [...productos, ...subcategoria.productos];
+        },
+      );
+    }
+  }
 
   return (
     <>
-      <header>
-        <div className="p-6 py-12 dark:bg-primary dark:text-gray-50">
+      <header className="mx-16 mt-10 ">
+        <div className="p-6 py-12 dark:bg-primary dark:text-gray-50 rounded-xl shadow-lg">
           <div className="container mx-auto">
-            <div className="flex flex-col lg:flex-row items-center justify-between">
-              <h2 className="text-center text-6xl tracking-tighter font-bold">
-                Celebra a papá <br className="sm:hidden" />
-                con 50% Off
-              </h2>
-              <div className="space-x-2 text-center py-2 lg:py-0">
-                <span>con la promo </span>
-                <span className="font-bold text-lg">bairu</span>
-              </div>
+            <div className="flex flex-col lg:flex-row items-center justify-between text-center">
+              hello
             </div>
           </div>
         </div>
       </header>
       <main>
         <div className="text-center pt-10">
-          <h1 className="text-5xl font-bold text-primary">
+          <h1 className="text-[48px] font-bold text-primary">
             Nuestras categorías
           </h1>
-          <div className="carousel rounded-box bg-base-100 shadow-xl ">
-            {categorias.map((categoria: Categoria) => (
-              <button
-                key={categoria.id}
-                onClick={() => setSelectedCategory(categoria.id)}
-              >
-                <div
-                  key={categoria.id}
-                  className="carousel-item flex flex-col items-center"
-                >
-                  <figure>
-                    <img
-                      src={categoria.imagen}
-                      alt={categoria.nombre}
-                      className="w-30 h-20 rounded-xl"
-                    />
-                  </figure>
-                  <div className="card-body">
-                    <h2 className="card-title">{categoria.nombre}</h2>
-                  </div>
-                </div>
-              </button>
-            ))}
-          </div>
+        </div>
+        <div className="rounded-box w-full overflow-x-auto flex items-center justify-start pl-16">
+          {categorias.map((categoria: Categoria) => (
+            <button
+              key={categoria.id}
+              onClick={() => setSelectedCategory(categoria.id)}
+              className="mx-4"
+            >
+              <div key={categoria.id} className="max-w-xs rounded-md shadow-md">
+                <img
+                  src={categoria.imagen}
+                  alt={categoria.nombre}
+                  className="w-[200px] h-[167px] rounded-xl object-cover"
+                />
+                <h2 className="text-[24px] text-left font-semibold p-1">
+                  {categoria.nombre}
+                </h2>
+              </div>
+            </button>
+          ))}
         </div>
 
-        <div className="pt-10 flex items-center navbar-center px-36">
-          <h1 className="text-4xl font-bold text-secondary">
-            Escoge tu producto
-          </h1>
-          <div className="navbar-end pl-80">
-            <button className="btn btn-secondary w-16 h-16 btn-circle">
+        <div className="pt-10 text-center ">
+          <div className="flex items-center justify-between pl-16">
+            <h1 className="text-4xl font-semibold text-secondary">
+              Escoge tu producto
+            </h1>
+
+            <button className="btn btn-secondary w-16 h-16 btn-circle mr-16">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-10 w-10"
@@ -99,22 +110,26 @@ export const Menu = () => {
             </button>
           </div>
         </div>
-        <div className="carousel rounded-box py-">
-          {subcategorias.map((subcategoria: Subcategoria) => (
-            <div
-              key={subcategoria.id}
-              className="carousel-item flex flex-col items-center"
-            >
-              {/* Contenido de cada subcategoría */}
-              <img
-                src={subcategoria.imagen}
-                alt={subcategoria.nombre}
-                className="w-full"
-              />
-              <h2 className="text-lg mt-2">{subcategoria.nombre}</h2>
-            </div>
-          ))}
-        </div>
+        {selectedCategory ? (
+          <div className="flex flex-wrap  mx-16  ">
+            {productos.map((producto) => (
+              <div
+                key={producto.id}
+                className="flex flex-col items-center p-5  "
+              >
+                <img
+                  src={producto.imagen}
+                  alt={producto.nombre}
+                  className="w-[285px] h-[285px] rounded-xl object-cover"
+                />
+                <h2 className="text-[20px] font-semibold text-right">
+                  {producto.nombre}
+                </h2>
+                <p>{producto.precio}</p>
+              </div>
+            ))}
+          </div>
+        ) : null}
       </main>
 
       <Footer />
