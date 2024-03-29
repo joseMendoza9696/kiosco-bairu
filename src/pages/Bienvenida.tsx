@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { PROFILE_QUERY } from '../api/graphql/query';
-import { Footer } from './Footer';
+import { Footer } from '../components/sharedComponents/Footer';
 import { Icon } from '@iconify/react';
 
 export const Bienvenida = () => {
@@ -57,7 +57,7 @@ export const Bienvenida = () => {
           </a>
         </button>
         <button className="mx-4 px-6 py-3 btn btn-primary btn-secondary text-2xl w-72 h-72 flex flex-col items-center justify-center rounded-3xl">
-          <a href="/para-llevar">
+          <a href="/menu">
             <div className="flex flex-col items-center">
               <Icon
                 icon="fa6-solid:basket-shopping"

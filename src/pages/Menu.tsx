@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { GET_MENU } from '../api/graphql/query';
-import { Footer } from './Footer';
+import { Footer } from '../components/sharedComponents/Footer';
 import { useState } from 'react';
 
 console.log(GET_MENU);
@@ -88,7 +88,7 @@ export const Menu = () => {
 
         <div className="pt-10 text-center ">
           <div className="flex items-center justify-between pl-16">
-            <h1 className="text-4xl font-semibold text-secondary">
+            <h1 className="text-4xl font-semibold text-primary">
               Escoge tu producto
             </h1>
 
@@ -111,21 +111,27 @@ export const Menu = () => {
           </div>
         </div>
         {selectedCategory ? (
-          <div className="flex flex-wrap  mx-16  ">
+          <div className="flex flex-wrap  mx-[64px] ">
             {productos.map((producto) => (
               <div
                 key={producto.id}
-                className="flex flex-col items-center p-5  "
+                className="flex flex-col mr-[32px] py-8  rounded-md shadow-md bg-white"
               >
                 <img
                   src={producto.imagen}
                   alt={producto.nombre}
-                  className="w-[285px] h-[285px] rounded-xl object-cover"
+                  className="w-[285px] h-[285px] rounded-xl object-cover "
                 />
-                <h2 className="text-[20px] font-semibold text-right">
-                  {producto.nombre}
-                </h2>
-                <p>{producto.precio}</p>
+                <div className="ml-2">
+                  <h2 className="text-[20px] font-semibold text-left ">
+                    {producto.nombre}
+                  </h2>
+                  <p className="text-left text-semibold text-lg">
+                    {' '}
+                    Bs. {producto.precio}
+                  </p>
+                  <p className="text-left">{producto.descripcion}</p>
+                </div>
               </div>
             ))}
           </div>
