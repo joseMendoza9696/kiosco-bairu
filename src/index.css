@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@font-face {
+    font-family: 'font-bairu';
+    src: url('../src/fonts/hiragino-kaku-gothic-pro-w3.otf') format('opentype');
+}
