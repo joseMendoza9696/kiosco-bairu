@@ -3,7 +3,7 @@ import { Bienvenida } from './pages/Bienvenida';
 import { useEffect, useState } from 'react';
 import { ProtectedRoute } from './utils/ProtectedRoute';
 import Login from './pages/Login';
-import { Menu } from './pages/Menu';
+import { Menu } from '../src/components/Menu/index.tsx';
 
 function App() {
   const [token, setToken] = useState<string | null>(
