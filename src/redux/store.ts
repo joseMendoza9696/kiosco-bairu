@@ -6,8 +6,11 @@ import {
   applyMiddleware,
 } from 'redux';
 import { thunk } from 'redux-thunk';
+import { menuReducer } from './reducers/menu.reducer';
 
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({
+  menuReducer,
+});
 
 export const Store = createStore(rootReducer, applyMiddleware(thunk));
 

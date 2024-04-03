@@ -1,9 +1,10 @@
 import { useQuery } from '@apollo/client';
 import { GET_MENU } from '../../api/graphql/query';
 import { Footer } from '../../components/sharedComponents/Footer';
-import { useState } from 'react';
-
-console.log(GET_MENU);
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { guardarMenu } from '../../redux/actions/menu.action';
+import { RootState } from '../../redux/store';
 
 interface Categoria {
   id: string;
@@ -27,26 +28,54 @@ interface Producto {
 }
 
 export const Menu = () => {
-  const { loading, error, data } = useQuery(GET_MENU);
+  const dispatch = useDispatch();
+  const categoriass = useSelector(
+    (state: RootState) => state.menuReducer.categorias,
+  );
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  useEffect(() => {
+    const { loading, error, data } = useQuery(GET_MENU);
+    if (data) {
+      // guardar en el local storage
+      // guardar el state
+
+      dispatch(guardarMenu({ categorias: data.KIOSCO_getMenu.categorias }));
+    }
+  }, []);
+
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   const categorias = data?.KIOSCO_getMenu?.categorias || [];
   let productos: Producto[] = [];
 
-  if (selectedCategory) {
-    const categoriaSeleccionada = categorias.find(
-      (categoria: Categoria) => categoria.id === selectedCategory,
-    );
-    if (categoriaSeleccionada) {
-      categoriaSeleccionada.subcategorias.forEach(
-        (subcategoria: Subcategoria) => {
-          productos = [...productos, ...subcategoria.productos];
-        },
+  useEffect(() => {
+    const { loading, error, data } = useQuery(GET_MENU);
+    if (data) {
+      dispatch(
+        // @ts-ignore
+        // useselector
+
+        guardarMenu({
+          categorias: data.KIOSCO_getMenu.categorias,
+        }),
       );
     }
-  }
+  });
+
+  // if (selectedCategory) {
+  //   const categoriaSeleccionada = categorias.find(
+  //     (categoria: Categoria) => categoria.id === selectedCategory,
+  //   );
+  //   if (categoriaSeleccionada) {
+  //     categoriaSeleccionada.subcategorias.forEach(
+  //       (subcategoria: Subcategoria) => {
+  //         productos = [...productos, ...subcategoria.productos];
+  //       },
+  //     );
+  //   }
+  // }
 
   return (
     <>
