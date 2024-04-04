@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router';
-import { Bienvenida } from './pages/Bienvenida';
+import { BienvenidaPage } from './pages/Bienvenida';
 import { useEffect, useState } from 'react';
 import { ProtectedRoute } from './utils/ProtectedRoute';
 import Login from './pages/Login';
@@ -43,7 +43,7 @@ function App() {
           path="/"
           element={
             <ProtectedRoute user={token}>
-              <Bienvenida />
+              <BienvenidaPage />
             </ProtectedRoute>
           }
         />

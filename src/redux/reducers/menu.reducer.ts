@@ -1,7 +1,9 @@
-// import { MenuInterface } from '../../interfaces/menu.interface';
+import { MenuInterface } from '../../interfaces/menu.interface';
 import { GUARDAR_MENU } from '../actions/menu.action';
+// FUNCTIONS
+import { actualizarCategoriaSeleccionada } from '../functions.ts';
 
-const initalMenuState: any = {
+const initalMenuState: MenuInterface = {
   categorias: [
     {
       id: '',
@@ -18,8 +20,8 @@ const initalMenuState: any = {
 export function menuReducer(state = initalMenuState, action: any) {
   switch (action.type) {
     case GUARDAR_MENU:
-      //   const categorias = actualizarCategoriaSeleccionada(0, action.payload);
-      return { ...state, categorias: action.payload.categorias };
+      const categorias = actualizarCategoriaSeleccionada(0, action.payload);
+      return { ...state, categorias: categorias };
 
     default:
       return state;

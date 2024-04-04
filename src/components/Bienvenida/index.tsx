@@ -1,24 +1,55 @@
 import { useEffect, useState } from 'react';
-import { useQuery } from '@apollo/client';
-import { PROFILE_QUERY } from '../../api/graphql/query';
+import { useLazyQuery } from '@apollo/client';
+import { GET_MENU, PROFILE_QUERY } from '../../api/graphql/query';
 import { Footer } from '../../components/sharedComponents/Footer';
 import { Icon } from '@iconify/react';
+// REDUX
+import { useDispatch } from 'react-redux';
+import { guardarMenu } from '../../redux/actions/menu.action.ts';
+// import { RootState } from '../../redux/store.ts';
 
 export const Bienvenida = () => {
+  const dispatch = useDispatch();
+
+  // const menu = useSelector((state: RootState) => state.menuReducer);
+
   const [profileData, setProfileData] = useState<{
     contextStyle: { logo: string };
   } | null>(null);
 
-  const { loading, error, data } = useQuery(PROFILE_QUERY);
+  const [getPerfil] = useLazyQuery(PROFILE_QUERY, {
+    onCompleted: (data) => {
+      // TODO: QUITAR ESTE SETPROFILEDATA
+      setProfileData(data.KIOSCO_getPerfilActivo);
+      // TODO: GUARDAR ESTE PERFIL EN EL LOCAL STORAGE: NUEVA VARIABLE QUE SE LLAMA "PERFIL"
+    },
+    onError: (error) => {
+      console.log(error);
+      // TODO: NO HACES NADA
+    }
+  });
+
+  const [getMenu] = useLazyQuery(GET_MENU, {
+    onCompleted: (data) => {
+      console.log(data);
+      // TODO: GUARDAR EL MENU EN EL LOCALSTORAGE EN UNA NUEVA VARIABLE: "MENU"
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      dispatch(guardarMenu(data.KIOSCO_getMenu));
+    },
+    onError: (error) => {
+      console.log(error);
+      // TODO: OBTENER EL MENU DEL LOCAL STORAGE
+      // TODO: ACTUALIZAR EL ESTADO DE REDUX: "initialMenuState" CON LA INFORMACION DEL MENU DEL LOCALSTORAGE
+    }
+  })
 
   useEffect(() => {
-    if (data && data.KIOSCO_getPerfilActivo) {
-      setProfileData(data.KIOSCO_getPerfilActivo);
-    }
-  }, [data]);
+    // TODO: OBTENER EL PEFIL DEL LOCALSTORAGE Y ACTUALIZAR EN profileData
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+    getPerfil().then( );
+    getMenu().then();
+  }, []);
 
   return (
     <div className="container mx-auto mt-8 p-4">

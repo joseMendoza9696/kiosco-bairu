@@ -28,6 +28,9 @@ interface Producto {
 }
 
 export const Menu = () => {
+  // TODO: QUITAR LOS QUERIES
+  // TODO: EL MENU QUE VAS A UTILIZAR ES DEL REDUX menuReducer
+
   const dispatch = useDispatch();
   const categoriass = useSelector(
     (state: RootState) => state.menuReducer.categorias,
@@ -50,33 +53,6 @@ export const Menu = () => {
   const categorias = data?.KIOSCO_getMenu?.categorias || [];
   let productos: Producto[] = [];
 
-  useEffect(() => {
-    const { loading, error, data } = useQuery(GET_MENU);
-    if (data) {
-      dispatch(
-        // @ts-ignore
-        // useselector
-
-        guardarMenu({
-          categorias: data.KIOSCO_getMenu.categorias,
-        }),
-      );
-    }
-  });
-
-  // if (selectedCategory) {
-  //   const categoriaSeleccionada = categorias.find(
-  //     (categoria: Categoria) => categoria.id === selectedCategory,
-  //   );
-  //   if (categoriaSeleccionada) {
-  //     categoriaSeleccionada.subcategorias.forEach(
-  //       (subcategoria: Subcategoria) => {
-  //         productos = [...productos, ...subcategoria.productos];
-  //       },
-  //     );
-  //   }
-  // }
-
   return (
     <>
       <header className="mx-16 mt-10 ">
@@ -89,6 +65,7 @@ export const Menu = () => {
         </div>
       </header>
       <main>
+        {/*TODO: MOVER LAS CATEGORIAS AL COMPONENTE CATEGORIAS.TSX*/}
         <div className="text-center pt-10">
           <h1 className="text-[48px] font-bold text-primary">
             Nuestras categorías
@@ -114,7 +91,9 @@ export const Menu = () => {
             </button>
           ))}
         </div>
+        {/*TODO: CATEGORIAS.TSX END*/}
 
+        {/*TODO: MOVER LOS PRODUCTOS AL COMPONENTE PRODUCTOS.TSX*/}
         <div className="pt-10 text-center ">
           <div className="flex items-center justify-between pl-16">
             <h1 className="text-4xl font-semibold text-primary">
@@ -139,6 +118,7 @@ export const Menu = () => {
             </button>
           </div>
         </div>
+
         {selectedCategory ? (
           <div className="flex flex-wrap  mx-[64px] ">
             {productos.map((producto) => (
@@ -165,6 +145,7 @@ export const Menu = () => {
             ))}
           </div>
         ) : null}
+        {/*TODO: PRODUCTOS.TSX END*/}
       </main>
 
       <Footer />

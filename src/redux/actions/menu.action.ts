@@ -1,4 +1,4 @@
-import { MenuInterface } from '../../interfaces/menu.interface';
+// import { MenuInterface } from '../../interfaces/menu.interface';
 
 export const GUARDAR_MENU = 'GUARDAR_MENU';
 
