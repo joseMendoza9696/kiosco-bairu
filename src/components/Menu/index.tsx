@@ -5,53 +5,40 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { guardarMenu } from '../../redux/actions/menu.action';
 import { RootState } from '../../redux/store';
+import Categoria from './categorias';
+import Productos from './productos';
 
 interface Categoria {
   id: string;
   nombre: string;
   imagen: string;
-}
-interface Subcategoria {
-  id: string;
-  nombre: string;
-  imagen: string;
-  productos: Producto[];
-}
-
-interface Producto {
-  id: string;
-  idSistema: string;
-  nombre: string;
-  imagen: string;
-  precio: number;
-  descripcion: string;
-}
 
 export const Menu = () => {
   // TODO: QUITAR LOS QUERIES
   // TODO: EL MENU QUE VAS A UTILIZAR ES DEL REDUX menuReducer
 
   const dispatch = useDispatch();
-  const categoriass = useSelector(
-    (state: RootState) => state.menuReducer.categorias,
-  );
+
+  // const categoriass = useSelector(
+  //   (state: RootState) => state.menuReducer.categorias,
+  // );
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  useEffect(() => {
-    const { loading, error, data } = useQuery(GET_MENU);
-    if (data) {
-      // guardar en el local storage
-      // guardar el state
+  // useEffect(() => {
+  //   const { loading, error, data } = useQuery(GET_MENU);
+  //   if (data) {
+  //     // guardar en el local storage
+  //     // guardar el state
 
-      dispatch(guardarMenu({ categorias: data.KIOSCO_getMenu.categorias }));
-    }
-  }, []);
+  //     dispatch(guardarMenu({ categorias: data.KIOSCO_getMenu.categorias }));
+  //   }
+  // }, []);
 
-  if (loading) return <p>Cargando...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  // if (loading) return <p>Cargando...</p>;
+  // if (error) return <p>Error: {error.message}</p>;
 
-  const categorias = data?.KIOSCO_getMenu?.categorias || [];
-  let productos: Producto[] = [];
+  // const categorias = data?.KIOSCO_getMenu?.categorias || [];
+  // let productos: Producto[] = [];
 
   return (
     <>
@@ -66,31 +53,10 @@ export const Menu = () => {
       </header>
       <main>
         {/*TODO: MOVER LAS CATEGORIAS AL COMPONENTE CATEGORIAS.TSX*/}
-        <div className="text-center pt-10">
-          <h1 className="text-[48px] font-bold text-primary">
-            Nuestras categorías
-          </h1>
-        </div>
-        <div className="rounded-box w-full overflow-x-auto flex items-center justify-start pl-16">
-          {categorias.map((categoria: Categoria) => (
-            <button
-              key={categoria.id}
-              onClick={() => setSelectedCategory(categoria.id)}
-              className="mx-4"
-            >
-              <div key={categoria.id} className="max-w-xs rounded-md shadow-md">
-                <img
-                  src={categoria.imagen}
-                  alt={categoria.nombre}
-                  className="w-[200px] h-[167px] rounded-xl object-cover"
-                />
-                <h2 className="text-[24px] text-left font-semibold p-1">
-                  {categoria.nombre}
-                </h2>
-              </div>
-            </button>
-          ))}
-        </div>
+        <Categoria
+          categorias={categorias}
+          setSelectedCategory={setSelectedCategory}
+        />
         {/*TODO: CATEGORIAS.TSX END*/}
 
         {/*TODO: MOVER LOS PRODUCTOS AL COMPONENTE PRODUCTOS.TSX*/}
@@ -120,29 +86,29 @@ export const Menu = () => {
         </div>
 
         {selectedCategory ? (
-          <div className="flex flex-wrap  mx-[64px] ">
-            {productos.map((producto) => (
-              <div
-                key={producto.id}
-                className="flex flex-col mr-[32px] py-8  rounded-md shadow-md"
-              >
-                <img
-                  src={producto.imagen}
-                  alt={producto.nombre}
-                  className="w-[285px] h-[285px] rounded-xl object-cover "
-                />
-                <div className="ml-2">
-                  <h2 className="text-[20px] font-semibold text-left ">
-                    {producto.nombre}
-                  </h2>
-                  <p className="text-left text-semibold text-lg">
-                    {' '}
-                    Bs. {producto.precio}
-                  </p>
-                  <p className="text-left">{producto.descripcion}</p>
-                </div>
-              </div>
-            ))}
+          <div className="pt-10 text-center">
+            <div className="flex items-center justify-between pl-16">
+              <h1 className="text-4xl font-semibold text-primary">
+                Escoge tu producto
+              </h1>
+              <button className="btn btn-secondary w-16 h-16 btn-circle mr-16">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-10 w-10"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+              </button>
+            </div>
+            <Productos productos={productos} />
           </div>
         ) : null}
         {/*TODO: PRODUCTOS.TSX END*/}
