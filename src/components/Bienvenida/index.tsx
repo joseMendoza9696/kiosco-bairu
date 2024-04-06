@@ -20,19 +20,26 @@ export const Bienvenida = () => {
   const [getPerfil] = useLazyQuery(PROFILE_QUERY, {
     onCompleted: (data) => {
       // TODO: QUITAR ESTE SETPROFILEDATA
+
       setProfileData(data.KIOSCO_getPerfilActivo);
       // TODO: GUARDAR ESTE PERFIL EN EL LOCAL STORAGE: NUEVA VARIABLE QUE SE LLAMA "PERFIL"
+      localStorage.setItem(
+        'Perfil',
+        JSON.stringify(data.KIOSCO_getPerfilActivo),
+      );
     },
     onError: (error) => {
       console.log(error);
       // TODO: NO HACES NADA
-    }
+    },
   });
 
   const [getMenu] = useLazyQuery(GET_MENU, {
     onCompleted: (data) => {
       console.log(data);
       // TODO: GUARDAR EL MENU EN EL LOCALSTORAGE EN UNA NUEVA VARIABLE: "MENU"
+      localStorage.setItem('Menu', JSON.stringify(data.KIOSCO_getMenu));
+
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       dispatch(guardarMenu(data.KIOSCO_getMenu));
@@ -40,14 +47,25 @@ export const Bienvenida = () => {
     onError: (error) => {
       console.log(error);
       // TODO: OBTENER EL MENU DEL LOCAL STORAGE
-      // TODO: ACTUALIZAR EL ESTADO DE REDUX: "initialMenuState" CON LA INFORMACION DEL MENU DEL LOCALSTORAGE
-    }
-  })
+      const menu = localStorage.getItem('Menu');
+      if (menu) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        // TODO: ACTUALIZAR EL ESTADO DE REDUX: "initialMenuState" CON LA INFORMACION DEL MENU DEL LOCALSTORAGE
+
+        dispatch(guardarMenu(JSON.parse(menu)));
+      }
+    },
+  });
 
   useEffect(() => {
     // TODO: OBTENER EL PEFIL DEL LOCALSTORAGE Y ACTUALIZAR EN profileData
+    const storedPerfil = localStorage.getItem('Perfil');
+    if (storedPerfil) {
+      setProfileData(JSON.parse(storedPerfil));
+    }
 
-    getPerfil().then( );
+    getPerfil().then();
     getMenu().then();
   }, []);
 
