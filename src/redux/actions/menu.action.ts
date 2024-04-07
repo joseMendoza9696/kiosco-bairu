@@ -10,3 +10,9 @@ export const guardarMenu = (nuevoMenu: any) => (dispatch: any) => {
     payload: nuevoMenu,
   });
 };
+export const CATEGORIASELECCIONADA = 'CATEGORIAS_SELECCIONADA';
+
+export const categoriaSeleccionada = (CategoriaId: string) => ({
+  type: CATEGORIASELECCIONADA,
+  payload: CategoriaId,
+});
