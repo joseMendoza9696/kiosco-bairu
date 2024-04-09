@@ -6,10 +6,11 @@ import {
   applyMiddleware,
 } from 'redux';
 import { thunk } from 'redux-thunk';
-import { menuReducer } from './reducers/menu.reducer';
+import { menuReducer, menuSeleccionReducer } from './reducers/menu.reducer';
 
 const rootReducer = combineReducers({
   menuReducer,
+  menuSeleccionReducer,
 });
 
 export const Store = createStore(rootReducer, applyMiddleware(thunk));

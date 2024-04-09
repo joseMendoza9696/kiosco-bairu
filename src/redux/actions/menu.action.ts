@@ -1,6 +1,7 @@
-// import { MenuInterface } from '../../interfaces/menu.interface';
+// import { MenuInterface, SELECCION } from '../../interfaces/menu.interface';
 
 export const GUARDAR_MENU = 'GUARDAR_MENU';
+export const SELECCIONAR_CATEGORIA = 'SELECCIONAR_CATEGORIA';
 
 // SOLO RECIBE VALORES T MANDA AL REDUCER
 
@@ -10,9 +11,11 @@ export const guardarMenu = (nuevoMenu: any) => (dispatch: any) => {
     payload: nuevoMenu,
   });
 };
-export const CATEGORIASELECCIONADA = 'CATEGORIAS_SELECCIONADA';
 
-export const categoriaSeleccionada = (CategoriaId: string) => ({
-  type: CATEGORIASELECCIONADA,
-  payload: CategoriaId,
-});
+export const seleccionarCategoria =
+  (categoriaIndex: number) => (dispatch: any) => {
+    dispatch({
+      type: SELECCIONAR_CATEGORIA,
+      payload: categoriaIndex,
+    });
+  };

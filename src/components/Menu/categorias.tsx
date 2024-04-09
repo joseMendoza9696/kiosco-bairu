@@ -1,4 +1,6 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 interface Categoria {
   id: string;
@@ -8,13 +10,19 @@ interface Categoria {
 
 interface CategoriasProps {
   categorias: Categoria[];
-  setSelectedCategory: (categoryId: string) => void;
 }
 
-const Categoria: React.FC<CategoriasProps> = ({
-  categorias,
-  setSelectedCategory,
-}) => {
+const Categoria: React.FC<CategoriasProps> = ({ categorias }) => {
+  const dispatch = useDispatch();
+  const categoriaSeleccionada = useSelector(
+    (state: RootState) => state.menuSeleccionReducer.categoriaSeleccionada,
+  );
+
+  const handleClickCategoria = (index: number) => {
+    dispatch({ type: 'SELECCIONAR_CATEGORIA', payload: index });
+  };
+  console.log(categorias);
+
   return (
     <>
       <div className="text-center pt-10">
@@ -23,13 +31,13 @@ const Categoria: React.FC<CategoriasProps> = ({
         </h1>
       </div>
       <div className="rounded-box w-full overflow-x-auto flex items-center justify-start pl-16">
-        {categorias.map((categoria: Categoria) => (
+        {categorias.map((categoria: Categoria, index: number) => (
           <button
             key={categoria.id}
-            onClick={() => setSelectedCategory(categoria.id)}
-            className="mx-4"
+            className={`mx-4 ${index === categoriaSeleccionada ? 'selected' : ''}`}
+            onClick={() => handleClickCategoria(index)}
           >
-            <div key={categoria.id} className="max-w-xs rounded-md shadow-md">
+            <div className="max-w-xs rounded-md shadow-md">
               <img
                 src={categoria.imagen}
                 alt={categoria.nombre}

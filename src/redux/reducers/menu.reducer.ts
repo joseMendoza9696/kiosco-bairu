@@ -1,9 +1,8 @@
-import { MenuInterface } from '../../interfaces/menu.interface';
 import {
-  CATEGORIASELECCIONADA,
-  GUARDAR_MENU,
-  categoriaSeleccionada,
-} from '../actions/menu.action';
+  MenuInterface,
+  MenuSeleccionInterface,
+} from '../../interfaces/menu.interface';
+import { GUARDAR_MENU, SELECCIONAR_CATEGORIA } from '../actions/menu.action';
 // FUNCTIONS
 import { actualizarCategoriaSeleccionada } from '../functions.ts';
 
@@ -26,14 +25,23 @@ export function menuReducer(state = initalMenuState, action: any) {
     case GUARDAR_MENU:
       const categorias = actualizarCategoriaSeleccionada(0, action.payload);
       return { ...state, categorias: categorias };
-    case CATEGORIASELECCIONADA:
-      const categoriaId = action.payload;
-      const categoriasSeleccionadas = state.categorias.map((categoria) => ({
-        ...categoria,
-        seleccionada: categoria.id === categoriaId,
-      }));
-      return { ...state, categorias: categoriasSeleccionadas };
+    default:
+      return state;
+  }
+}
+const initialMenuSeleccionState: MenuSeleccionInterface = {
+  categoriaSeleccionada: 0,
+  subcategoriaSeleccionada: 0,
+  productoSeleccionado: null,
+};
 
+export function menuSeleccionReducer(
+  state = initialMenuSeleccionState,
+  action: any,
+) {
+  switch (action.type) {
+    case SELECCIONAR_CATEGORIA:
+      return { ...state, categoriaSeleccionada: action.payload };
     default:
       return state;
   }

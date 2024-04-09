@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_MENU } from '../../api/graphql/query';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { guardarMenu } from '../../redux/actions/menu.action';
 import { useLazyQuery } from '@apollo/client';
 import Categoria from './categorias';
@@ -9,14 +9,14 @@ import Productos from './productos';
 
 export const Menu = () => {
   const dispatch = useDispatch();
-  const categorias = useSelector((state) => state.menuReducer.categorias);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const categoriaSeleccionada = useSelector(
-    (state: RootState) => state.menuReducer.categorias[0].seleccionada,
+  const categorias = useSelector(
+    (state: RootState) => state.menuReducer.categorias,
   );
 
   const [getCategorias] = useLazyQuery(GET_MENU, {
     onCompleted: (data) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       dispatch(guardarMenu({ categorias: data.KIOSCO_getMenu.categorias }));
       localStorage.setItem('Menu', JSON.stringify(data.KIOSCO_getMenu));
     },
@@ -25,17 +25,9 @@ export const Menu = () => {
     },
   });
 
-  const productosCategoriaSeleccionada =
-    categorias.find((categoria) => categoria.id === selectedCategory)
-      ?.productos || [];
-
   useEffect(() => {
     getCategorias();
   }, []);
-
-  const handleSeleccionarCategoria = (categoriaId: string) => {
-    setSelectedCategory(categoriaId);
-  };
 
   return (
     <>
@@ -51,10 +43,7 @@ export const Menu = () => {
       <main>
         {/*TODO: MOVER LAS CATEGORIAS AL COMPONENTE CATEGORIAS.TSX*/}
 
-        <Categoria
-          categorias={categorias}
-          setSelectedCategory={setSelectedCategory}
-        />
+        <Categoria categorias={categorias} />
 
         {/*TODO: CATEGORIAS.TSX END*/}
 
@@ -82,7 +71,7 @@ export const Menu = () => {
               </svg>
             </button>
           </div>
-          <Productos productos={productosCategoriaSeleccionada} />
+          <Productos />
         </div>
       </main>
     </>
