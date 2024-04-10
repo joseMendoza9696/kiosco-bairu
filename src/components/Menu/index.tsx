@@ -27,7 +27,7 @@ export const Menu = () => {
 
   useEffect(() => {
     getCategorias();
-  }, []);
+  }, [getCategorias]);
 
   return (
     <>

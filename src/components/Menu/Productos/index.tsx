@@ -1,12 +1,9 @@
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
+import { Modal1 } from './Modal1';
 
 const Productos = () => {
-  // contiene de productos tsx i reemplaza al produtctos tsx CHECK
-  // contiene el popup de productos
-  // solucionar el bug CHECK
-  // redux necesita un tiempo para cargar los datos CHECK
-  // cuando entre al array del menu
   const categoriaSeleccionada = useSelector(
     (state: RootState) => state.menuSeleccionReducer.categoriaSeleccionada,
   );
@@ -14,6 +11,8 @@ const Productos = () => {
   const categoriaActual = useSelector(
     (state: RootState) => state.menuReducer.categorias[categoriaSeleccionada],
   );
+
+  const [productoSeleccionado, setProductoSeleccionado] = useState(null);
 
   if (
     !categoriaActual ||
@@ -25,13 +24,18 @@ const Productos = () => {
 
   const productos = categoriaActual.subcategorias[0].productos;
 
+  const handleOpenModal = (producto) => {
+    setProductoSeleccionado(producto);
+
+    document.getElementById('my_modal_5').showModal();
+  };
+
   return (
-    <div className="pt-10 text-center ">
+    <div className="pt-10 text-center">
       <div className="flex items-center justify-between pl-16">
         <h1 className="text-4xl font-semibold text-primary">
           Escoge tu producto
         </h1>
-
         <button className="btn btn-secondary w-16 h-16 btn-circle mr-16">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -49,11 +53,13 @@ const Productos = () => {
           </svg>
         </button>
       </div>
+
       <div className="flex flex-wrap mx-[64px]">
         {productos.map((producto) => (
           <button
             key={producto.id}
-            className="flex flex-col mr-[32px] py-8 rounded-md shadow-md  "
+            className="flex flex-col mr-[32px] py-8 rounded-md shadow-md"
+            onClick={() => handleOpenModal(producto)}
           >
             <img
               src={producto.imagen}
@@ -61,7 +67,7 @@ const Productos = () => {
               className="w-[285px] h-[285px] rounded-xl object-cover"
             />
             <div className="ml-2">
-              <h2 className="text-[20px] font-semibold text-left ">
+              <h2 className="text-[20px] font-semibold text-left">
                 {producto.nombre}
               </h2>
               <p className="text-left text-semibold text-lg">
@@ -72,6 +78,17 @@ const Productos = () => {
           </button>
         ))}
       </div>
+
+      {/* Modal */}
+      <dialog
+        id="my_modal_5"
+        className="modal modal-bottom  transition-all duration-800"
+      >
+        <Modal1
+          productoSeleccionado={productoSeleccionado}
+          closeModal={() => document.getElementById('my_modal_5').close()}
+        />
+      </dialog>
     </div>
   );
 };
