@@ -3,7 +3,7 @@ export const Modal2 = ({ productoSeleccionado, closeModal }) => {
   return (
     <>
       {productoSeleccionado && (
-        <div className="modal-box h-[1700px] bg-[base-100]  shadow-lg">
+        <div className="modal-box h-[1700px] bg-[base-100]  shadow-lg rounded-3xl">
           <button className="btn btn-square w-24" onClick={closeModal}>
             X
           </button>
@@ -19,121 +19,117 @@ export const Modal2 = ({ productoSeleccionado, closeModal }) => {
           <p className="text-center text-[45px] text-primary font-bold">
             Bs. {productoSeleccionado.precio}
           </p>
-          <div className=" py-16">
-            <div className="container mx-auto">
-              <div className="w-11/12 lg:w-2/6 mx-auto">
-                <div className="bg-gray-200 h-1 flex items-center justify-between">
-                  <div className="w-1/3 bg-primary h-1 flex items-center">
-                    <div className="bg-primary h-6 w-6 rounded-full shadow flex items-center justify-center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="icon icon-tabler icon-tabler-check"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="#FFFFFF"
-                        fill="none"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <path stroke="none" d="M0 0h24v24H0z" />
-                        <path d="M5 12l5 5l10 -10" />
-                      </svg>
-                    </div>
-                  </div>
-                  <div className="w-1/3 flex justify-between bg-primary h-1 items-center relative">
-                    <div className="absolute right-0 -mr-2">
-                      <div className="relative bg-white shadow-lg px-2 py-1 rounded mt-16 -mr-12">
-                        <svg
-                          className="absolute top-0 -mt-1 w-full right-0 left-0"
-                          width="16px"
-                          height="8px"
-                          viewBox="0 0 16 8"
-                          version="1.1"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <g
-                            id="Page-1"
-                            stroke="none"
-                            stroke-width="1"
-                            fill="none"
-                            fill-rule="evenodd"
-                          >
-                            <g
-                              id="Progress-Bars"
-                              transform="translate(-322.000000, -198.000000)"
-                              fill="#FFFFFF"
-                            >
-                              <g
-                                id="Group-4"
-                                transform="translate(310.000000, 198.000000)"
-                              >
-                                <polygon
-                                  id="Triangle"
-                                  points="20 0 28 8 12 8"
-                                ></polygon>
-                              </g>
-                            </g>
-                          </g>
-                        </svg>
-                        <p
-                          tabindex="0"
-                          className="focus:outline-none text-primary text-xs font-bold"
-                        >
-                          Step 3: Analyzing
-                        </p>
-                      </div>
-                    </div>
-                    <div className="bg-primary h-6 w-6 rounded-full shadow flex items-center justify-center -ml-2">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="icon icon-tabler icon-tabler-check"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="#FFFFFF"
-                        fill="none"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <path stroke="none" d="M0 0h24v24H0z" />
-                        <path d="M5 12l5 5l10 -10" />
-                      </svg>
-                    </div>
-                    <div className="bg-white h-6 w-6 rounded-full shadow flex items-center justify-center -mr-3 relative">
-                      <div className="h-3 w-3 bg-primary rounded-full"></div>
-                    </div>
-                  </div>
-                  <div className="w-1/3 flex justify-end">
-                    <div className="bg-white h-6 w-6 rounded-full shadow"></div>
-                  </div>
+
+          {/* steps section */}
+
+          <div className="mx-24 ">
+            <div className="p-6  bg-gray-200  rounded-xl ">
+              <div className="container mx-auto">
+                <div>
+                  <ul className="steps">
+                    <li className="step step-primary" data-content="✓"></li>
+                    <li className="step " data-content=""></li>
+                    <li className="step " data-content=""></li>
+                    <li className="step " data-content=""></li>
+                  </ul>
                 </div>
               </div>
+              <p className="text-left pt-4 font-bold ">
+                {' '}
+                Seleccione una opcion{' '}
+              </p>
             </div>
           </div>
 
-          <div className="flex justify-center  mt-4 mx-[130px] space-x-[70px]  items-center ">
-            <button className="btn btn-ghost btn-active w-[156px] h-[93px] text-[90px] font-bold rounded-2xl">
-              -
+          {/* card sections */}
+
+          <div className="flex flex-wrap mx-8 py-8  gap-y-8 items-center justify-between ">
+            <button className="flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md">
+              <img
+                src={productoSeleccionado.imagen}
+                alt={productoSeleccionado.nombre}
+                className="w-[200px] h-[167px] rounded-xl object-cover"
+              />
+              <div className="ml-2">
+                <h2 className="text-[20px] font-semibold text-left ">
+                  {productoSeleccionado.nombre}
+                </h2>
+                <p className="text-left text-semibold text-lg">
+                  Bs. {productoSeleccionado.precio}
+                </p>
+              </div>
             </button>
-            <span className="text-[40px] font-bold">1</span>
-            <button className="btn pb-2 rounded-2xl btn-primary w-[156px] h-[93px] text-[90px] font-bold ">
-              +
+            <button className="flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md">
+              <img
+                src={productoSeleccionado.imagen}
+                alt={productoSeleccionado.nombre}
+                className="w-[200px] h-[167px] rounded-xl object-cover"
+              />
+              <div className="ml-2">
+                <h2 className="text-[20px] font-semibold text-left ">
+                  {productoSeleccionado.nombre}
+                </h2>
+                <p className="text-left text-semibold text-lg">
+                  Bs. {productoSeleccionado.precio}
+                </p>
+              </div>
+            </button>
+            <button className="flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md">
+              <img
+                src={productoSeleccionado.imagen}
+                alt={productoSeleccionado.nombre}
+                className="w-[200px] h-[167px] rounded-xl object-cover"
+              />
+              <div className="ml-2">
+                <h2 className="text-[20px] font-semibold text-left ">
+                  {productoSeleccionado.nombre}
+                </h2>
+                <p className="text-left text-semibold text-lg">
+                  Bs. {productoSeleccionado.precio}
+                </p>
+              </div>
+            </button>
+            <button className="flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md">
+              <img
+                src={productoSeleccionado.imagen}
+                alt={productoSeleccionado.nombre}
+                className="w-[200px] h-[167px] rounded-xl object-cover"
+              />
+              <div className="ml-2">
+                <h2 className="text-[20px] font-semibold text-left ">
+                  {productoSeleccionado.nombre}
+                </h2>
+                <p className="text-left text-semibold text-lg">
+                  Bs. {productoSeleccionado.precio}
+                </p>
+              </div>
             </button>
           </div>
 
-          <div className="text-center my-[127px] space-x-[100px] ">
-            <button
-              className="btn btn-gosth w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16"
-              onClick={closeModal}
-            >
-              Volver
-            </button>
-            <button className="btn btn-primary w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16">
-              Añadir
-            </button>
+          {/* button section  */}
+
+          <div>
+            <div className="flex justify-center  mt-4 mx-[130px] space-x-[20px]  items-center ">
+              <button className="btn btn-ghost btn-active w-[156px] h-[93px] text-[90px] font-bold rounded-2xl">
+                -
+              </button>
+              <span className="text-[40px] font-bold">1</span>
+              <button className="btn pb-2 rounded-2xl btn-primary w-[156px] h-[93px] text-[90px] font-bold ">
+                +
+              </button>
+            </div>
+
+            <div className="text-center my-[127px] space-x-[100px] ">
+              <button
+                className="btn btn-gosth w-[211px] h-[122px] text-[30px] rounded-[20px] mb-16"
+                onClick={closeModal}
+              >
+                Atrás
+              </button>
+              <button className="btn btn-primary w-[211px] h-[122px] text-[30px] rounded-[20px] mb-16">
+                Añadir
+              </button>
+            </div>
           </div>
         </div>
       )}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
-import { Modal1 } from './Modal1';
+//  import { Modal1 } from './Modal1';
 import { Modal2 } from './Modal2';
 
 const Productos = () => {
@@ -58,11 +58,11 @@ const Productos = () => {
         </button>
       </div>
 
-      <div className="flex flex-wrap mx-[56px] space-y-8 ">
+      <div className="flex flex-wrap mx-[56px] py-8  gap-y-8">
         {productos.map((producto) => (
           <button
             key={producto.id}
-            className="flex flex-col mr-[32px] rounded-md shadow-md "
+            className="flex flex-col mr-[32px] rounded-md shadow-md"
             onClick={() => handleOpenModal(producto)}
           >
             <img
@@ -71,13 +71,13 @@ const Productos = () => {
               className="w-[285px] h-[285px] rounded-xl object-cover"
             />
             <div className="ml-2">
-              <h2 className="text-[20px] font-semibold text-left">
+              <h2 className="text-[20px] font-semibold text-left ">
                 {producto.nombre}
               </h2>
               <p className="text-left text-semibold text-lg">
                 Bs. {producto.precio}
               </p>
-              <p className="text-left text-gray-500">{producto.descripcion}</p>
+              <p className="text-left text-gray-500 ">{producto.descripcion}</p>
             </div>
           </button>
         ))}

@@ -30,7 +30,7 @@ const Categoria: React.FC<CategoriasProps> = ({ categorias }) => {
           Nuestras categorías
         </h1>
       </div>
-      <div className="rounded-box w-full overflow-x-auto flex items-center justify-start   carousel   ">
+      <div className="rounded-box w-full overflow-x-auto flex items-center justify-start carousel py-4">
         <div className="carousel-item pl-16 ">
           {categorias.map((categoria: Categoria, index: number) => (
             <button
