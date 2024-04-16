@@ -25,30 +25,32 @@ const Categoria: React.FC<CategoriasProps> = ({ categorias }) => {
 
   return (
     <>
-      <div className="text-center pt-10">
+      <div className="text-center pt-10 ">
         <h1 className="text-[48px] font-bold text-primary">
           Nuestras categorías
         </h1>
       </div>
-      <div className="rounded-box w-full overflow-x-auto flex items-center justify-start pl-16">
-        {categorias.map((categoria: Categoria, index: number) => (
-          <button
-            key={categoria.id}
-            className={`mx-4 ${index === categoriaSeleccionada ? 'selected' : ''}`}
-            onClick={() => handleClickCategoria(index)}
-          >
-            <div className="max-w-xs rounded-md shadow-md">
-              <img
-                src={categoria.imagen}
-                alt={categoria.nombre}
-                className="w-[200px] h-[167px] rounded-xl object-cover"
-              />
-              <h2 className="text-[24px] text-left font-semibold p-1">
-                {categoria.nombre}
-              </h2>
-            </div>
-          </button>
-        ))}
+      <div className="rounded-box w-full overflow-x-auto flex items-center justify-start   carousel   ">
+        <div className="carousel-item pl-16 ">
+          {categorias.map((categoria: Categoria, index: number) => (
+            <button
+              key={categoria.id}
+              className={`mx-4 ${index === categoriaSeleccionada ? 'selected' : ''}`}
+              onClick={() => handleClickCategoria(index)}
+            >
+              <div className="max-w-xs rounded-md shadow-md">
+                <img
+                  src={categoria.imagen}
+                  alt={categoria.nombre}
+                  className="w-[200px] h-[167px] rounded-xl object-cover"
+                />
+                <h2 className="text-[24px] text-left font-semibold p-1">
+                  {categoria.nombre}
+                </h2>
+              </div>
+            </button>
+          ))}
+        </div>
       </div>
     </>
   );

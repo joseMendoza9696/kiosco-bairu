@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
 import { Modal1 } from './Modal1';
+import { Modal2 } from './Modal2';
 
 const Productos = () => {
   const categoriaSeleccionada = useSelector(
@@ -13,6 +14,7 @@ const Productos = () => {
   );
 
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
+  const [opcionSeleccionada, setOpcionSeleccionada] = useState(null);
 
   if (
     !categoriaActual ||
@@ -23,6 +25,8 @@ const Productos = () => {
   }
 
   const productos = categoriaActual.subcategorias[0].productos;
+
+  const opcionesMenu = productos[0].opcionesMenu;
 
   const handleOpenModal = (producto) => {
     setProductoSeleccionado(producto);
@@ -54,11 +58,11 @@ const Productos = () => {
         </button>
       </div>
 
-      <div className="flex flex-wrap mx-[64px]">
+      <div className="flex flex-wrap mx-[56px] space-y-8 ">
         {productos.map((producto) => (
           <button
             key={producto.id}
-            className="flex flex-col mr-[32px] py-8 rounded-md shadow-md"
+            className="flex flex-col mr-[32px] rounded-md shadow-md "
             onClick={() => handleOpenModal(producto)}
           >
             <img
@@ -73,7 +77,7 @@ const Productos = () => {
               <p className="text-left text-semibold text-lg">
                 Bs. {producto.precio}
               </p>
-              <p className="text-left">{producto.descripcion}</p>
+              <p className="text-left text-gray-500">{producto.descripcion}</p>
             </div>
           </button>
         ))}
@@ -84,7 +88,12 @@ const Productos = () => {
         id="my_modal_5"
         className="modal modal-bottom  transition-all duration-800"
       >
-        <Modal1
+        {/* <Modal1
+          productoSeleccionado={productoSeleccionado}
+          closeModal={() => document.getElementById('my_modal_5').close()}
+        /> */}
+
+        <Modal2
           productoSeleccionado={productoSeleccionado}
           closeModal={() => document.getElementById('my_modal_5').close()}
         />

@@ -1,10 +1,11 @@
 export const Modal1 = ({ productoSeleccionado, closeModal }) => {
+  //
   return (
     <>
       {productoSeleccionado && (
-        <div className="modal-box h-[1700px] bg-[base-100]  shadow-lg">
-          <button className="btn btn-square" onClick={closeModal}>
-            <svg
+        <div className="modal-box h-[1700px] bg-[base-100] shadow-lg">
+          <button className="btn btn-square w-24" onClick={closeModal}>
+            {/* <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
               fill="none"
@@ -17,7 +18,8 @@ export const Modal1 = ({ productoSeleccionado, closeModal }) => {
                 strokeWidth="2"
                 d="M6 18L18 6M6 6l12 12"
               />
-            </svg>
+            </svg> */}
+            X
           </button>
 
           <img
