@@ -1,5 +1,18 @@
-export const Modal2 = ({ productoSeleccionado, closeModal }) => {
-  //
+export const Modal2 = ({
+  productoSeleccionado,
+  opcionesSeleccionadas,
+  handleOptionChange,
+  handleConfirm,
+  closeModal,
+}) => {
+  if (!productoSeleccionado) {
+    return null;
+  }
+
+  const { opcionesMenu } = productoSeleccionado;
+
+  console.log('opcionesMenu', opcionesMenu);
+
   return (
     <>
       {productoSeleccionado && (
@@ -44,51 +57,18 @@ export const Modal2 = ({ productoSeleccionado, closeModal }) => {
           {/* card sections */}
 
           <div className="flex flex-wrap mx-8 py-8  gap-y-8 items-center justify-between ">
-            <button className="flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md">
-              <img
-                src={productoSeleccionado.imagen}
-                alt={productoSeleccionado.nombre}
-                className="w-[200px] h-[167px] rounded-xl object-cover"
-              />
-              <div className="ml-2">
-                <h2 className="text-[20px] font-semibold text-left ">
-                  {productoSeleccionado.nombre}
-                </h2>
-                <p className="text-left text-semibold text-lg">
-                  Bs. {productoSeleccionado.precio}
-                </p>
-              </div>
-            </button>
-            <button className="flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md">
-              <img
-                src={productoSeleccionado.imagen}
-                alt={productoSeleccionado.nombre}
-                className="w-[200px] h-[167px] rounded-xl object-cover"
-              />
-              <div className="ml-2">
-                <h2 className="text-[20px] font-semibold text-left ">
-                  {productoSeleccionado.nombre}
-                </h2>
-                <p className="text-left text-semibold text-lg">
-                  Bs. {productoSeleccionado.precio}
-                </p>
-              </div>
-            </button>
-            <button className="flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md">
-              <img
-                src={productoSeleccionado.imagen}
-                alt={productoSeleccionado.nombre}
-                className="w-[200px] h-[167px] rounded-xl object-cover"
-              />
-              <div className="ml-2">
-                <h2 className="text-[20px] font-semibold text-left ">
-                  {productoSeleccionado.nombre}
-                </h2>
-                <p className="text-left text-semibold text-lg">
-                  Bs. {productoSeleccionado.precio}
-                </p>
-              </div>
-            </button>
+            {opcionesMenu && opcionesMenu.length > 0 ? (
+              opcionesMenu.map((opcion) => (
+                <div key={opcion.id} className="flex flex-col mr-[32px]">
+                  <h2 className="text-[20px] font-semibold text-left ">
+                    {opcion.nombre}
+                  </h2>
+                </div>
+              ))
+            ) : (
+              <p>No hay opciones disponibles</p>
+            )}
+
             <button className="flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md">
               <img
                 src={productoSeleccionado.imagen}
@@ -106,31 +86,33 @@ export const Modal2 = ({ productoSeleccionado, closeModal }) => {
             </button>
           </div>
 
-          {/* button section  */}
-
-          <div>
-            <div className="flex justify-center  mt-4 mx-[130px] space-x-[20px]  items-center ">
-              <button className="btn btn-ghost btn-active w-[156px] h-[93px] text-[90px] font-bold rounded-2xl">
-                -
-              </button>
-              <span className="text-[40px] font-bold">1</span>
-              <button className="btn pb-2 rounded-2xl btn-primary w-[156px] h-[93px] text-[90px] font-bold ">
-                +
-              </button>
-            </div>
-
-            <div className="text-center my-[127px] space-x-[100px] ">
+          <div className="flex justify-between mx-16 fixed bottom-8 left-0 right-0">
+            <div className="flex items-center justify-between text-center  mx-2">
               <button
-                className="btn btn-gosth w-[211px] h-[122px] text-[30px] rounded-[20px] mb-16"
+                className="  w-[211px] h-[122px] text-[30px] rounded-[20px] btn 
+"
                 onClick={closeModal}
               >
-                Atrás
+                Cancelar
               </button>
-              <button className="btn btn-primary w-[211px] h-[122px] text-[30px] rounded-[20px] mb-16">
-                Añadir
+
+              <button className=" mx-8 w-[156px] h-[93px] text-[90px] font-bold rounded-2xl btn">
+                -
+              </button>
+            </div>
+            <div className="flex items-center">
+              <span className="text-[40px] font-bold ">1</span>
+            </div>
+            <div className="flex items-center">
+              <button className=" btn rounded-2xl btn-primary w-[156px] h-[93px] text-[90px] font-bold mx-8">
+                +
+              </button>
+              <button className="btn btn-primary w-[211px] h-[122px] text-[30px] rounded-[20px] mx-8">
+                Siguiente
               </button>
             </div>
           </div>
+          {/* end button section */}
         </div>
       )}
     </>

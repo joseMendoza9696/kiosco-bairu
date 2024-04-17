@@ -14,7 +14,7 @@ const Productos = () => {
   );
 
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
-  const [opcionSeleccionada, setOpcionSeleccionada] = useState(null);
+  const [opcionSeleccionada, setOpcionSeleccionada] = useState({});
 
   if (
     !categoriaActual ||
@@ -26,16 +26,21 @@ const Productos = () => {
 
   const productos = categoriaActual.subcategorias[0].productos;
 
-  const opcionesMenu = productos[0].opcionesMenu;
-
   const handleOpenModal = (producto) => {
     setProductoSeleccionado(producto);
-
+    setOpcionSeleccionada(producto.opcionesMenu || {});
     document.getElementById('my_modal_5').showModal();
   };
 
+  const handleOptionChange = (opcion, seleccion) => {
+    setOpcionSeleccionada({
+      ...opcionSeleccionada,
+      [opcion]: seleccion,
+    });
+  };
+
   return (
-    <div className="pt-10 text-center">
+    <div className="pt-10 text-center ">
       <div className="flex items-center justify-between pl-16">
         <h1 className="text-4xl font-semibold text-primary">
           Escoge tu producto
@@ -58,7 +63,7 @@ const Productos = () => {
         </button>
       </div>
 
-      <div className="flex flex-wrap mx-[56px] py-8  gap-y-8">
+      <div className="flex flex-wrap mx-[56px] py-8  gap-y-8 overflow-auto scrollable">
         {productos.map((producto) => (
           <button
             key={producto.id}
@@ -95,6 +100,8 @@ const Productos = () => {
 
         <Modal2
           productoSeleccionado={productoSeleccionado}
+          opcionSeleccionada={opcionSeleccionada}
+          handleOptionChange={handleOptionChange}
           closeModal={() => document.getElementById('my_modal_5').close()}
         />
       </dialog>
