@@ -6,6 +6,7 @@ import { useLazyQuery } from '@apollo/client';
 import Categoria from './categorias';
 import { RootState } from '../../redux/store';
 import Productos from './Productos/index.tsx';
+import { Footer } from '../sharedComponents/Footer.tsx';
 
 export const Menu = () => {
   const dispatch = useDispatch();
@@ -53,6 +54,9 @@ export const Menu = () => {
 
         {/*PRODUCTOS.TSX END*/}
       </main>
+      <footer>
+        <Footer />
+      </footer>
     </>
   );
 };
