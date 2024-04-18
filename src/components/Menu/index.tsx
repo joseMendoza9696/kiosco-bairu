@@ -32,7 +32,7 @@ export const Menu = () => {
 
   return (
     <>
-      <header className="mx-16 mt-10  ">
+      <header className="mx-16 mt-10  fixed-top">
         <div className="p-6 py-12 dark:bg-primary dark:text-gray-50 rounded-xl shadow-lg">
           <div className="container mx-auto">
             <div className="flex flex-col lg:flex-row items-center justify-between text-center">
@@ -41,16 +41,17 @@ export const Menu = () => {
           </div>
         </div>
       </header>
-      <main>
+      <Categoria categorias={categorias} />
+      <main className="overflow-hidden">
         {/* CATEGORIAS.TSX*/}
-
-        <Categoria categorias={categorias} />
 
         {/*CATEGORIAS.TSX END*/}
 
         {/*PRODUCTOS.TSX*/}
 
-        <Productos />
+        <div className="max-w-6xl mx-auto py-8 overflow-y-auto max-h-[calc(100vh - 200px)]">
+          <Productos />
+        </div>
 
         {/*PRODUCTOS.TSX END*/}
       </main>

@@ -117,8 +117,6 @@ export const Bienvenida = () => {
           </a>
         </button>
       </div>
-
-      <Footer />
     </div>
   );
 };
