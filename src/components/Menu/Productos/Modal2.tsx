@@ -5,6 +5,10 @@ export const Modal2 = ({
   handleConfirm,
   closeModal,
 }) => {
+  // TODO: utilizar el useSelector de redux
+  // TODO: el producto en la posicion ultima
+
+
   if (!productoSeleccionado) {
     return null;
   }
@@ -17,7 +21,10 @@ export const Modal2 = ({
     <>
       {productoSeleccionado && (
         <div className="modal-box h-[1700px] bg-[base-100]  shadow-lg rounded-3xl">
-          <button className="btn btn-square w-24" onClick={closeModal}>
+          <button className="btn btn-square w-24" onClick={() => {
+            // TODO: ejecutar quitarUltimoProducto del action
+            closeModal();
+          }}>
             X
           </button>
 
@@ -91,7 +98,10 @@ export const Modal2 = ({
               <button
                 className="  w-[211px] h-[122px] text-[30px] rounded-[20px] btn 
 "
-                onClick={closeModal}
+                onClick={() => {
+                  // TODO: ejecutar quitarUltimoProducto del action
+                  closeModal();
+                }}
               >
                 Cancelar
               </button>

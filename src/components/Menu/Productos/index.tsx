@@ -68,7 +68,10 @@ const Productos = () => {
           <button
             key={producto.id}
             className="flex flex-col mr-[32px] rounded-md shadow-md"
-            onClick={() => handleOpenModal(producto)}
+            onClick={() => {
+              // TODO: AGREGAR PRODUCTO A NUEVA ORDEN
+              handleOpenModal(producto);
+            }}
           >
             <img
               src={producto.imagen}
@@ -93,6 +96,7 @@ const Productos = () => {
         id="my_modal_5"
         className="modal modal-bottom  transition-all duration-800"
       >
+        {/*TODO:logica para elegir el modal type*/}
         {/* <Modal1
           productoSeleccionado={productoSeleccionado}
           closeModal={() => document.getElementById('my_modal_5').close()}
