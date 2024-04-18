@@ -63,7 +63,7 @@ const Productos = () => {
         </button>
       </div>
 
-      <div className="flex flex-wrap mx-[56px] py-8  gap-y-8 overflow-auto scrollable">
+      <div className="flex flex-wrap mx-[56px] py-8  gap-y-8 overflow-auto overflow-y-auto max-h-[1200px]">
         {productos.map((producto) => (
           <button
             key={producto.id}
