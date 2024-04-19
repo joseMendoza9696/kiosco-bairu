@@ -1,3 +1,5 @@
+import { quitarUltimoProducto } from '../../../redux/actions/nuevaOrden.action';
+
 export const Modal2 = ({
   productoSeleccionado,
   opcionesSeleccionadas,
@@ -7,7 +9,6 @@ export const Modal2 = ({
 }) => {
   // TODO: utilizar el useSelector de redux
   // TODO: el producto en la posicion ultima
-
 
   if (!productoSeleccionado) {
     return null;
@@ -21,10 +22,15 @@ export const Modal2 = ({
     <>
       {productoSeleccionado && (
         <div className="modal-box h-[1700px] bg-[base-100]  shadow-lg rounded-3xl">
-          <button className="btn btn-square w-24" onClick={() => {
-            // TODO: ejecutar quitarUltimoProducto del action
-            closeModal();
-          }}>
+          <button
+            className="btn btn-square w-24"
+            onClick={() => {
+              // TODO: ejecutar quitarUltimoProducto del action
+              quitarUltimoProducto();
+
+              closeModal();
+            }}
+          >
             X
           </button>
 
@@ -100,6 +106,7 @@ export const Modal2 = ({
 "
                 onClick={() => {
                   // TODO: ejecutar quitarUltimoProducto del action
+                  quitarUltimoProducto();
                   closeModal();
                 }}
               >
