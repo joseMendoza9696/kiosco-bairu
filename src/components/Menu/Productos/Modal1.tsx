@@ -1,5 +1,5 @@
+// @ts-expect-error need to fix this  posibility any
 export const Modal1 = ({ productoSeleccionado, closeModal }) => {
-  //
   return (
     <>
       {productoSeleccionado && (

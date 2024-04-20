@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
-//  import { Modal1 } from './Modal1';
+import { Modal1 } from './Modal1';
 import { Modal2 } from './Modal2';
 
 const Productos = () => {
@@ -25,13 +25,14 @@ const Productos = () => {
   }
 
   const productos = categoriaActual.subcategorias[0].productos;
-
+  // @ts-expect-error need to fix this any
   const handleOpenModal = (producto) => {
     setProductoSeleccionado(producto);
     setOpcionSeleccionada(producto.opcionesMenu || {});
+    // @ts-expect-error need to fix this  posibility nullnull
     document.getElementById('my_modal_5').showModal();
   };
-
+  // @ts-expect-error need to fix this any
   const handleOptionChange = (opcion, seleccion) => {
     setOpcionSeleccionada({
       ...opcionSeleccionada,
@@ -92,22 +93,27 @@ const Productos = () => {
       </div>
 
       {/* Modal */}
+
       <dialog
         id="my_modal_5"
         className="modal modal-bottom  transition-all duration-800"
       >
-        {/*TODO:logica para elegir el modal type*/}
-        {/* <Modal1
-          productoSeleccionado={productoSeleccionado}
-          closeModal={() => document.getElementById('my_modal_5').close()}
-        /> */}
-
-        <Modal2
-          productoSeleccionado={productoSeleccionado}
-          opcionSeleccionada={opcionSeleccionada}
-          handleOptionChange={handleOptionChange}
-          closeModal={() => document.getElementById('my_modal_5').close()}
-        />
+        {Array.isArray(opcionSeleccionada) && opcionSeleccionada.length > 0 ? (
+          <Modal2
+            productoSeleccionado={productoSeleccionado}
+            // @ts-expect-error need to fix this  posibility nullnull
+            opcionSeleccionada={opcionSeleccionada}
+            handleOptionChange={handleOptionChange}
+            // @ts-expect-error need to fix this  posibility nullnull
+            closeModal={() => document.getElementById('my_modal_5').close()}
+          />
+        ) : (
+          <Modal1
+            productoSeleccionado={productoSeleccionado}
+            // @ts-expect-error need to fix this  posibility nullnull
+            closeModal={() => document.getElementById('my_modal_5').close()}
+          />
+        )}
       </dialog>
     </div>
   );

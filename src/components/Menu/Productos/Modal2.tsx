@@ -1,12 +1,20 @@
+import { useDispatch } from 'react-redux';
 import { quitarUltimoProducto } from '../../../redux/actions/nuevaOrden.action';
 
 export const Modal2 = ({
+  // @ts-expect-error need to fix this  posibility any
   productoSeleccionado,
-  opcionesSeleccionadas,
-  handleOptionChange,
-  handleConfirm,
+  // @ts-expect-error need to fix this  posibility any
   closeModal,
 }) => {
+  // const productoSeleccionado = useSelector(
+  //   (state: RootState) => state.nuevaOrdenReducer.productosSeleccionados[
+  //     state.nuevaOrdenReducer.productosSeleccionados.length - 1
+  //   ],
+  // );
+
+  const dispatch = useDispatch();
+
   // TODO: utilizar el useSelector de redux
   // TODO: el producto en la posicion ultima
 
@@ -26,7 +34,7 @@ export const Modal2 = ({
             className="btn btn-square w-24"
             onClick={() => {
               // TODO: ejecutar quitarUltimoProducto del action
-              quitarUltimoProducto();
+              dispatch(quitarUltimoProducto());
 
               closeModal();
             }}
@@ -70,18 +78,6 @@ export const Modal2 = ({
           {/* card sections */}
 
           <div className="flex flex-wrap mx-8 py-8  gap-y-8 items-center justify-between ">
-            {opcionesMenu && opcionesMenu.length > 0 ? (
-              opcionesMenu.map((opcion) => (
-                <div key={opcion.id} className="flex flex-col mr-[32px]">
-                  <h2 className="text-[20px] font-semibold text-left ">
-                    {opcion.nombre}
-                  </h2>
-                </div>
-              ))
-            ) : (
-              <p>No hay opciones disponibles</p>
-            )}
-
             <button className="flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md">
               <img
                 src={productoSeleccionado.imagen}
@@ -106,7 +102,7 @@ export const Modal2 = ({
 "
                 onClick={() => {
                   // TODO: ejecutar quitarUltimoProducto del action
-                  quitarUltimoProducto();
+                  dispatch(quitarUltimoProducto());
                   closeModal();
                 }}
               >
