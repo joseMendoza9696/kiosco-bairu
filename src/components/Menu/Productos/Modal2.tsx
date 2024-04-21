@@ -1,17 +1,18 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { quitarUltimoProducto } from '../../../redux/actions/nuevaOrden.action';
+import { RootState } from '../../../redux/store.ts';
 
-export const Modal2 = ({
-  // @ts-expect-error need to fix this  posibility any
-  productoSeleccionado,
-  // @ts-expect-error need to fix this  posibility any
-  closeModal,
-}) => {
-  // const productoSeleccionado = useSelector(
-  //   (state: RootState) => state.nuevaOrdenReducer.productosSeleccionados[
-  //     state.nuevaOrdenReducer.productosSeleccionados.length - 1
-  //   ],
-  // );
+interface IModal2 {
+  closeModal: any;
+}
+
+export const Modal2 = ({ closeModal }: IModal2) => {
+  const productoSeleccionado = useSelector(
+    (state: RootState) =>
+      state.nuevaOrdenReducer.productos[
+        state.nuevaOrdenReducer.productos.length - 1
+      ],
+  );
 
   const dispatch = useDispatch();
 
@@ -53,7 +54,7 @@ export const Modal2 = ({
             {productoSeleccionado.nombre}
           </p>
           <p className="text-center text-[45px] text-primary font-bold">
-            Bs. {productoSeleccionado.precio}
+            Bs. {productoSeleccionado.precioTotal}
           </p>
 
           {/* steps section */}
@@ -91,7 +92,7 @@ export const Modal2 = ({
                   {productoSeleccionado.nombre}
                 </h2>
                 <p className="text-left text-semibold text-lg">
-                  Bs. {productoSeleccionado.precio}
+                  Bs. {productoSeleccionado.precioTotal}
                 </p>
               </div>
             </button>
@@ -103,7 +104,8 @@ export const Modal2 = ({
                 className="  w-[211px] h-[122px] text-[30px] rounded-[20px] btn 
 "
                 onClick={() => {
-                  // TODO: ejecutar quitarUltimoProducto del action
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-expect-error
                   dispatch(quitarUltimoProducto());
                   closeModal();
                 }}
