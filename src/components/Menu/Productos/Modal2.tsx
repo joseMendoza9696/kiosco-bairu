@@ -55,23 +55,26 @@ export const Modal2 = ({
           </p>
 
           {/* steps section */}
-
-          <div className="mx-24 ">
-            <div className="p-6  bg-gray-200  rounded-xl ">
+          <div className="mx-24">
+            <div className="p-6 bg-gray-200 rounded-xl">
               <div className="container mx-auto">
-                <div>
-                  <ul className="steps">
-                    <li className="step step-primary" data-content="✓"></li>
-                    <li className="step " data-content=""></li>
-                    <li className="step " data-content=""></li>
-                    <li className="step " data-content=""></li>
-                  </ul>
-                </div>
+                <ul className="steps">
+                  {/* Verificar si hay un producto seleccionado y si tiene opciones del menú */}
+                  {productoSeleccionado &&
+                    productoSeleccionado.opcionesMenu &&
+                    // Iterar sobre las opciones del menú del producto seleccionado
+                    productoSeleccionado.opcionesMenu.map((opcion, index) => (
+                      <li
+                        className="step font bold"
+                        key={index}
+                        data-content=""
+                      >
+                        {opcion.nombre}
+                      </li>
+                    ))}
+                </ul>
               </div>
-              <p className="text-left pt-4 font-bold ">
-                {' '}
-                Seleccione una opcion{' '}
-              </p>
+              <p className="text-left pt-4 font-bold">Seleccione una opción</p>
             </div>
           </div>
 
