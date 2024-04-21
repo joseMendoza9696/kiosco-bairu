@@ -1,22 +1,30 @@
-import { quitarUltimoProducto } from '../../../redux/actions/nuevaOrden.action';
-// REDUX
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../redux/store.ts';
 import { useDispatch } from 'react-redux';
+import { quitarUltimoProducto } from '../../../redux/actions/nuevaOrden.action';
 
-interface IModal2 {
-  closeModal: any;
-}
-
-export const Modal2 = ({ closeModal }: IModal2) => {
-  const productoSeleccionado = useSelector(
-    (state: RootState) =>
-      state.nuevaOrdenReducer.productos[
-        state.nuevaOrdenReducer.productos.length - 1
-      ],
-  );
+export const Modal2 = ({
+  // @ts-expect-error need to fix this  posibility any
+  productoSeleccionado,
+  // @ts-expect-error need to fix this  posibility any
+  closeModal,
+}) => {
+  // const productoSeleccionado = useSelector(
+  //   (state: RootState) => state.nuevaOrdenReducer.productosSeleccionados[
+  //     state.nuevaOrdenReducer.productosSeleccionados.length - 1
+  //   ],
+  // );
 
   const dispatch = useDispatch();
+
+  // TODO: utilizar el useSelector de redux
+  // TODO: el producto en la posicion ultima
+
+  if (!productoSeleccionado) {
+    return null;
+  }
+
+  const { opcionesMenu } = productoSeleccionado;
+
+  console.log('opcionesMenu', opcionesMenu);
 
   return (
     <>
@@ -25,9 +33,11 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           <button
             className="btn btn-square w-24"
             onClick={() => {
+              // TODO: ejecutar quitarUltimoProducto del action
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-expect-error
               dispatch(quitarUltimoProducto());
+
               closeModal();
             }}
           >
@@ -43,10 +53,11 @@ export const Modal2 = ({ closeModal }: IModal2) => {
             {productoSeleccionado.nombre}
           </p>
           <p className="text-center text-[45px] text-primary font-bold">
-            Bs. {productoSeleccionado.precioTotal}
+            Bs. {productoSeleccionado.precio}
           </p>
 
-          {/* TODO: MAPEO DE OPCIONES MENU */}
+          {/* steps section */}
+
           <div className="mx-24 ">
             <div className="p-6  bg-gray-200  rounded-xl ">
               <div className="container mx-auto">
@@ -66,7 +77,8 @@ export const Modal2 = ({ closeModal }: IModal2) => {
             </div>
           </div>
 
-          {/* TODO: MAPEO DE OPCIONES DE LA OPCION MENU SELECCIONADA */}
+          {/* card sections */}
+
           <div className="flex flex-wrap mx-8 py-8  gap-y-8 items-center justify-between ">
             <button className="flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md">
               <img
@@ -79,8 +91,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                   {productoSeleccionado.nombre}
                 </h2>
                 <p className="text-left text-semibold text-lg">
-                  {/*Bs. {productoSeleccionado.precio}*/}
-                  Bs. 2
+                  Bs. {productoSeleccionado.precio}
                 </p>
               </div>
             </button>
@@ -93,8 +104,6 @@ export const Modal2 = ({ closeModal }: IModal2) => {
 "
                 onClick={() => {
                   // TODO: ejecutar quitarUltimoProducto del action
-                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                  // @ts-expect-error
                   dispatch(quitarUltimoProducto());
                   closeModal();
                 }}
