@@ -22,7 +22,7 @@ export interface OpcionMenu
   obligatorio: boolean | null;
 }
 
-interface Producto extends Atributos {
+export interface Producto extends Atributos {
   opcionesMenu: OpcionMenu[];
   descripcion: string;
 }

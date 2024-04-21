@@ -1,20 +1,35 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../redux/store';
 import { Modal1 } from './Modal1';
 import { Modal2 } from './Modal2';
+import { Producto } from '../../../interfaces/menu.interface.ts';
+// REDUX
+import { RootState } from '../../../redux/store';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { agregarProducto } from '../../../redux/actions/nuevaOrden.action.ts';
 
 const Productos = () => {
+  const dispatch = useDispatch();
+
   const categoriaSeleccionada = useSelector(
     (state: RootState) => state.menuSeleccionReducer.categoriaSeleccionada,
   );
-
   const categoriaActual = useSelector(
     (state: RootState) => state.menuReducer.categorias[categoriaSeleccionada],
   );
+  const categorias = useSelector(
+    (state: RootState) => state.menuReducer.categorias,
+  );
 
-  const [productoSeleccionado, setProductoSeleccionado] = useState(null);
-  const [opcionSeleccionada, setOpcionSeleccionada] = useState({});
+  const subcategorias = useSelector(
+    (state: RootState) =>
+      state.menuReducer.categorias[categoriaSeleccionada].subcategorias,
+  );
+  const subcategoriaSeleccionada = useSelector(
+    (state: RootState) => state.menuSeleccionReducer.subcategoriaSeleccionada,
+  );
+
+  const [modal2, setModal2] = useState<boolean>(false);
 
   if (
     !categoriaActual ||
@@ -25,19 +40,51 @@ const Productos = () => {
   }
 
   const productos = categoriaActual.subcategorias[0].productos;
-  // @ts-expect-error need to fix this any
-  const handleOpenModal = (producto) => {
-    setProductoSeleccionado(producto);
-    setOpcionSeleccionada(producto.opcionesMenu || {});
-    // @ts-expect-error need to fix this  posibility nullnull
+  const seleccionarProducto = (producto: Producto) => {
+    // hace la logica del modal
+    // mostrar modal1 o modal2
+    if (producto.opcionesMenu.length > 0) {
+      setModal2(true);
+    } else {
+      setModal2(false);
+    }
+    // @ts-expect-error need to fix this
     document.getElementById('my_modal_5').showModal();
-  };
-  // @ts-expect-error need to fix this any
-  const handleOptionChange = (opcion, seleccion) => {
-    setOpcionSeleccionada({
-      ...opcionSeleccionada,
-      [opcion]: seleccion,
+    // MANDAR PRODUCTO A NUEVA ORDEN REDUCER
+    const newOpcionesMenu = producto.opcionesMenu.map((opMen) => {
+      const nuevoOpMen = {
+        id: opMen.id,
+        nombre: opMen.nombre,
+        seleccion: opMen.seleccion,
+        cantidadSeleccion: opMen.cantidadSeleccion,
+        cantidadSeleccionada: 0,
+        obligatorio: opMen.obligatorio,
+      };
+      const opciones = opMen.opciones.map((o) => ({
+        ...o,
+        seleccionado: false,
+      }));
+      return { ...nuevoOpMen, opciones: opciones };
     });
+
+    dispatch(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      agregarProducto({
+        id: producto.id,
+        idSistema: producto.idSistema,
+        nombre: producto.nombre,
+        cantidad: 1,
+        precioOriginal: producto.precio,
+        precioMasOpciones: producto.precio,
+        precioTotal: producto.precio,
+        imagen: producto.imagen,
+        categoriaId: categorias[categoriaSeleccionada].id,
+        subcategoriaId: subcategorias[subcategoriaSeleccionada].id,
+        subcategoriaNombre: subcategorias[subcategoriaSeleccionada].nombre,
+        opcionesMenu: newOpcionesMenu,
+      }),
+    );
   };
 
   return (
@@ -65,13 +112,12 @@ const Productos = () => {
       </div>
 
       <div className="flex flex-wrap mx-[56px] py-8  gap-y-8 overflow-auto overflow-y-auto max-h-[1200px]">
-        {productos.map((producto) => (
+        {productos.map((producto: Producto) => (
           <button
             key={producto.id}
             className="flex flex-col mr-[32px] rounded-md shadow-md"
             onClick={() => {
-              // TODO: AGREGAR PRODUCTO A NUEVA ORDEN
-              handleOpenModal(producto);
+              seleccionarProducto(producto);
             }}
           >
             <img
@@ -93,23 +139,19 @@ const Productos = () => {
       </div>
 
       {/* Modal */}
-
       <dialog
         id="my_modal_5"
         className="modal modal-bottom  transition-all duration-800"
       >
-        {Array.isArray(opcionSeleccionada) && opcionSeleccionada.length > 0 ? (
+        {modal2 ? (
           <Modal2
-            productoSeleccionado={productoSeleccionado}
-            // @ts-expect-error need to fix this  posibility nullnull
-            opcionSeleccionada={opcionSeleccionada}
-            handleOptionChange={handleOptionChange}
+            // productoSeleccionado={productoSeleccionado}
             // @ts-expect-error need to fix this  posibility nullnull
             closeModal={() => document.getElementById('my_modal_5').close()}
           />
         ) : (
           <Modal1
-            productoSeleccionado={productoSeleccionado}
+            // productoSeleccionado={productoSeleccionado}
             // @ts-expect-error need to fix this  posibility nullnull
             closeModal={() => document.getElementById('my_modal_5').close()}
           />
