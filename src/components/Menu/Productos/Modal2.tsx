@@ -1,12 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { quitarUltimoProducto } from '../../../redux/actions/nuevaOrden.action';
 import { RootState } from '../../../redux/store.ts';
+import { useState } from 'react';
+import { editarCantidadProducto } from '../../../redux/actions/nuevaOrden.action.ts';
 
 interface IModal2 {
   closeModal: any;
 }
 
 export const Modal2 = ({ closeModal }: IModal2) => {
+  const dispatch = useDispatch();
+
+  const productoSeleccionadoIndex =
+    useSelector((state: RootState) => state.nuevaOrdenReducer.productos)
+      .length - 1;
   const productoSeleccionado = useSelector(
     (state: RootState) =>
       state.nuevaOrdenReducer.productos[
@@ -14,18 +21,33 @@ export const Modal2 = ({ closeModal }: IModal2) => {
       ],
   );
 
-  const dispatch = useDispatch();
+  const opcionMenuSeleccionado = useSelector(
+    (state: RootState) =>
+      state.nuevaOrdenReducer.productos[
+        state.nuevaOrdenReducer.productos.length - 1
+      ].opcionesMenu[0],
+  );
+  const opcionSeleccionado = useSelector(
+    (state: RootState) =>
+      state.nuevaOrdenReducer.productos[
+        state.nuevaOrdenReducer.productos.length - 1
+      ].opcionesMenu[0].opciones[0],
+  );
 
-  // TODO: utilizar el useSelector de redux
-  // TODO: el producto en la posicion ultima
+  const [cantidad, setCantidad] = useState<number>(1);
 
-  if (!productoSeleccionado) {
-    return null;
-  }
+  const editarCantidad = (incremento: number) => {
+    setCantidad((cantidadPrevia) => {
+      const cantidadNueva = cantidadPrevia + incremento;
+      const cantidadMinima = Math.max(cantidadNueva, 1);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      dispatch(editarCantidadProducto(productoSeleccionadoIndex, incremento));
+      return cantidadMinima;
+    });
+  };
 
-  const { opcionesMenu } = productoSeleccionado;
-
-  console.log('opcionesMenu', opcionesMenu);
+  //   const opcionSeleccionado = productoSeleccionado.opcionesMenu[0].opciones[0];
 
   return (
     <>
@@ -71,9 +93,9 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                   </ul>
                 </div>
               </div>
-              <p className="text-left pt-4 font-bold ">
+              <p className="text-left pt-4 font-bold text-2xl ">
                 {' '}
-                Seleccione una opcion{' '}
+                {opcionMenuSeleccionado.nombre}
               </p>
             </div>
           </div>
@@ -83,16 +105,16 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           <div className="flex flex-wrap mx-8 py-8  gap-y-8 items-center justify-between ">
             <button className="flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md">
               <img
-                src={productoSeleccionado.imagen}
-                alt={productoSeleccionado.nombre}
+                src={opcionSeleccionado.imagen}
+                alt={opcionSeleccionado.nombre}
                 className="w-[200px] h-[167px] rounded-xl object-cover"
               />
               <div className="ml-2">
                 <h2 className="text-[20px] font-semibold text-left ">
-                  {productoSeleccionado.nombre}
+                  {opcionSeleccionado.nombre}
                 </h2>
                 <p className="text-left text-semibold text-lg">
-                  Bs. {productoSeleccionado.precioTotal}
+                  {/* Bs. {opcionSeleccionado.precioTotal} */}
                 </p>
               </div>
             </button>
@@ -113,15 +135,25 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                 Cancelar
               </button>
 
-              <button className=" mx-8 w-[156px] h-[93px] text-[90px] font-bold rounded-2xl btn">
+              <button
+                className=" mx-8 w-[156px] h-[93px] text-[90px] font-bold rounded-2xl btn"
+                onClick={() => {
+                  editarCantidad(-1);
+                }}
+              >
                 -
               </button>
             </div>
             <div className="flex items-center">
-              <span className="text-[40px] font-bold ">1</span>
+              <span className="text-[40px] font-bold ">{cantidad}</span>
             </div>
             <div className="flex items-center">
-              <button className=" btn rounded-2xl btn-primary w-[156px] h-[93px] text-[90px] font-bold mx-8">
+              <button
+                className=" btn rounded-2xl btn-primary w-[156px] h-[93px] text-[90px] font-bold mx-8"
+                onClick={() => {
+                  editarCantidad(1);
+                }}
+              >
                 +
               </button>
               <button className="btn btn-primary w-[211px] h-[122px] text-[30px] rounded-[20px] mx-8">

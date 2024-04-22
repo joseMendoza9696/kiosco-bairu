@@ -9,9 +9,12 @@ interface IModal1 {
 }
 
 // TODO: HACER FUNCIONAR EL CAMBIAR CANTIDAD SIN EL CONSOLE LOG
+// CHECK
 // TODO: CAMBIAR LA CANTIDAD EN EL MODAL 2
 // TODO: EL LIMITE MÍNIMO DE CANTIDAD ES 1. NO PUEDE SER =< 0
+// CHECK
 // TODO: REEMPLAZAR SUMAR_CANTIDAD Y RESTAR_CANTIDAD EN UNA SOLA FUNCION
+// CHECK
 
 export const Modal1 = ({ closeModal }: IModal1) => {
   const dispatch = useDispatch();
@@ -28,28 +31,16 @@ export const Modal1 = ({ closeModal }: IModal1) => {
 
   const [cantidad, setCantidad] = useState<number>(1);
 
-  const sumarCantidad = () => {
-    let nuevaCantidad = cantidad;
-    console.log(nuevaCantidad++);
-    setCantidad(nuevaCantidad++);
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    dispatch(editarCantidadProducto(productoSeleccionadoIndex, 1));
+  const editarCantidad = (incremento: number) => {
+    setCantidad((cantidadPrevia) => {
+      const cantidadNueva = cantidadPrevia + incremento;
+      const cantidadMinima = Math.max(cantidadNueva, 1);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      dispatch(editarCantidadProducto(productoSeleccionadoIndex, incremento));
+      return cantidadMinima;
+    });
   };
-
-  const restarCantidad = () => {
-    let nuevaCantidad = cantidad;
-    console.log(nuevaCantidad--);
-    setCantidad(nuevaCantidad--);
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    dispatch(editarCantidadProducto(productoSeleccionadoIndex, -1));
-  };
-
-  // const editarCantidad = (cantidadNueva: number) => {
-  //
-  // }
 
   return (
     <>
@@ -75,8 +66,7 @@ export const Modal1 = ({ closeModal }: IModal1) => {
             <button
               className="btn btn-ghost btn-active w-[156px] h-[93px] text-[90px] font-bold rounded-2xl"
               onClick={() => {
-                restarCantidad();
-                // editarCantidad(-1)
+                editarCantidad(-1);
               }}
             >
               -
@@ -85,8 +75,7 @@ export const Modal1 = ({ closeModal }: IModal1) => {
             <button
               className="btn pb-2 rounded-2xl btn-primary w-[156px] h-[93px] text-[90px] font-bold "
               onClick={() => {
-                sumarCantidad();
-                // editarCantidad(1)
+                editarCantidad(1);
               }}
             >
               +
