@@ -11,6 +11,9 @@ interface IModal2 {
 export const Modal2 = ({ closeModal }: IModal2) => {
   const dispatch = useDispatch();
 
+  // TODO: AL APRETAR SIGUIENTE. PASAR AL SIGUIENTE OPCION MENU Y MOSTRAR SUS OPCIONES DE ESE OPCION MENU
+  // TODO: SOLUCIONAR EL BUG DEL MODAL 2
+
   const productoSeleccionadoIndex =
     useSelector((state: RootState) => state.nuevaOrdenReducer.productos)
       .length - 1;
@@ -66,7 +69,6 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           >
             X
           </button>
-
           <img
             src={productoSeleccionado.imagen}
             alt={productoSeleccionado.nombre}
@@ -78,9 +80,8 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           <p className="text-center text-[45px] text-primary font-bold">
             Bs. {productoSeleccionado.precioTotal}
           </p>
-
           {/* steps section */}
-
+          {/*TODO: HACER EL MAP DE OPCIONES MENU DEL PRODUCTO SELECCIONADO*/}
           <div className="mx-24 ">
             <div className="p-6  bg-gray-200  rounded-xl ">
               <div className="container mx-auto">
@@ -99,9 +100,8 @@ export const Modal2 = ({ closeModal }: IModal2) => {
               </p>
             </div>
           </div>
-
           {/* card sections */}
-
+          {/*TODO: HACER EL MAP DE LAS OPCIONES DE OPCIONES MENU SELECCIONADO*/}
           <div className="flex flex-wrap mx-8 py-8  gap-y-8 items-center justify-between ">
             <button className="flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md">
               <img
@@ -119,7 +119,6 @@ export const Modal2 = ({ closeModal }: IModal2) => {
               </div>
             </button>
           </div>
-
           <div className="flex justify-between mx-16 fixed bottom-8 left-0 right-0">
             <div className="flex items-center justify-between text-center  mx-2">
               <button

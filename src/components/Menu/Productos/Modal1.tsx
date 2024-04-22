@@ -8,14 +8,6 @@ interface IModal1 {
   closeModal: any;
 }
 
-// TODO: HACER FUNCIONAR EL CAMBIAR CANTIDAD SIN EL CONSOLE LOG
-// CHECK
-// TODO: CAMBIAR LA CANTIDAD EN EL MODAL 2
-// TODO: EL LIMITE MÍNIMO DE CANTIDAD ES 1. NO PUEDE SER =< 0
-// CHECK
-// TODO: REEMPLAZAR SUMAR_CANTIDAD Y RESTAR_CANTIDAD EN UNA SOLA FUNCION
-// CHECK
-
 export const Modal1 = ({ closeModal }: IModal1) => {
   const dispatch = useDispatch();
 
