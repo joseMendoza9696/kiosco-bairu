@@ -1,8 +1,9 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { quitarUltimoProducto } from '../../../redux/actions/nuevaOrden.action';
-import { RootState } from '../../../redux/store.ts';
 import { useState } from 'react';
+// REDUX
+import { RootState } from '../../../redux/store.ts';
+import { quitarUltimoProducto } from '../../../redux/actions/nuevaOrden.action';
 import { editarCantidadProducto } from '../../../redux/actions/nuevaOrden.action.ts';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface IModal2 {
   closeModal: any;
@@ -12,8 +13,11 @@ export const Modal2 = ({ closeModal }: IModal2) => {
   const dispatch = useDispatch();
 
   // TODO: AL APRETAR SIGUIENTE. PASAR AL SIGUIENTE OPCION MENU Y MOSTRAR SUS OPCIONES DE ESE OPCION MENU
-
   // TODO: SOLUCIONAR EL BUG DEL MODAL 2
+  // TODO: SOLUCIONAR BUG AL MAPEAR LAS OPCIONES MENU
+  // TODO: CUANDO LLEGEMOS A LA ULTIMA POSICION DE OPCION MENU, EL BOTON SIGUIENTE SE CAMBIA A AÑADIR
+  // TODO: CUANDO PASEMOS LA SEGUNDA POSICION DE OPCION MENU, EL BOTON CANCELAR SE CAMVIA A ATRAS
+  // TODO: AL CANCELAR EL MODAL2, CERRAR EL MODAL 2 Y QUITAR ULTIMO PRODUCTO
 
   const productoSeleccionadoIndex =
     useSelector((state: RootState) => state.nuevaOrdenReducer.productos)
@@ -24,19 +28,6 @@ export const Modal2 = ({ closeModal }: IModal2) => {
         state.nuevaOrdenReducer.productos.length - 1
       ],
   );
-
-  // const opcionMenuSeleccionado = useSelector(
-  //   (state: RootState) =>
-  //     state.nuevaOrdenReducer.productos[
-  //       state.nuevaOrdenReducer.productos.length - 1
-  //     ].opcionesMenu[0],
-  // );
-  // const opcionSeleccionado = useSelector(
-  //   (state: RootState) =>
-  //     state.nuevaOrdenReducer.productos[
-  //       state.nuevaOrdenReducer.productos.length - 1
-  //     ].opcionesMenu[0].opciones[0],
-  // );
 
   const [cantidad, setCantidad] = useState<number>(1);
 
@@ -51,7 +42,15 @@ export const Modal2 = ({ closeModal }: IModal2) => {
     });
   };
 
-  //   const opcionSeleccionado = productoSeleccionado.opcionesMenu[0].opciones[0];
+  const [opcionMenuSeleccionadoIndex, setOpcionMenuSeleccionadoIndex] =
+    useState<number>(0);
+
+  // FUNCIONES
+  const opcionMenuSiguiente = () => {
+    let nuevoIndex = opcionMenuSeleccionadoIndex;
+    setOpcionMenuSeleccionadoIndex(nuevoIndex++);
+    console.log(opcionMenuSeleccionadoIndex);
+  };
 
   return (
     <>
@@ -80,32 +79,37 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           <p className="text-center text-[45px] text-primary font-bold">
             Bs. {productoSeleccionado.precioTotal}
           </p>
-          {/* steps section */}
-          {/*TODO: HACER EL MAP DE OPCIONES MENU DEL PRODUCTO SELECCIONADO*/}
-          {productoSeleccionado.opcionesMenu.map((opcionMenu, index) => (
-            <div key={index}>
-              <div className="mx-24 ">
-                <div className="p-6  bg-gray-200  rounded-xl ">
-                  <div className="container mx-auto">
-                    <div>
-                      <ul className="steps">
-                        <li className="step step-primary" data-content="✓">
-                          {opcionMenu.nombre}
-                        </li>
-                        <li className="step " data-content=""></li>
-                        <li className="step " data-content=""></li>
-                        <li className="step " data-content=""></li>
-                      </ul>
-                    </div>
+          {/*HACEMOS EL MAP DE OPCIONES MENU DEL PRODUCTO SELECCIONADO*/}
+          <div>
+            <div className="mx-24 ">
+              <div className="p-6  bg-gray-200  rounded-xl ">
+                <div className="container mx-auto">
+                  <div>
+                    <ul className="steps">
+                      {productoSeleccionado.opcionesMenu.map(
+                        (opcionMenu, index) => (
+                          <li
+                            key={index}
+                            className="step step-primary"
+                            data-content="✓"
+                          >
+                            {opcionMenu.nombre}
+                          </li>
+                        ),
+                      )}
+                      <li className="step " data-content=""></li>
+                      <li className="step " data-content=""></li>
+                      <li className="step " data-content=""></li>
+                    </ul>
                   </div>
-                  <p className="text-left pt-4 font-bold text-2xl "> </p>
                 </div>
+                <p className="text-left pt-4 font-bold text-2xl "> </p>
               </div>
             </div>
-          ))}
+          </div>
 
           {/* card sections */}
-          {/*TODO: HACER EL MAP DE LAS OPCIONES DE OPCIONES MENU SELECCIONADO*/}
+          {/*HACEMOS EL MAP DE LAS OPCIONES DE OPCIONES MENU SELECCIONADO*/}
           <div className="flex flex-wrap mx-[56px] py-8  gap-y-8 overflow-auto overflow-y-auto max-h-[500px]">
             {productoSeleccionado.opcionesMenu[0].opciones.map(
               (opcion, index) => (
@@ -167,7 +171,10 @@ export const Modal2 = ({ closeModal }: IModal2) => {
               >
                 +
               </button>
-              <button className="btn btn-primary w-[211px] h-[122px] text-[30px] rounded-[20px] mx-8">
+              <button
+                className="btn btn-primary w-[211px] h-[122px] text-[30px] rounded-[20px] mx-8"
+                onClick={opcionMenuSiguiente}
+              >
                 Siguiente
               </button>
             </div>
