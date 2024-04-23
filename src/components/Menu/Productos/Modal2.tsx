@@ -12,6 +12,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
   const dispatch = useDispatch();
 
   // TODO: AL APRETAR SIGUIENTE. PASAR AL SIGUIENTE OPCION MENU Y MOSTRAR SUS OPCIONES DE ESE OPCION MENU
+
   // TODO: SOLUCIONAR EL BUG DEL MODAL 2
 
   const productoSeleccionadoIndex =
@@ -24,18 +25,18 @@ export const Modal2 = ({ closeModal }: IModal2) => {
       ],
   );
 
-  const opcionMenuSeleccionado = useSelector(
-    (state: RootState) =>
-      state.nuevaOrdenReducer.productos[
-        state.nuevaOrdenReducer.productos.length - 1
-      ].opcionesMenu[0],
-  );
-  const opcionSeleccionado = useSelector(
-    (state: RootState) =>
-      state.nuevaOrdenReducer.productos[
-        state.nuevaOrdenReducer.productos.length - 1
-      ].opcionesMenu[0].opciones[0],
-  );
+  // const opcionMenuSeleccionado = useSelector(
+  //   (state: RootState) =>
+  //     state.nuevaOrdenReducer.productos[
+  //       state.nuevaOrdenReducer.productos.length - 1
+  //     ].opcionesMenu[0],
+  // );
+  // const opcionSeleccionado = useSelector(
+  //   (state: RootState) =>
+  //     state.nuevaOrdenReducer.productos[
+  //       state.nuevaOrdenReducer.productos.length - 1
+  //     ].opcionesMenu[0].opciones[0],
+  // );
 
   const [cantidad, setCantidad] = useState<number>(1);
 
@@ -61,8 +62,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
             onClick={() => {
               // TODO: ejecutar quitarUltimoProducto del action
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-expect-error
-              dispatch(quitarUltimoProducto());
+              // dispatch(quitarUltimoProducto());
 
               closeModal();
             }}
@@ -82,42 +82,54 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           </p>
           {/* steps section */}
           {/*TODO: HACER EL MAP DE OPCIONES MENU DEL PRODUCTO SELECCIONADO*/}
-          <div className="mx-24 ">
-            <div className="p-6  bg-gray-200  rounded-xl ">
-              <div className="container mx-auto">
-                <div>
-                  <ul className="steps">
-                    <li className="step step-primary" data-content="✓"></li>
-                    <li className="step " data-content=""></li>
-                    <li className="step " data-content=""></li>
-                    <li className="step " data-content=""></li>
-                  </ul>
+          {productoSeleccionado.opcionesMenu.map((opcionMenu, index) => (
+            <div key={index}>
+              <div className="mx-24 ">
+                <div className="p-6  bg-gray-200  rounded-xl ">
+                  <div className="container mx-auto">
+                    <div>
+                      <ul className="steps">
+                        <li className="step step-primary" data-content="✓">
+                          {opcionMenu.nombre}
+                        </li>
+                        <li className="step " data-content=""></li>
+                        <li className="step " data-content=""></li>
+                        <li className="step " data-content=""></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <p className="text-left pt-4 font-bold text-2xl "> </p>
                 </div>
               </div>
-              <p className="text-left pt-4 font-bold text-2xl ">
-                {' '}
-                {opcionMenuSeleccionado.nombre}
-              </p>
             </div>
-          </div>
+          ))}
+
           {/* card sections */}
           {/*TODO: HACER EL MAP DE LAS OPCIONES DE OPCIONES MENU SELECCIONADO*/}
-          <div className="flex flex-wrap mx-8 py-8  gap-y-8 items-center justify-between ">
-            <button className="flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md">
-              <img
-                src={opcionSeleccionado.imagen}
-                alt={opcionSeleccionado.nombre}
-                className="w-[200px] h-[167px] rounded-xl object-cover"
-              />
-              <div className="ml-2">
-                <h2 className="text-[20px] font-semibold text-left ">
-                  {opcionSeleccionado.nombre}
-                </h2>
-                <p className="text-left text-semibold text-lg">
-                  {/* Bs. {opcionSeleccionado.precioTotal} */}
-                </p>
-              </div>
-            </button>
+          <div className="flex flex-wrap mx-[56px] py-8  gap-y-8 overflow-auto overflow-y-auto max-h-[500px]">
+            {productoSeleccionado.opcionesMenu[0].opciones.map(
+              (opcion, index) => (
+                <div key={index}>
+                  <div className="flex flex-wrap mx-8 py-8  gap-y-8 items-center justify-between ">
+                    <button className="flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md">
+                      <img
+                        src={opcion.imagen}
+                        alt={opcion.nombre}
+                        className="w-[200px] h-[167px] rounded-xl object-cover"
+                      />
+                      <div className="ml-2">
+                        <h2 className="text-[20px] font-semibold text-left ">
+                          {opcion.nombre}
+                        </h2>
+                        <p className="text-left text-semibold text-lg">
+                          {/* Bs. {opcionSeleccionado.precioTotal} */}
+                        </p>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              ),
+            )}
           </div>
           <div className="flex justify-between mx-16 fixed bottom-8 left-0 right-0">
             <div className="flex items-center justify-between text-center  mx-2">
