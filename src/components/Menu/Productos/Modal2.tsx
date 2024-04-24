@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // REDUX
 import { RootState } from '../../../redux/store.ts';
 import { quitarUltimoProducto } from '../../../redux/actions/nuevaOrden.action';
@@ -13,11 +13,17 @@ export const Modal2 = ({ closeModal }: IModal2) => {
   const dispatch = useDispatch();
 
   // TODO: AL APRETAR SIGUIENTE. PASAR AL SIGUIENTE OPCION MENU Y MOSTRAR SUS OPCIONES DE ESE OPCION MENU
+  // CHECK ✅
   // TODO: SOLUCIONAR EL BUG DEL MODAL 2
+  // WAIT 🕐
   // TODO: SOLUCIONAR BUG AL MAPEAR LAS OPCIONES MENU
+  // CHECK ✅
   // TODO: CUANDO LLEGEMOS A LA ULTIMA POSICION DE OPCION MENU, EL BOTON SIGUIENTE SE CAMBIA A AÑADIR
+  // CHECK ✅
   // TODO: CUANDO PASEMOS LA SEGUNDA POSICION DE OPCION MENU, EL BOTON CANCELAR SE CAMVIA A ATRAS
+  // CHECK ✅
   // TODO: AL CANCELAR EL MODAL2, CERRAR EL MODAL 2 Y QUITAR ULTIMO PRODUCTO
+  // CHECK ✅
 
   const productoSeleccionadoIndex =
     useSelector((state: RootState) => state.nuevaOrdenReducer.productos)
@@ -47,10 +53,17 @@ export const Modal2 = ({ closeModal }: IModal2) => {
 
   // FUNCIONES
   const opcionMenuSiguiente = () => {
-    let nuevoIndex = opcionMenuSeleccionadoIndex;
-    setOpcionMenuSeleccionadoIndex(nuevoIndex++);
-    console.log(opcionMenuSeleccionadoIndex);
+    if (
+      opcionMenuSeleccionadoIndex <
+      productoSeleccionado.opcionesMenu.length - 1
+    ) {
+      setOpcionMenuSeleccionadoIndex((prevIndex) => prevIndex + 1);
+    }
   };
+
+  useEffect(() => {
+    console.log(opcionMenuSeleccionadoIndex);
+  }, [opcionMenuSeleccionadoIndex]);
 
   return (
     <>
@@ -61,7 +74,8 @@ export const Modal2 = ({ closeModal }: IModal2) => {
             onClick={() => {
               // TODO: ejecutar quitarUltimoProducto del action
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // dispatch(quitarUltimoProducto());
+              // @ts-expect-error
+              dispatch(quitarUltimoProducto());
 
               closeModal();
             }}
@@ -81,8 +95,8 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           </p>
           {/*HACEMOS EL MAP DE OPCIONES MENU DEL PRODUCTO SELECCIONADO*/}
           <div>
-            <div className="mx-24 ">
-              <div className="p-6  bg-gray-200  rounded-xl ">
+            <div className="mx-24">
+              <div className="p-6 bg-gray-200 rounded-xl">
                 <div className="container mx-auto">
                   <div>
                     <ul className="steps">
@@ -90,51 +104,58 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                         (opcionMenu, index) => (
                           <li
                             key={index}
-                            className="step step-primary"
-                            data-content="✓"
+                            className={`step ${index === opcionMenuSeleccionadoIndex ? 'selected' : ''} ${index === opcionMenuSeleccionadoIndex ? 'step-primary' : ''}`}
+                            data-content={
+                              index === opcionMenuSeleccionadoIndex ? '✓' : ''
+                            }
                           >
-                            {opcionMenu.nombre}
+                            <span
+                              className={
+                                index === opcionMenuSeleccionadoIndex
+                                  ? 'font-bold'
+                                  : ''
+                              }
+                            >
+                              {opcionMenu.nombre}
+                            </span>
                           </li>
                         ),
                       )}
-                      <li className="step " data-content=""></li>
-                      <li className="step " data-content=""></li>
-                      <li className="step " data-content=""></li>
                     </ul>
                   </div>
                 </div>
-                <p className="text-left pt-4 font-bold text-2xl "> </p>
+                <p className="text-left pt-4 font-bold text-2xl"> </p>
               </div>
             </div>
           </div>
 
-          {/* card sections */}
           {/*HACEMOS EL MAP DE LAS OPCIONES DE OPCIONES MENU SELECCIONADO*/}
           <div className="flex flex-wrap mx-[56px] py-8  gap-y-8 overflow-auto overflow-y-auto max-h-[500px]">
-            {productoSeleccionado.opcionesMenu[0].opciones.map(
-              (opcion, index) => (
-                <div key={index}>
-                  <div className="flex flex-wrap mx-8 py-8  gap-y-8 items-center justify-between ">
-                    <button className="flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md">
-                      <img
-                        src={opcion.imagen}
-                        alt={opcion.nombre}
-                        className="w-[200px] h-[167px] rounded-xl object-cover"
-                      />
-                      <div className="ml-2">
-                        <h2 className="text-[20px] font-semibold text-left ">
-                          {opcion.nombre}
-                        </h2>
-                        <p className="text-left text-semibold text-lg">
-                          {/* Bs. {opcionSeleccionado.precioTotal} */}
-                        </p>
-                      </div>
-                    </button>
-                  </div>
+            {productoSeleccionado.opcionesMenu[
+              opcionMenuSeleccionadoIndex
+            ].opciones.map((opcion, index) => (
+              <div key={index}>
+                <div className="flex flex-wrap mx-8   gap-y-8 items-center justify-between ">
+                  <button className="flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md">
+                    <img
+                      src={opcion.imagen}
+                      alt={opcion.nombre}
+                      className="w-[200px] h-[167px] rounded-xl object-cover"
+                    />
+                    <div className="ml-2">
+                      <h2 className="text-[20px] font-semibold text-left ">
+                        {opcion.nombre}
+                      </h2>
+                      <p className="text-left text-semibold text-lg">
+                        {/* Bs. {opcionSeleccionado.precioTotal} */}
+                      </p>
+                    </div>
+                  </button>
                 </div>
-              ),
-            )}
+              </div>
+            ))}
           </div>
+
           <div className="flex justify-between mx-16 fixed bottom-8 left-0 right-0">
             <div className="flex items-center justify-between text-center  mx-2">
               <button
@@ -147,7 +168,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                   closeModal();
                 }}
               >
-                Cancelar
+                {opcionMenuSeleccionadoIndex !== 0 ? 'Atrás' : 'Cancelar'}
               </button>
 
               <button
@@ -175,7 +196,10 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                 className="btn btn-primary w-[211px] h-[122px] text-[30px] rounded-[20px] mx-8"
                 onClick={opcionMenuSiguiente}
               >
-                Siguiente
+                {opcionMenuSeleccionadoIndex ===
+                productoSeleccionado.opcionesMenu.length - 1
+                  ? 'Añadir'
+                  : 'Siguiente'}
               </button>
             </div>
           </div>

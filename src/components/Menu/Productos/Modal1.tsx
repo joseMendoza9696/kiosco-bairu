@@ -2,7 +2,10 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../redux/store.ts';
 import { useState } from 'react';
-import { editarCantidadProducto } from '../../../redux/actions/nuevaOrden.action.ts';
+import {
+  editarCantidadProducto,
+  quitarUltimoProducto,
+} from '../../../redux/actions/nuevaOrden.action.ts';
 
 interface IModal1 {
   closeModal: any;
@@ -11,6 +14,7 @@ interface IModal1 {
 export const Modal1 = ({ closeModal }: IModal1) => {
   const dispatch = useDispatch();
   // TODO: AL CANCELAR EL MODAL1, CERRAR EL MODAL 1 Y QUITAR ULTIMO PRODUCTO
+  // CHECK ✅
 
   const productoSeleccionadoIndex =
     useSelector((state: RootState) => state.nuevaOrdenReducer.productos)
@@ -39,7 +43,16 @@ export const Modal1 = ({ closeModal }: IModal1) => {
     <>
       {productoSeleccionado && (
         <div className="modal-box h-[1700px] bg-[base-100] shadow-lg">
-          <button className="btn btn-square w-24" onClick={closeModal}>
+          <button
+            className="btn btn-square w-24"
+            onClick={() => {
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-expect-error
+              dispatch(quitarUltimoProducto());
+
+              closeModal();
+            }}
+          >
             X
           </button>
 
@@ -78,7 +91,13 @@ export const Modal1 = ({ closeModal }: IModal1) => {
           <div className="text-center my-[127px] space-x-[100px] ">
             <button
               className="btn btn-gosth w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16"
-              onClick={closeModal}
+              onClick={() => {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-expect-error
+                dispatch(quitarUltimoProducto());
+
+                closeModal();
+              }}
             >
               Volver
             </button>
