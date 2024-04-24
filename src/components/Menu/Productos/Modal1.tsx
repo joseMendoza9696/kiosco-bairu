@@ -13,8 +13,7 @@ interface IModal1 {
 
 export const Modal1 = ({ closeModal }: IModal1) => {
   const dispatch = useDispatch();
-  // TODO: AL CANCELAR EL MODAL1, CERRAR EL MODAL 1 Y QUITAR ULTIMO PRODUCTO
-  // CHECK ✅
+  // TODO: QUITAR EL SCROLL.
 
   const productoSeleccionadoIndex =
     useSelector((state: RootState) => state.nuevaOrdenReducer.productos)
@@ -99,7 +98,7 @@ export const Modal1 = ({ closeModal }: IModal1) => {
                 closeModal();
               }}
             >
-              Volver
+              Cancelar
             </button>
             <button
               className="btn btn-primary w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16"

@@ -13,6 +13,8 @@ interface CategoriasProps {
 }
 
 const Categoria: React.FC<CategoriasProps> = ({ categorias }) => {
+  // TODO: CUANDO SE SELECCIONE LA CATEGORIA DEBE ESTAR RESALTADA COMO EN FIGMA
+
   const dispatch = useDispatch();
   const categoriaSeleccionada = useSelector(
     (state: RootState) => state.menuSeleccionReducer.categoriaSeleccionada,

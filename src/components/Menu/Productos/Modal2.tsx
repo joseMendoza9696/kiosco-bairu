@@ -11,19 +11,17 @@ interface IModal2 {
 
 export const Modal2 = ({ closeModal }: IModal2) => {
   const dispatch = useDispatch();
-
-  // TODO: AL APRETAR SIGUIENTE. PASAR AL SIGUIENTE OPCION MENU Y MOSTRAR SUS OPCIONES DE ESE OPCION MENU
-  // CHECK ✅
   // TODO: SOLUCIONAR EL BUG DEL MODAL 2
   // WAIT 🕐
-  // TODO: SOLUCIONAR BUG AL MAPEAR LAS OPCIONES MENU
-  // CHECK ✅
-  // TODO: CUANDO LLEGEMOS A LA ULTIMA POSICION DE OPCION MENU, EL BOTON SIGUIENTE SE CAMBIA A AÑADIR
-  // CHECK ✅
-  // TODO: CUANDO PASEMOS LA SEGUNDA POSICION DE OPCION MENU, EL BOTON CANCELAR SE CAMVIA A ATRAS
-  // CHECK ✅
-  // TODO: AL CANCELAR EL MODAL2, CERRAR EL MODAL 2 Y QUITAR ULTIMO PRODUCTO
-  // CHECK ✅
+  // TODO: EL BOTON DE "ATRAS", SELECCIONA LA OPCION MENU ANTERIOR
+  // TODO: EN OPCIONES MENU, SOLO MOSTRAR EL TITULO DE LA OPCION MENU, "NO MOSTRAR LOS OTROS PASOS" VER UI FIGMA
+  // TODO: CUANDO SE PRESIONA AÑADIR, SOLO CERRAR EL MODAL
+  // TODO: SUBIR LA IMAGEN DEL PRODUCTO HASTA UN POCO ABAJO DE LA "X"
+  // TODO: NO utilizar colores por defecto, utilizar del tema.
+  // TODO: SI OPCION MENU ESTA SELECCIONADO, RESALTARLO COMO EN EL FIGMA
+  // TODO: (REDUX) EN LA FUNCION SELECCIONAR_OPCION_FUNC(), UTILIZAR EL ACTION SELECCIONAR_OPCION DE REDUX.
+
+  // TODO: SEGUN LA PROPIEDAD OBLIGATORIO DE OPCION_MENU, NO DEBERIA DEJARTE PASAR AL SIGUIENTE OPCION MENU
 
   const productoSeleccionadoIndex =
     useSelector((state: RootState) => state.nuevaOrdenReducer.productos)
@@ -60,6 +58,8 @@ export const Modal2 = ({ closeModal }: IModal2) => {
       setOpcionMenuSeleccionadoIndex((prevIndex) => prevIndex + 1);
     }
   };
+
+  const seleccionarOpcionFunc = () => {};
 
   useEffect(() => {
     console.log(opcionMenuSeleccionadoIndex);
@@ -103,7 +103,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                       {productoSeleccionado.opcionesMenu.map(
                         (opcionMenu, index) => (
                           <li
-                            key={index}
+                            key={opcionMenu.id}
                             className={`step ${index === opcionMenuSeleccionadoIndex ? 'selected' : ''} ${index === opcionMenuSeleccionadoIndex ? 'step-primary' : ''}`}
                             data-content={
                               index === opcionMenuSeleccionadoIndex ? '✓' : ''
@@ -129,14 +129,17 @@ export const Modal2 = ({ closeModal }: IModal2) => {
             </div>
           </div>
 
-          {/*HACEMOS EL MAP DE LAS OPCIONES DE OPCIONES MENU SELECCIONADO*/}
+          {/*HACEMOS EL MAP DE LAS OPCIONES */}
           <div className="flex flex-wrap mx-[56px] py-8  gap-y-8 overflow-auto overflow-y-auto max-h-[500px]">
             {productoSeleccionado.opcionesMenu[
               opcionMenuSeleccionadoIndex
-            ].opciones.map((opcion, index) => (
-              <div key={index}>
+            ].opciones.map((opcion) => (
+              <div key={opcion.id}>
                 <div className="flex flex-wrap mx-8   gap-y-8 items-center justify-between ">
-                  <button className="flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md">
+                  <button
+                    className="flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md"
+                    onClick={seleccionarOpcionFunc}
+                  >
                     <img
                       src={opcion.imagen}
                       alt={opcion.nombre}
@@ -145,6 +148,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                     <div className="ml-2">
                       <h2 className="text-[20px] font-semibold text-left ">
                         {opcion.nombre}
+                        {/*{opcion.seleccionado === true}*/}
                       </h2>
                       <p className="text-left text-semibold text-lg">
                         {/* Bs. {opcionSeleccionado.precioTotal} */}
