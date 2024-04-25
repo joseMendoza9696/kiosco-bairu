@@ -37,7 +37,7 @@ const Categoria: React.FC<CategoriasProps> = ({ categorias }) => {
           {categorias.map((categoria: Categoria, index: number) => (
             <button
               key={categoria.id}
-              className={`mx-4 ${index === categoriaSeleccionada ? 'selected' : ''}`}
+              className={`mx-4  focus:outline-none focus:ring focus:ring-primary rounded-xl ${index === categoriaSeleccionada ? 'selected' : ''}`}
               onClick={() => handleClickCategoria(index)}
             >
               <div className="max-w-xs rounded-md shadow-md">

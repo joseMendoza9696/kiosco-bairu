@@ -14,10 +14,15 @@ export const Modal2 = ({ closeModal }: IModal2) => {
   // TODO: SOLUCIONAR EL BUG DEL MODAL 2
   // WAIT 🕐
   // TODO: EL BOTON DE "ATRAS", SELECCIONA LA OPCION MENU ANTERIOR
+  // CHECK ✅
   // TODO: EN OPCIONES MENU, SOLO MOSTRAR EL TITULO DE LA OPCION MENU, "NO MOSTRAR LOS OTROS PASOS" VER UI FIGMA
+  // CHECK 50% ✅
   // TODO: CUANDO SE PRESIONA AÑADIR, SOLO CERRAR EL MODAL
+  // CHECK 50% ✅
   // TODO: SUBIR LA IMAGEN DEL PRODUCTO HASTA UN POCO ABAJO DE LA "X"
+  // CHECK ✅
   // TODO: NO utilizar colores por defecto, utilizar del tema.
+  // CHECK ✅
   // TODO: SI OPCION MENU ESTA SELECCIONADO, RESALTARLO COMO EN EL FIGMA
   // TODO: (REDUX) EN LA FUNCION SELECCIONAR_OPCION_FUNC(), UTILIZAR EL ACTION SELECCIONAR_OPCION DE REDUX.
 
@@ -68,7 +73,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
   return (
     <>
       {productoSeleccionado && (
-        <div className="modal-box h-[1700px] bg-[base-100]  shadow-lg rounded-3xl">
+        <div className="modal-box h-[1700px] bg-[base-100]  shadow-lg rounded-3xl ">
           <button
             className="btn btn-square w-24"
             onClick={() => {
@@ -85,7 +90,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           <img
             src={productoSeleccionado.imagen}
             alt={productoSeleccionado.nombre}
-            className="w-[490px] h-[490px] rounded-[30px] object-cover mx-auto mt-[100px] "
+            className="w-[490px] h-[490px] rounded-[30px] object-cover mx-auto mt-[60px] "
           />
           <p className="font-bold text-center text-[65px] pt-[20px]">
             {productoSeleccionado.nombre}
@@ -94,21 +99,22 @@ export const Modal2 = ({ closeModal }: IModal2) => {
             Bs. {productoSeleccionado.precioTotal}
           </p>
           {/*HACEMOS EL MAP DE OPCIONES MENU DEL PRODUCTO SELECCIONADO*/}
-          <div>
-            <div className="mx-24">
-              <div className="p-6 bg-gray-200 rounded-xl">
-                <div className="container mx-auto">
-                  <div>
-                    <ul className="steps">
-                      {productoSeleccionado.opcionesMenu.map(
-                        (opcionMenu, index) => (
-                          <li
-                            key={opcionMenu.id}
-                            className={`step ${index === opcionMenuSeleccionadoIndex ? 'selected' : ''} ${index === opcionMenuSeleccionadoIndex ? 'step-primary' : ''}`}
-                            data-content={
-                              index === opcionMenuSeleccionadoIndex ? '✓' : ''
-                            }
-                          >
+
+          <div className="mx-24">
+            <div className="p-6 bg-accent rounded-xl overflow-x-auto">
+              <div className="container mx-auto">
+                <div>
+                  <ul className="steps">
+                    {productoSeleccionado.opcionesMenu.map(
+                      (opcionMenu, index) => (
+                        <li
+                          key={index}
+                          className={`step ${index === opcionMenuSeleccionadoIndex ? 'selected' : ''} ${index === opcionMenuSeleccionadoIndex ? 'step-primary' : ''}`}
+                          data-content={
+                            index === opcionMenuSeleccionadoIndex ? '✓' : ''
+                          }
+                        >
+                          {index === opcionMenuSeleccionadoIndex && (
                             <span
                               className={
                                 index === opcionMenuSeleccionadoIndex
@@ -118,14 +124,14 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                             >
                               {opcionMenu.nombre}
                             </span>
-                          </li>
-                        ),
-                      )}
-                    </ul>
-                  </div>
+                          )}
+                        </li>
+                      ),
+                    )}
+                  </ul>
                 </div>
-                <p className="text-left pt-4 font-bold text-2xl"> </p>
               </div>
+              <p className="text-left pt-4 font-bold text-2xl"> </p>
             </div>
           </div>
 
@@ -137,7 +143,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
               <div key={opcion.id}>
                 <div className="flex flex-wrap mx-8   gap-y-8 items-center justify-between ">
                   <button
-                    className="flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md"
+                    className={`flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md ${opcionMenuSeleccionadoIndex !== 0 ? '  focus:outline-none focus:ring focus:ring-primary' : ''}`}
                     onClick={seleccionarOpcionFunc}
                   >
                     <img
@@ -166,10 +172,16 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                 className="  w-[211px] h-[122px] text-[30px] rounded-[20px] btn 
 "
                 onClick={() => {
-                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                  // @ts-expect-error
-                  dispatch(quitarUltimoProducto());
-                  closeModal();
+                  if (opcionMenuSeleccionadoIndex > 0) {
+                    setOpcionMenuSeleccionadoIndex(
+                      opcionMenuSeleccionadoIndex - 1,
+                    );
+                  } else {
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-expect-error
+                    dispatch(quitarUltimoProducto());
+                    closeModal();
+                  }
                 }}
               >
                 {opcionMenuSeleccionadoIndex !== 0 ? 'Atrás' : 'Cancelar'}

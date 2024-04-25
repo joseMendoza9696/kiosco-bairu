@@ -41,7 +41,7 @@ export const Modal1 = ({ closeModal }: IModal1) => {
   return (
     <>
       {productoSeleccionado && (
-        <div className="modal-box h-[1700px] bg-[base-100] shadow-lg">
+        <div className="modal-box h-[1800px] bg-[base-100] shadow-lg">
           <button
             className="btn btn-square w-24"
             onClick={() => {
