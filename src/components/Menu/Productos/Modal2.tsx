@@ -1,7 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 // REDUX
 import { RootState } from '../../../redux/store.ts';
-import { quitarUltimoProducto } from '../../../redux/actions/nuevaOrden.action';
+import {
+  quitarUltimoProducto,
+  seleccionarOpcion,
+} from '../../../redux/actions/nuevaOrden.action';
 import { editarCantidadProducto } from '../../../redux/actions/nuevaOrden.action.ts';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -13,20 +16,13 @@ export const Modal2 = ({ closeModal }: IModal2) => {
   const dispatch = useDispatch();
   // TODO: SOLUCIONAR EL BUG DEL MODAL 2
   // WAIT 🕐
-  // TODO: EL BOTON DE "ATRAS", SELECCIONA LA OPCION MENU ANTERIOR
-  // CHECK ✅
-  // TODO: EN OPCIONES MENU, SOLO MOSTRAR EL TITULO DE LA OPCION MENU, "NO MOSTRAR LOS OTROS PASOS" VER UI FIGMA
-  // CHECK 50% ✅
   // TODO: CUANDO SE PRESIONA AÑADIR, SOLO CERRAR EL MODAL
-  // CHECK 50% ✅
   // TODO: SUBIR LA IMAGEN DEL PRODUCTO HASTA UN POCO ABAJO DE LA "X"
-  // CHECK ✅
-  // TODO: NO utilizar colores por defecto, utilizar del tema.
-  // CHECK ✅
   // TODO: SI OPCION MENU ESTA SELECCIONADO, RESALTARLO COMO EN EL FIGMA
   // TODO: (REDUX) EN LA FUNCION SELECCIONAR_OPCION_FUNC(), UTILIZAR EL ACTION SELECCIONAR_OPCION DE REDUX.
-
-  // TODO: SEGUN LA PROPIEDAD OBLIGATORIO DE OPCION_MENU, NO DEBERIA DEJARTE PASAR AL SIGUIENTE OPCION MENU
+  // TODO: si se selecciona mas opciones deberia aparecer todas las opciones seleccionadas.
+  // TODO: si hago click en una opcion que ya seleccionada, utilizar la funcion deseleccionarOpcion() de redux.nueva orden reducer
+  // TODO: si llegamos al tope de la cantidad maxima de seleccion, no nos deberia dejar seleccionar mas.
 
   const productoSeleccionadoIndex =
     useSelector((state: RootState) => state.nuevaOrdenReducer.productos)
@@ -53,6 +49,20 @@ export const Modal2 = ({ closeModal }: IModal2) => {
 
   const [opcionMenuSeleccionadoIndex, setOpcionMenuSeleccionadoIndex] =
     useState<number>(0);
+  const opcionMenuSeleccionado =
+    productoSeleccionado.opcionesMenu[opcionMenuSeleccionadoIndex];
+  const cantidadSeleccionadaOpcionMenu = useSelector(
+    (state: RootState) =>
+      state.nuevaOrdenReducer.productos[productoSeleccionadoIndex].opcionesMenu[
+        opcionMenuSeleccionadoIndex
+      ].cantidadSeleccionada,
+  );
+  const opciones = useSelector(
+    (state: RootState) =>
+      state.nuevaOrdenReducer.productos[productoSeleccionadoIndex].opcionesMenu[
+        opcionMenuSeleccionadoIndex
+      ].opciones,
+  );
 
   // FUNCIONES
   const opcionMenuSiguiente = () => {
@@ -64,11 +74,22 @@ export const Modal2 = ({ closeModal }: IModal2) => {
     }
   };
 
-  const seleccionarOpcionFunc = () => {};
+  const seleccionarOpcionFunc = (
+    indexOpcionMenu: number,
+    indexOpcion: number,
+  ) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    dispatch(seleccionarOpcion(indexOpcionMenu, indexOpcion));
+  };
 
-  useEffect(() => {
-    console.log(opcionMenuSeleccionadoIndex);
-  }, [opcionMenuSeleccionadoIndex]);
+  // const seleccionado = useSelector((state: RootState) => state.nuevaOrdenReducer.productos[0].opcionesMenu[1].opciones[5].seleccionado);
+  console.log('seleccion obligatoria...', opcionMenuSeleccionado.obligatorio);
+  console.log(
+    'cantidad maxima de seleccion..',
+    opcionMenuSeleccionado.cantidadSeleccion,
+  );
+  console.log('cantidad seleccionada...', cantidadSeleccionadaOpcionMenu);
 
   return (
     <>
@@ -137,14 +158,14 @@ export const Modal2 = ({ closeModal }: IModal2) => {
 
           {/*HACEMOS EL MAP DE LAS OPCIONES */}
           <div className="flex flex-wrap mx-[56px] py-8  gap-y-8 overflow-auto overflow-y-auto max-h-[500px]">
-            {productoSeleccionado.opcionesMenu[
-              opcionMenuSeleccionadoIndex
-            ].opciones.map((opcion) => (
+            {opciones.map((opcion, index) => (
               <div key={opcion.id}>
                 <div className="flex flex-wrap mx-8   gap-y-8 items-center justify-between ">
                   <button
-                    className={`flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md ${opcionMenuSeleccionadoIndex !== 0 ? '  focus:outline-none focus:ring focus:ring-primary' : ''}`}
-                    onClick={seleccionarOpcionFunc}
+                    className={`flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md ${opcion.seleccionado ? '  focus:outline-none focus:ring focus:ring-primary' : ''}`}
+                    onClick={() => {
+                      seleccionarOpcionFunc(opcionMenuSeleccionadoIndex, index);
+                    }}
                   >
                     <img
                       src={opcion.imagen}
@@ -157,7 +178,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                         {/*{opcion.seleccionado === true}*/}
                       </h2>
                       <p className="text-left text-semibold text-lg">
-                        {/* Bs. {opcionSeleccionado.precioTotal} */}
+                        +Bs. {opcion.precio}
                       </p>
                     </div>
                   </button>
@@ -169,8 +190,13 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           <div className="flex justify-between mx-16 fixed bottom-8 left-0 right-0">
             <div className="flex items-center justify-between text-center  mx-2">
               <button
-                className="  w-[211px] h-[122px] text-[30px] rounded-[20px] btn 
-"
+                className="  w-[211px] h-[122px] text-[30px] rounded-[20px] btn"
+                disabled={
+                  !!(
+                    opcionMenuSeleccionado.obligatorio &&
+                    opcionMenuSeleccionado.cantidadSeleccionada < 1
+                  )
+                }
                 onClick={() => {
                   if (opcionMenuSeleccionadoIndex > 0) {
                     setOpcionMenuSeleccionadoIndex(
@@ -209,6 +235,12 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                 +
               </button>
               <button
+                disabled={
+                  !!(
+                    opcionMenuSeleccionado.obligatorio &&
+                    opcionMenuSeleccionado.cantidadSeleccionada < 1
+                  )
+                }
                 className="btn btn-primary w-[211px] h-[122px] text-[30px] rounded-[20px] mx-8"
                 onClick={opcionMenuSiguiente}
               >

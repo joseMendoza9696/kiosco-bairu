@@ -22,12 +22,12 @@ import {
 export const initialNuevaOrdenState: NuevaOrdenInterface = {
   cuentaTotal: 0,
   tipoEntrega: ENTREGA.AQUI,
-  nombreCliente: "",
-  numeroTelefono: "",
-  metodoPago: "",
-  nit: "",
-  razonSocial: "",
-  correoElectronico: "",
+  nombreCliente: '',
+  numeroTelefono: '',
+  metodoPago: '',
+  nit: '',
+  razonSocial: '',
+  correoElectronico: '',
   productos: [],
 };
 
@@ -45,7 +45,7 @@ export function nuevaOrdenReducer(state = initialNuevaOrdenState, action: any) {
     case ACTUALIZAR_CUENTA_TOTAL:
       const nuevaCuentaTotal1 = state.productos.reduce(
         (a, b) => a + b.precioTotal,
-        0
+        0,
       );
       return { ...state, cuentaTotal: nuevaCuentaTotal1 };
 
@@ -63,10 +63,10 @@ export function nuevaOrdenReducer(state = initialNuevaOrdenState, action: any) {
       // seleccionamos la opcion del opcionMenu correspondiente
       nuevosProductos3[index].opcionesMenu[
         action.payload.opcionMenuIndex
-        ].opciones[action.payload.opcionIndex].seleccionado = true;
+      ].opciones[action.payload.opcionIndex].seleccionado = true;
       // // actualizamos el precio total
       nuevosProductos3[index].precioTotal = calcularPrecioTotal(
-        nuevosProductos3[index]
+        nuevosProductos3[index],
       );
       // actualizamos la cantidad seleccionada
       nuevosProductos3[index].opcionesMenu[action.payload.opcionMenuIndex]
@@ -80,10 +80,10 @@ export function nuevaOrdenReducer(state = initialNuevaOrdenState, action: any) {
       // seleccionamos la opcion del opcionMenu correspondiente
       nuevosProductos7[index1].opcionesMenu[
         action.payload.opcionMenuIndex
-        ].opciones[action.payload.opcionIndex].seleccionado = false;
+      ].opciones[action.payload.opcionIndex].seleccionado = false;
       // actualizamos el precio total
       nuevosProductos7[index1].precioTotal = calcularPrecioTotal(
-        nuevosProductos7[index1]
+        nuevosProductos7[index1],
       );
       // actualizamos la cantidad seleccionada
       nuevosProductos7[index1].opcionesMenu[action.payload.opcionMenuIndex]
@@ -116,7 +116,7 @@ export function nuevaOrdenReducer(state = initialNuevaOrdenState, action: any) {
       nuevosProductos5[action.payload.index].cantidad = nuevaCantidad;
       // actualizamos el precio total del producto
       nuevosProductos5[action.payload.index].precioTotal = calcularPrecioTotal(
-        nuevosProductos5[action.payload.index]
+        nuevosProductos5[action.payload.index],
       );
 
       return {
