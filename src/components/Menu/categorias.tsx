@@ -14,6 +14,7 @@ interface CategoriasProps {
 
 const Categoria: React.FC<CategoriasProps> = ({ categorias }) => {
   // TODO: CUANDO SE SELECCIONE LA CATEGORIA DEBE ESTAR RESALTADA COMO EN FIGMA
+  // TODO: SI EL TITULO DE LA CATEGORIA ES LARGO, AGREGAR UN SALTO DE LINEA PARA EVITAR EL DESFACE.
 
   const dispatch = useDispatch();
   const categoriaSeleccionada = useSelector(

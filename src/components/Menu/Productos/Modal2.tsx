@@ -13,24 +13,88 @@ interface IModal2 {
   closeModal: any;
 }
 
+// interface IOpcion {
+//   cantidadMaximaSeleccion: number;
+//   cantidadSeleccionadaOpcionMenu: number;
+//   opcionMenuIndex: number;
+//   opcionIndex: number;
+//   seleccionado: boolean;
+//   imagen: string;
+//   nombre: string;
+//   precio: number;
+// }
+//
+// const Opcion = ({
+//   cantidadMaximaSeleccion,
+//   cantidadSeleccionadaOpcionMenu,
+//   opcionMenuIndex,
+//   opcionIndex,
+//   seleccionado,
+//   imagen,
+//   nombre,
+//   precio,
+// }: IOpcion) => {
+//   const dispatch = useDispatch();
+//
+//   const seleccionarOpcionFunc = (
+//     indexOpcionMenu: number,
+//     indexOpcion: number,
+//   ) => {
+//     const cantidadMaxima = cantidadMaximaSeleccion;
+//     const cantidadSeleccionada = cantidadSeleccionadaOpcionMenu;
+//     if (cantidadSeleccionada < cantidadMaxima) {
+//       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//       // @ts-expect-error
+//       dispatch(seleccionarOpcion(indexOpcionMenu, indexOpcion));
+//     }
+//   };
+//
+//   const deseleccionarOpcionFunc = (
+//     indexOpcionMenu: number,
+//     indexOpcion: number,
+//   ) => {
+//     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//     // @ts-expect-error
+//     dispatch(deseleccionarOpcion(indexOpcionMenu, indexOpcion));
+//   };
+//
+//   return (
+//     <div>
+//       <div className="flex flex-wrap mx-8   gap-y-8 items-center justify-between ">
+//         <button
+//           className={`flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md ${seleccionado ? 'focus:outline-none focus:ring focus:ring-primary ' : ''}`}
+//           onClick={() => {
+//             if (seleccionado) {
+//               deseleccionarOpcionFunc(opcionMenuIndex, opcionIndex);
+//             } else {
+//               seleccionarOpcionFunc(opcionMenuIndex, opcionIndex);
+//             }
+//           }}
+//         >
+//           <img
+//             src={imagen}
+//             alt={nombre}
+//             className="w-[200px] h-[167px] rounded-xl object-cover"
+//           />
+//           <div className="ml-2">
+//             <h2 className="text-[20px] font-semibold text-left ">
+//               {nombre}
+//               {/*{seleccionado === true}*/}
+//             </h2>
+//             <p className="text-left text-semibold text-lg">+Bs. {precio}</p>
+//           </div>
+//         </button>
+//       </div>
+//     </div>
+//   );
+// };
+
 export const Modal2 = ({ closeModal }: IModal2) => {
   const dispatch = useDispatch();
   // TODO: SOLUCIONAR EL BUG DEL MODAL 2
   // WAIT 🕐
-  // TODO: CUANDO SE PRESIONA AÑADIR, SOLO CERRAR EL MODAL
-  // CHECK ✅
-  // TODO: SUBIR LA IMAGEN DEL PRODUCTO HASTA UN POCO ABAJO DE LA "X"
-  // CHECK ✅
   // TODO: SI OPCION MENU ESTA SELECCIONADO, RESALTARLO COMO EN EL FIGMA
-
-  // TODO: (REDUX) EN LA FUNCION SELECCIONAR_OPCION_FUNC(), UTILIZAR EL ACTION SELECCIONAR_OPCION DE REDUX.
-  // CHECK ✅
   // TODO: si se selecciona mas opciones deberia aparecer todas las opciones seleccionadas.
-
-  // TODO: si hago click en una opcion que ya seleccionada, utilizar la funcion deseleccionarOpcion() de redux.nueva orden reducer
-  // CHECK ✅
-  // TODO: si llegamos al tope de la cantidad maxima de seleccion, no nos deberia dejar seleccionar mas.
-  // CHECK ✅
 
   const productoSeleccionadoIndex =
     useSelector((state: RootState) => state.nuevaOrdenReducer.productos)
@@ -190,6 +254,19 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           {/*HACEMOS EL MAP DE LAS OPCIONES */}
           <div className="flex flex-wrap mx-[56px] py-8  gap-y-8 overflow-auto overflow-y-auto max-h-[500px]">
             {opciones.map((opcion, index) => (
+              // <Opcion
+              //   key={opcion.id}
+              //   cantidadMaximaSeleccion={cantidadMaximaSeleccion}
+              //   cantidadSeleccionadaOpcionMenu={
+              //     opcionMenuSeleccionado.cantidadSeleccionada
+              //   }
+              //   imagen={opcion.imagen}
+              //   nombre={opcion.nombre}
+              //   opcionIndex={index}
+              //   opcionMenuIndex={opcionMenuSeleccionadoIndex}
+              //   precio={opcion.precio}
+              //   seleccionado
+              // />
               <div key={opcion.id}>
                 <div className="flex flex-wrap mx-8   gap-y-8 items-center justify-between ">
                   <button
