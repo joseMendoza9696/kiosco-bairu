@@ -24,11 +24,13 @@ export const Modal2 = ({ closeModal }: IModal2) => {
   // TODO: SI OPCION MENU ESTA SELECCIONADO, RESALTARLO COMO EN EL FIGMA
 
   // TODO: (REDUX) EN LA FUNCION SELECCIONAR_OPCION_FUNC(), UTILIZAR EL ACTION SELECCIONAR_OPCION DE REDUX.
-
+  // CHECK ✅
   // TODO: si se selecciona mas opciones deberia aparecer todas las opciones seleccionadas.
 
   // TODO: si hago click en una opcion que ya seleccionada, utilizar la funcion deseleccionarOpcion() de redux.nueva orden reducer
+  // CHECK ✅
   // TODO: si llegamos al tope de la cantidad maxima de seleccion, no nos deberia dejar seleccionar mas.
+  // CHECK ✅
 
   const productoSeleccionadoIndex =
     useSelector((state: RootState) => state.nuevaOrdenReducer.productos)
@@ -111,6 +113,8 @@ export const Modal2 = ({ closeModal }: IModal2) => {
   //     opcionMenuSeleccionadoIndex
   //   ].opciones.map((opcion) => opcion.seleccionado),
   // );
+
+  // const seleccionado = useSelector((state: RootState) => state.nuevaOrdenReducer.productos[0].opcionesMenu[1].opciones[5].seleccionado);
   console.log('seleccion obligatoria...', opcionMenuSeleccionado.obligatorio);
   console.log(
     'cantidad maxima de seleccion..',
@@ -184,12 +188,12 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           </div>
 
           {/*HACEMOS EL MAP DE LAS OPCIONES */}
-          <div className="flex flex-wrap mx-[56px] py-8 gap-y-8 overflow-auto overflow-y-auto max-h-[500px]">
+          <div className="flex flex-wrap mx-[56px] py-8  gap-y-8 overflow-auto overflow-y-auto max-h-[500px]">
             {opciones.map((opcion, index) => (
               <div key={opcion.id}>
-                <div className="flex flex-wrap mx-8 gap-y-8 items-center justify-between">
+                <div className="flex flex-wrap mx-8   gap-y-8 items-center justify-between ">
                   <button
-                    className={`flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md ${opcion.seleccionado ? 'ring-primary focus:outline-none focus:ring focus:ring-primary' : ''}`}
+                    className={`flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md ${opcion.seleccionado ? 'focus:outline-none focus:ring focus:ring-primary ' : ''}`}
                     onClick={() => {
                       if (opcion.seleccionado) {
                         deseleccionarOpcionFunc(
@@ -210,8 +214,9 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                       className="w-[200px] h-[167px] rounded-xl object-cover"
                     />
                     <div className="ml-2">
-                      <h2 className="text-[20px] font-semibold text-left">
+                      <h2 className="text-[20px] font-semibold text-left ">
                         {opcion.nombre}
+                        {/*{opcion.seleccionado === true}*/}
                       </h2>
                       <p className="text-left text-semibold text-lg">
                         +Bs. {opcion.precio}
