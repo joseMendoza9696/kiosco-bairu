@@ -4,6 +4,7 @@ import { RootState } from '../../../redux/store.ts';
 import {
   quitarUltimoProducto,
   seleccionarOpcion,
+  deseleccionarOpcion,
 } from '../../../redux/actions/nuevaOrden.action';
 import { editarCantidadProducto } from '../../../redux/actions/nuevaOrden.action.ts';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,10 +18,14 @@ export const Modal2 = ({ closeModal }: IModal2) => {
   // TODO: SOLUCIONAR EL BUG DEL MODAL 2
   // WAIT 🕐
   // TODO: CUANDO SE PRESIONA AÑADIR, SOLO CERRAR EL MODAL
+  // CHECK ✅
   // TODO: SUBIR LA IMAGEN DEL PRODUCTO HASTA UN POCO ABAJO DE LA "X"
+  // CHECK ✅
   // TODO: SI OPCION MENU ESTA SELECCIONADO, RESALTARLO COMO EN EL FIGMA
   // TODO: (REDUX) EN LA FUNCION SELECCIONAR_OPCION_FUNC(), UTILIZAR EL ACTION SELECCIONAR_OPCION DE REDUX.
+
   // TODO: si se selecciona mas opciones deberia aparecer todas las opciones seleccionadas.
+
   // TODO: si hago click en una opcion que ya seleccionada, utilizar la funcion deseleccionarOpcion() de redux.nueva orden reducer
   // TODO: si llegamos al tope de la cantidad maxima de seleccion, no nos deberia dejar seleccionar mas.
 
@@ -49,6 +54,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
 
   const [opcionMenuSeleccionadoIndex, setOpcionMenuSeleccionadoIndex] =
     useState<number>(0);
+
   const opcionMenuSeleccionado =
     productoSeleccionado.opcionesMenu[opcionMenuSeleccionadoIndex];
   const cantidadSeleccionadaOpcionMenu = useSelector(
@@ -83,6 +89,16 @@ export const Modal2 = ({ closeModal }: IModal2) => {
     dispatch(seleccionarOpcion(indexOpcionMenu, indexOpcion));
   };
 
+  const deseleccionarOpcionFunc = (
+    indexOpcionMenu: number,
+    indexOpcion: number,
+  ) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    dispatch(deseleccionarOpcion(indexOpcionMenu, indexOpcion));
+  };
+  console.log('producto deseleccionado...', deseleccionarOpcionFunc);
+
   // const seleccionado = useSelector((state: RootState) => state.nuevaOrdenReducer.productos[0].opcionesMenu[1].opciones[5].seleccionado);
   console.log('seleccion obligatoria...', opcionMenuSeleccionado.obligatorio);
   console.log(
@@ -98,7 +114,6 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           <button
             className="btn btn-square w-24"
             onClick={() => {
-              // TODO: ejecutar quitarUltimoProducto del action
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-expect-error
               dispatch(quitarUltimoProducto());
@@ -111,7 +126,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           <img
             src={productoSeleccionado.imagen}
             alt={productoSeleccionado.nombre}
-            className="w-[490px] h-[490px] rounded-[30px] object-cover mx-auto mt-[60px] "
+            className="w-[490px] h-[490px] rounded-[30px] object-cover mx-auto mt-[50px] "
           />
           <p className="font-bold text-center text-[65px] pt-[20px]">
             {productoSeleccionado.nombre}
@@ -162,7 +177,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
               <div key={opcion.id}>
                 <div className="flex flex-wrap mx-8   gap-y-8 items-center justify-between ">
                   <button
-                    className={`flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md ${opcion.seleccionado ? '  focus:outline-none focus:ring focus:ring-primary' : ''}`}
+                    className={`flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md ${opcion.seleccionado ? 'focus:outline-none focus:ring focus:ring-primary ' : ''}`}
                     onClick={() => {
                       seleccionarOpcionFunc(opcionMenuSeleccionadoIndex, index);
                     }}
@@ -242,7 +257,16 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                   )
                 }
                 className="btn btn-primary w-[211px] h-[122px] text-[30px] rounded-[20px] mx-8"
-                onClick={opcionMenuSiguiente}
+                onClick={() => {
+                  if (
+                    opcionMenuSeleccionadoIndex ===
+                    productoSeleccionado.opcionesMenu.length - 1
+                  ) {
+                    closeModal();
+                  } else {
+                    opcionMenuSiguiente();
+                  }
+                }}
               >
                 {opcionMenuSeleccionadoIndex ===
                 productoSeleccionado.opcionesMenu.length - 1
