@@ -22,6 +22,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
   // TODO: SUBIR LA IMAGEN DEL PRODUCTO HASTA UN POCO ABAJO DE LA "X"
   // CHECK ✅
   // TODO: SI OPCION MENU ESTA SELECCIONADO, RESALTARLO COMO EN EL FIGMA
+
   // TODO: (REDUX) EN LA FUNCION SELECCIONAR_OPCION_FUNC(), UTILIZAR EL ACTION SELECCIONAR_OPCION DE REDUX.
 
   // TODO: si se selecciona mas opciones deberia aparecer todas las opciones seleccionadas.
@@ -63,6 +64,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
         opcionMenuSeleccionadoIndex
       ].cantidadSeleccionada,
   );
+
   const opciones = useSelector(
     (state: RootState) =>
       state.nuevaOrdenReducer.productos[productoSeleccionadoIndex].opcionesMenu[
@@ -84,9 +86,13 @@ export const Modal2 = ({ closeModal }: IModal2) => {
     indexOpcionMenu: number,
     indexOpcion: number,
   ) => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    dispatch(seleccionarOpcion(indexOpcionMenu, indexOpcion));
+    const cantidadMaxima = cantidadMaximaSeleccion;
+    const cantidadSeleccionada = cantidadSeleccionadaOpcionMenu;
+    if (cantidadSeleccionada < cantidadMaxima) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      dispatch(seleccionarOpcion(indexOpcionMenu, indexOpcion));
+    }
   };
 
   const deseleccionarOpcionFunc = (
@@ -97,9 +103,14 @@ export const Modal2 = ({ closeModal }: IModal2) => {
     // @ts-expect-error
     dispatch(deseleccionarOpcion(indexOpcionMenu, indexOpcion));
   };
-  console.log('producto deseleccionado...', deseleccionarOpcionFunc);
 
-  // const seleccionado = useSelector((state: RootState) => state.nuevaOrdenReducer.productos[0].opcionesMenu[1].opciones[5].seleccionado);
+  const cantidadMaximaSeleccion = opcionMenuSeleccionado.cantidadSeleccion;
+
+  // const seleccionado = useSelector((state: RootState) =>
+  //   state.nuevaOrdenReducer.productos[productoSeleccionadoIndex].opcionesMenu[
+  //     opcionMenuSeleccionadoIndex
+  //   ].opciones.map((opcion) => opcion.seleccionado),
+  // );
   console.log('seleccion obligatoria...', opcionMenuSeleccionado.obligatorio);
   console.log(
     'cantidad maxima de seleccion..',
@@ -134,6 +145,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           <p className="text-center text-[45px] text-primary font-bold">
             Bs. {productoSeleccionado.precioTotal}
           </p>
+
           {/*HACEMOS EL MAP DE OPCIONES MENU DEL PRODUCTO SELECCIONADO*/}
 
           <div className="mx-24">
@@ -172,14 +184,24 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           </div>
 
           {/*HACEMOS EL MAP DE LAS OPCIONES */}
-          <div className="flex flex-wrap mx-[56px] py-8  gap-y-8 overflow-auto overflow-y-auto max-h-[500px]">
+          <div className="flex flex-wrap mx-[56px] py-8 gap-y-8 overflow-auto overflow-y-auto max-h-[500px]">
             {opciones.map((opcion, index) => (
               <div key={opcion.id}>
-                <div className="flex flex-wrap mx-8   gap-y-8 items-center justify-between ">
+                <div className="flex flex-wrap mx-8 gap-y-8 items-center justify-between">
                   <button
-                    className={`flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md ${opcion.seleccionado ? 'focus:outline-none focus:ring focus:ring-primary ' : ''}`}
+                    className={`flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md ${opcion.seleccionado ? 'ring-primary focus:outline-none focus:ring focus:ring-primary' : ''}`}
                     onClick={() => {
-                      seleccionarOpcionFunc(opcionMenuSeleccionadoIndex, index);
+                      if (opcion.seleccionado) {
+                        deseleccionarOpcionFunc(
+                          opcionMenuSeleccionadoIndex,
+                          index,
+                        );
+                      } else {
+                        seleccionarOpcionFunc(
+                          opcionMenuSeleccionadoIndex,
+                          index,
+                        );
+                      }
                     }}
                   >
                     <img
@@ -188,9 +210,8 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                       className="w-[200px] h-[167px] rounded-xl object-cover"
                     />
                     <div className="ml-2">
-                      <h2 className="text-[20px] font-semibold text-left ">
+                      <h2 className="text-[20px] font-semibold text-left">
                         {opcion.nombre}
-                        {/*{opcion.seleccionado === true}*/}
                       </h2>
                       <p className="text-left text-semibold text-lg">
                         +Bs. {opcion.precio}
@@ -201,6 +222,8 @@ export const Modal2 = ({ closeModal }: IModal2) => {
               </div>
             ))}
           </div>
+
+          {/* BOTONES DE ANADIR ELIMINAR Y CANCELAR */}
 
           <div className="flex justify-between mx-16 fixed bottom-8 left-0 right-0">
             <div className="flex items-center justify-between text-center  mx-2">
