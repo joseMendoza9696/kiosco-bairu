@@ -31,9 +31,7 @@ export const Footer = () => {
             </div>
           </>
         ) : (
-          <div className="bg-primary">
-            <h1 className="font-bold text-3xl   ">Powered by Bairü</h1>
-          </div>
+          <h1 className="font-bold text-3xl   ">Powered by Bairü</h1>
         )}{' '}
       </div>
     </footer>
