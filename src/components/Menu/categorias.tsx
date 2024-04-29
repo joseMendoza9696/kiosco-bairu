@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
+import { Icon } from '@iconify/react/dist/iconify.js';
 
 interface Categoria {
   id: string;
@@ -14,8 +15,9 @@ interface CategoriasProps {
 
 const Categoria: React.FC<CategoriasProps> = ({ categorias }) => {
   // TODO: CUANDO SE SELECCIONE LA CATEGORIA DEBE ESTAR RESALTADA COMO EN FIGMA
-
+  // CHECK
   // TODO: SI EL TITULO DE LA CATEGORIA ES LARGO, AGREGAR UN SALTO DE LINEA PARA EVITAR EL DESFACE.
+  // CHECK
 
   const dispatch = useDispatch();
   const categoriaSeleccionada = useSelector(
@@ -41,15 +43,15 @@ const Categoria: React.FC<CategoriasProps> = ({ categorias }) => {
           Nuestras categorías
         </h1>
       </div>
-      <div className="rounded-box w-full overflow-x-auto flex items-center justify-start carousel py-4 ">
-        <div className="carousel-item pl-16 ">
+      <div className="rounded-box w-full overflow-x-auto flex items-center justify-start carousel py-4">
+        <div className="carousel-item pl-16">
           {categorias.map((categoria: Categoria, index: number) => (
             <button
               key={categoria.id}
-              className={`mx-4  focus:outline-none focus:ring focus:ring-primary rounded-xl ${index === categoriaSeleccionada ? 'selected' : ''}`}
+              className={`mx-4 relative rounded-xl ${index === categoriaSeleccionada ? 'border-8 border-primary rounded-md' : ''}`}
               onClick={() => handleClickCategoria(index)}
             >
-              <div className="max-w-xs rounded-md shadow-md">
+              <div className="max-w-xs rounded-md shadow-md relative">
                 <img
                   src={categoria.imagen}
                   alt={categoria.nombre}
@@ -58,6 +60,14 @@ const Categoria: React.FC<CategoriasProps> = ({ categorias }) => {
                 <h2 className="text-[24px] text-left font-semibold p-1">
                   {saltoDeLinea(categoria.nombre)}
                 </h2>
+                {index === categoriaSeleccionada && (
+                  <div className="absolute top-0 right-0 mt-2 mr-2">
+                    <Icon
+                      icon="ei:check"
+                      className="text-primary w-[45px] h-[45px] stroke-current"
+                    />
+                  </div>
+                )}
               </div>
             </button>
           ))}

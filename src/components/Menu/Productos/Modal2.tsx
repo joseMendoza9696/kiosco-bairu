@@ -95,8 +95,19 @@ export const Modal2 = ({ closeModal }: IModal2) => {
   // TODO: SOLUCIONAR EL BUG DEL MODAL 2
   // WAIT 🕐
   // TODO: SI OPCION MENU ESTA SELECCIONADO, RESALTARLO COMO EN EL FIGMA
+  // COMPLETED ✅
   // TODO: si se selecciona mas opciones deberia aparecer todas las opciones seleccionadas.
+  // COMPLETED ✅
 
+  // ESTADOS DE REACT
+
+  const [cantidad, setCantidad] = useState<number>(1);
+  const [opcionMenuSeleccionadoIndex, setOpcionMenuSeleccionadoIndex] =
+    useState<number>(0);
+
+  // FUNCIONES DE REDUX
+
+  // Funcion para quitar el ultimo producto
   const productoSeleccionadoIndex =
     useSelector((state: RootState) => state.nuevaOrdenReducer.productos)
       .length - 1;
@@ -107,8 +118,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
       ],
   );
 
-  const [cantidad, setCantidad] = useState<number>(1);
-
+  // Funcion para editar la cantidad del producto
   const editarCantidad = (incremento: number) => {
     setCantidad((cantidadPrevia) => {
       const cantidadNueva = cantidadPrevia + incremento;
@@ -120,9 +130,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
     });
   };
 
-  const [opcionMenuSeleccionadoIndex, setOpcionMenuSeleccionadoIndex] =
-    useState<number>(0);
-
+  // Funcion para seleccionar una opcion
   const opcionMenuSeleccionado =
     productoSeleccionado.opcionesMenu[opcionMenuSeleccionadoIndex];
   const cantidadSeleccionadaOpcionMenu = useSelector(
@@ -132,6 +140,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
       ].cantidadSeleccionada,
   );
 
+  // Funcion de opciones
   const opciones = useSelector(
     (state: RootState) =>
       state.nuevaOrdenReducer.productos[productoSeleccionadoIndex].opcionesMenu[
@@ -140,6 +149,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
   );
 
   // FUNCIONES
+
   const opcionMenuSiguiente = () => {
     if (
       opcionMenuSeleccionadoIndex <
@@ -218,35 +228,39 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           <div className="mx-24">
             <div className="p-6 bg-accent rounded-xl overflow-x-auto">
               <div className="container mx-auto">
-                <div>
-                  <ul className="steps">
-                    {productoSeleccionado.opcionesMenu.map(
-                      (opcionMenu, index) => (
-                        <li
-                          key={index}
-                          className={`step ${index === opcionMenuSeleccionadoIndex ? 'selected' : ''} ${index === opcionMenuSeleccionadoIndex ? 'step-primary' : ''}`}
-                          data-content={
-                            index === opcionMenuSeleccionadoIndex ? '✓' : ''
-                          }
-                        >
-                          {index === opcionMenuSeleccionadoIndex && (
-                            <span
-                              className={
-                                index === opcionMenuSeleccionadoIndex
-                                  ? 'font-bold'
-                                  : ''
-                              }
-                            >
-                              {opcionMenu.nombre}
-                            </span>
-                          )}
-                        </li>
-                      ),
-                    )}
-                  </ul>
-                </div>
+                <ul className="steps ">
+                  {productoSeleccionado.opcionesMenu.map(
+                    (opcionMenu, index) => (
+                      <li
+                        key={index}
+                        className={` step ${index === opcionMenuSeleccionadoIndex ? 'selected' : ''} ${index === opcionMenuSeleccionadoIndex ? 'step-primary' : ''}`}
+                        data-content={
+                          index === opcionMenuSeleccionadoIndex ? '✓' : ''
+                        }
+                      >
+                        {index === opcionMenuSeleccionadoIndex && (
+                          <span
+                            className={
+                              index === opcionMenuSeleccionadoIndex
+                                ? 'font-bold'
+                                : ''
+                            }
+                          ></span>
+                        )}
+                      </li>
+                    ),
+                  )}
+                </ul>
+
+                <p className="text-left pt-4 font-bold text-2xl">
+                  Paso {opcionMenuSeleccionadoIndex + 1} :
+                  {
+                    productoSeleccionado.opcionesMenu[
+                      opcionMenuSeleccionadoIndex
+                    ].nombre
+                  }
+                </p>
               </div>
-              <p className="text-left pt-4 font-bold text-2xl"> </p>
             </div>
           </div>
           {/*HACEMOS EL MAP DE LAS OPCIONES */}
@@ -255,7 +269,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
               <div key={opcion.id} className="relative">
                 <div className="flex flex-wrap mx-8   gap-y-8 items-center justify-between ">
                   <button
-                    className={`flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md relative ${opcion.seleccionado ? 'border-4 border-primary rounded-md  ' : ''}`}
+                    className={`flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md relative ${opcion.seleccionado ? 'border-8 border-primary rounded-md  ' : ''}`}
                     onClick={() => {
                       if (opcion.seleccionado) {
                         deseleccionarOpcionFunc(
@@ -287,7 +301,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                       <div className="absolute top-0 right-0 mt-2 mr-2">
                         <Icon
                           icon="ei:check"
-                          className="text-primary w-[45px] h-[45px] font-bold"
+                          className="text-primary w-[45px] h-[45px] "
                         />
                       </div>
                     )}
