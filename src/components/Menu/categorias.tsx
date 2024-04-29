@@ -26,6 +26,13 @@ const Categoria: React.FC<CategoriasProps> = ({ categorias }) => {
   };
   console.log(categorias);
 
+  const saltoDeLinea = (title: string) => {
+    if (title.length > 10) {
+      return title.split(' ').join('\n');
+    }
+    return title;
+  };
+
   return (
     <>
       <div className="text-center pt-10 ">
@@ -48,7 +55,7 @@ const Categoria: React.FC<CategoriasProps> = ({ categorias }) => {
                   className="w-[200px] h-[167px] rounded-xl object-cover"
                 />
                 <h2 className="text-[24px] text-left font-semibold p-1">
-                  {categoria.nombre}
+                  {saltoDeLinea(categoria.nombre)}
                 </h2>
               </div>
             </button>

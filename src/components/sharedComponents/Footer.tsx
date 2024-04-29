@@ -13,11 +13,26 @@ export const Footer = () => {
   }
 
   return (
-    <footer className="fixed bottom-0 w-full  bg-primary text-[30px] text-center py-4  ">
-      <div className="container mx-auto">
-        <h1 className="font-bold text-3xl dark:text-white text-dark">
-          Powered by Bairü
-        </h1>
+    <footer className="fixed bottom-0 w-full   text-[30px] text-center py-4 bg-white  rounded-t-3xl ">
+      <div className="container mx-auto  flex justify-center items-center">
+        {nuevaOrden.productos.length > 0 ? (
+          <>
+            <div className="h-[242px] font-bold flex justify-center items-center space-x-4 gap-x-9">
+              <span className="  text-[50px]">
+                Bs. {nuevaOrden.cuentaTotal}{' '}
+              </span>
+
+              <span className="text-[40px] text-gray-500">
+                Productos: {nuevaOrden.productos.length}{' '}
+              </span>
+              <button className="btn btn-primary text-[20px]">
+                Ver Pedido
+              </button>
+            </div>
+          </>
+        ) : (
+          <h1 className="font-bold text-3xl  text-dark">Powered by Bairü</h1>
+        )}{' '}
       </div>
     </footer>
   );

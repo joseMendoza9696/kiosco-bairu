@@ -88,6 +88,18 @@ const Productos = () => {
       }),
     );
   };
+  const saltoDeLinea = (title: string) => {
+    if (title.length > 10) {
+      return title.slice(0, 22) + (title.length > 10 ? '' : '');
+    }
+    return title;
+  };
+  const saltoDeLineaDescripcion = (title: string) => {
+    if (title.length > 10) {
+      return title.slice(0, 28) + (title.length > 10 ? '' : '');
+    }
+    return title;
+  };
 
   return (
     <div className="pt-10 text-center ">
@@ -129,12 +141,14 @@ const Productos = () => {
             />
             <div className="ml-2">
               <h2 className="text-[20px] font-semibold text-left ">
-                {producto.nombre}
+                {saltoDeLinea(producto.nombre)}
               </h2>
               <p className="text-left text-semibold text-lg">
                 Bs. {producto.precio}
               </p>
-              <p className="text-left text-gray-500 ">{producto.descripcion}</p>
+              <p className="text-left text-gray-500 ">
+                {saltoDeLineaDescripcion(producto.descripcion)}
+              </p>
             </div>
           </button>
         ))}

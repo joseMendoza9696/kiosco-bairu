@@ -270,7 +270,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
               <div key={opcion.id}>
                 <div className="flex flex-wrap mx-8   gap-y-8 items-center justify-between ">
                   <button
-                    className={`flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md ${opcion.seleccionado ? 'focus:outline-none focus:ring focus:ring-primary ' : ''}`}
+                    className={`flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md ${opcion.seleccionado ? 'select select-secondary' : ''}`}
                     onClick={() => {
                       if (opcion.seleccionado) {
                         deseleccionarOpcionFunc(
