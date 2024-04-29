@@ -200,7 +200,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
   return (
     <>
       {productoSeleccionado && (
-        <div className="modal-box h-[1700px] bg-[base-100]  shadow-lg rounded-3xl ">
+        <div className="modal-box h-[1700px] bg-[base-100]  shadow-lg rounded-t-[90px] ">
           <button
             className="btn btn-square w-24"
             onClick={() => {
