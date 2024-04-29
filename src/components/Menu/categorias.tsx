@@ -14,6 +14,7 @@ interface CategoriasProps {
 
 const Categoria: React.FC<CategoriasProps> = ({ categorias }) => {
   // TODO: CUANDO SE SELECCIONE LA CATEGORIA DEBE ESTAR RESALTADA COMO EN FIGMA
+
   // TODO: SI EL TITULO DE LA CATEGORIA ES LARGO, AGREGAR UN SALTO DE LINEA PARA EVITAR EL DESFACE.
 
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const Categoria: React.FC<CategoriasProps> = ({ categorias }) => {
 
   const saltoDeLinea = (title: string) => {
     if (title.length > 10) {
-      return title.split(' ').join('\n');
+      return title.slice(0, 18) + (title.length > 10 ? '' : '');
     }
     return title;
   };
@@ -40,7 +41,7 @@ const Categoria: React.FC<CategoriasProps> = ({ categorias }) => {
           Nuestras categorías
         </h1>
       </div>
-      <div className="rounded-box w-full overflow-x-auto flex items-center justify-start carousel py-4">
+      <div className="rounded-box w-full overflow-x-auto flex items-center justify-start carousel py-4 ">
         <div className="carousel-item pl-16 ">
           {categorias.map((categoria: Categoria, index: number) => (
             <button

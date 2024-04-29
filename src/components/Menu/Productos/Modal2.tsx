@@ -8,6 +8,7 @@ import {
 } from '../../../redux/actions/nuevaOrden.action';
 import { editarCantidadProducto } from '../../../redux/actions/nuevaOrden.action.ts';
 import { useDispatch, useSelector } from 'react-redux';
+import { Icon } from '@iconify/react/dist/iconify.js';
 
 interface IModal2 {
   closeModal: any;
@@ -213,9 +214,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           <p className="text-center text-[45px] text-primary font-bold">
             Bs. {productoSeleccionado.precioTotal}
           </p>
-
           {/*HACEMOS EL MAP DE OPCIONES MENU DEL PRODUCTO SELECCIONADO*/}
-
           <div className="mx-24">
             <div className="p-6 bg-accent rounded-xl overflow-x-auto">
               <div className="container mx-auto">
@@ -250,27 +249,13 @@ export const Modal2 = ({ closeModal }: IModal2) => {
               <p className="text-left pt-4 font-bold text-2xl"> </p>
             </div>
           </div>
-
           {/*HACEMOS EL MAP DE LAS OPCIONES */}
           <div className="flex flex-wrap mx-[56px] py-8  gap-y-8 overflow-auto overflow-y-auto max-h-[500px]">
             {opciones.map((opcion, index) => (
-              // <Opcion
-              //   key={opcion.id}
-              //   cantidadMaximaSeleccion={cantidadMaximaSeleccion}
-              //   cantidadSeleccionadaOpcionMenu={
-              //     opcionMenuSeleccionado.cantidadSeleccionada
-              //   }
-              //   imagen={opcion.imagen}
-              //   nombre={opcion.nombre}
-              //   opcionIndex={index}
-              //   opcionMenuIndex={opcionMenuSeleccionadoIndex}
-              //   precio={opcion.precio}
-              //   seleccionado
-              // />
-              <div key={opcion.id}>
+              <div key={opcion.id} className="relative">
                 <div className="flex flex-wrap mx-8   gap-y-8 items-center justify-between ">
                   <button
-                    className={`flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md ${opcion.seleccionado ? 'select select-secondary' : ''}`}
+                    className={`flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md relative ${opcion.seleccionado ? 'border-4 border-primary rounded-md  ' : ''}`}
                     onClick={() => {
                       if (opcion.seleccionado) {
                         deseleccionarOpcionFunc(
@@ -293,20 +278,25 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                     <div className="ml-2">
                       <h2 className="text-[20px] font-semibold text-left ">
                         {opcion.nombre}
-                        {/*{opcion.seleccionado === true}*/}
                       </h2>
                       <p className="text-left text-semibold text-lg">
                         +Bs. {opcion.precio}
                       </p>
                     </div>
+                    {opcion.seleccionado && (
+                      <div className="absolute top-0 right-0 mt-2 mr-2">
+                        <Icon
+                          icon="ei:check"
+                          className="text-primary w-[45px] h-[45px] font-bold"
+                        />
+                      </div>
+                    )}
                   </button>
                 </div>
               </div>
             ))}
           </div>
-
-          {/* BOTONES DE ANADIR ELIMINAR Y CANCELAR */}
-
+          ;{/* BOTONES DE ANADIR ELIMINAR Y CANCELAR */}
           <div className="flex justify-between mx-16 fixed bottom-8 left-0 right-0">
             <div className="flex items-center justify-between text-center  mx-2">
               <button
