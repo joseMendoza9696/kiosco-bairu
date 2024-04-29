@@ -5,6 +5,7 @@ import { useState } from 'react';
 import {
   editarCantidadProducto,
   quitarUltimoProducto,
+  actualizarCuentaTotal,
 } from '../../../redux/actions/nuevaOrden.action.ts';
 
 interface IModal1 {
@@ -13,7 +14,6 @@ interface IModal1 {
 
 export const Modal1 = ({ closeModal }: IModal1) => {
   const dispatch = useDispatch();
-  // TODO: QUITAR EL SCROLL.
 
   const productoSeleccionadoIndex =
     useSelector((state: RootState) => state.nuevaOrdenReducer.productos)
@@ -26,6 +26,15 @@ export const Modal1 = ({ closeModal }: IModal1) => {
   );
 
   const [cantidad, setCantidad] = useState<number>(1);
+
+  // FUNCTIONS
+
+  const agregarProductoACanasta = () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    dispatch(actualizarCuentaTotal());
+    closeModal();
+  };
 
   const editarCantidad = (incremento: number) => {
     setCantidad((cantidadPrevia) => {
@@ -102,7 +111,7 @@ export const Modal1 = ({ closeModal }: IModal1) => {
             </button>
             <button
               className="btn btn-primary w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16"
-              onClick={closeModal}
+              onClick={agregarProductoACanasta}
             >
               Añadir
             </button>

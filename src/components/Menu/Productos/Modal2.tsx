@@ -5,6 +5,7 @@ import {
   quitarUltimoProducto,
   seleccionarOpcion,
   deseleccionarOpcion,
+  actualizarCuentaTotal,
 } from '../../../redux/actions/nuevaOrden.action';
 import { editarCantidadProducto } from '../../../redux/actions/nuevaOrden.action.ts';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,93 +15,15 @@ interface IModal2 {
   closeModal: any;
 }
 
-// interface IOpcion {
-//   cantidadMaximaSeleccion: number;
-//   cantidadSeleccionadaOpcionMenu: number;
-//   opcionMenuIndex: number;
-//   opcionIndex: number;
-//   seleccionado: boolean;
-//   imagen: string;
-//   nombre: string;
-//   precio: number;
-// }
-//
-// const Opcion = ({
-//   cantidadMaximaSeleccion,
-//   cantidadSeleccionadaOpcionMenu,
-//   opcionMenuIndex,
-//   opcionIndex,
-//   seleccionado,
-//   imagen,
-//   nombre,
-//   precio,
-// }: IOpcion) => {
-//   const dispatch = useDispatch();
-//
-//   const seleccionarOpcionFunc = (
-//     indexOpcionMenu: number,
-//     indexOpcion: number,
-//   ) => {
-//     const cantidadMaxima = cantidadMaximaSeleccion;
-//     const cantidadSeleccionada = cantidadSeleccionadaOpcionMenu;
-//     if (cantidadSeleccionada < cantidadMaxima) {
-//       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//       // @ts-expect-error
-//       dispatch(seleccionarOpcion(indexOpcionMenu, indexOpcion));
-//     }
-//   };
-//
-//   const deseleccionarOpcionFunc = (
-//     indexOpcionMenu: number,
-//     indexOpcion: number,
-//   ) => {
-//     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//     // @ts-expect-error
-//     dispatch(deseleccionarOpcion(indexOpcionMenu, indexOpcion));
-//   };
-//
-//   return (
-//     <div>
-//       <div className="flex flex-wrap mx-8   gap-y-8 items-center justify-between ">
-//         <button
-//           className={`flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md ${seleccionado ? 'focus:outline-none focus:ring focus:ring-primary ' : ''}`}
-//           onClick={() => {
-//             if (seleccionado) {
-//               deseleccionarOpcionFunc(opcionMenuIndex, opcionIndex);
-//             } else {
-//               seleccionarOpcionFunc(opcionMenuIndex, opcionIndex);
-//             }
-//           }}
-//         >
-//           <img
-//             src={imagen}
-//             alt={nombre}
-//             className="w-[200px] h-[167px] rounded-xl object-cover"
-//           />
-//           <div className="ml-2">
-//             <h2 className="text-[20px] font-semibold text-left ">
-//               {nombre}
-//               {/*{seleccionado === true}*/}
-//             </h2>
-//             <p className="text-left text-semibold text-lg">+Bs. {precio}</p>
-//           </div>
-//         </button>
-//       </div>
-//     </div>
-//   );
-// };
-
 export const Modal2 = ({ closeModal }: IModal2) => {
   const dispatch = useDispatch();
   // TODO: SOLUCIONAR EL BUG DEL MODAL 2
   // WAIT 🕐
-  // TODO: SI OPCION MENU ESTA SELECCIONADO, RESALTARLO COMO EN EL FIGMA
-  // COMPLETED ✅
-  // TODO: si se selecciona mas opciones deberia aparecer todas las opciones seleccionadas.
-  // COMPLETED ✅
+  // TODO: PONER UN MENSAJE "SELECCIONE AL MENOS UNA OPCION" DESPUES DEL TITULO DE LA OPCION MENU, SIMILAR AL FIGMA
+  // TODO: crear una nueva page "Checkout": routing, si hace click en "ver pedido" debe redireccionarlo a "Checkout".
+  // TODO: el boton "aqui" o "llevar" lo vas a actualizar con el action "actualizarTipoEntrega(ENTREGA)" de nuevaOrdenReducer
 
   // ESTADOS DE REACT
-
   const [cantidad, setCantidad] = useState<number>(1);
   const [opcionMenuSeleccionadoIndex, setOpcionMenuSeleccionadoIndex] =
     useState<number>(0);
@@ -183,12 +106,6 @@ export const Modal2 = ({ closeModal }: IModal2) => {
 
   const cantidadMaximaSeleccion = opcionMenuSeleccionado.cantidadSeleccion;
 
-  // const seleccionado = useSelector((state: RootState) =>
-  //   state.nuevaOrdenReducer.productos[productoSeleccionadoIndex].opcionesMenu[
-  //     opcionMenuSeleccionadoIndex
-  //   ].opciones.map((opcion) => opcion.seleccionado),
-  // );
-
   // const seleccionado = useSelector((state: RootState) => state.nuevaOrdenReducer.productos[0].opcionesMenu[1].opciones[5].seleccionado);
   console.log('seleccion obligatoria...', opcionMenuSeleccionado.obligatorio);
   console.log(
@@ -196,6 +113,13 @@ export const Modal2 = ({ closeModal }: IModal2) => {
     opcionMenuSeleccionado.cantidadSeleccion,
   );
   console.log('cantidad seleccionada...', cantidadSeleccionadaOpcionMenu);
+
+  const agregarProductoACanasta = () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    dispatch(actualizarCuentaTotal());
+    closeModal();
+  };
 
   return (
     <>
@@ -230,7 +154,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
               <div className="container mx-auto">
                 <ul className="steps ">
                   {productoSeleccionado.opcionesMenu.map(
-                    (opcionMenu, index) => (
+                    (_opcionMenu, index) => (
                       <li
                         key={index}
                         className={` step ${index === opcionMenuSeleccionadoIndex ? 'selected' : ''} ${index === opcionMenuSeleccionadoIndex ? 'step-primary' : ''}`}
@@ -371,7 +295,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                     opcionMenuSeleccionadoIndex ===
                     productoSeleccionado.opcionesMenu.length - 1
                   ) {
-                    closeModal();
+                    agregarProductoACanasta();
                   } else {
                     opcionMenuSiguiente();
                   }

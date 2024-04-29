@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store.ts';
 
 export const Footer = () => {
-  // TODO: si nuevaOrden.reducer tiene productos, entonces mostrar el resumen del pedido.
+  //TODO: mejorar el footer segun figma.
 
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
 
