@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { ProtectedRoute } from './utils/ProtectedRoute';
 import Login from './pages/Login';
 import { Menu } from '../src/components/Menu/index.tsx';
+import { Checkout } from './pages/Checkout.tsx';
 
 function App() {
   const [token, setToken] = useState<string | null>(
@@ -48,6 +49,7 @@ function App() {
           }
         />
         <Route path="/menu" element={<Menu />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
     </>
   );

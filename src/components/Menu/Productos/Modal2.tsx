@@ -34,6 +34,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
   const productoSeleccionadoIndex =
     useSelector((state: RootState) => state.nuevaOrdenReducer.productos)
       .length - 1;
+
   const productoSeleccionado = useSelector(
     (state: RootState) =>
       state.nuevaOrdenReducer.productos[

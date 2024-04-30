@@ -26,7 +26,7 @@ export const Footer = () => {
                 Productos: {nuevaOrden.productos.length}{' '}
               </span>
               <button className="btn btn-primary text-[30px]">
-                Ver Pedido
+                <a href="/checkout">Ver Pedido</a>
               </button>
             </div>
           </>
