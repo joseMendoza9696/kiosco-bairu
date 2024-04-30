@@ -19,10 +19,6 @@ export const Modal2 = ({ closeModal }: IModal2) => {
   const dispatch = useDispatch();
   // TODO: SOLUCIONAR EL BUG DEL MODAL 2
   // WAIT 🕐
-  // TODO: PONER UN MENSAJE "SELECCIONE AL MENOS UNA OPCION" DESPUES DEL TITULO DE LA OPCION MENU, SIMILAR AL FIGMA
-  // CHECK ✅
-  // TODO: crear una nueva page "Checkout": routing, si hace click en "ver pedido" debe redireccionarlo a "Checkout".
-  // CHECK ✅
   // TODO: el boton "aqui" o "llevar" lo vas a actualizar con el action "actualizarTipoEntrega(ENTREGA)" de nuevaOrdenReducer
   // CHECK ✅
 
