@@ -58,6 +58,21 @@ export const Bienvenida = () => {
     getMenu().then();
   }, []);
 
+  // const [tipoEntrega, setTipoEntrega] = useState<string>('AQUI');
+  // const cambioTipoEntrega = () => {
+  //   if (tipoEntrega === 'AQUI') {
+  //     setTipoEntrega('LLEVAR');
+  //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //     // @ts-expect-error
+  //     dispatch(actualizarTipoEntrega('LLEVAR'));
+  //   } else {
+  //     setTipoEntrega('AQUI');
+  //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //     // @ts-expect-error
+  //     dispatch(actualizarTipoEntrega('AQUI'));
+  //   }
+  // };
+
   return (
     <div className="container mx-auto mt-8 p-4">
       <div className="flex justify-center items-center pb-[174px] pt-86">

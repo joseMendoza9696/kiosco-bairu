@@ -44,13 +44,27 @@ function App() {
           path="/"
           element={
             <ProtectedRoute user={token}>
-              <Route path="/welcome" element={<BienvenidaPage />} />
-              <Route path="/menu" element={<Menu />} />
+              <BienvenidaPage />
             </ProtectedRoute>
           }
         />
-        {/*<Route path="/menu" element={<Menu />} />*/}
-        {/*<Route path="/checkout" element={<Checkout />} />*/}
+
+        <Route
+          path="/menu"
+          element={
+            <ProtectedRoute user={setToken}>
+              <Menu />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <ProtectedRoute user={setToken}>
+              <Checkout />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </>
   );

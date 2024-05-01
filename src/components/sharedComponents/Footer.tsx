@@ -1,6 +1,7 @@
 // REDUX
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store.ts';
+import { Link } from 'react-router-dom';
 
 export const Footer = () => {
   //TODO: mejorar el footer segun figma.
@@ -26,7 +27,7 @@ export const Footer = () => {
                 Productos: {nuevaOrden.productos.length}{' '}
               </span>
               <button className="btn btn-primary text-[30px]">
-                <a href="/checkout">Ver Pedido</a>
+                <Link to="/checkout">Ver orden</Link>
               </button>
             </div>
           </>
