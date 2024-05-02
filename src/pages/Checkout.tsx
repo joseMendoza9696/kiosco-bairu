@@ -5,13 +5,17 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export const Checkout = () => {
+  // TODO: utilizar iconos para las acciones de los productos
+  // TODO: solucionar el scroll, que no se haga scroll en toda la pantalla
+  // TODO: solucionar el link de los botones de "volver" e "ir a pagar"
+  // TODO: solucionar los botones para escoger el tipo de entrega para llevar o aqui en base al figma
+  // TODO: estética en base a figma
+  // TODO: hacer funcionar los botones "eliminar", "editar cantidad". x (eliminarProducto()), -, + (editarCantidadProducto()).
   const dispatch = useDispatch();
 
   const productosSeleccionados = useSelector(
     (state: RootState) => state.nuevaOrdenReducer.productos,
   );
-
-  console.log('productos seleccionados...', productosSeleccionados);
 
   const [tipoEntrega, setTipoEntrega] = useState<string>('AQUI');
 

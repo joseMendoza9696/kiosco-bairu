@@ -19,8 +19,6 @@ export const Modal2 = ({ closeModal }: IModal2) => {
   const dispatch = useDispatch();
   // TODO: SOLUCIONAR EL BUG DEL MODAL 2
   // WAIT 🕐
-  // TODO: el boton "aqui" o "llevar" lo vas a actualizar con el action "actualizarTipoEntrega(ENTREGA)" de nuevaOrdenReducer
-  // CHECK ✅
 
   // ESTADOS DE REACT
   const [cantidad, setCantidad] = useState<number>(1);
@@ -40,6 +38,8 @@ export const Modal2 = ({ closeModal }: IModal2) => {
         state.nuevaOrdenReducer.productos.length - 1
       ],
   );
+
+  console.log('producto seleccionado...', productoSeleccionado);
 
   // Funcion para editar la cantidad del producto
   const editarCantidad = (incremento: number) => {
@@ -128,11 +128,15 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           <button
             className="btn btn-square w-24"
             onClick={() => {
+              closeModal();
+              // setTimeout(() => {
+              //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              //   // @ts-expect-error
+              //   dispatch(quitarUltimoProducto());
+              // }, 5000);
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-expect-error
               dispatch(quitarUltimoProducto());
-
-              closeModal();
             }}
           >
             X
