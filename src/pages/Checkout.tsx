@@ -1,14 +1,22 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store.ts';
-import { actualizarTipoEntrega } from '../redux/actions/nuevaOrden.action.ts';
+import {
+  actualizarTipoEntrega,
+  eliminarProducto,
+  editarCantidadProducto,
+} from '../redux/actions/nuevaOrden.action.ts';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Icon } from '@iconify/react/dist/iconify.js';
 
 export const Checkout = () => {
   // TODO: utilizar iconos para las acciones de los productos
+  // CHECK
   // TODO: solucionar el scroll, que no se haga scroll en toda la pantalla
   // TODO: solucionar el link de los botones de "volver" e "ir a pagar"
+  // CHECK
   // TODO: solucionar los botones para escoger el tipo de entrega para llevar o aqui en base al figma
+
   // TODO: estética en base a figma
   // TODO: hacer funcionar los botones "eliminar", "editar cantidad". x (eliminarProducto()), -, + (editarCantidadProducto()).
   const dispatch = useDispatch();
@@ -18,6 +26,7 @@ export const Checkout = () => {
   );
 
   const [tipoEntrega, setTipoEntrega] = useState<string>('AQUI');
+  const [cantidad, setCantidad] = useState<number>(1);
 
   const cambioTipoEntrega = () => {
     if (tipoEntrega === 'AQUI') {
@@ -32,6 +41,17 @@ export const Checkout = () => {
       dispatch(actualizarTipoEntrega('AQUI'));
     }
   };
+  const editarCantidad = (incremento: number) => {
+    setCantidad((cantidadPrevia) => {
+      const cantidadNueva = cantidadPrevia + incremento;
+      const cantidadMinima = Math.max(cantidadNueva, 1);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      dispatch(editarCantidadProducto(incremento));
+      return cantidadMinima;
+    });
+  };
+
   console.log(tipoEntrega);
 
   return (
@@ -65,63 +85,102 @@ export const Checkout = () => {
         </div>
 
         {/* SECCION DE PRODUCTOS */}
-        {productosSeleccionados.map((producto, index) => (
-          <div className=" w-full " key={index}>
-            <div className="flex justify-center ">
-              <div className="flex justify-between w-[91%] my-10  py-10 px-8 shadow-xl rounded-2xl ">
-                <div className="flex w-[550px] space-between gap-5">
-                  <div>
-                    <img
-                      src={producto.imagen}
-                      className="w-[200px] h-[200px] rounded-[20px] object-cover"
-                    />
+        <div className="flex flex-wrap mx-[56px]  overflow-auto overflow-y-auto max-h-[1000px]">
+          {productosSeleccionados.map((producto, index) => (
+            <div className="" key={index}>
+              <div className="flex justify-center ">
+                <div className="flex justify-between w-[91%] my-10  py-10 px-8 shadow-xl rounded-2xl border-2">
+                  <div className="flex w-[550px] space-between gap-5">
+                    <div>
+                      <img
+                        src={producto.imagen}
+                        className="w-[200px] h-[200px] rounded-[20px] object-cover"
+                      />
+                    </div>
+                    <div className="flex flex-col justify-between ">
+                      <h1 className="text-primary text-[30px] font-bold">
+                        {producto.nombre}
+                      </h1>
+                      <button className=" btn btn-gosth text-[24px] font-bold">
+                        {' '}
+                        Descripcion del producto
+                      </button>
+                    </div>
                   </div>
-                  <div className="flex flex-col justify-between ">
-                    <h1 className="text-primary text-[30px] font-bold">
-                      {producto.nombre}
-                    </h1>
-                    <button className=" btn btn-gosth text-[24px] font-bold">
-                      {' '}
-                      Descripcion del producto
-                    </button>
-                  </div>
-                </div>
-                <div className="text-[40px] flex flex-col justify-between">
-                  <div className="flex justify-end">
-                    <p>Bs. {producto.precioOriginal}</p>
-                  </div>
-                  <div className="flex w-[300px] justify-between items-center">
-                    <button className="w-[70px] h-[70px] items-center border-4 rounded-full border-zinc-950 flex justify-center ">
-                      x
-                    </button>
-                    <button className="w-[70px] h-[70px] items-center border-4 rounded-full border-zinc-950 flex justify-center ">
-                      -
-                    </button>
-                    <button className="w-[70px] h-[70px] items-center   flex justify-center ">
-                      1
-                    </button>
-                    <button className="w-[70px] h-[70px] items-center border-4 rounded-full border-zinc-950 flex justify-center ">
-                      +
-                    </button>
+                  <div className="text-[40px] flex flex-col justify-between">
+                    <div className="flex justify-end">
+                      <p>Bs. {producto.precioOriginal}</p>
+                    </div>
+                    <div className="flex w-[300px] justify-between items-center">
+                      <button
+                        className="w-[70px] h-[70px] items-center  rounded-full flex justify-center "
+                        onClick={() => {
+                          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                          // @ts-expect-error
+                          dispatch(eliminarProducto(index));
+                        }}
+                      >
+                        <Icon
+                          icon="ic:outline-cancel"
+                          className="w-full h-full flex items-center justify-center"
+                        />
+                      </button>
+                      <button
+                        className="w-[70px] h-[70px] items-center  rounded-full  flex justify-center "
+                        onClick={() => {
+                          editarCantidad(-1);
+                        }}
+                      >
+                        <Icon
+                          icon="zondicons:minus-outline"
+                          className="w-full h-full flex items-center justify-center"
+                        />
+                      </button>
+                      <button className="w-[70px] h-[70px] items-center   flex justify-center ">
+                        {cantidad}
+                      </button>
+                      <button
+                        className="w-[70px] h-[70px] items-center  flex justify-center "
+                        onClick={() => {
+                          editarCantidad(1);
+                        }}
+                      >
+                        <Icon
+                          icon="zondicons:add-outline"
+                          className="w-full h-full flex items-center justify-center"
+                        />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
         {/* SECCION DE TOTAL */}
-        <h1 className="text-center text-primary font-bold text-[56px] pt-[116px] pb-[60px]">
-          TOTAL {productosSeleccionados[0].precioTotal}
-        </h1>
 
         {/* SECCION DE BOTONES */}
-        <div className="text-center my-[127px] space-x-[100px] ">
-          <button className="btn btn-gosth w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16">
-            <Link to="/menu">Cancelar</Link>
-          </button>
-          <button className="btn btn-primary w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16">
-            Ir a pagar
-          </button>
+        <div className="fixed bottom-0 left-0 right-0">
+          <h1 className="text-center text-primary font-bold text-[56px]  ">
+            Total Bs.{' '}
+            {productosSeleccionados.reduce(
+              (acc, curr) => acc + curr.precioTotal,
+              0,
+            )}
+          </h1>
+          <div className="text-center my-[100px]  flex justify-between mx-40 ">
+            <button className="btn btn-gosth w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16">
+              <Link
+                to="/menu"
+                className="w-full h-full flex items-center justify-center"
+              >
+                Volver
+              </Link>
+            </button>
+            <button className="btn btn-primary w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16">
+              Ir a pagar
+            </button>
+          </div>
         </div>
       </div>
     </div>

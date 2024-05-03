@@ -192,7 +192,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
             </div>
           </div>
           {/*HACEMOS EL MAP DE LAS OPCIONES */}
-          <div className="flex flex-wrap mx-[56px] py-8  gap-y-8 overflow-auto overflow-y-auto max-h-[500px]">
+          <div className="flex flex-wrap mx-[56px] py-8  gap-y-8 overflow-auto overflow-y-auto max-h-[500px] ">
             {opciones.map((opcion, index) => (
               <div key={opcion.id} className="relative">
                 <div className="flex flex-wrap mx-8   gap-y-8 items-center justify-between ">
