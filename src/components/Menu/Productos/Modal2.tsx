@@ -2,10 +2,10 @@ import { useState } from 'react';
 // REDUX
 import { RootState } from '../../../redux/store.ts';
 import {
+  actualizarCuentaTotal,
+  deseleccionarOpcion,
   quitarUltimoProducto,
   seleccionarOpcion,
-  deseleccionarOpcion,
-  actualizarCuentaTotal,
 } from '../../../redux/actions/nuevaOrden.action';
 import { editarCantidadProducto } from '../../../redux/actions/nuevaOrden.action.ts';
 import { useDispatch, useSelector } from 'react-redux';
@@ -86,9 +86,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
     indexOpcionMenu: number,
     indexOpcion: number,
   ) => {
-    const cantidadMaxima = cantidadMaximaSeleccion;
-    const cantidadSeleccionada = cantidadSeleccionadaOpcionMenu;
-    if (cantidadSeleccionada < cantidadMaxima) {
+    if (cantidadSeleccionadaOpcionMenu < cantidadMaximaSeleccion) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       dispatch(seleccionarOpcion(indexOpcionMenu, indexOpcion));
@@ -106,14 +104,6 @@ export const Modal2 = ({ closeModal }: IModal2) => {
 
   const cantidadMaximaSeleccion = opcionMenuSeleccionado.cantidadSeleccion;
 
-  // const seleccionado = useSelector((state: RootState) => state.nuevaOrdenReducer.productos[0].opcionesMenu[1].opciones[5].seleccionado);
-  console.log('seleccion obligatoria...', opcionMenuSeleccionado.obligatorio);
-  console.log(
-    'cantidad maxima de seleccion..',
-    opcionMenuSeleccionado.cantidadSeleccion,
-  );
-  console.log('cantidad seleccionada...', cantidadSeleccionadaOpcionMenu);
-
   const agregarProductoACanasta = () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
@@ -123,20 +113,21 @@ export const Modal2 = ({ closeModal }: IModal2) => {
 
   return (
     <>
-      {productoSeleccionado && (
+      {/*{productoSeleccionado && (*/}
+      {productoSeleccionado.opcionesMenu !== undefined ? (
         <div className="modal-box h-[1700px] bg-[base-100]  shadow-lg rounded-t-[90px] ">
           <button
             className="btn btn-square w-24"
             onClick={() => {
-              closeModal();
-              // setTimeout(() => {
-              //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              //   // @ts-expect-error
-              //   dispatch(quitarUltimoProducto());
-              // }, 5000);
+              // closeModal();
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-expect-error
-              dispatch(quitarUltimoProducto());
+              document.getElementById('my_modal_5').closeModal();
+              setTimeout(() => {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-expect-error
+                dispatch(quitarUltimoProducto());
+              }, 1000);
             }}
           >
             X
@@ -255,10 +246,12 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                       opcionMenuSeleccionadoIndex - 1,
                     );
                   } else {
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    // @ts-expect-error
-                    dispatch(quitarUltimoProducto());
                     closeModal();
+                    setTimeout(() => {
+                      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                      // @ts-expect-error
+                      dispatch(quitarUltimoProducto());
+                    }, 1000);
                   }
                 }}
               >
@@ -314,6 +307,8 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           </div>
           {/* end button section */}
         </div>
+      ) : (
+        <></>
       )}
     </>
   );

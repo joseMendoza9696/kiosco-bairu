@@ -4,29 +4,21 @@ import {
   actualizarTipoEntrega,
   eliminarProducto,
   editarCantidadProducto,
+  actualizarCuentaTotal,
 } from '../redux/actions/nuevaOrden.action.ts';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react/dist/iconify.js';
 
 export const Checkout = () => {
-  // TODO: utilizar iconos para las acciones de los productos
-  // CHECK
-  // TODO: solucionar el scroll, que no se haga scroll en toda la pantalla
-  // TODO: solucionar el link de los botones de "volver" e "ir a pagar"
-  // CHECK
   // TODO: solucionar los botones para escoger el tipo de entrega para llevar o aqui en base al figma
-
   // TODO: estética en base a figma
-  // TODO: hacer funcionar los botones "eliminar", "editar cantidad". x (eliminarProducto()), -, + (editarCantidadProducto()).
+  // TODO: si nueva orden.productos es longitud 0 retornar a la pagina del menu.
+  // TODO: solucionar bug de las cantidades en los modals 1 y 2
   const dispatch = useDispatch();
-
-  const productosSeleccionados = useSelector(
-    (state: RootState) => state.nuevaOrdenReducer.productos,
-  );
+  const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
 
   const [tipoEntrega, setTipoEntrega] = useState<string>('AQUI');
-  const [cantidad, setCantidad] = useState<number>(1);
 
   const cambioTipoEntrega = () => {
     if (tipoEntrega === 'AQUI') {
@@ -41,18 +33,14 @@ export const Checkout = () => {
       dispatch(actualizarTipoEntrega('AQUI'));
     }
   };
-  const editarCantidad = (incremento: number) => {
-    setCantidad((cantidadPrevia) => {
-      const cantidadNueva = cantidadPrevia + incremento;
-      const cantidadMinima = Math.max(cantidadNueva, 1);
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      dispatch(editarCantidadProducto(incremento));
-      return cantidadMinima;
-    });
+  const editarCantidad = (index: number, incremento: number) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    dispatch(editarCantidadProducto(index, incremento));
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    dispatch(actualizarCuentaTotal());
   };
-
-  console.log(tipoEntrega);
 
   return (
     <div className=" w-full ">
@@ -86,7 +74,7 @@ export const Checkout = () => {
 
         {/* SECCION DE PRODUCTOS */}
         <div className="flex flex-wrap mx-[56px]  overflow-auto overflow-y-auto max-h-[1000px]">
-          {productosSeleccionados.map((producto, index) => (
+          {nuevaOrden.productos.map((producto, index) => (
             <div className="" key={index}>
               <div className="flex justify-center ">
                 <div className="flex justify-between w-[91%] my-10  py-10 px-8 shadow-xl rounded-2xl border-2">
@@ -101,15 +89,14 @@ export const Checkout = () => {
                       <h1 className="text-primary text-[30px] font-bold">
                         {producto.nombre}
                       </h1>
-                      <button className=" btn btn-gosth text-[24px] font-bold">
-                        {' '}
-                        Descripcion del producto
-                      </button>
+                      {/*<button className=" btn btn-gosth text-[24px] font-bold">*/}
+                      {/*  {producto.}*/}
+                      {/*</button>*/}
                     </div>
                   </div>
                   <div className="text-[40px] flex flex-col justify-between">
                     <div className="flex justify-end">
-                      <p>Bs. {producto.precioOriginal}</p>
+                      <p>Bs. {producto.precioTotal}</p>
                     </div>
                     <div className="flex w-[300px] justify-between items-center">
                       <button
@@ -128,7 +115,7 @@ export const Checkout = () => {
                       <button
                         className="w-[70px] h-[70px] items-center  rounded-full  flex justify-center "
                         onClick={() => {
-                          editarCantidad(-1);
+                          editarCantidad(index, -1);
                         }}
                       >
                         <Icon
@@ -137,12 +124,12 @@ export const Checkout = () => {
                         />
                       </button>
                       <button className="w-[70px] h-[70px] items-center   flex justify-center ">
-                        {cantidad}
+                        {producto.cantidad}
                       </button>
                       <button
                         className="w-[70px] h-[70px] items-center  flex justify-center "
                         onClick={() => {
-                          editarCantidad(1);
+                          editarCantidad(index, 1);
                         }}
                       >
                         <Icon
@@ -162,11 +149,7 @@ export const Checkout = () => {
         {/* SECCION DE BOTONES */}
         <div className="fixed bottom-0 left-0 right-0">
           <h1 className="text-center text-primary font-bold text-[56px]  ">
-            Total Bs.{' '}
-            {productosSeleccionados.reduce(
-              (acc, curr) => acc + curr.precioTotal,
-              0,
-            )}
+            Total Bs.{nuevaOrden.cuentaTotal}
           </h1>
           <div className="text-center my-[100px]  flex justify-between mx-40 ">
             <button className="btn btn-gosth w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16">

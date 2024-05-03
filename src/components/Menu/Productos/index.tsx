@@ -158,7 +158,7 @@ const Productos = () => {
       {/* Modal */}
       <dialog
         id="my_modal_5"
-        className="modal modal-bottom  transition-all duration-800"
+        className="modal modal-bottom transition-all duration-800"
       >
         {modal2 ? (
           <Modal2
