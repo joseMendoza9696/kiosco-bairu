@@ -6,11 +6,13 @@ import { Icon } from '@iconify/react';
 import { useDispatch } from 'react-redux';
 import { guardarMenu } from '../../redux/actions/menu.action.ts';
 // import { RootState } from '../../redux/store.ts';
+import { actualizarTipoEntrega } from '../../redux/actions/nuevaOrden.action.ts';
+import { Link } from 'react-router-dom';
 
 export const Bienvenida = () => {
   // TODO: al apretar un boton utilizar "dispatch(actualizarTipoEntrega());"
-
   const dispatch = useDispatch();
+
   const [profileData, setProfileData] = useState<{
     contextStyle: { logo: string };
   } | null>(null);
@@ -58,21 +60,6 @@ export const Bienvenida = () => {
     getMenu().then();
   }, []);
 
-  // const [tipoEntrega, setTipoEntrega] = useState<string>('AQUI');
-  // const cambioTipoEntrega = () => {
-  //   if (tipoEntrega === 'AQUI') {
-  //     setTipoEntrega('LLEVAR');
-  //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //     // @ts-expect-error
-  //     dispatch(actualizarTipoEntrega('LLEVAR'));
-  //   } else {
-  //     setTipoEntrega('AQUI');
-  //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //     // @ts-expect-error
-  //     dispatch(actualizarTipoEntrega('AQUI'));
-  //   }
-  // };
-
   return (
     <div className="container mx-auto mt-8 p-4">
       <div className="flex justify-center items-center pb-[174px] pt-86">
@@ -98,8 +85,18 @@ export const Bienvenida = () => {
         </span>
       </div>
       <div className="flex justify-center mt-8 space-x-20 ">
-        <button className="mx-4 px-6 py-3 btn btn-primary btn-secondary text-2xl w-72 h-72 flex flex-col items-center justify-center rounded-3xl">
-          <a href="/menu">
+        <button
+          className="mx-4 px-6 py-3 btn btn-primary btn-secondary text-2xl w-72 h-72 flex flex-col items-center justify-center rounded-3xl"
+          onClick={() => {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            dispatch(actualizarTipoEntrega('AQUI'));
+          }}
+        >
+          <Link
+            to="/"
+            className="w-full h-full flex items-center justify-center"
+          >
             <div className="flex flex-col items-center">
               <Icon
                 icon="zondicons:location-food"
@@ -107,10 +104,20 @@ export const Bienvenida = () => {
               />
               <span className="text-[36px]">Comer aquí</span>
             </div>
-          </a>
+          </Link>
         </button>
-        <button className="mx-4 px-6 py-3 btn btn-primary btn-secondary text-2xl w-72 h-72 flex flex-col items-center justify-center rounded-3xl">
-          <a href="/menu">
+        <button
+          className="mx-4 px-6 py-3 btn btn-primary btn-secondary text-2xl w-72 h-72 flex flex-col items-center justify-center rounded-3xl"
+          onClick={() => {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            dispatch(actualizarTipoEntrega('LLEVAR'));
+          }}
+        >
+          <Link
+            to="/"
+            className="w-full h-full flex items-center justify-center"
+          >
             <div className="flex flex-col items-center">
               <Icon
                 icon="fa6-solid:basket-shopping"
@@ -118,7 +125,7 @@ export const Bienvenida = () => {
               />
               <span className="text-[36px]">Para llevar</span>
             </div>
-          </a>
+          </Link>
         </button>
       </div>
     </div>
