@@ -94,7 +94,7 @@ export const Bienvenida = () => {
           }}
         >
           <Link
-            to="/"
+            to="/menu"
             className="w-full h-full flex items-center justify-center"
           >
             <div className="flex flex-col items-center">
@@ -115,7 +115,7 @@ export const Bienvenida = () => {
           }}
         >
           <Link
-            to="/"
+            to="/menu"
             className="w-full h-full flex items-center justify-center"
           >
             <div className="flex flex-col items-center">
