@@ -10,8 +10,6 @@ export const Footer = () => {
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
 
   if (nuevaOrden.productos.length > 0) {
-    console.log('cuentaTotal...', nuevaOrden.cuentaTotal);
-    console.log('productos...', nuevaOrden.productos.length);
     return (
       <footer className="fixed bottom-0 w-full text-[30px] text-center py-4  bg-white rounded-t-[60px] border-8 border-primary border-b-0   ">
         <div className="container mx-auto  flex justify-center items-center bg-white rounded-3xl">

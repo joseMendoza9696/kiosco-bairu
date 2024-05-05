@@ -27,7 +27,6 @@ const Categoria: React.FC<CategoriasProps> = ({ categorias }) => {
   const handleClickCategoria = (index: number) => {
     dispatch({ type: 'SELECCIONAR_CATEGORIA', payload: index });
   };
-  console.log(categorias);
 
   const saltoDeLinea = (title: string) => {
     if (title.length > 10) {

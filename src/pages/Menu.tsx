@@ -1,4 +1,4 @@
-import { Menu } from '../components/Menu/index.tsx';
+import { Menu } from '../components/Menu';
 
 const MenuPage = () => {
   return <Menu />;
