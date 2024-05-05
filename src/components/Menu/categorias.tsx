@@ -48,7 +48,7 @@ const Categoria: React.FC<CategoriasProps> = ({ categorias }) => {
           {categorias.map((categoria: Categoria, index: number) => (
             <button
               key={categoria.id}
-              className={`mx-4 relative rounded-xl ${index === categoriaSeleccionada ? 'border-8 border-primary rounded-md' : ''}`}
+              className={`mx-4 relative rounded-xl bg-white ${index === categoriaSeleccionada ? 'border-8 border-primary rounded-md' : ''}`}
               onClick={() => handleClickCategoria(index)}
             >
               <div className="max-w-xs rounded-md shadow-md relative">

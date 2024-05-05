@@ -103,11 +103,9 @@ const Productos = () => {
   };
 
   return (
-    <div className="pt-10 text-center ">
+    <div className=" text-center ">
       <div className="flex items-center justify-between pl-16">
-        <h1 className="text-4xl font-semibold text-primary">
-          Escoge tu producto
-        </h1>
+        <h1 className="text-4xl font-bold text-primary">Escoge tu producto</h1>
         <button className="btn btn-secondary w-16 h-16 btn-circle mr-16">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +128,7 @@ const Productos = () => {
         {productos.map((producto: Producto) => (
           <button
             key={producto.id}
-            className="flex flex-col mr-[32px] rounded-md shadow-md"
+            className="flex flex-col mr-[16px] rounded-xl shadow-md border-2 bg-white"
             onClick={() => {
               seleccionarProducto(producto);
             }}

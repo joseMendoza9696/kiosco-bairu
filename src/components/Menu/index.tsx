@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { GET_MENU } from '../../api/graphql/query';
-import { useEffect } from 'react';
+import { GET_MENU, PROFILE_QUERY } from '../../api/graphql/query';
+import { useEffect, useState } from 'react';
 import { guardarMenu } from '../../redux/actions/menu.action';
 import { useLazyQuery } from '@apollo/client';
 import Categoria from './categorias';
@@ -13,6 +13,10 @@ export const Menu = () => {
   const categorias = useSelector(
     (state: RootState) => state.menuReducer.categorias,
   );
+
+  const [perfildata, setPerfilData] = useState<{
+    contextStyle: { logo: string };
+  } | null>(null);
 
   const [getCategorias] = useLazyQuery(GET_MENU, {
     onCompleted: (data) => {
@@ -30,13 +34,37 @@ export const Menu = () => {
     getCategorias();
   }, [getCategorias]);
 
+  const [getPerfil] = useLazyQuery(PROFILE_QUERY, {
+    onCompleted: (data) => {
+      setPerfilData(data.KIOSCO_getPerfilActivo);
+      localStorage.setItem(
+        'Perfil',
+        JSON.stringify(data.KIOSCO_getPerfilActivo),
+      );
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  console.log(perfildata);
+
+  useEffect(() => {
+    getPerfil();
+  }, [getPerfil]);
+
+  console.log(getPerfil);
   return (
     <>
       <header className="mx-16 mt-10  fixed-top">
-        <div className="p-6 py-12 dark:bg-primary dark:text-gray-50 rounded-xl shadow-lg">
+        <div className="p-6  dark:bg-primary dark:text-gray-50 rounded-xl shadow-lg">
           <div className="container mx-auto">
-            <div className="flex flex-col lg:flex-row items-center justify-between text-center">
-              hello
+            <div className="flex flex-col lg:flex-row items-center justify-center">
+              <img
+                src={perfildata?.contextStyle.logo}
+                alt="logo"
+                className="rounded-full h-[80px] w-[80px] mr-4"
+              />
             </div>
           </div>
         </div>
