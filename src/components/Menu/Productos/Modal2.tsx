@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
 import { quitarUltimoProducto } from '../../../redux/actions/nuevaOrden.action';
+import { useState } from 'react';
 
 interface IModal2 {
   closeModal: any;
@@ -10,8 +11,8 @@ export const Modal2 = ({ closeModal }: IModal2) => {
   const dispatch = useDispatch();
   // ESTADOS DE REACT
   // const [cantidad, setCantidad] = useState<number>(1);
-  // const [opcionMenuSeleccionadoIndex, setOpcionMenuSeleccionadoIndex] =
-  // useState<number>(0);
+  const [opcionMenuSeleccionadoIndex, setOpcionMenuSeleccionadoIndex] =
+    useState<number>(0);
 
   const productoSeleccionadoIndex = useSelector(
     (state: RootState) => state.nuevaOrdenReducer.productos.length - 1,
@@ -23,6 +24,9 @@ export const Modal2 = ({ closeModal }: IModal2) => {
         state.nuevaOrdenReducer.productos.length - 1
       ],
   );
+  // aqui esta el error
+  // const opcionMenuSeleccionado =
+  //   productoSeleccionado.opcionesMenu[opcionMenuSeleccionadoIndex];
 
   return (
     <>
@@ -52,6 +56,47 @@ export const Modal2 = ({ closeModal }: IModal2) => {
             Bs. {productoSeleccionado.precioTotal}
           </p>
           {/*HACEMOS EL MAP DE OPCIONES MENU DEL PRODUCTO SELECCIONADO*/}
+          <div className="mx-24">
+            <div className="p-6 bg-accent rounded-xl overflow-x-auto">
+              <div className="container mx-auto">
+                <ul className="steps ">
+                  {productoSeleccionado &&
+                    productoSeleccionado.opcionesMenu &&
+                    productoSeleccionado.opcionesMenu.map(
+                      (_opcionMenu, index) => (
+                        <li
+                          key={index}
+                          className={` step ${index === opcionMenuSeleccionadoIndex ? 'selected' : ''} ${index === opcionMenuSeleccionadoIndex ? 'step-primary' : ''}`}
+                          data-content={
+                            index === opcionMenuSeleccionadoIndex ? '✓' : ''
+                          }
+                        >
+                          {index === opcionMenuSeleccionadoIndex && (
+                            <span
+                              className={
+                                index === opcionMenuSeleccionadoIndex
+                                  ? 'font-bold'
+                                  : ''
+                              }
+                            ></span>
+                          )}
+                        </li>
+                      ),
+                    )}
+                </ul>
+
+                <p className="text-left pt-4 font-bold text-2xl">
+                  Paso {opcionMenuSeleccionadoIndex + 1} :
+                  {
+                    productoSeleccionado.opcionesMenu[
+                      opcionMenuSeleccionadoIndex
+                    ].nombre
+                  }
+                </p>
+              </div>
+            </div>
+          </div>
+          {/*FIN DEL MAP DE OPCIONES MENU DEL PRODUCTO SELECCIONADO*/}
         </div>
       ) : null}
     </>
