@@ -47,13 +47,10 @@ export const Menu = () => {
     },
   });
 
-  console.log(perfildata);
-
   useEffect(() => {
     getPerfil();
   }, [getPerfil]);
 
-  console.log(getPerfil);
   return (
     <>
       <header className="mx-16 mt-10  fixed-top">

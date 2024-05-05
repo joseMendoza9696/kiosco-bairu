@@ -31,7 +31,7 @@ const Categoria: React.FC<CategoriasProps> = ({ categorias }) => {
 
   const saltoDeLinea = (title: string) => {
     if (title.length > 10) {
-      return title.slice(0, 18) + (title.length > 10 ? '' : '');
+      return title.slice(0, 15) + (title.length > 10 ? '' : '');
     }
     return title;
   };
