@@ -34,6 +34,7 @@ export const Modal1 = ({ closeModal }: IModal1) => {
     // @ts-expect-error
     dispatch(actualizarCuentaTotal());
     closeModal();
+    setCantidad(1);
   };
 
   const editarCantidad = (incremento: number) => {
@@ -59,6 +60,7 @@ export const Modal1 = ({ closeModal }: IModal1) => {
               dispatch(quitarUltimoProducto());
 
               closeModal();
+              setCantidad(1);
             }}
           >
             X
@@ -103,8 +105,8 @@ export const Modal1 = ({ closeModal }: IModal1) => {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-expect-error
                 dispatch(quitarUltimoProducto());
-
                 closeModal();
+                setCantidad(1);
               }}
             >
               Cancelar

@@ -124,6 +124,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     dispatch(quitarUltimoProducto());
+    setCantidad(1);
   };
 
   return (
