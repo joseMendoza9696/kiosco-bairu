@@ -5,6 +5,7 @@ import { ProtectedRoute } from './utils/ProtectedRoute';
 import Login from './pages/Login';
 import { Menu } from '../src/components/Menu/index.tsx';
 import { Checkout } from './pages/Checkout.tsx';
+import { Pago } from './pages/Pago.tsx';
 
 function App() {
   const [token, setToken] = useState<string | null>(
@@ -62,6 +63,14 @@ function App() {
           element={
             <ProtectedRoute user={setToken}>
               <Checkout />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/payment"
+          element={
+            <ProtectedRoute user={setToken}>
+              <Pago />
             </ProtectedRoute>
           }
         />

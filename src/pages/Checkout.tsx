@@ -7,15 +7,20 @@ import {
   actualizarCuentaTotal,
 } from '../redux/actions/nuevaOrden.action.ts';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 import { Icon } from '@iconify/react/dist/iconify.js';
 
 export const Checkout = () => {
   // TODO: solucionar los botones para escoger el tipo de entrega para llevar o aqui en base al figma
   // TODO: estética en base a figma
   // TODO: si nueva orden.productos es longitud 0 retornar a la pagina del menu.
+  // CHECK
   // TODO: solucionar bug de las cantidades en los modals 1 y 2
+  // CHECK
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
 
   const [tipoEntrega, setTipoEntrega] = useState<string>('AQUI');
@@ -49,7 +54,7 @@ export const Checkout = () => {
           TU ORDEN
         </h1>
         {/* SECCION DEL TOOGLE */}
-        <div className=" w-full ">
+        <div className=" w-full pb-8">
           <div className="max-w-screen-xl w-11/2 m-auto ">
             <label
               htmlFor="Toggle3"
@@ -105,6 +110,9 @@ export const Checkout = () => {
                           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                           // @ts-expect-error
                           dispatch(eliminarProducto(index));
+                          if (index === 0) {
+                            navigate('/menu');
+                          }
                         }}
                       >
                         <Icon
@@ -161,7 +169,12 @@ export const Checkout = () => {
               </Link>
             </button>
             <button className="btn btn-primary w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16">
-              Ir a pagar
+              <Link
+                to="/payment"
+                className="w-full h-full flex items-center justify-center"
+              >
+                Ir a pagar
+              </Link>
             </button>
           </div>
         </div>
