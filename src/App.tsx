@@ -5,8 +5,7 @@ import { ProtectedRoute } from './utils/ProtectedRoute';
 import Login from './pages/Login';
 import { Menu } from '../src/components/Menu/index.tsx';
 import { Checkout } from './pages/Checkout.tsx';
-import { Pago } from './pages/Pago.tsx';
-
+import { Pago } from '../src/components/Pago/index.tsx';
 function App() {
   const [token, setToken] = useState<string | null>(
     localStorage.getItem('token'),
