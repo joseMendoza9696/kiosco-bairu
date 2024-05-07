@@ -12,11 +12,10 @@ import { actualizarMetodoDePago } from '../../redux/actions/nuevaOrden.action';
 export const Pago = () => {
   // TODO: UI/UX como en figma.
   // TODO: crear el modal de la factura. "seguir sin datos" cierras el modal, "seguir" cierras el modal.
-  // TODO: si se ecoge pago en efectivo: redireccionar a la bienvenida y recargar la pagina (window.location.reload();). REDUX ACTION: actualizarMetodoDePago("EFECTIVO")
-  // CHECK
   // TODO: si se escoge QR, se abre el modal del QR. REDUX ACTION: actualizarMetodoDePago("QR")
-
   // TODO: si se escoge tarjeta, se abre el modal de tarjeta. REDUX ACTION: actualizarMetodoDePago("TARJETA")
+  // TODO: cuando llege al modal qr y al modal tarjeta: esperar por 10 segundos y luego volver a bienvenida recargar la pagina
+  // TODO: crear una nueva pagina de agradecimiento y que se abra como una nueva TAB en el navegador.
 
   const navigate = useNavigate();
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
@@ -53,9 +52,9 @@ export const Pago = () => {
                 icon="fa:dollar"
                 className="w-[120px] h-[120px]"
                 onClick={() => {
+                  seleccionarPago('EFECTIVO');
                   navigate('/');
                   window.location.reload();
-                  seleccionarPago('EFECTIVO');
                 }}
               />
               <p className="text-3xl">Efectivo</p>
@@ -66,7 +65,7 @@ export const Pago = () => {
             <button
               className="btn btn-primary w-[300px] h-[300px] rounded-[20px] flex flex-col items-center justify-center"
               onClick={() => {
-                seleccionarPago('EFECTIVO');
+                seleccionarPago('QR');
               }}
             >
               <Icon
