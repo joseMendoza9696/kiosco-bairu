@@ -4,17 +4,20 @@ import { useNavigate, Link } from 'react-router-dom';
 import { RootState } from '../../redux/store';
 import { useState } from 'react';
 import { QrModal } from './QrModal';
-
 import { TarjetaModal } from './TarjetaModal';
 
 import { actualizarMetodoDePago } from '../../redux/actions/nuevaOrden.action';
 
 export const Pago = () => {
   // TODO: UI/UX como en figma.
+  // CHECK
   // TODO: crear el modal de la factura. "seguir sin datos" cierras el modal, "seguir" cierras el modal.
   // TODO: si se escoge QR, se abre el modal del QR. REDUX ACTION: actualizarMetodoDePago("QR")
+  // CHECK
   // TODO: si se escoge tarjeta, se abre el modal de tarjeta. REDUX ACTION: actualizarMetodoDePago("TARJETA")
+  // CHECK
   // TODO: cuando llege al modal qr y al modal tarjeta: esperar por 10 segundos y luego volver a bienvenida recargar la pagina
+
   // TODO: crear una nueva pagina de agradecimiento y que se abra como una nueva TAB en el navegador.
 
   const navigate = useNavigate();
@@ -22,7 +25,8 @@ export const Pago = () => {
   const dispatch = useDispatch();
 
   const [qrModal, setQrModal] = useState<boolean>(false);
-  const [tarjetaModal, setTarjetaModal] = useState<boolean>(false);
+
+  const [, setTarjetaModal] = useState<boolean>(false);
 
   const seleccionarPago = (metodoDePago: string) => {
     // @ts-expect-error need to fix this
@@ -98,13 +102,25 @@ export const Pago = () => {
           id="my_modal_5"
           className="modal modal-bottom  transition-all duration-800"
         >
-          {qrModal && (
-            <QrModal isOpen={qrModal} onClose={() => setQrModal(false)} />
-          )}
-          {tarjetaModal && (
+          {/* // condicional para mostrar el modal de qr o modal de tarjeta */}
+          {qrModal ? (
+            <QrModal
+              cuentaTotal={nuevaOrden.cuentaTotal}
+              closeModal={() => {
+                setQrModal(false);
+
+                // @ts-expect-error need to fix this
+                document.getElementById('my_modal_5').close();
+              }}
+            />
+          ) : (
             <TarjetaModal
-              isOpen={tarjetaModal}
-              onClose={() => setTarjetaModal(false)}
+              cuentaTotal={nuevaOrden.cuentaTotal}
+              closeModal={() => {
+                setTarjetaModal(false);
+                // @ts-expect-error need to fix this
+                document.getElementById('my_modal_5').close();
+              }}
             />
           )}
         </dialog>
