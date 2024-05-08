@@ -6,6 +6,8 @@ import Login from './pages/Login';
 import { Menu } from '../src/components/Menu/index.tsx';
 import { Checkout } from './pages/Checkout.tsx';
 import { Pago } from '../src/components/Pago/index.tsx';
+import { Recibo } from './pages/Recibo.tsx';
+
 function App() {
   const [token, setToken] = useState<string | null>(
     localStorage.getItem('token'),
@@ -70,6 +72,14 @@ function App() {
           element={
             <ProtectedRoute user={setToken}>
               <Pago />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/recibo"
+          element={
+            <ProtectedRoute user={setToken}>
+              <Recibo />
             </ProtectedRoute>
           }
         />

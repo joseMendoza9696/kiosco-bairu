@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 
 // @ts-expect-error need to fix this
 export const QrModal = ({ closeModal, cuentaTotal }) => {
+  const abrirPaginaAgradecimiento = () => {
+    window.open('/recibo', '_blank');
+  };
   return (
     <>
       <div className="modal-box h-[1800px] bg-[base-100] shadow-lg rounded-t-[90px] ">
@@ -14,6 +17,7 @@ export const QrModal = ({ closeModal, cuentaTotal }) => {
             className="btn btn-square w-24 flex item"
             onClick={() => {
               closeModal();
+              abrirPaginaAgradecimiento();
             }}
           >
             X

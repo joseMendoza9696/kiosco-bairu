@@ -2,7 +2,7 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { RootState } from '../../redux/store';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { QrModal } from './QrModal';
 import { TarjetaModal } from './TarjetaModal';
 
@@ -16,8 +16,8 @@ export const Pago = () => {
   // CHECK
   // TODO: si se escoge tarjeta, se abre el modal de tarjeta. REDUX ACTION: actualizarMetodoDePago("TARJETA")
   // CHECK
-  // TODO: cuando llege al modal qr y al modal tarjeta: esperar por 10 segundos y luego volver a bienvenida recargar la pagina
-
+  // TODO: cuando llegue al modal qr y al modal tarjeta: esperar por 10 segundos y luezgo volver a la bienvenida y recargar la página
+  // CHECK
   // TODO: crear una nueva pagina de agradecimiento y que se abra como una nueva TAB en el navegador.
 
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ export const Pago = () => {
 
   const [qrModal, setQrModal] = useState<boolean>(false);
 
-  const [, setTarjetaModal] = useState<boolean>(false);
+  const [tarjetaModal, setTarjetaModal] = useState<boolean>(false);
 
   const seleccionarPago = (metodoDePago: string) => {
     // @ts-expect-error need to fix this
@@ -44,6 +44,15 @@ export const Pago = () => {
     }
   };
 
+  useEffect(() => {
+    if (qrModal || tarjetaModal) {
+      setTimeout(() => {
+        navigate('/');
+        window.location.reload();
+      }, 10000);
+    }
+  }, [qrModal, tarjetaModal]);
+
   return (
     <>
       <div className="flex items-center flex-col pt-[132px] ">
@@ -58,6 +67,7 @@ export const Pago = () => {
                 onClick={() => {
                   seleccionarPago('EFECTIVO');
                   navigate('/');
+
                   window.location.reload();
                 }}
               />
