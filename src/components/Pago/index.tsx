@@ -10,23 +10,18 @@ import { actualizarMetodoDePago } from '../../redux/actions/nuevaOrden.action';
 
 export const Pago = () => {
   // TODO: UI/UX como en figma.
-  // CHECK
   // TODO: crear el modal de la factura. "seguir sin datos" cierras el modal, "seguir" cierras el modal.
-  // TODO: si se escoge QR, se abre el modal del QR. REDUX ACTION: actualizarMetodoDePago("QR")
-  // CHECK
-  // TODO: si se escoge tarjeta, se abre el modal de tarjeta. REDUX ACTION: actualizarMetodoDePago("TARJETA")
-  // CHECK
-  // TODO: cuando llegue al modal qr y al modal tarjeta: esperar por 10 segundos y luezgo volver a la bienvenida y recargar la página
-  // CHECK
-  // TODO: crear una nueva pagina de agradecimiento y que se abra como una nueva TAB en el navegador.
+  // TODO: cambiar recibo.tsx a Agradecimiento.tsx
+  // TODO: acceder al profile_query y en base a los pagos habilitados mostrar los botones.
+  // TODO: quitar el codigo de setTimeout 10 segundos.
 
   const navigate = useNavigate();
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
   const dispatch = useDispatch();
 
   const [qrModal, setQrModal] = useState<boolean>(false);
-
   const [tarjetaModal, setTarjetaModal] = useState<boolean>(false);
+  // const conFactura = true;
 
   const seleccionarPago = (metodoDePago: string) => {
     // @ts-expect-error need to fix this
@@ -34,7 +29,6 @@ export const Pago = () => {
     if (metodoDePago === 'QR') {
       // @ts-expect-error need to fix this
       document.getElementById('my_modal_5').showModal();
-
       setQrModal(true);
     }
     if (metodoDePago === 'TARJETA') {

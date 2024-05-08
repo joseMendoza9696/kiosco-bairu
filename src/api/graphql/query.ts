@@ -1,9 +1,40 @@
 import { gql } from '@apollo/client';
 
+export const GET_QR = gql`
+  query KIOSCO_getPagoQR($pedido: PedidoQRInput!) {
+    KIOSCO_getPagoQR(pedido: $pedido) {
+      imagen
+      transaccionID
+    }
+  }
+`;
+
+// variables: {
+//   pedido: {
+//     precio: cuentaTotal,
+//     data: 'NUEVAVERSION'
+//   },
+// },
+
+export const GET_INFO_KIOSCO = gql`
+  query {
+    KIOSCO_getInfoKiosco {
+      nombre
+      pago_tarjeta_info {
+        empresa
+        ipLocal
+      }
+    }
+  }
+`;
+
 export const PROFILE_QUERY = gql`
   query {
     KIOSCO_getPerfilActivo {
       id
+      pago_efectivo
+      pago_tarjeta
+      pago_qr
       contextStyle {
         colors {
           primary

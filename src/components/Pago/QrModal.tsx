@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 
 // @ts-expect-error need to fix this
 export const QrModal = ({ closeModal, cuentaTotal }) => {
+  // TODO: pedir la imagen QR con GET_QR de query.ts. Mostrar esta imagen en el modal. useLazyQuery() con useEffect();
+
   const abrirPaginaAgradecimiento = () => {
     window.open('/recibo', '_blank');
   };
