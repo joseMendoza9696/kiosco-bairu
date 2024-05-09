@@ -9,13 +9,6 @@ export const GET_QR = gql`
   }
 `;
 
-// variables: {
-//   pedido: {
-//     precio: cuentaTotal,
-//     data: 'NUEVAVERSION'
-//   },
-// },
-
 export const GET_INFO_KIOSCO = gql`
   query {
     KIOSCO_getInfoKiosco {

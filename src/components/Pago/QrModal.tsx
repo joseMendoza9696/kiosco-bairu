@@ -8,10 +8,13 @@ import { useEffect } from 'react';
 
 // @ts-expect-error need to fix this
 export const QrModal = ({ closeModal, cuentaTotal }) => {
-  // TODO: pedir la imagen QR con GET_QR de query.ts. Mostrar esta imagen en el modal. useLazyQuery() con useEffect();
-  // CHECK
+  // TODO: el boton "volver" deberia cerrar el modal y el boton "x" tambien
+  // TODO: cuando pidas el QR, abrir el modal, y mientras este cargando la imagen utilziar el loading dots de daisy ui
+  // TODO: cuando hay error: en vez de mostrar la imagen muestras un mensaje error: "Error al obtener QR del banco". Mostrar el mensaje por 5 segundos y cerrr el modal.
 
-  const [getQr, { data, loading, error }] = useLazyQuery(GET_QR);
+  const [getQr, { data, loading, error }] = useLazyQuery(GET_QR, {
+    fetchPolicy: 'no-cache',
+  });
 
   useEffect(() => {
     getQr({

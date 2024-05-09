@@ -14,28 +14,9 @@ export const Pago = () => {
   // TODO: UI/UX como en figma.
   // TODO: crear el modal de la factura. "seguir sin datos" cierras el modal, "seguir" cierras el modal.
 
-  // TODO: cambiar recibo.tsx a Agradecimiento.tsx
-  // CHECK
-  // TODO: acceder al profile_query y en base a los pagos habilitados mostrar los botones.
-
-  // TODO: quitar el codigo de setTimeout 10 segundos.
-  // CHECK
-
   const navigate = useNavigate();
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
   const dispatch = useDispatch();
-
-  // const [getPerfil] = useLazyQuery(PROFILE_QUERY, {
-  //   onCompleted: (data) => {
-  //     localStorage.setItem(
-  //       'Perfil',
-  //       JSON.stringify(data.KIOSCO_getPerfilActivo),
-  //     );
-  //   },
-  //   onError: (error) => {
-  //     console.log(error);
-  //   },
-  // });
 
   const [qrModal, setQrModal] = useState<boolean>(false);
   const [, setTarjetaModal] = useState<boolean>(false);
@@ -55,13 +36,6 @@ export const Pago = () => {
       document.getElementById('my_modal_5').showModal();
     }
   };
-
-  // useEffect(() => {
-  //   if (qrModal || tarjetaModal) {
-  //     navigate('/');
-  //     window.location.reload();
-  //   }
-  // }, [navigate, qrModal, tarjetaModal]);
 
   const abrirPaginaAgradecimiento = () => {
     window.open('/recibo', '_blank');
