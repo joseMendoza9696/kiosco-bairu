@@ -1,16 +1,36 @@
 // interface IModal1 {
 //   closeModal: any;
 // }
-
+import { useLazyQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
+import { GET_QR } from '../../api/graphql/query';
+import { useEffect } from 'react';
 
 // @ts-expect-error need to fix this
 export const QrModal = ({ closeModal, cuentaTotal }) => {
   // TODO: pedir la imagen QR con GET_QR de query.ts. Mostrar esta imagen en el modal. useLazyQuery() con useEffect();
+  // CHECK
+
+  const [getQr, { data, loading, error }] = useLazyQuery(GET_QR);
+
+  useEffect(() => {
+    getQr({
+      variables: {
+        pedido: {
+          precio: cuentaTotal,
+          data: 'NUEVAVERSION',
+        },
+      },
+    });
+  }, [cuentaTotal, getQr]);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :</p>;
 
   const abrirPaginaAgradecimiento = () => {
     window.open('/recibo', '_blank');
   };
+
   return (
     <>
       <div className="modal-box h-[1800px] bg-[base-100] shadow-lg rounded-t-[90px] ">
@@ -32,11 +52,13 @@ export const QrModal = ({ closeModal, cuentaTotal }) => {
           </h2>
         </div>
         <div className="flex flex-col items-center justify-center pt-[140px]">
-          <img
-            src="https://www.marketing-movil-sms.com/wp-content/uploads/qr-marketing-codigos-qr-altiria.png"
-            alt="producto"
-            className="w-1/2 h-1/2"
-          />
+          {data && (
+            <img
+              src={data.KIOSCO_getPagoQR.imagen}
+              alt="QR Code"
+              className="w-1/2 h-1/2"
+            />
+          )}
         </div>
         <div className="text-center flex justify-center mx-40 pt-[200px]">
           <button className="btn btn-gosth w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16">

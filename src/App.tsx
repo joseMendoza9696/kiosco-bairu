@@ -6,7 +6,7 @@ import Login from './pages/Login';
 import { Menu } from '../src/components/Menu/index.tsx';
 import { Checkout } from './pages/Checkout.tsx';
 import { Pago } from '../src/components/Pago/index.tsx';
-import { Recibo } from './pages/Recibo.tsx';
+import { Agradecimiento } from './pages/Agradecimiento.tsx';
 
 function App() {
   const [token, setToken] = useState<string | null>(
@@ -79,7 +79,7 @@ function App() {
           path="/recibo"
           element={
             <ProtectedRoute user={setToken}>
-              <Recibo />
+              <Agradecimiento />
             </ProtectedRoute>
           }
         />

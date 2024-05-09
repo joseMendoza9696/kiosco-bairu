@@ -11,6 +11,9 @@ import { Link } from 'react-router-dom';
 
 export const Bienvenida = () => {
   // TODO: al apretar un boton utilizar "dispatch(actualizarTipoEntrega());"
+  // CHECK
+  // TODO: acceder al profile_query y en base a los pagos habilitados mostrar los botones.
+
   const dispatch = useDispatch();
 
   const [profileData, setProfileData] = useState<{
