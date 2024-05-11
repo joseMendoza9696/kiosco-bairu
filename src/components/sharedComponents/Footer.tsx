@@ -4,9 +4,6 @@ import { RootState } from '../../redux/store.ts';
 import { Link } from 'react-router-dom';
 
 export const Footer = () => {
-  //TODO: mejorar el footer segun figma.
-  // CHECK
-
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
 
   if (nuevaOrden.productos.length > 0) {

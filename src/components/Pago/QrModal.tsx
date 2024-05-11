@@ -1,16 +1,15 @@
-// interface IModal1 {
-//   closeModal: any;
-// }
 import { useLazyQuery } from '@apollo/client';
-import { Link } from 'react-router-dom';
 import { GET_QR } from '../../api/graphql/query';
 import { useEffect } from 'react';
 
 // @ts-expect-error need to fix this
 export const QrModal = ({ closeModal, cuentaTotal }) => {
   // TODO: el boton "volver" deberia cerrar el modal y el boton "x" tambien
+  // CHECK
   // TODO: cuando pidas el QR, abrir el modal, y mientras este cargando la imagen utilziar el loading dots de daisy ui
+  // CHECK
   // TODO: cuando hay error: en vez de mostrar la imagen muestras un mensaje error: "Error al obtener QR del banco". Mostrar el mensaje por 5 segundos y cerrr el modal.
+  // CHECK
 
   const [getQr, { data, loading, error }] = useLazyQuery(GET_QR, {
     fetchPolicy: 'no-cache',
@@ -27,12 +26,13 @@ export const QrModal = ({ closeModal, cuentaTotal }) => {
     });
   }, [cuentaTotal, getQr]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :</p>;
-
-  const abrirPaginaAgradecimiento = () => {
-    window.open('/recibo', '_blank');
-  };
+  if (error) {
+    setTimeout(closeModal, 5000);
+    return <p>Error al obtener QR del banco</p>;
+  }
+  // const abrirPaginaAgradecimiento = () => {
+  //   window.open('/recibo', '_blank');
+  // };
 
   return (
     <>
@@ -42,7 +42,6 @@ export const QrModal = ({ closeModal, cuentaTotal }) => {
             className="btn btn-square w-24 flex item"
             onClick={() => {
               closeModal();
-              abrirPaginaAgradecimiento();
             }}
           >
             X
@@ -55,22 +54,26 @@ export const QrModal = ({ closeModal, cuentaTotal }) => {
           </h2>
         </div>
         <div className="flex flex-col items-center justify-center pt-[140px]">
-          {data && (
-            <img
-              src={data.KIOSCO_getPagoQR.imagen}
-              alt="QR Code"
-              className="w-1/2 h-1/2"
-            />
+          {loading ? (
+            <span className="loading loading-dots loading-lg"> </span>
+          ) : (
+            data && (
+              <img
+                src={data.KIOSCO_getPagoQR.imagen}
+                alt="QR Code"
+                className="w-1/2 h-1/2"
+              />
+            )
           )}
         </div>
         <div className="text-center flex justify-center mx-40 pt-[200px]">
-          <button className="btn btn-gosth w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16">
-            <Link
-              to="/checkout"
-              className="w-full h-full flex items-center justify-center"
-            >
-              Volver
-            </Link>
+          <button
+            className="btn btn-gosth w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16"
+            onClick={() => {
+              closeModal();
+            }}
+          >
+            Volver
           </button>
         </div>
       </div>

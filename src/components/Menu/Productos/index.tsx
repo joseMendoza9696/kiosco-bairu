@@ -9,9 +9,6 @@ import { useDispatch } from 'react-redux';
 import { agregarProducto } from '../../../redux/actions/nuevaOrden.action.ts';
 
 const Productos = () => {
-  // TODO: ARREGLAR BUG CUANDO EL TITULO DEL PRODUCTO SOBREPASA EL WIDTH. SIEMPRE DEBEN HABER FILAS DE 3 PRODUCTOS
-  // CHECK
-
   const dispatch = useDispatch();
 
   const categoriaSeleccionada = useSelector(

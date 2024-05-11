@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 
 export const Bienvenida = () => {
   // TODO: acceder al profile_query y en base a los pagos habilitados mostrar los botones.
+  // CHECK
 
   const dispatch = useDispatch();
 

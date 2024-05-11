@@ -14,8 +14,6 @@ interface CategoriasProps {
 }
 
 const Categoria: React.FC<CategoriasProps> = ({ categorias }) => {
-  // TODO: SI EL TITULO DE LA CATEGORIA ES LARGO, AGREGAR UN SALTO DE LINEA PARA EVITAR EL DESFACE.
-
   const dispatch = useDispatch();
   const categoriaSeleccionada = useSelector(
     (state: RootState) => state.menuSeleccionReducer.categoriaSeleccionada,

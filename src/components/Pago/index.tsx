@@ -7,8 +7,9 @@ import { QrModal } from './QrModal';
 import { TarjetaModal } from './TarjetaModal';
 
 import { actualizarMetodoDePago } from '../../redux/actions/nuevaOrden.action';
-// import { useLazyQuery } from '@apollo/client';
-// import { PROFILE_QUERY } from '../../api/graphql/query';
+import { useQuery } from '@apollo/client';
+import { PROFILE_QUERY } from '../../api/graphql/query';
+import { FacturaModal } from './FacturaModal';
 
 export const Pago = () => {
   // TODO: UI/UX como en figma.
@@ -20,7 +21,7 @@ export const Pago = () => {
 
   const [qrModal, setQrModal] = useState<boolean>(false);
   const [, setTarjetaModal] = useState<boolean>(false);
-  // const conFactura = true;
+  const conFactura = true;
 
   const seleccionarPago = (metodoDePago: string) => {
     // @ts-expect-error need to fix this
@@ -41,57 +42,75 @@ export const Pago = () => {
     window.open('/recibo', '_blank');
   };
 
+  const { data, loading, error } = useQuery(PROFILE_QUERY);
+
+  if (loading) return <span className="loading loading-dots loading-lg"></span>;
+  if (error) return <p>Error al cargar los datos</p>;
+
+  const perfil = data?.KIOSCO_getPerfilActivo;
+
+  const pagoEfectivoHabilitado = perfil?.pago_efectivo;
+  const pagoTarjetaHabilitado = perfil?.pago_tarjeta;
+  const pagoQrHabilitado = perfil?.pago_qr;
+
   return (
     <>
+      {conFactura && <FacturaModal />}
       <div className="flex items-center flex-col pt-[132px] ">
         <h1 className="text-[60px] font-bold ">¿Cómo desea pagar?</h1>
         {/* SECCION DE BOTONES */}
         <div className="w-[90%] flex items-center flex-wrap justify-center pt-[347px]">
           <div className="w-1/2 flex justify-center ">
-            <button className="btn btn-primary w-[300px] h-[300px] rounded-[20px] flex flex-col items-center justify-center">
-              <Icon
-                icon="fa:dollar"
-                className="w-[120px] h-[120px]"
-                onClick={() => {
-                  seleccionarPago('EFECTIVO');
-                  navigate('/');
-                  abrirPaginaAgradecimiento();
+            {pagoEfectivoHabilitado && (
+              <button className="btn btn-primary w-[300px] h-[300px] rounded-[20px] flex flex-col items-center justify-center">
+                <Icon
+                  icon="fa:dollar"
+                  className="w-[120px] h-[120px]"
+                  onClick={() => {
+                    seleccionarPago('EFECTIVO');
+                    navigate('/');
+                    abrirPaginaAgradecimiento();
 
-                  window.location.reload();
-                }}
-              />
-              <p className="text-3xl">Efectivo</p>
-            </button>
+                    window.location.reload();
+                  }}
+                />
+                <p className="text-3xl">Efectivo</p>
+              </button>
+            )}
           </div>
 
           <div className="w-1/2 flex justify-center -ml-16">
-            <button
-              className="btn btn-primary w-[300px] h-[300px] rounded-[20px] flex flex-col items-center justify-center"
-              onClick={() => {
-                seleccionarPago('QR');
-              }}
-            >
-              <Icon
-                icon="material-symbols:qr-code"
-                className="w-[120px] h-[120px]"
-              />
-              <p className="text-3xl">QR</p>
-            </button>
+            {pagoQrHabilitado && (
+              <button
+                className="btn btn-primary w-[300px] h-[300px] rounded-[20px] flex flex-col items-center justify-center"
+                onClick={() => {
+                  seleccionarPago('QR');
+                }}
+              >
+                <Icon
+                  icon="material-symbols:qr-code"
+                  className="w-[120px] h-[120px]"
+                />
+                <p className="text-3xl">QR</p>
+              </button>
+            )}
           </div>
           <div className="w-1/2 flex justify-center pt-16">
-            <button
-              className="btn btn-primary w-[300px] h-[300px] rounded-[20px] flex flex-col items-center justify-center"
-              onClick={() => {
-                seleccionarPago('TARJETA');
-              }}
-            >
-              {' '}
-              <Icon
-                icon="bi:credit-card-fill"
-                className="w-[120px] h-[120px]"
-              />
-              <p className="text-3xl">Tarjeta</p>
-            </button>
+            {pagoTarjetaHabilitado && (
+              <button
+                className="btn btn-primary w-[300px] h-[300px] rounded-[20px] flex flex-col items-center justify-center"
+                onClick={() => {
+                  seleccionarPago('TARJETA');
+                }}
+              >
+                {' '}
+                <Icon
+                  icon="bi:credit-card-fill"
+                  className="w-[120px] h-[120px]"
+                />
+                <p className="text-3xl">Tarjeta</p>
+              </button>
+            )}
           </div>
         </div>
         {/* FIN DE SECCION DE BOTONES */}
