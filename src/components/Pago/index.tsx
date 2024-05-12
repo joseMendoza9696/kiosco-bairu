@@ -55,20 +55,20 @@ export const Pago = () => {
 
   return (
     <>
-      {conFactura && (
-        <dialog
-          open={conFactura}
-          id="my_modal_5"
-          className="modal modal-bottom  transition-all duration-800"
-        >
+      <dialog
+        open={conFactura}
+        id="my_modal_1"
+        className="modal modal-bottom  transition-all duration-800"
+      >
+        {conFactura && (
           <FacturaModal
             closeModal={() => {
               // @ts-expect-error need to fix this
-              document.getElementById('my_modal_5').close();
+              document.getElementById('my_modal_1').close();
             }}
           />
-        </dialog>
-      )}
+        )}
+      </dialog>
 
       <div className="flex items-center flex-col pt-[132px] ">
         <h1 className="text-[60px] font-bold ">¿Cómo desea pagar?</h1>
@@ -164,7 +164,7 @@ export const Pago = () => {
           <h1 className="text-center text-primary font-bold text-[56px]  ">
             Total Bs.{nuevaOrden.cuentaTotal}
           </h1>
-          <div className="text-center   flex justify-between mx-40 pt-20">
+          <div className="text-center flex justify-between mx-40 pt-20">
             <button className="btn btn-gosth w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16">
               <Link
                 to="/checkout"

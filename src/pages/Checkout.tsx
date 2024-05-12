@@ -54,7 +54,7 @@ export const Checkout = () => {
           <div className="max-w-screen-xl w-11/2 m-auto ">
             <label
               htmlFor="Toggle3"
-              className=" items-center  flex justify-center cursor-pointer rounded-xl  text-[24px] h-[96px]"
+              className=" items-center  flex justify-center cursor-pointer rounded-xl  text-[24px] h-[96px] "
             >
               <input
                 id="Toggle3"

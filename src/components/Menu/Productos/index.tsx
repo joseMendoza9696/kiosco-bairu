@@ -121,7 +121,7 @@ const Productos = () => {
         </button>
       </div>
 
-      <div className="flex flex-wrap mx-[56px] py-8  gap-y-8 overflow-auto overflow-y-auto max-h-[1200px]">
+      <div className="flex flex-wrap mx-[56px] py-8 gap-y-8 overflow-auto overflow-y-auto max-h-[1200px]">
         {productos.map((producto: Producto) => (
           <button
             key={producto.id}
@@ -133,9 +133,9 @@ const Productos = () => {
             <img
               src={producto.imagen}
               alt={producto.nombre}
-              className="w-[285px] h-[285px] rounded-xl object-cover"
+              className="w-[285px] h-[285px] rounded-t-xl object-cover"
             />
-            <div className="ml-2">
+            <div className="ml-4 py-4">
               <h2 className="text-[20px] font-semibold text-left ">
                 {saltoDeLinea(producto.nombre)}
               </h2>

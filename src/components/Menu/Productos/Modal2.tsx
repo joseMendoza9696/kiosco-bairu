@@ -125,6 +125,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
     // @ts-expect-error
     dispatch(quitarUltimoProducto());
     setCantidad(1);
+    setOpcionMenuSeleccionadoIndex(0);
   };
 
   return (
@@ -173,13 +174,20 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                   )}
                 </ul>
 
-                <p className="text-left pt-4 font-bold text-2xl">
+                <p className="text-left pt-4 font-bold text-2xl flex ">
                   Paso {opcionMenuSeleccionadoIndex + 1} :
                   {
                     productoSeleccionado.opcionesMenu[
                       opcionMenuSeleccionadoIndex
                     ].nombre
                   }
+                  {opcionMenuSeleccionado &&
+                    opcionMenuSeleccionado.obligatorio &&
+                    opcionMenuSeleccionado.cantidadSeleccionada < 1 && (
+                      <p className="text-primary text-2xl font-bold pl-16">
+                        Seleccione al menos una opción.
+                      </p>
+                    )}
                 </p>
               </div>
             </div>
@@ -189,7 +197,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
             {opciones &&
               opciones.map((opcion, index) => (
                 <div key={opcion.id} className="relative">
-                  <div className="flex flex-wrap mx-8   gap-y-8 items-center justify-between ">
+                  <div className="flex flex-wrap gap-y-8  mx-8 items-center justify-between ">
                     <button
                       className={`flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md relative ${opcion.seleccionado ? 'border-8 border-primary rounded-md  ' : ''}`}
                       onClick={() => {
@@ -236,7 +244,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           <div className="flex justify-between mx-16 fixed bottom-8 left-0 right-0">
             <div className="flex items-center justify-between text-center  mx-2">
               <button
-                className="  w-[211px] h-[122px] text-[30px] rounded-[20px] btn"
+                className="w-[211px] h-[122px] text-[30px] rounded-[20px] btn"
                 disabled={
                   opcionMenuSeleccionado &&
                   !!(
@@ -250,7 +258,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                       opcionMenuSeleccionadoIndex - 1,
                     );
                   } else {
-                    atras();
+                    atras;
                   }
                 }}
               >

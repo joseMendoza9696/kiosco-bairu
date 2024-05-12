@@ -74,7 +74,7 @@ export const Menu = () => {
 
         {/*PRODUCTOS.TSX*/}
 
-        <div className="max-w-6xl mx-auto py-8 overflow-y-auto max-h-[calc(100vh - 200px)]">
+        <div className="max-w-6xl mx-auto py-8 overflow-y-auto">
           <Productos />
         </div>
 
