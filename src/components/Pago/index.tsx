@@ -55,7 +55,21 @@ export const Pago = () => {
 
   return (
     <>
-      {conFactura && <FacturaModal />}
+      {conFactura && (
+        <dialog
+          open={conFactura}
+          id="my_modal_5"
+          className="modal modal-bottom  transition-all duration-800"
+        >
+          <FacturaModal
+            closeModal={() => {
+              // @ts-expect-error need to fix this
+              document.getElementById('my_modal_5').close();
+            }}
+          />
+        </dialog>
+      )}
+
       <div className="flex items-center flex-col pt-[132px] ">
         <h1 className="text-[60px] font-bold ">¿Cómo desea pagar?</h1>
         {/* SECCION DE BOTONES */}
