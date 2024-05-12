@@ -10,8 +10,8 @@ import { actualizarTipoEntrega } from '../../redux/actions/nuevaOrden.action.ts'
 import { Link } from 'react-router-dom';
 
 export const Bienvenida = () => {
-  // TODO: acceder al profile_query y en base a los pagos habilitados mostrar los botones.
-  // CHECK
+  // TODO: hacer el lazy query de PROFILE_QUERY aqui.
+  // TODO: los datos guardarlos en localstorage y obtener estos valores del local storage en el index pago.
 
   const dispatch = useDispatch();
 

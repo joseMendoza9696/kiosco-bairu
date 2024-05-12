@@ -7,13 +7,14 @@ import { QrModal } from './QrModal';
 import { TarjetaModal } from './TarjetaModal';
 
 import { actualizarMetodoDePago } from '../../redux/actions/nuevaOrden.action';
-import { useQuery } from '@apollo/client';
+import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import { PROFILE_QUERY } from '../../api/graphql/query';
 import { FacturaModal } from './FacturaModal';
+import { CREAR_ORDEN } from '../../api/graphql/mutations.ts';
+import { crearOrdenVariables } from '../../utils/Functions.tsx';
 
 export const Pago = () => {
   // TODO: UI/UX como en figma.
-  // TODO: crear el modal de la factura. "seguir sin datos" cierras el modal, "seguir" cierras el modal.
 
   const navigate = useNavigate();
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
@@ -42,6 +43,29 @@ export const Pago = () => {
     window.open('/recibo', '_blank');
   };
 
+  const [crearOrden] = useMutation(CREAR_ORDEN, {
+    onCompleted: (data) => {
+      console.log(data);
+      // TODO: IMPRIMIR UNA COMANDA
+      // printJS({
+      //   printable: [{ Monto: `Bs.${montoPago}` }],
+      //   type: "json",
+      //   properties: ["Monto"],
+      //   header: `
+      //           <h1>Orden: #${comandaNumero} ${
+      //     nombreCliente !== "" ? ` - ${nombreCliente}` : ""
+      //   }</h1>
+      //           <h2>Método de pago: ${metodoPago}</h2>
+      //         `,
+      // });
+      // TODO: ABRIR LA PAGINA DE AGRADECIMIENTO, durante 15 segundos luego se cierra
+      abrirPaginaAgradecimiento();
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
   const { data, loading, error } = useQuery(PROFILE_QUERY);
 
   if (loading) return <span className="loading loading-dots loading-lg"></span>;
@@ -52,6 +76,26 @@ export const Pago = () => {
   const pagoEfectivoHabilitado = perfil?.pago_efectivo;
   const pagoTarjetaHabilitado = perfil?.pago_tarjeta;
   const pagoQrHabilitado = perfil?.pago_qr;
+
+  const mandarOrden = () => {
+    const ordenVariables = crearOrdenVariables(nuevaOrden);
+    console.log('orden variables...', ordenVariables);
+    crearOrden({
+      variables: {
+        orden: ordenVariables,
+        fecha: new Date().toISOString(),
+      },
+    }).then();
+  };
+
+  const pagarEnEfectivo = async () => {
+    seleccionarPago('EFECTIVO');
+    mandarOrden();
+
+    // navigate('/');
+    // abrirPaginaAgradecimiento();
+    // window.location.reload();
+  };
 
   return (
     <>
@@ -80,13 +124,7 @@ export const Pago = () => {
                 <Icon
                   icon="fa:dollar"
                   className="w-[120px] h-[120px]"
-                  onClick={() => {
-                    seleccionarPago('EFECTIVO');
-                    navigate('/');
-                    abrirPaginaAgradecimiento();
-
-                    window.location.reload();
-                  }}
+                  onClick={pagarEnEfectivo}
                 />
                 <p className="text-3xl">Efectivo</p>
               </button>

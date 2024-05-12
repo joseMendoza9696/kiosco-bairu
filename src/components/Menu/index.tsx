@@ -31,7 +31,7 @@ export const Menu = () => {
   });
 
   useEffect(() => {
-    getCategorias();
+    getCategorias().then();
   }, [getCategorias]);
 
   const [getPerfil] = useLazyQuery(PROFILE_QUERY, {
@@ -48,7 +48,7 @@ export const Menu = () => {
   });
 
   useEffect(() => {
-    getPerfil();
+    getPerfil().then();
   }, [getPerfil]);
 
   return (
