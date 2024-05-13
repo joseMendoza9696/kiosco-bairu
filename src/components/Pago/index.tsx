@@ -11,7 +11,7 @@ import { useMutation } from '@apollo/client';
 import { FacturaModal } from './FacturaModal';
 import { CREAR_ORDEN } from '../../api/graphql/mutations.ts';
 import { crearOrdenVariables } from '../../utils/Functions.tsx';
-// import printJS from 'print-js';
+import printJS from 'print-js';
 
 export const Pago = () => {
   // TODO: UI/UX como en figma.
@@ -54,22 +54,6 @@ export const Pago = () => {
   const [crearOrden] = useMutation(CREAR_ORDEN, {
     onCompleted: (data) => {
       console.log('jaus', data);
-      // TODO: IMPRIMIR UNA COMANDA
-      // const { comandaId, montoPago, nombreCliente, metodoPago } =
-      //   data.KIOSCO_crearOrden;
-
-      // printJS({
-      //   printable: [{ Monto: `Bs.${montoPago}` }],
-      //   type: 'json',
-      //   properties: ['Monto'],
-      //   header: `
-      //          <h1>Orden: #${comandaId} ${
-      //            nombreCliente !== '' ? ` - ${nombreCliente}` : ''
-      //          }</h1>
-      //            <h2>Método de pago: ${metodoPago}</h2>
-      //          `,
-      // });
-
       // TODO: ABRIR LA PAGINA DE AGRADECIMIENTO, durante 15 segundos luego se cierra
       setTimeout(() => {
         abrirPaginaAgradecimiento();
@@ -77,6 +61,20 @@ export const Pago = () => {
           cerrarPagina();
         }, 15000);
       }, 0);
+      // TODO: IMPRIMIR UNA COMANDA
+      const { comandaId, nombreCliente } = data.KIOSCO_crearOrden;
+
+      printJS({
+        printable: [{ Monto: `Bs.${nuevaOrden.cuentaTotal}` }],
+        type: 'json',
+        properties: ['Monto'],
+        header: `
+               <h1>Orden: #${comandaId} ${
+                 nombreCliente !== '' ? ` - ${nombreCliente}` : ''
+               }</h1>
+                 <h2>Método de pago: ${nuevaOrden.metodoPago}</h2>
+               `,
+      });
     },
     onError: (error) => {
       console.log(error);
@@ -104,7 +102,7 @@ export const Pago = () => {
 
   const pagarEnEfectivo = async () => {
     seleccionarPago('EFECTIVO');
-    await new Promise((resolve) => setTimeout(resolve, 10000));
+    new Promise((resolve) => resolve);
     mandarOrden();
 
     // navigate('/');
