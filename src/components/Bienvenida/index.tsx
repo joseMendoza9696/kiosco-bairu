@@ -11,7 +11,10 @@ import { Link } from 'react-router-dom';
 
 export const Bienvenida = () => {
   // TODO: hacer el lazy query de PROFILE_QUERY aqui.
+  // check
+
   // TODO: los datos guardarlos en localstorage y obtener estos valores del local storage en el index pago.
+  // check
 
   const dispatch = useDispatch();
 

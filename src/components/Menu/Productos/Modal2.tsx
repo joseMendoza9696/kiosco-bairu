@@ -258,7 +258,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                       opcionMenuSeleccionadoIndex - 1,
                     );
                   } else {
-                    atras;
+                    atras();
                   }
                 }}
               >

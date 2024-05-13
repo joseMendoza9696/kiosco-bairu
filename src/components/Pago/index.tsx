@@ -1,28 +1,28 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { RootState } from '../../redux/store';
 import { useState } from 'react';
 import { QrModal } from './QrModal';
 import { TarjetaModal } from './TarjetaModal';
 
 import { actualizarMetodoDePago } from '../../redux/actions/nuevaOrden.action';
-import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
-import { PROFILE_QUERY } from '../../api/graphql/query';
+import { useMutation } from '@apollo/client';
 import { FacturaModal } from './FacturaModal';
 import { CREAR_ORDEN } from '../../api/graphql/mutations.ts';
 import { crearOrdenVariables } from '../../utils/Functions.tsx';
+// import printJS from 'print-js';
 
 export const Pago = () => {
   // TODO: UI/UX como en figma.
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
   const dispatch = useDispatch();
 
   const [qrModal, setQrModal] = useState<boolean>(false);
   const [, setTarjetaModal] = useState<boolean>(false);
-  const conFactura = true;
+  const conFactura = false;
 
   const seleccionarPago = (metodoDePago: string) => {
     // @ts-expect-error need to fix this
@@ -39,46 +39,60 @@ export const Pago = () => {
     }
   };
 
+  // @ts-expect-error need to fix this
+  let nuevaVentana;
+
   const abrirPaginaAgradecimiento = () => {
-    window.open('/recibo', '_blank');
+    nuevaVentana = window.open('/recibo', '_blank');
+  };
+
+  const cerrarPagina = () => {
+    // @ts-expect-error need to fix this
+    nuevaVentana.close();
   };
 
   const [crearOrden] = useMutation(CREAR_ORDEN, {
     onCompleted: (data) => {
-      console.log(data);
+      console.log('jaus', data);
       // TODO: IMPRIMIR UNA COMANDA
+      // const { comandaId, montoPago, nombreCliente, metodoPago } =
+      //   data.KIOSCO_crearOrden;
+
       // printJS({
       //   printable: [{ Monto: `Bs.${montoPago}` }],
-      //   type: "json",
-      //   properties: ["Monto"],
+      //   type: 'json',
+      //   properties: ['Monto'],
       //   header: `
-      //           <h1>Orden: #${comandaNumero} ${
-      //     nombreCliente !== "" ? ` - ${nombreCliente}` : ""
-      //   }</h1>
-      //           <h2>Método de pago: ${metodoPago}</h2>
-      //         `,
+      //          <h1>Orden: #${comandaId} ${
+      //            nombreCliente !== '' ? ` - ${nombreCliente}` : ''
+      //          }</h1>
+      //            <h2>Método de pago: ${metodoPago}</h2>
+      //          `,
       // });
+
       // TODO: ABRIR LA PAGINA DE AGRADECIMIENTO, durante 15 segundos luego se cierra
-      abrirPaginaAgradecimiento();
+      setTimeout(() => {
+        abrirPaginaAgradecimiento();
+        setTimeout(() => {
+          cerrarPagina();
+        }, 15000);
+      }, 0);
     },
     onError: (error) => {
       console.log(error);
     },
   });
 
-  const { data, loading, error } = useQuery(PROFILE_QUERY);
+  const perfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
 
-  if (loading) return <span className="loading loading-dots loading-lg"></span>;
-  if (error) return <p>Error al cargar los datos</p>;
-
-  const perfil = data?.KIOSCO_getPerfilActivo;
-
-  const pagoEfectivoHabilitado = perfil?.pago_efectivo;
-  const pagoTarjetaHabilitado = perfil?.pago_tarjeta;
-  const pagoQrHabilitado = perfil?.pago_qr;
+  const pagoEfectivoHabilitado = perfilLocalStorage?.pago_efectivo;
+  const pagoTarjetaHabilitado = perfilLocalStorage?.pago_tarjeta;
+  const pagoQrHabilitado = perfilLocalStorage?.pago_qr;
 
   const mandarOrden = () => {
     const ordenVariables = crearOrdenVariables(nuevaOrden);
+    cuentaTotal: nuevaOrden.cuentaTotal;
+
     console.log('orden variables...', ordenVariables);
     crearOrden({
       variables: {
@@ -90,6 +104,7 @@ export const Pago = () => {
 
   const pagarEnEfectivo = async () => {
     seleccionarPago('EFECTIVO');
+    await new Promise((resolve) => setTimeout(resolve, 10000));
     mandarOrden();
 
     // navigate('/');
