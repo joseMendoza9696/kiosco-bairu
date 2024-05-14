@@ -7,6 +7,8 @@ export const Agradecimiento = () => {
     contextStyle: { logo: string };
   } | null>(null);
 
+  const [comandaId, setComandaId] = useState<string | null>(null);
+
   const [getPerfil] = useLazyQuery(PROFILE_QUERY, {
     onCompleted: (data) => {
       setPerfilData(data.KIOSCO_getPerfilActivo);
@@ -22,7 +24,10 @@ export const Agradecimiento = () => {
 
   useEffect(() => {
     getPerfil().then();
+    const params = new URLSearchParams(window.location.search);
+    setComandaId(params.get('comandaId'));
   }, [getPerfil]);
+
   return (
     <>
       <div className="bg-primary flex flex-col items-center justify-around w-full h-[1919px]">
@@ -41,7 +46,7 @@ export const Agradecimiento = () => {
           </div>
           <div className="btn btn-white w-[300px] h-[300px] rounded-[20px] flex flex-col items-center justify-center  ">
             <p className="text-3xl">Tu pedido es el</p>
-            <span className="text-6xl font-bold ">#12</span>
+            <span className="text-6xl font-bold ">#{comandaId}</span>
           </div>
         </div>
         <div className="dark:text-white text-[30px]">POWERED BY BAIRU.IO</div>

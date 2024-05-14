@@ -22,6 +22,8 @@ export const Pago = () => {
 
   const [qrModal, setQrModal] = useState<boolean>(false);
   const [, setTarjetaModal] = useState<boolean>(false);
+  const [, setMetodoDePago] = useState<string>('');
+  const [, setPagoSeleccionado] = useState<boolean>(false);
   const conFactura = false;
 
   const seleccionarPago = (metodoDePago: string) => {
@@ -37,13 +39,22 @@ export const Pago = () => {
       // @ts-expect-error need to fix this
       document.getElementById('my_modal_5').showModal();
     }
+    setMetodoDePago(metodoDePago);
+
+    if (metodoDePago === 'EFECTIVO') {
+      // Actualizar el estado para indicar que se ha seleccionado un método de pago
+      setPagoSeleccionado(true);
+      mandarOrden();
+    }
   };
 
   // @ts-expect-error need to fix this
   let nuevaVentana;
+  // @ts-expect-error need to fix this
 
-  const abrirPaginaAgradecimiento = () => {
-    nuevaVentana = window.open('/recibo', '_blank');
+  const abrirPaginaAgradecimiento = (comandaId) => {
+    const url = `/agradecimiento/?comandaId=${comandaId}`;
+    nuevaVentana = window.open(url, '_blank');
   };
 
   const cerrarPagina = () => {
@@ -56,9 +67,10 @@ export const Pago = () => {
       console.log('jaus', data);
       // TODO: ABRIR LA PAGINA DE AGRADECIMIENTO, durante 15 segundos luego se cierra
       setTimeout(() => {
-        abrirPaginaAgradecimiento();
+        abrirPaginaAgradecimiento(comandaId);
         setTimeout(() => {
           cerrarPagina();
+          window.location.href = '/';
         }, 15000);
       }, 0);
       // TODO: IMPRIMIR UNA COMANDA
@@ -100,15 +112,16 @@ export const Pago = () => {
     }).then();
   };
 
-  const pagarEnEfectivo = async () => {
-    seleccionarPago('EFECTIVO');
-    new Promise((resolve) => resolve);
-    mandarOrden();
+  // const pagarEnEfectivo = async () => {
+  //   seleccionarPago('EFECTIVO');
+  //   setTimeout(() => {
+  //     mandarOrden();
+  //   }, 500);
 
-    // navigate('/');
-    // abrirPaginaAgradecimiento();
-    // window.location.reload();
-  };
+  //   // navigate('/');
+  //   // abrirPaginaAgradecimiento();
+  //   // window.location.reload();
+  // };
 
   return (
     <>
@@ -133,12 +146,13 @@ export const Pago = () => {
         <div className="w-[90%] flex items-center flex-wrap justify-center pt-[347px]">
           <div className="w-1/2 flex justify-center ">
             {pagoEfectivoHabilitado && (
-              <button className="btn btn-primary w-[300px] h-[300px] rounded-[20px] flex flex-col items-center justify-center">
-                <Icon
-                  icon="fa:dollar"
-                  className="w-[120px] h-[120px]"
-                  onClick={pagarEnEfectivo}
-                />
+              <button
+                className="btn btn-primary w-[300px] h-[300px] rounded-[20px] flex flex-col items-center justify-center"
+                onClick={() => {
+                  seleccionarPago('EFECTIVO');
+                }}
+              >
+                <Icon icon="fa:dollar" className="w-[120px] h-[120px]" />
                 <p className="text-3xl">Efectivo</p>
               </button>
             )}
