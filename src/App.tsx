@@ -76,7 +76,7 @@ function App() {
           }
         />
         <Route
-          path="/recibo"
+          path="/agradecimiento"
           element={
             <ProtectedRoute user={setToken}>
               <Agradecimiento />
