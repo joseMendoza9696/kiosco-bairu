@@ -1,20 +1,17 @@
-// REACT
-import { useState } from 'react';
-// REDUX
+import { Icon } from '@iconify/react/dist/iconify.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { actualizarMetodoDePago } from '../../redux/actions/nuevaOrden.action';
+import { Link } from 'react-router-dom';
 import { RootState } from '../../redux/store';
-// ROUTES
-import { Link, useNavigate } from 'react-router-dom';
-// COMPONENTS
+import { useState } from 'react';
 import { QrModal } from './QrModal';
 import { TarjetaModal } from './TarjetaModal';
+
+import { actualizarMetodoDePago } from '../../redux/actions/nuevaOrden.action';
+import { useMutation } from '@apollo/client';
 import { FacturaModal } from './FacturaModal';
-
-// GRAPHQL
-
-// UTILS
-import { Icon } from '@iconify/react/dist/iconify.js';
+import { CREAR_ORDEN } from '../../api/graphql/mutations.ts';
+import { crearOrdenVariables } from '../../utils/Functions.tsx';
+import printJS from 'print-js';
 
 export const Pago = () => {
   // TODO: UI/UX como en figma.
@@ -22,10 +19,11 @@ export const Pago = () => {
 
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
   const dispatch = useDispatch();
-  const navigator = useNavigate();
 
   const [qrModal, setQrModal] = useState<boolean>(false);
   const [, setTarjetaModal] = useState<boolean>(false);
+  const [, setMetodoDePago] = useState<string>('');
+  const [, setPagoSeleccionado] = useState<boolean>(false);
   const conFactura = false;
 
   const seleccionarPago = (metodoDePago: string) => {
@@ -41,14 +39,78 @@ export const Pago = () => {
       // @ts-expect-error need to fix this
       document.getElementById('my_modal_5').showModal();
     }
+    setMetodoDePago(metodoDePago);
 
     if (metodoDePago === 'EFECTIVO') {
       // Actualizar el estado para indicar que se ha seleccionado un método de pago
-      // TODO: abrir nueva pagina de PagoConfirmado.tsx. mandar la orden al backend, imprimir la orden, abrir la pagina de agradecimiento.
-      // @ts-expect-error need to fix this
-      document.getElementById('my_modal_5').close();
-      navigator('/pagoconfirmado');
+      setPagoSeleccionado(true);
+      mandarOrden();
+      // todo: abrir nueva pagina de PagoConfirmado.tsx. mandar la orden al backend, imprimir la orden, abrir la pagina de agradecimiento.
     }
+  };
+
+  // @ts-expect-error need to fix this
+  let nuevaVentana;
+  // @ts-expect-error need to fix this
+
+  const abrirPaginaAgradecimiento = (comandaId) => {
+    const url = `/agradecimiento/?comandaId=${comandaId}`;
+    nuevaVentana = window.open(url, '_blank');
+  };
+
+  const cerrarPagina = () => {
+    // @ts-expect-error need to fix this
+    nuevaVentana.close();
+  };
+
+  const [crearOrden] = useMutation(CREAR_ORDEN, {
+    onCompleted: (data) => {
+      console.log('jaus', data);
+      // TODO: ABRIR LA PAGINA DE AGRADECIMIENTO, durante 15 segundos luego se cierra
+      setTimeout(() => {
+        abrirPaginaAgradecimiento(comandaId);
+        setTimeout(() => {
+          cerrarPagina();
+          window.location.href = '/';
+        }, 15000);
+      }, 0);
+      // TODO: IMPRIMIR UNA COMANDA
+      const { comandaId, nombreCliente } = data.KIOSCO_crearOrden;
+
+      printJS({
+        printable: [{ Monto: `Bs.${nuevaOrden.cuentaTotal}` }],
+        type: 'json',
+        properties: ['Monto'],
+        header: `
+               <h1>Orden: #${comandaId} ${
+                 nombreCliente !== '' ? ` - ${nombreCliente}` : ''
+               }</h1>
+                 <h2>Método de pago: ${nuevaOrden.metodoPago}</h2>
+               `,
+      });
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  const perfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
+
+  const pagoEfectivoHabilitado = perfilLocalStorage?.pago_efectivo;
+  const pagoTarjetaHabilitado = perfilLocalStorage?.pago_tarjeta;
+  const pagoQrHabilitado = perfilLocalStorage?.pago_qr;
+
+  const mandarOrden = () => {
+    const ordenVariables = crearOrdenVariables(nuevaOrden);
+    // cuentaTotal: nuevaOrden.cuentaTotal;
+
+    console.log('orden variables...', ordenVariables);
+    crearOrden({
+      variables: {
+        orden: ordenVariables,
+        fecha: new Date().toISOString(),
+      },
+    }).then();
   };
 
   // const pagarEnEfectivo = async () => {
@@ -61,13 +123,6 @@ export const Pago = () => {
   //   // abrirPaginaAgradecimiento();
   //   // window.location.reload();
   // };
-
-  // SECCION DE BOTONES HABILITADOS
-  const perfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
-
-  const pagoEfectivoHabilitado = perfilLocalStorage?.pago_efectivo;
-  const pagoTarjetaHabilitado = perfilLocalStorage?.pago_tarjeta;
-  const pagoQrHabilitado = perfilLocalStorage?.pago_qr;
 
   return (
     <>
@@ -96,7 +151,6 @@ export const Pago = () => {
                 className="btn btn-primary w-[300px] h-[300px] rounded-[20px] flex flex-col items-center justify-center"
                 onClick={() => {
                   seleccionarPago('EFECTIVO');
-                  console.log('pago en efectivo', seleccionarPago);
                 }}
               >
                 <Icon icon="fa:dollar" className="w-[120px] h-[120px]" />

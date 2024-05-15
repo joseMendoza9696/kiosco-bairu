@@ -7,6 +7,7 @@ import { Menu } from '../src/components/Menu/index.tsx';
 import { Checkout } from './pages/Checkout.tsx';
 import { Pago } from '../src/components/Pago/index.tsx';
 import { Agradecimiento } from './pages/Agradecimiento.tsx';
+import { PagoConfirmado } from './pages/PagoConfirmado.tsx';
 
 function App() {
   const [token, setToken] = useState<string | null>(
@@ -80,6 +81,14 @@ function App() {
           element={
             <ProtectedRoute user={setToken}>
               <Agradecimiento />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/pagoConfirmado"
+          element={
+            <ProtectedRoute user={setToken}>
+              <PagoConfirmado />
             </ProtectedRoute>
           }
         />
