@@ -15,8 +15,8 @@ import printJS from 'print-js';
 
 export const Pago = () => {
   // TODO: UI/UX como en figma.
+  // TODO: cuando el pago sea confirmado utilizar un nuevo pages llamado PagoConfirmado
 
-  // const navigate = useNavigate();
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
   const dispatch = useDispatch();
 
@@ -45,6 +45,7 @@ export const Pago = () => {
       // Actualizar el estado para indicar que se ha seleccionado un método de pago
       setPagoSeleccionado(true);
       mandarOrden();
+      // todo: abrir nueva pagina de PagoConfirmado.tsx. mandar la orden al backend, imprimir la orden, abrir la pagina de agradecimiento.
     }
   };
 
@@ -101,7 +102,7 @@ export const Pago = () => {
 
   const mandarOrden = () => {
     const ordenVariables = crearOrdenVariables(nuevaOrden);
-    cuentaTotal: nuevaOrden.cuentaTotal;
+    // cuentaTotal: nuevaOrden.cuentaTotal;
 
     console.log('orden variables...', ordenVariables);
     crearOrden({
