@@ -11,39 +11,47 @@ import { useEffect } from 'react';
 // import printJS  'print-js';
 
 export const PagoConfirmado = () => {
+  // TODO: hacer un loading de crear orden
+  // TODO: mandar a imprimir la comanda y luego mostrar la pagina de agradecimiento
+  // TODO: si la orden ha sido enviada correctamente: mostrar pago confirmado
+  // TODO: si la orden NO ha sido enviada correctamente: mensaje de error. "orden no procesada correctamente, comuniquese con el administrador". Colocar un boton para reiniciar la orden. Este boton ira a la bienvenida y recargara la pagina.
+
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
-  const [crearOrden] = useMutation(CREAR_ORDEN, {
-    onCompleted: (data) => {
-      console.log('Orden creada:', data);
+  const [crearOrden, { loading: crearOrdenLoading }] = useMutation(
+    CREAR_ORDEN,
+    {
+      onCompleted: (data) => {
+        console.log('Orden creada:', data);
 
-      // setTimeout(() => {
-      //   setTimeout(() => {
-      //     window.location.href = '/';
-      //   }, 15000);
-      // }, 0);
+        // setTimeout(() => {
+        //   setTimeout(() => {
+        //     window.location.href = '/';
+        //   }, 15000);
+        // }, 0);
 
-      // TODO: IMPRIMIR UNA COMANDA
-      //  const { comandaId, nombreCliente } = data.KIOSCO_crearOrden;
+        // TODO: IMPRIMIR UNA COMANDA
+        //  const { comandaId, nombreCliente } = data.KIOSCO_crearOrden;
 
-      // printJS({
-      //   printable: [{ Monto: `Bs.${nuevaOrden.cuentaTotal}` }],
-      //   type: 'json',
-      //   properties: ['Monto'],
-      //   header: `
-      //          <h1>Orden: #${comandaId} ${
-      //            nombreCliente !== '' ? ` - ${nombreCliente}` : ''
-      //          }</h1>
-      //            <h2>Método de pago: ${nuevaOrden.metodoPago}</h2>
-      //          `,
-      // });
+        // printJS({
+        //   printable: [{ Monto: `Bs.${nuevaOrden.cuentaTotal}` }],
+        //   type: 'json',
+        //   properties: ['Monto'],
+        //   header: `
+        //          <h1>Orden: #${comandaId} ${
+        //            nombreCliente !== '' ? ` - ${nombreCliente}` : ''
+        //          }</h1>
+        //            <h2>Método de pago: ${nuevaOrden.metodoPago}</h2>
+        //          `,
+        // });
+      },
+      onError: (error) => {
+        console.log(error);
+      },
     },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
+  );
   const mandarOrden = () => {
     const odenVariables = crearOrdenVariables(nuevaOrden);
-    cuentaTotal: nuevaOrden.cuentaTotal;
+    // cuentaTotal: nuevaOrden.cuentaTotal;
 
     console.log('orden variables...', odenVariables);
 

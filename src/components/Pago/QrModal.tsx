@@ -1,18 +1,56 @@
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery, useSubscription } from '@apollo/client';
 import { GET_QR } from '../../api/graphql/query';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { PAGO_QR_CONFIRMACION } from '../../api/graphql/subscriptions.ts';
+import { useNavigate } from 'react-router-dom';
 
-// @ts-expect-error need to fix this
-export const QrModal = ({ closeModal, cuentaTotal }) => {
-  // TODO: el boton "volver" deberia cerrar el modal y el boton "x" tambien
-  // CHECK
-  // TODO: cuando pidas el QR, abrir el modal, y mientras este cargando la imagen utilziar el loading dots de daisy ui
-  // CHECK
-  // TODO: cuando hay error: en vez de mostrar la imagen muestras un mensaje error: "Error al obtener QR del banco". Mostrar el mensaje por 5 segundos y cerrr el modal.
-  // CHECK
+interface IQRModal {
+  closeModal: any;
+  cuentaTotal: number;
+}
 
-  const [getQr, { data, loading, error }] = useLazyQuery(GET_QR, {
+interface ISuscribirme {
+  transaccionID: number | string;
+}
+
+const Subscribirme = ({ transaccionID }: ISuscribirme) => {
+  const navigator = useNavigate();
+
+  useSubscription(PAGO_QR_CONFIRMACION, {
+    variables: {
+      transaccionID: transaccionID,
+    },
+    onSubscriptionComplete: () => {
+      console.log('suscrito');
+    },
+    onSubscriptionData: (data) => {
+      console.log('Pago realizado', data);
+      // @ts-expect-error need to fix this
+      document.getElementById('my_modal_5').close();
+      navigator('/pagoconfirmado');
+    },
+  });
+
+  return <></>;
+};
+
+export const QrModal = ({ closeModal, cuentaTotal }: IQRModal) => {
+  // TODO: cambiar el spinner por el spinner https://icon-sets.iconify.design/svg-spinners/?category=Animated+Icons de cuadritos
+
+  const [imagenQR, setImagenQR] = useState<string | undefined>();
+  const [transaccionID, setTransaccionID] = useState<
+    string | number | undefined
+  >();
+
+  const [getQr, { loading: QRloading }] = useLazyQuery(GET_QR, {
     fetchPolicy: 'no-cache',
+    onCompleted: (data) => {
+      setImagenQR(data.KIOSCO_getPagoQR.imagen);
+      setTransaccionID(data.KIOSCO_getPagoQR.transaccionID);
+    },
+    onError: (error) => {
+      console.error(error);
+    },
   });
 
   useEffect(() => {
@@ -23,16 +61,8 @@ export const QrModal = ({ closeModal, cuentaTotal }) => {
           data: 'NUEVAVERSION',
         },
       },
-    });
+    }).then();
   }, [cuentaTotal, getQr]);
-
-  if (error) {
-    setTimeout(closeModal, 5000);
-    return <p>Error al obtener QR del banco</p>;
-  }
-  // const abrirPaginaAgradecimiento = () => {
-  //   window.open('/recibo', '_blank');
-  // };
 
   return (
     <>
@@ -54,15 +84,11 @@ export const QrModal = ({ closeModal, cuentaTotal }) => {
           </h2>
         </div>
         <div className="flex flex-col items-center justify-center pt-[140px]">
-          {loading ? (
+          {QRloading ? (
             <span className="loading loading-dots loading-lg"> </span>
           ) : (
-            data && (
-              <img
-                src={data.KIOSCO_getPagoQR.imagen}
-                alt="QR Code"
-                className="w-1/2 h-1/2"
-              />
+            imagenQR !== undefined && (
+              <img src={imagenQR} alt="QR Code" className="w-1/2 h-1/2" />
             )
           )}
         </div>
@@ -76,6 +102,9 @@ export const QrModal = ({ closeModal, cuentaTotal }) => {
             Volver
           </button>
         </div>
+        {transaccionID !== undefined && (
+          <Subscribirme transaccionID={transaccionID} />
+        )}
       </div>
     </>
   );
