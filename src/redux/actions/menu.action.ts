@@ -2,6 +2,7 @@
 
 export const GUARDAR_MENU = 'GUARDAR_MENU';
 export const SELECCIONAR_CATEGORIA = 'SELECCIONAR_CATEGORIA';
+export const SELECCIONAR_SUBCATEGORIA = 'SELECCION_SUBCATEGORIA';
 
 // SOLO RECIBE VALORES T MANDA AL REDUCER
 
@@ -17,5 +18,13 @@ export const seleccionarCategoria =
     dispatch({
       type: SELECCIONAR_CATEGORIA,
       payload: categoriaIndex,
+    });
+  };
+
+export const seleccionarSubcategoria =
+  (subcategoriaIndex: number) => (dispatch: any) => {
+    dispatch({
+      type: SELECCIONAR_SUBCATEGORIA,
+      payload: subcategoriaIndex,
     });
   };

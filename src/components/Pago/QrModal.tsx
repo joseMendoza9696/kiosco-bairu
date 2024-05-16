@@ -36,9 +36,6 @@ const Subscribirme = ({ transaccionID }: ISuscribirme) => {
 };
 
 export const QrModal = ({ closeModal, cuentaTotal }: IQRModal) => {
-  // TODO: cambiar el spinner por el spinner https://icon-sets.iconify.design/svg-spinners/?category=Animated+Icons de cuadritos
-  // CEHCK
-
   const [imagenQR, setImagenQR] = useState<string | undefined>();
   const [transaccionID, setTransaccionID] = useState<
     string | number | undefined

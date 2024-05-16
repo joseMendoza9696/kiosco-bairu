@@ -3,6 +3,7 @@ import { PROFILE_QUERY } from '../api/graphql/query';
 import { useLazyQuery } from '@apollo/client';
 
 export const Agradecimiento = () => {
+  // TODO: cerrar esta pagina despues de 15 segundos
   const [perfildata, setPerfilData] = useState<{
     contextStyle: { logo: string };
   } | null>(null);

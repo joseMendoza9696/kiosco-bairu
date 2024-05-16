@@ -11,12 +11,8 @@ import { useEffect, useState } from 'react';
 import printJS from 'print-js';
 
 export const PagoConfirmado = () => {
-  // TODO: mandar a imprimir la comanda y luego mostrar la pagina de agradecimiento
-  // check
-  // TODO: si la orden ha sido enviada correctamente: mostrar pago confirmado
-  // check
+  // TODO: si la orden ha sido enviada correctamente: mostrar pago confirmado, si la orden esta cargando mostrar un loading
   // TODO: si la orden NO ha sido enviada correctamente: mensaje de error. "orden no procesada correctamente, comuniquese con el administrador". Colocar un boton para reiniciar la orden. Este boton ira a la bienvenida y recargara la pagina.
-  // check
 
   const [error, setError] = useState(false);
 
@@ -33,8 +29,6 @@ export const PagoConfirmado = () => {
           window.location.href = '/';
         }, 15000);
       }, 0);
-
-      // TODO: IMPRIMIR UNA COMANDA
       const { comandaId, nombreCliente } = data.KIOSCO_crearOrden;
 
       printJS({

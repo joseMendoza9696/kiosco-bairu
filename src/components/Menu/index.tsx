@@ -68,17 +68,11 @@ export const Menu = () => {
       </header>
       <Categoria categorias={categorias} />
       <main className="overflow-hidden">
-        {/* CATEGORIAS.TSX*/}
-
-        {/*CATEGORIAS.TSX END*/}
-
-        {/*PRODUCTOS.TSX*/}
-
+        {/*TODO: mostrar subcategorias si subcagetorias[].length es > 1. */}
+        {/*TODO: al seleccionar una subcategoria utilizar el action de redux: SELECCIONAR_SUBCATEGORIA */}
         <div className="max-w-6xl mx-auto py-8 overflow-y-auto">
           <Productos />
         </div>
-
-        {/*PRODUCTOS.TSX END*/}
       </main>
       <footer>
         <Footer />

@@ -2,7 +2,11 @@ import {
   MenuInterface,
   MenuSeleccionInterface,
 } from '../../interfaces/menu.interface';
-import { GUARDAR_MENU, SELECCIONAR_CATEGORIA } from '../actions/menu.action';
+import {
+  GUARDAR_MENU,
+  SELECCIONAR_CATEGORIA,
+  SELECCIONAR_SUBCATEGORIA,
+} from '../actions/menu.action';
 // FUNCTIONS
 import { actualizarCategoriaSeleccionada } from '../functions.ts';
 
@@ -42,6 +46,8 @@ export function menuSeleccionReducer(
   switch (action.type) {
     case SELECCIONAR_CATEGORIA:
       return { ...state, categoriaSeleccionada: action.payload };
+    case SELECCIONAR_SUBCATEGORIA:
+      return { ...state, subcategoriaSeleccionada: action.payload };
     default:
       return state;
   }
