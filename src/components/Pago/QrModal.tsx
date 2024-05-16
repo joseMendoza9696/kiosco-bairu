@@ -3,6 +3,7 @@ import { GET_QR } from '../../api/graphql/query';
 import { useEffect, useState } from 'react';
 import { PAGO_QR_CONFIRMACION } from '../../api/graphql/subscriptions.ts';
 import { useNavigate } from 'react-router-dom';
+import { Icon } from '@iconify/react/dist/iconify.js';
 
 interface IQRModal {
   closeModal: any;
@@ -36,6 +37,7 @@ const Subscribirme = ({ transaccionID }: ISuscribirme) => {
 
 export const QrModal = ({ closeModal, cuentaTotal }: IQRModal) => {
   // TODO: cambiar el spinner por el spinner https://icon-sets.iconify.design/svg-spinners/?category=Animated+Icons de cuadritos
+  // CEHCK
 
   const [imagenQR, setImagenQR] = useState<string | undefined>();
   const [transaccionID, setTransaccionID] = useState<
@@ -85,7 +87,7 @@ export const QrModal = ({ closeModal, cuentaTotal }: IQRModal) => {
         </div>
         <div className="flex flex-col items-center justify-center pt-[140px]">
           {QRloading ? (
-            <span className="loading loading-dots loading-lg"> </span>
+            <Icon icon="svg-spinners:blocks-wave" className="text-5xl" />
           ) : (
             imagenQR !== undefined && (
               <img src={imagenQR} alt="QR Code" className="w-1/2 h-1/2" />
