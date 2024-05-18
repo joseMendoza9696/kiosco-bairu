@@ -7,11 +7,18 @@ import Categoria from './categorias';
 import { RootState } from '../../redux/store';
 import Productos from './Productos/index.tsx';
 import { Footer } from '../sharedComponents/Footer.tsx';
+import { Subcategorias } from './subcategorias';
 
 export const Menu = () => {
   const dispatch = useDispatch();
   const categorias = useSelector(
     (state: RootState) => state.menuReducer.categorias,
+  );
+
+  const subcategorias = useSelector((state: RootState) =>
+    state.menuReducer.categorias.flatMap(
+      (categoria) => categoria.subcategorias,
+    ),
   );
 
   const [perfildata, setPerfilData] = useState<{
@@ -50,6 +57,23 @@ export const Menu = () => {
   useEffect(() => {
     getPerfil().then();
   }, [getPerfil]);
+  console.log(subcategorias);
+
+  // const [getSubcategorias] = useLazyQuery(GET_MENU, {
+  //   onCompleted: (data) => {
+  //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //     // @ts-ignore
+  //     dispatch(
+  //       guardarMenu({
+  //         subcategorias: data.KIOSCO_getMenu.categorias.subcategorias,
+  //       }),
+  //     );
+  //   },
+  //   onError: (error) => {
+  //     console.log(error);
+  //   },
+
+  //   });
 
   return (
     <>
@@ -70,6 +94,31 @@ export const Menu = () => {
       <main className="overflow-hidden">
         {/*TODO: mostrar subcategorias si subcagetorias[].length es > 1. */}
         {/*TODO: al seleccionar una subcategoria utilizar el action de redux: SELECCIONAR_SUBCATEGORIA */}
+        <div className="flex items-center justify-between pl-16">
+          <h1 className="text-4xl font-bold text-primary">
+            Escoge tu producto
+          </h1>
+          <button className="btn btn-secondary w-16 h-16 btn-circle mr-16">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-10 w-10"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+          </button>
+        </div>
+        <div className="max-w-6xl mx-auto  overflow-y-auto">
+          <Subcategorias subcategorias={subcategorias} />
+        </div>
+
         <div className="max-w-6xl mx-auto py-8 overflow-y-auto">
           <Productos />
         </div>
