@@ -30,21 +30,21 @@ const Login: React.FC<LoginProps> = ({ setToken }) => {
   };
 
   return (
-    <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 ">
-      <div className="mb-8 text-center">
-        <h1 className="my-3 text-4xl font-bold">Login</h1>
+    <div className="bg-primary w-screen h-screen flex flex-col  p-6  ">
+      <div className="pt-[200px] text-center ">
+        <h1 className="my-3 text-[50px] font-bold dark:text-white">BAIRÜ.IO</h1>
       </div>
-      <div className="space-y-4">
+      <div className="mx-[100px]">
         <input
           type="text"
-          placeholder="licencia"
+          placeholder="licencia del Kiosco "
           value={licenseId}
           className="w-full px-3 py-2 border rounded-md"
           onChange={(e) => setLicenseId(e.target.value)}
         />
       </div>
       <br />
-      <button onClick={handleLogin} className="btn btn-error">
+      <button onClick={handleLogin} className="btn btn-secondary mx-[200px]">
         login
       </button>
     </div>
@@ -52,3 +52,4 @@ const Login: React.FC<LoginProps> = ({ setToken }) => {
 };
 
 export default Login;
+// 66211e4c08313def71a37cf7

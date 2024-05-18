@@ -31,7 +31,7 @@ export const Agradecimiento = () => {
 
   return (
     <>
-      <div className="bg-primary flex flex-col items-center justify-around w-full h-[1919px]">
+      <div className="bg-primary flex flex-col items-center justify-around w-full">
         <div>
           <img
             src={perfildata?.contextStyle.logo}
