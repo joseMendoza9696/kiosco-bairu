@@ -15,6 +15,7 @@ export const Menu = () => {
     (state: RootState) => state.menuReducer.categorias,
   );
 
+  // TODO: seleccionar la posicion de la categoria. la posicion lo sacas de categoria seleccionada
   const subcategorias = useSelector((state: RootState) =>
     state.menuReducer.categorias.flatMap(
       (categoria) => categoria.subcategorias,

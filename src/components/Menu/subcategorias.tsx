@@ -12,6 +12,7 @@ export interface SubcategoriasProps {
 export const Subcategorias: React.FC<SubcategoriasProps> = ({
   subcategorias,
 }) => {
+  // TODO:  aqui utilizar el useSelector de subcategorias de menuReducer
   const dispatch = useDispatch();
   const subcategoriaSeleccionada = useSelector(
     (state: RootState) => state.menuSeleccionReducer.subcategoriaSeleccionada,
