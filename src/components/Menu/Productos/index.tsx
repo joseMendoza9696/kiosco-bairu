@@ -40,6 +40,7 @@ const Productos = () => {
   }
 
   const productos = categoriaActual.subcategorias[0].productos;
+
   const seleccionarProducto = (producto: Producto) => {
     // hace la logica del modal
     // mostrar modal1 o modal2

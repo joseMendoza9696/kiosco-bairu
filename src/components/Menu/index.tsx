@@ -59,22 +59,6 @@ export const Menu = () => {
   }, [getPerfil]);
   console.log(subcategorias);
 
-  // const [getSubcategorias] = useLazyQuery(GET_MENU, {
-  //   onCompleted: (data) => {
-  //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //     // @ts-ignore
-  //     dispatch(
-  //       guardarMenu({
-  //         subcategorias: data.KIOSCO_getMenu.categorias.subcategorias,
-  //       }),
-  //     );
-  //   },
-  //   onError: (error) => {
-  //     console.log(error);
-  //   },
-
-  //   });
-
   return (
     <>
       <header className="mx-16 mt-10  fixed-top">
@@ -91,9 +75,11 @@ export const Menu = () => {
         </div>
       </header>
       <Categoria categorias={categorias} />
+      {/*TODO: mostrar subcategorias si subcagetorias[].length es > 1. */}
+      {/* CHECK */}
+      {/*TODO: al seleccionar una subcategoria utilizar el action de redux: SELECCIONAR_SUBCATEGORIA */}
+
       <main className="overflow-hidden">
-        {/*TODO: mostrar subcategorias si subcagetorias[].length es > 1. */}
-        {/*TODO: al seleccionar una subcategoria utilizar el action de redux: SELECCIONAR_SUBCATEGORIA */}
         <div className="flex items-center justify-between pl-16">
           <h1 className="text-4xl font-bold text-primary">
             Escoge tu producto
@@ -115,9 +101,12 @@ export const Menu = () => {
             </svg>
           </button>
         </div>
-        <div className="max-w-6xl mx-auto  overflow-y-auto">
-          <Subcategorias subcategorias={subcategorias} />
-        </div>
+
+        {subcategorias.length > 1 && (
+          <div className="max-w-6xl mx-auto  overflow-y-auto">
+            <Subcategorias subcategorias={subcategorias} />
+          </div>
+        )}
 
         <div className="max-w-6xl mx-auto py-8 overflow-y-auto">
           <Productos />
