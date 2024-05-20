@@ -39,7 +39,8 @@ const Productos = () => {
     return <div>No hay productos disponibles</div>;
   }
 
-  const productos = categoriaActual.subcategorias[0].productos;
+  const productos =
+    categoriaActual.subcategorias[subcategoriaSeleccionada].productos;
 
   const seleccionarProducto = (producto: Producto) => {
     // hace la logica del modal

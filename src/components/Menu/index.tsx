@@ -11,16 +11,16 @@ import { Subcategorias } from './subcategorias';
 
 export const Menu = () => {
   const dispatch = useDispatch();
+
   const categorias = useSelector(
     (state: RootState) => state.menuReducer.categorias,
   );
 
-  // TODO: seleccionar la posicion de la categoria. la posicion lo sacas de categoria seleccionada
-  const subcategorias = useSelector((state: RootState) =>
-    state.menuReducer.categorias.flatMap(
-      (categoria) => categoria.subcategorias,
-    ),
+  const categoriaSeleccionada = useSelector(
+    (state: RootState) => state.menuSeleccionReducer.categoriaSeleccionada,
   );
+
+  // TODO: seleccionar la posicion de la categoria. la posicion lo sacas de categoria seleccionada
 
   const [perfildata, setPerfilData] = useState<{
     contextStyle: { logo: string };
@@ -58,7 +58,6 @@ export const Menu = () => {
   useEffect(() => {
     getPerfil().then();
   }, [getPerfil]);
-  console.log(subcategorias);
 
   return (
     <>
@@ -103,11 +102,9 @@ export const Menu = () => {
           </button>
         </div>
 
-        {subcategorias.length > 1 && (
-          <div className="max-w-6xl mx-auto  overflow-y-auto">
-            <Subcategorias subcategorias={subcategorias} />
-          </div>
-        )}
+        <div className="max-w-6xl mx-auto  overflow-y-auto">
+          <Subcategorias categoriaSeleccionada={categoriaSeleccionada} />
+        </div>
 
         <div className="max-w-6xl mx-auto py-8 overflow-y-auto">
           <Productos />
