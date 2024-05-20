@@ -1,22 +1,27 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
+import { seleccionarSubcategoria } from '../../redux/actions/menu.action';
 
 // @ts-expect-error need to fix this
 export const Subcategorias = ({ categoriaSeleccionada }) => {
   // TODO:  aqui utilizar el useSelector de subcategorias de menuReducer
+  // CHECK
   const dispatch = useDispatch();
 
   const subcategorias = useSelector(
     (state: RootState) =>
-      state.menuReducer.categorias[categoriaSeleccionada].subcategorias,
+      state.menuReducer.categorias[categoriaSeleccionada]?.subcategorias,
   );
 
   const subcategoriaSeleccionada = useSelector(
     (state: RootState) => state.menuSeleccionReducer.subcategoriaSeleccionada,
   );
+
   const SubcategoriaSeleccionada = (index: number) => {
-    dispatch({ type: 'SELECCIONAR_SUBCATEGORIA', payload: index });
+    // @ts-expect-error need to fix this
+    dispatch(seleccionarSubcategoria(index));
   };
+  console.log('subcategorias');
 
   return (
     <>
@@ -27,7 +32,7 @@ export const Subcategorias = ({ categoriaSeleccionada }) => {
               key={subcategoria.id}
               className={`mx-4 relative rounded-xl bg-white ${
                 index === subcategoriaSeleccionada
-                  ? 'border-8 border-primary rounded-md'
+                  ? 'border-8 border-primary  rounded-md'
                   : ''
               }`}
               onClick={() => SubcategoriaSeleccionada(index)}
