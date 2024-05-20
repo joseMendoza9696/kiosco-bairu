@@ -40,7 +40,7 @@ const Productos = () => {
   }
 
   const productos =
-    categoriaActual.subcategorias[subcategoriaSeleccionada].productos;
+    categoriaActual.subcategorias[subcategoriaSeleccionada]?.productos ?? [];
 
   const seleccionarProducto = (producto: Producto) => {
     // hace la logica del modal
