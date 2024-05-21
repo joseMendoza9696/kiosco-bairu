@@ -66,7 +66,7 @@ export const Bienvenida = () => {
   }, []);
 
   return (
-    <div className="container mx-auto mt-8 p-4">
+    <div className=" mx-auto  p-4 bg-primary h-screen">
       <div className="flex justify-center items-center pb-[174px] pt-86">
         <img
           src={profileData?.contextStyle.logo}
@@ -76,16 +76,14 @@ export const Bienvenida = () => {
       </div>
       <div>
         <h1 className=" lg:text-[100px] font-bold text-dark text-center ">
-          <div className="px-10">LA VIDA ES MÁS FÁCIL PIDIENDO ASÍ</div>
+          <div className="px-10 dark:text-white">
+            LA VIDA ES MÁS FÁCIL PIDIENDO ASÍ
+          </div>
         </h1>
         <span className="p-2">
           <Icon
             icon="mdi:arrow-down-bold"
-            style={{
-              height: '190px',
-              width: ' 190px',
-              margin: '10 auto',
-            }}
+            className="h-[190px] w-[190px] text-dark text-center dark:text-white m-auto"
           />
         </span>
       </div>
@@ -132,6 +130,11 @@ export const Bienvenida = () => {
             </div>
           </Link>
         </button>
+      </div>
+      <div className="flex justify-center mt-[400px]">
+        <div className="dark:text-white font-bold text-[30px]">
+          POWERED BY BAIRU.IO
+        </div>
       </div>
     </div>
   );
