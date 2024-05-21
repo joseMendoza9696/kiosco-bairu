@@ -2,10 +2,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { seleccionarSubcategoria } from '../../redux/actions/menu.action';
 
-// @ts-expect-error need to fix this
-export const Subcategorias = ({ categoriaSeleccionada }) => {
-  // TODO:  aqui utilizar el useSelector de subcategorias de menuReducer
-  // CHECK
+interface ISubcategoria {
+  categoriaSeleccionada: number;
+}
+
+export const Subcategorias = ({ categoriaSeleccionada }: ISubcategoria) => {
   const dispatch = useDispatch();
 
   const subcategorias = useSelector(
@@ -21,7 +22,6 @@ export const Subcategorias = ({ categoriaSeleccionada }) => {
     // @ts-expect-error need to fix this
     dispatch(seleccionarSubcategoria(index));
   };
-  console.log('subcategorias');
 
   return (
     <>

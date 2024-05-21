@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import { seleccionarSubcategoria } from '../../redux/actions/menu.action.ts';
 
 interface Categoria {
   id: string;
@@ -21,6 +22,8 @@ const Categoria: React.FC<CategoriasProps> = ({ categorias }) => {
 
   const handleClickCategoria = (index: number) => {
     dispatch({ type: 'SELECCIONAR_CATEGORIA', payload: index });
+    // @ts-expect-error need to fix this
+    dispatch(seleccionarSubcategoria(0));
   };
 
   const saltoDeLinea = (title: string) => {

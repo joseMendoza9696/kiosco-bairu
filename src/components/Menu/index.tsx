@@ -75,9 +75,6 @@ export const Menu = () => {
         </div>
       </header>
       <Categoria categorias={categorias} />
-      {/*TODO: mostrar subcategorias si subcagetorias[].length es > 1. */}
-      {/* CHECK */}
-      {/*TODO: al seleccionar una subcategoria utilizar el action de redux: SELECCIONAR_SUBCATEGORIA */}
 
       <main className="overflow-hidden">
         <div className="flex items-center justify-between pl-16">
@@ -102,6 +99,7 @@ export const Menu = () => {
           </button>
         </div>
 
+        {/*TODO: si subcategorias[].length es 1, no mostrar y por defecto debe estar seleccionada la subcategoria en la posicion 0*/}
         <div className="max-w-6xl mx-auto  overflow-y-auto">
           <Subcategorias categoriaSeleccionada={categoriaSeleccionada} />
         </div>
