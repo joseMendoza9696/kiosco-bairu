@@ -81,7 +81,7 @@ export const Menu = () => {
           <h1 className="text-4xl font-bold text-primary">
             Escoge tu producto
           </h1>
-          <button className="btn btn-secondary w-16 h-16 btn-circle mr-16">
+          {/* <button className="btn btn-secondary w-16 h-16 btn-circle mr-16">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-10 w-10"
@@ -96,10 +96,12 @@ export const Menu = () => {
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               />
             </svg>
-          </button>
+          </button> */}
         </div>
 
         {/*TODO: si subcategorias[].length es 1, no mostrar y por defecto debe estar seleccionada la subcategoria en la posicion 0*/}
+
+        {/* CHECK */}
         <div className="max-w-6xl mx-auto  overflow-y-auto">
           <Subcategorias categoriaSeleccionada={categoriaSeleccionada} />
         </div>
