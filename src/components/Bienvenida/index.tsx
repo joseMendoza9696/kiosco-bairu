@@ -89,7 +89,7 @@ export const Bienvenida = () => {
       </div>
       <div className="flex justify-center mt-8 space-x-20 ">
         <button
-          className="mx-4 px-6 py-3 btn btn-primary btn-secondary text-2xl w-72 h-72 flex flex-col items-center justify-center rounded-3xl"
+          className="mx-4 px-6 py-3 btn  text-2xl w-72 h-72 flex flex-col items-center justify-center rounded-3xl"
           onClick={() => {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error
@@ -110,7 +110,7 @@ export const Bienvenida = () => {
           </Link>
         </button>
         <button
-          className="mx-4 px-6 py-3 btn btn-primary btn-secondary text-2xl w-72 h-72 flex flex-col items-center justify-center rounded-3xl"
+          className="mx-4 px-6 py-3 btn text-2xl w-72 h-72 flex flex-col items-center justify-center rounded-3xl "
           onClick={() => {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error

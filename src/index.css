@@ -7,3 +7,14 @@
     font-family: 'font-bairu';
     src: url('../src/fonts/hiragino-kaku-gothic-pro-w3.otf') format('opentype');
 }
+
+.scroll-hidden::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+.scroll-hidden {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    
+}

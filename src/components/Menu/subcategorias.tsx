@@ -26,7 +26,7 @@ export const Subcategorias = ({ categoriaSeleccionada }: ISubcategoria) => {
   return (
     <>
       {subcategorias.length > 1 ? (
-        <div className="rounded-box overflow-x-auto flex items-center  carousel ">
+        <div className="rounded-box overflow-x-auto flex items-center carousel ">
           <div className="carousel-item pl-16">
             {subcategorias.map((subcategoria, index: number) => (
               <button

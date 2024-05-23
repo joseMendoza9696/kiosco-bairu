@@ -52,4 +52,3 @@ const Login: React.FC<LoginProps> = ({ setToken }) => {
 };
 
 export default Login;
-// 66211e4c08313def71a37cf7

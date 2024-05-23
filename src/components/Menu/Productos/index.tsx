@@ -102,12 +102,12 @@ const Productos = () => {
   };
 
   return (
-    <div className=" text-center ">
-      <div className="flex flex-wrap mx-[56px] py-8 gap-y-8 overflow-auto overflow-y-auto max-h-[1200px] ">
+    <div className="text-center">
+      <div className="grid grid-cols-3 mx-[56px] py-8 gap-6 overflow-auto overflow-y-auto max-h-[1200px] scroll-hidden ">
         {productos.map((producto: Producto) => (
           <button
             key={producto.id}
-            className="flex flex-col mr-[16px] rounded-xl shadow-md border-2 bg-white"
+            className=" mr-[16px] rounded-xl shadow-md border-2 bg-white"
             onClick={() => {
               seleccionarProducto(producto);
             }}

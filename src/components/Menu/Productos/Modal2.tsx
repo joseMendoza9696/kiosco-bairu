@@ -193,7 +193,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
             </div>
           </div>
           {/*HACEMOS EL MAP DE LAS OPCIONES */}
-          <div className="flex flex-wrap mx-[56px] py-8  gap-y-8 overflow-auto overflow-y-auto max-h-[500px] ">
+          <div className="flex flex-wrap mx-[56px] py-8  gap-y-8 overflow-auto overflow-y-auto max-h-[500px] scroll-hidden ">
             {opciones &&
               opciones.map((opcion, index) => (
                 <div key={opcion.id} className="relative">
@@ -240,7 +240,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                 </div>
               ))}
           </div>
-          ;{/* BOTONES DE ANADIR ELIMINAR Y CANCELAR */}
+          {/* BOTONES DE ANADIR ELIMINAR Y CANCELAR */}
           <div className="flex justify-between mx-16 fixed bottom-8 left-0 right-0">
             <div className="flex items-center justify-between text-center  mx-2">
               <button
