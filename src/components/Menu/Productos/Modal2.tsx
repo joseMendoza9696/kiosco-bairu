@@ -132,7 +132,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
     <>
       {productoSeleccionado && productoSeleccionado.opcionesMenu.length > 0 && (
         <div className="modal-box h-[1700px] bg-[base-100]  shadow-lg rounded-t-[90px] ">
-          <button className="btn btn-square w-24" onClick={atras}>
+          <button className="btn btn-square w-24 " onClick={atras}>
             X
           </button>
           <img
@@ -146,16 +146,17 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           <p className="text-center text-[45px] text-primary font-bold">
             Bs. {productoSeleccionado.precioTotal}
           </p>
-          {/*HACEMOS EL MAP DE OPCIONES MENU DEL PRODUCTO SELECCIONADO*/}
           <div className="mx-24">
             <div className="p-6 bg-accent rounded-xl overflow-x-auto">
               <div className="container mx-auto">
-                <ul className="steps ">
+                <ul
+                  className={`steps grid grid-cols-${productoSeleccionado.opcionesMenu.length} ${productoSeleccionado.opcionesMenu.length === 1 ? 'justify-center' : ''}`}
+                >
                   {productoSeleccionado.opcionesMenu.map(
                     (_opcionMenu, index) => (
                       <li
                         key={index}
-                        className={` step ${index === opcionMenuSeleccionadoIndex ? 'selected' : ''} ${index === opcionMenuSeleccionadoIndex ? 'step-primary' : ''}`}
+                        className={`step   ${index === opcionMenuSeleccionadoIndex ? 'selected' : ''} ${index === opcionMenuSeleccionadoIndex ? 'step-primary' : ''}`}
                         data-content={
                           index === opcionMenuSeleccionadoIndex ? '✓' : ''
                         }
@@ -192,7 +193,6 @@ export const Modal2 = ({ closeModal }: IModal2) => {
               </div>
             </div>
           </div>
-          {/*HACEMOS EL MAP DE LAS OPCIONES */}
           <div className="flex flex-wrap mx-[56px] py-8  gap-y-8 overflow-auto overflow-y-auto max-h-[500px] scroll-hidden ">
             {opciones &&
               opciones.map((opcion, index) => (
