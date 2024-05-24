@@ -100,7 +100,7 @@ export const Checkout = () => {
                         <h1 className=" text-[40px] font-semibold">
                           {producto.nombre}
                           <p className="text-[28px] font-bold text-primary">
-                            {categoriaActual?.nombre || 'No disponible'}
+                            {producto.subcategoriaNombre}
                           </p>
                         </h1>
 
