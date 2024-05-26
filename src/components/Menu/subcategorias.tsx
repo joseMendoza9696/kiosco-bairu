@@ -25,20 +25,18 @@ export const Subcategorias = ({ categoriaSeleccionada }: ISubcategoria) => {
 
   return (
     <>
-      {subcategorias.length > 1 ? (
-        <div className="rounded-box overflow-x-auto flex items-center carousel ">
+      {subcategorias.length > 0 ? (
+        <div className="rounded-box overflow-x-auto flex items-center carousel pt-6">
           <div className="carousel-item pl-16">
             {subcategorias.map((subcategoria, index: number) => (
               <button
                 key={subcategoria.id}
-                className={`mx-4 relative rounded-xl bg-white ${
-                  index === subcategoriaSeleccionada
-                    ? 'border-8 border-primary  rounded-md'
-                    : ''
+                className={`mx-4 relative rounded-xl bg-primary p-4 dark:text-white ${
+                  index === subcategoriaSeleccionada ? '  rounded-md' : ''
                 }`}
                 onClick={() => SubcategoriaSeleccionada(index)}
               >
-                <div className="max-w-xs rounded-md shadow-md relative">
+                <div className="max-w-xs rounded-md  relative">
                   <h2 className="text-[24px] text-left font-semibold p-1">
                     {' '}
                     {subcategoria.nombre}{' '}

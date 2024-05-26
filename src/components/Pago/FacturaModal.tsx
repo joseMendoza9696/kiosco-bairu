@@ -1,5 +1,23 @@
-// @ts-expect-error need to fix this
-export const FacturaModal = ({ closeModal }) => {
+import { useDispatch } from 'react-redux';
+import { actualizarDatosFactura } from '../../redux/actions/nuevaOrden.action';
+
+export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
+  const dispatch = useDispatch();
+
+  const seguirConDatos = () => {
+    const nit = (document.getElementById('nombre') as HTMLInputElement)?.value;
+    const razon = (document.getElementById('razon') as HTMLInputElement)?.value;
+    // @ts-expect-error need to fix this
+    dispatch(actualizarDatosFactura(nit, razon, undefined));
+    closeModal();
+  };
+
+  const seguirSinDatos = () => {
+    // @ts-expect-error need to fix this
+    dispatch(actualizarDatosFactura('0', '0', undefined));
+    closeModal();
+  };
+
   return (
     <>
       <div className="modal-box h-[1800px] bg-white shadow-lg rounded-t-[90px] border-2">
@@ -35,11 +53,14 @@ export const FacturaModal = ({ closeModal }) => {
           <div className="text-center my-[127px] space-x-[100px]  flex justify-between mx-40 ">
             <button
               className="btn btn-gosth w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16"
-              onClick={closeModal}
+              onClick={seguirSinDatos}
             >
               Seguir sin datos
             </button>
-            <button className="btn btn-primary w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16">
+            <button
+              className="btn btn-primary w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16"
+              onClick={seguirConDatos}
+            >
               Seguir
             </button>
           </div>

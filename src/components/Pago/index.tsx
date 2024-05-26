@@ -26,7 +26,7 @@ export const Pago = () => {
 
   const [qrModal, setQrModal] = useState<boolean>(false);
   const [, setTarjetaModal] = useState<boolean>(false);
-  const conFactura = false;
+  const conFactura = true;
 
   const seleccionarPago = (metodoDePago: string) => {
     // @ts-expect-error need to fix this
@@ -68,6 +68,8 @@ export const Pago = () => {
   const pagoEfectivoHabilitado = perfilLocalStorage?.pago_efectivo;
   const pagoTarjetaHabilitado = perfilLocalStorage?.pago_tarjeta;
   const pagoQrHabilitado = perfilLocalStorage?.pago_qr;
+
+  console.log(nuevaOrden);
 
   return (
     <>

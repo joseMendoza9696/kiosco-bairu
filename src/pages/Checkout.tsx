@@ -120,7 +120,7 @@ export const Checkout = () => {
                             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                             // @ts-expect-error
                             dispatch(eliminarProducto(index));
-                            if (index === 0) {
+                            if (nuevaOrden.productos.length === 0) {
                               navigate('/menu');
                             }
                           }}
