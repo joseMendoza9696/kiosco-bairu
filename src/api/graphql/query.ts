@@ -25,17 +25,21 @@ export const PROFILE_QUERY = gql`
   query {
     KIOSCO_getPerfilActivo {
       id
-      pago_efectivo
+      nombre
+      banner
       pago_tarjeta
+      pago_efectivo
       pago_qr
+      screens {
+        factura
+        llevar
+        aqui
+        telefono
+        nombre
+      }
       contextStyle {
-        colors {
-          primary
-          secondary
-          tertiary
-          quartiary
-        }
         logo
+        estilo
       }
     }
   }

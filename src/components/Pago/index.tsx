@@ -1,5 +1,5 @@
 // REACT
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // REDUX
 import { useDispatch, useSelector } from 'react-redux';
 import { actualizarMetodoDePago } from '../../redux/actions/nuevaOrden.action';
@@ -15,6 +15,7 @@ import { FacturaModal } from './FacturaModal';
 
 // UTILS
 import { Icon } from '@iconify/react/dist/iconify.js';
+import { facturaCheck } from '../../utils/Functions.tsx';
 
 export const Pago = () => {
   // TODO: UI/UX como en figma.
@@ -26,7 +27,7 @@ export const Pago = () => {
 
   const [qrModal, setQrModal] = useState<boolean>(false);
   const [, setTarjetaModal] = useState<boolean>(false);
-  const conFactura = true;
+  const [conFactura, setConFactura] = useState<boolean>(false);
 
   const seleccionarPago = (metodoDePago: string) => {
     // @ts-expect-error need to fix this
@@ -69,7 +70,10 @@ export const Pago = () => {
   const pagoTarjetaHabilitado = perfilLocalStorage?.pago_tarjeta;
   const pagoQrHabilitado = perfilLocalStorage?.pago_qr;
 
-  console.log(nuevaOrden);
+  useEffect(() => {
+    const factura = facturaCheck();
+    setConFactura(factura);
+  }, []);
 
   return (
     <>
@@ -98,7 +102,6 @@ export const Pago = () => {
                 className="btn btn-primary w-[300px] h-[300px] rounded-[20px] flex flex-col items-center justify-center"
                 onClick={() => {
                   seleccionarPago('EFECTIVO');
-                  console.log('pago en efectivo', seleccionarPago);
                 }}
               >
                 <Icon icon="fa:dollar" className="w-[120px] h-[120px]" />
