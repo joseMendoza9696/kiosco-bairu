@@ -20,6 +20,14 @@ export const CREAR_ORDEN = gql`
   }
 `;
 
+export const FACTURAR_ORDEN = gql`
+  mutation ($ordenFacturaInfo: OrdenFacturaInfoInput!) {
+    KIOSCO_facturarOrden(ordenFacturaInfo: $ordenFacturaInfo) {
+      facturaPdf
+    }
+  }
+`;
+
 // crearOrden({
 //   variables: {
 //     orden: ordenVariables,

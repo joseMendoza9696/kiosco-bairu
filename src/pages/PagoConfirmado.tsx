@@ -4,53 +4,67 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
-import { crearOrdenVariables } from '../utils/Functions';
-import { CREAR_ORDEN } from '../api/graphql/mutations';
+import {
+  crearOrdenVariables,
+  facturaCheck,
+  imprimir,
+} from '../utils/Functions';
+import { CREAR_ORDEN, FACTURAR_ORDEN } from '../api/graphql/mutations';
 import { useMutation } from '@apollo/client';
-import { useEffect } from 'react';
-import printJS from 'print-js';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export const PagoConfirmado = () => {
-  // TODO: si la orden ha sido enviada correctamente: mostrar pago confirmado, si la orden esta cargando mostrar un loading
-  // CHECK
-  // TODO: si la orden NO ha sido enviada correctamente: mensaje de error. "orden no procesada correctamente, comuniquese con el administrador". Colocar un boton para reiniciar la orden. Este boton ira a la bienvenida y recargara la pagina.
-  // CHECK
-
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
+
+  const [comandaNum, setComandaNum] = useState<string>('0');
+
+  // GRAPHQL FUNCTIONS
   const [crearOrden, { loading: crearOrdenLoading, error: crearOrdenError }] =
     useMutation(CREAR_ORDEN, {
       onCompleted: (data) => {
-        console.log('Orden creada:', data);
+        // console.log('Orden creada:', data);
 
+        const { comandaId, id } = data.KIOSCO_crearOrden;
+        setComandaNum(comandaId);
+        abrirPaginaAgradecimiento(comandaId);
         setTimeout(() => {
-          abrirPaginaAgradecimiento(comandaId);
-          setTimeout(() => {
-            cerrarPagina();
+          cerrarPagina();
+          window.location.href = '/';
+        }, 15000);
 
-            window.location.href = '/';
-          }, 15000);
-        }, 0);
-
-        const { comandaId, nombreCliente } = data.KIOSCO_crearOrden;
-
-        printJS({
-          printable: [{ Monto: `Bs.${nuevaOrden.cuentaTotal}` }],
-          type: 'json',
-          properties: ['Monto'],
-          header: `
-                  <h1>Orden: #${comandaId} ${
-                    nombreCliente !== '' ? ` - ${nombreCliente}` : ''
-                  }</h1>
-                    <h2>Método de pago: ${nuevaOrden.metodoPago}</h2>
-                  `,
-        });
+        facturar(nuevaOrden.metodoPago, id, comandaId).then();
       },
       onError: (error) => {
-        console.log(error);
         console.log('error', error);
       },
     });
+
+  const [facturarOrden] = useMutation(FACTURAR_ORDEN, {
+    onCompleted: async (data) => {
+      // console.log('factura...', data);
+      const { facturaPdf } = data.KIOSCO_facturarOrden;
+      imprimir(
+        '0',
+        facturaPdf,
+        nuevaOrden.metodoPago,
+        nuevaOrden.cuentaTotal,
+        nuevaOrden.nombreCliente,
+      ).then();
+    },
+    onError: async (error) => {
+      console.log('ERROR factura...', error);
+      imprimir(
+        comandaNum,
+        'S/N',
+        nuevaOrden.metodoPago,
+        nuevaOrden.cuentaTotal,
+        nuevaOrden.nombreCliente,
+      ).then();
+    },
+  });
+
+  // FUNCTIONS
   let nuevaVentana: any = null;
   const abrirPaginaAgradecimiento = (comandaId: any) => {
     const url = `/agradecimiento/?comandaId=${comandaId}`;
@@ -72,18 +86,54 @@ export const PagoConfirmado = () => {
         orden: ordenVariables,
         fecha: new Date().toISOString(),
       },
-    }).then(
-      () => {
-        console.log('Orden enviada');
-      },
-      (error) => {
-        console.log(error);
-      },
-    );
+    }).then();
   };
+
+  const facturar = async (
+    metodoDePago: string,
+    ordenId: string,
+    comandaNumero: string,
+  ) => {
+    const factura = facturaCheck();
+    const fechaHoy: Date = new Date();
+    if (metodoDePago === 'EFECTIVO') {
+      // imprimir la orden
+      imprimir(
+        comandaNumero,
+        'S/N',
+        metodoDePago,
+        nuevaOrden.cuentaTotal,
+        nuevaOrden.nombreCliente,
+      ).then();
+    } else {
+      if (factura) {
+        // facturamos la orden
+        facturarOrden({
+          variables: {
+            ordenFacturaInfo: {
+              ordenId: ordenId,
+              correoElectronicoComprador:
+                nuevaOrden.correoElectronico === ''
+                  ? '--'
+                  : nuevaOrden.correoElectronico,
+              descuentos: 0,
+              nit: nuevaOrden.nit,
+              razonSocial: nuevaOrden.razonSocial,
+              fecha: `${fechaHoy.getFullYear()}-${
+                fechaHoy.getMonth() + 1
+              }-${fechaHoy.getDate()}`,
+            },
+          },
+        }).then();
+      }
+    }
+  };
+
   useEffect(() => {
+    console.log('nueva orden...', nuevaOrden);
     mandarOrden();
   }, []);
+
   if (crearOrdenLoading) {
     return (
       <div className=" w-full h-[1919px] flex items-center flex-col py-80">
