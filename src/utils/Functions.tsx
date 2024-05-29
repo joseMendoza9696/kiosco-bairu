@@ -58,7 +58,7 @@ export const crearOrdenVariables = (nuevaOrden: NuevaOrdenInterface) => {
 };
 
 export const facturaCheck = (): boolean => {
-  let perfil: any = window.localStorage.getItem('Perfil');
+  let perfil: any = localStorage.getItem('Perfil');
   perfil = perfil !== null ? JSON.parse(perfil) : null;
   let factura: boolean = false;
   if (perfil !== null) {
