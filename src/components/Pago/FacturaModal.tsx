@@ -20,7 +20,7 @@ export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
 
   return (
     <>
-      <div className="modal-box h-[1800px] bg-white shadow-lg rounded-t-[90px] border-2">
+      <div className="modal-box ">
         <div className="flex items-center flex-col">
           <div className="flex items-center flex-col py-[332px] ">
             <h1 className="text-[60px] font-bold ">¿Datos de factura?</h1>
@@ -33,7 +33,8 @@ export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
                   type="text"
                   name="nit"
                   id="nombre"
-                  className="w-[600px] text-xl appearance-none bg-transparent border-b-2 border-black py-1 px-2 leading-tight focus:outline-none "
+                  className="w-[600px] text-[40px] appearance-none bg-transparent border-b-2 border-black py-1 px-2 leading-tight focus:outline-none "
+                  autoComplete="off"
                 />
                 <label
                   htmlFor="razon"
@@ -45,7 +46,8 @@ export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
                   type="text"
                   name="razon"
                   id="razon"
-                  className="w-[600px] text-xl appearance-none bg-transparent border-b-2 border-black py-1 px-2 leading-tight focus:outline-none"
+                  className="w-[600px] text-[40px]  appearance-none bg-transparent border-b-2 border-black py-1 px-2 leading-tight focus:outline-none"
+                  autoComplete="off"
                 />
               </div>
             </form>

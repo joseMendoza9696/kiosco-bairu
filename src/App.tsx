@@ -8,6 +8,8 @@ import { Checkout } from './pages/Checkout.tsx';
 import { Pago } from '../src/components/Pago/index.tsx';
 import { Agradecimiento } from './pages/Agradecimiento.tsx';
 import { PagoConfirmado } from './pages/PagoConfirmado.tsx';
+import { useLazyQuery } from '@apollo/client';
+import { PROFILE_QUERY } from './api/graphql/query.ts';
 
 function App() {
   const [token, setToken] = useState<string | null>(
@@ -16,14 +18,45 @@ function App() {
 
   const [theme, setTheme] = useState<string>(() => {
     const storedTheme = localStorage.getItem('theme');
-    return storedTheme || 'light';
+    return storedTheme || 'dark';
   });
+
+  const [, setProfileData] = useState<{
+    contextStyle: { logo: string };
+  } | null>(null);
+
+  const [getPerfil] = useLazyQuery(PROFILE_QUERY, {
+    onCompleted: (data) => {
+      const perfil = data.KIOSCO_getPerfilActivo;
+      setProfileData(perfil);
+      localStorage.setItem('Perfil', JSON.stringify(perfil));
+      if (perfil.contextStyle && perfil.contextStyle.estilo) {
+        setTheme(perfil.contextStyle.estilo);
+        localStorage.setItem('theme', perfil.contextStyle.estilo);
+      }
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  useEffect(() => {
+    const storedPerfil = localStorage.getItem('Perfil');
+    if (storedPerfil) {
+      const perfil = JSON.parse(storedPerfil);
+      setProfileData(perfil);
+      if (perfil.contextStyle && perfil.contextStyle.estilo) {
+        setTheme(perfil.contextStyle.estilo);
+      }
+    } else {
+      getPerfil();
+    }
+  }, [getPerfil]);
 
   useEffect(() => {
     document.querySelector('html')?.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
   }, [theme]);
-  // guardar tj
 
   useEffect(() => {
     const handleStorageChange = (event: StorageEvent) => {
