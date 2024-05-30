@@ -31,8 +31,10 @@ export const Subcategorias = ({ categoriaSeleccionada }: ISubcategoria) => {
             {subcategorias.map((subcategoria, index: number) => (
               <button
                 key={subcategoria.id}
-                className={`mx-4 relative rounded-xl bg-primary p-4 dark:text-white ${
-                  index === subcategoriaSeleccionada ? '  rounded-md' : ''
+                className={`mx-4 relative rounded-xl p-4 dark:text-white ${
+                  index === subcategoriaSeleccionada
+                    ? 'bg-primary rounded-md'
+                    : 'bg-secondary'
                 }`}
                 onClick={() => SubcategoriaSeleccionada(index)}
               >

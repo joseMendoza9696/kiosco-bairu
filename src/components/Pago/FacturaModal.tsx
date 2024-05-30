@@ -20,7 +20,7 @@ export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
 
   return (
     <>
-      <div className="modal-box ">
+      <div className="modal-box">
         <div className="flex items-center flex-col">
           <div className="flex items-center flex-col py-[332px] ">
             <h1 className="text-[60px] font-bold ">¿Datos de factura?</h1>
