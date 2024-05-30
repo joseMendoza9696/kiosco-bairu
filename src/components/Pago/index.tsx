@@ -26,7 +26,7 @@ export const Pago = () => {
   const navigator = useNavigate();
 
   const [qrModal, setQrModal] = useState<boolean>(false);
-  const [, setTarjetaModal] = useState<boolean>(false);
+  const [tarjetaModal, setTarjetaModal] = useState<boolean>(false);
   const [conFactura, setConFactura] = useState<boolean>(false);
 
   const seleccionarPago = (metodoDePago: string) => {
@@ -51,17 +51,6 @@ export const Pago = () => {
       navigator('/pagoconfirmado');
     }
   };
-
-  // const pagarEnEfectivo = async () => {
-  //   seleccionarPago('EFECTIVO');
-  //   setTimeout(() => {
-  //     mandarOrden();
-  //   }, 500);
-
-  //   // navigate('/');
-  //   // abrirPaginaAgradecimiento();
-  //   // window.location.reload();
-  // };
 
   // SECCION DE BOTONES HABILITADOS
   const perfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
@@ -152,21 +141,23 @@ export const Pago = () => {
           className="modal modal-bottom  transition-all duration-800"
         >
           {/* // condicional para mostrar el modal de qr o modal de tarjeta */}
-          {qrModal ? (
-            <QrModal
+          {tarjetaModal && (
+            <TarjetaModal
               cuentaTotal={nuevaOrden.cuentaTotal}
               closeModal={() => {
-                setQrModal(false);
+                setTarjetaModal(false);
 
                 // @ts-expect-error need to fix this
                 document.getElementById('my_modal_5').close();
               }}
             />
-          ) : (
-            <TarjetaModal
+          )}
+          {qrModal && (
+            <QrModal
               cuentaTotal={nuevaOrden.cuentaTotal}
               closeModal={() => {
-                setTarjetaModal(false);
+                setQrModal(false);
+
                 // @ts-expect-error need to fix this
                 document.getElementById('my_modal_5').close();
               }}

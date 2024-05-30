@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
-import { GET_MENU, PROFILE_QUERY } from '../../api/graphql/query';
+import {
+  GET_INFO_KIOSCO,
+  GET_MENU,
+  PROFILE_QUERY,
+} from '../../api/graphql/query';
 import { Icon } from '@iconify/react';
 // REDUX
 import { useDispatch } from 'react-redux';
@@ -10,12 +14,6 @@ import { actualizarTipoEntrega } from '../../redux/actions/nuevaOrden.action.ts'
 import { Link } from 'react-router-dom';
 
 export const Bienvenida = () => {
-  // TODO: hacer el lazy query de PROFILE_QUERY aqui.
-  // check
-
-  // TODO: los datos guardarlos en localstorage y obtener estos valores del local storage en el index pago.
-  // check
-
   const dispatch = useDispatch();
 
   const [profileData, setProfileData] = useState<{
@@ -35,6 +33,18 @@ export const Bienvenida = () => {
       localStorage.setItem(
         'Perfil',
         JSON.stringify(data.KIOSCO_getPerfilActivo),
+      );
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  const [getInfoKiosco] = useLazyQuery(GET_INFO_KIOSCO, {
+    onCompleted: (data) => {
+      localStorage.setItem(
+        'InfoKiosco',
+        JSON.stringify(data.KIOSCO_getInfoKiosco),
       );
     },
     onError: (error) => {
@@ -69,6 +79,7 @@ export const Bienvenida = () => {
     }
 
     getPerfil().then();
+    getInfoKiosco().then();
     getMenu().then();
   }, []);
 
