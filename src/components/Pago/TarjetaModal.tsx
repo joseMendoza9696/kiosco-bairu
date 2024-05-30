@@ -5,10 +5,15 @@ import { useNavigate } from 'react-router-dom';
 
 interface ITarjetaModal {
   closeModal: any;
-  cuentaTotal?: number;
+  cuentaTotal: number;
 }
 
-const PagoFallido = ({ closeModal }: ITarjetaModal) => {
+interface IPagoFallido {
+  closeModal: any;
+}
+
+const PagoFallido = ({ closeModal }: IPagoFallido) => {
+  // TODO: darle estilos a este componente
   useEffect(() => {
     setTimeout(() => {
       closeModal();
@@ -18,7 +23,7 @@ const PagoFallido = ({ closeModal }: ITarjetaModal) => {
 
   return (
     <div className="modal-box h-[1800px] bg-[base-100] shadow-lg rounded-t-[90px]">
-      <h1>ERROR EN EL PAGO, INTENTE OTRO METODO DE PAGO</h1>
+      <h1>ERROR EN EL PAGO CON TARJETA, INTENTE OTRO MÉTODO DE PAGO</h1>
     </div>
   );
 };
@@ -44,6 +49,7 @@ export const TarjetaModal = ({ closeModal, cuentaTotal }: ITarjetaModal) => {
   }
 
   const pagarConTarjeta = async () => {
+    // TODO: cambiar la imagen de las instrucciones, utilizar un gif de internet que muestre el pago contactless.
     try {
       const pagar = await axios.get(
         `http://${ipPOS}/sale?monto=${convertirNumero(

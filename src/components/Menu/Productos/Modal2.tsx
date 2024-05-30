@@ -16,6 +16,9 @@ interface IModal2 {
 }
 
 export const Modal2 = ({ closeModal }: IModal2) => {
+  // TODO: mostrar la descripcion del producto
+  // TODO: habilitar el boton "cancelar". El de atrás esta deshabilitado si la opcion menu es obligatoria
+
   const dispatch = useDispatch();
 
   // ESTADOS DE REACT
@@ -146,9 +149,9 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           <p className="text-center text-[45px] text-primary font-bold">
             Bs. {productoSeleccionado.precioTotal}
           </p>
-          <div className="mx-24">
+          <div className="mx-auto">
             <div className="p-6 bg-accent rounded-xl overflow-x-auto">
-              <div className="container mx-auto">
+              <div className="container ">
                 <ul
                   className={`steps grid grid-cols-${productoSeleccionado.opcionesMenu.length} ${productoSeleccionado.opcionesMenu.length === 1 ? 'justify-center' : ''}`}
                 >
@@ -193,7 +196,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
               </div>
             </div>
           </div>
-          <div className="flex flex-wrap mx-[56px] py-8  gap-y-8 overflow-auto overflow-y-auto max-h-[500px] scroll-hidden ">
+          <div className="flex flex-wrap py-8 gap-y-8 overflow-auto overflow-y-auto max-h-[500px] scroll-hidden justify-center mt-4">
             {opciones &&
               opciones.map((opcion, index) => (
                 <div key={opcion.id} className="relative">

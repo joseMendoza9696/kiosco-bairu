@@ -99,8 +99,6 @@ export const Menu = () => {
           </button> */}
         </div>
 
-        {/*TODO: si subcategorias[].length es 1, no mostrar y por defecto debe estar seleccionada la subcategoria en la posicion 0*/}
-
         {/* CHECK */}
         <div className="max-w-6xl mx-auto  overflow-y-auto">
           <Subcategorias categoriaSeleccionada={categoriaSeleccionada} />

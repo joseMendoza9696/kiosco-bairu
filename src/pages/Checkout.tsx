@@ -12,8 +12,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react/dist/iconify.js';
 
 export const Checkout = () => {
-  // TODO: solucionar los botones para escoger el tipo de entrega para llevar o aqui en base al figma
-  // TODO: estética en base a figma
+  // TODO: agregar el botón "Vaciar canasta" como el figma. El botón redirecciona a la bienvenida y recarga la pagina.
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

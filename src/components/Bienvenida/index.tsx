@@ -14,6 +14,10 @@ import { actualizarTipoEntrega } from '../../redux/actions/nuevaOrden.action.ts'
 import { Link } from 'react-router-dom';
 
 export const Bienvenida = () => {
+  // TODO: tema "mytheme" cambiar a "sbarro"
+  // TODO: tema "sbarro"  que tenga mas colores para que se diferencie las subcategorias
+  // TODO: crear tema "bigcake" -> "https://www.instagram.com/bigcakebolivia/"
+
   const dispatch = useDispatch();
 
   const [profileData, setProfileData] = useState<{

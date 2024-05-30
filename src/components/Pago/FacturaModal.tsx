@@ -2,6 +2,8 @@ import { useDispatch } from 'react-redux';
 import { actualizarDatosFactura } from '../../redux/actions/nuevaOrden.action';
 
 export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
+  // TODO: que el contenido detrás del modal este opaco como los modals de tarjeta y QR.
+
   const dispatch = useDispatch();
 
   const seguirConDatos = () => {
@@ -26,7 +28,7 @@ export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
             <h1 className="text-[60px] font-bold ">¿Datos de factura?</h1>
             <form action="" className="">
               <div className="flex flex-col pt-[170px] w-full ">
-                <label htmlFor="nombre" className="text-[24px] font-bold my-10">
+                <label htmlFor="nombre" className="text-[30px] font-bold my-10">
                   NIT
                 </label>
                 <input
@@ -38,7 +40,7 @@ export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
                 />
                 <label
                   htmlFor="razon"
-                  className="text-[24px] font-bold mb-5 my-16"
+                  className="text-[30px] font-bold mb-5 my-16"
                 >
                   Razón Social
                 </label>
