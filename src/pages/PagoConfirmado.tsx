@@ -144,14 +144,17 @@ export const PagoConfirmado = () => {
   }
   if (crearOrdenError) {
     return (
-      <div className=" w-full h-[1919px] flex items-center flex-col py-80">
-        <Icon
-          icon="icon-park-solid:close-one"
-          className="text-red-500 text-[200px]"
-        />
-        <div className="text-[50px] text-center font-bold">
-          Error al procesar la orden. Comuníquese con el administrador y
-          reinicie la orden.
+      <>
+        <div className=" w-full h-[1919px] flex items-center flex-col py-80  ">
+          <Icon
+            icon="icon-park-solid:close-one"
+            className="text-red-500 text-[100px]"
+          />
+
+          <div className="text-[30px] text-center font-bold ">
+            Error al procesar la orden. Comuníquese con el administrador y
+            reinicie la orden.
+          </div>
         </div>
         <button className="btn btn-gosth w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16">
           <Link
@@ -161,7 +164,7 @@ export const PagoConfirmado = () => {
             Reiniciar Orden
           </Link>
         </button>
-      </div>
+      </>
     );
   }
 

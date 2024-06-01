@@ -84,6 +84,16 @@ export const Checkout = () => {
         </div>
 
         <div className="flex flex-wrap mx-[56px]  overflow-auto overflow-y-auto max-h-[1000px] scroll-hidden">
+          <button
+            className="btn btn-secondary "
+            onClick={() => {
+              navigate('/', { replace: true });
+              window.location.reload();
+            }}
+          >
+            Vaciar Canasta{' '}
+          </button>
+
           {categoriaActual &&
             nuevaOrden.productos.map((producto, index) => (
               <div key={index}>

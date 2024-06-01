@@ -76,6 +76,8 @@ export const Modal1 = ({ closeModal }: IModal1) => {
           <p className="font-bold text-center text-[65px] pt-[64px]">
             {productoSeleccionado.nombre}
           </p>
+
+          <p className="text-center text-[30px] text-gray-500"></p>
           <p className="text-center text-[45px] text-primary font-bold">
             Bs. {productoSeleccionado.precioTotal}
           </p>

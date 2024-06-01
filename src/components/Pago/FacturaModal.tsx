@@ -4,6 +4,8 @@ import { actualizarDatosFactura } from '../../redux/actions/nuevaOrden.action';
 export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
   // TODO: que el contenido detrás del modal este opaco como los modals de tarjeta y QR.
 
+  // check
+
   const dispatch = useDispatch();
 
   const seguirConDatos = () => {
@@ -22,9 +24,9 @@ export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
 
   return (
     <>
-      <div className="modal-box">
+      <div className="modal-box h-[1800px] dark:bg-white bg-[base-100] shadow-lg rounded-t-[90px] border-4">
         <div className="flex items-center flex-col">
-          <div className="flex items-center flex-col py-[332px] ">
+          <div className="flex items-center flex-col py-[300px] ">
             <h1 className="text-[60px] font-bold ">¿Datos de factura?</h1>
             <form action="" className="">
               <div className="flex flex-col pt-[170px] w-full ">

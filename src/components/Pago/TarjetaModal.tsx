@@ -1,4 +1,5 @@
-import imagen from '../../../public/Imagen.png';
+import { Icon } from '@iconify/react/dist/iconify.js';
+// import imagen from '../../../public/Imagen.png';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -14,6 +15,7 @@ interface IPagoFallido {
 
 const PagoFallido = ({ closeModal }: IPagoFallido) => {
   // TODO: darle estilos a este componente
+  // check
   useEffect(() => {
     setTimeout(() => {
       closeModal();
@@ -23,7 +25,15 @@ const PagoFallido = ({ closeModal }: IPagoFallido) => {
 
   return (
     <div className="modal-box h-[1800px] bg-[base-100] shadow-lg rounded-t-[90px]">
-      <h1>ERROR EN EL PAGO CON TARJETA, INTENTE OTRO MÉTODO DE PAGO</h1>
+      <div className="flex items-center flex-col  ">
+        <Icon
+          icon="icon-park-solid:close-one"
+          className="text-red-500 text-[200px]"
+        />
+        <h1 className="text-[60px] font-bold ">
+          ERROR EN EL PAGO CON TARJETA, INTENTE OTRO MÉTODO DE PAGO
+        </h1>
+      </div>
     </div>
   );
 };
@@ -48,8 +58,10 @@ export const TarjetaModal = ({ closeModal, cuentaTotal }: ITarjetaModal) => {
     return isNaN(shiftedNumber) ? 0 : shiftedNumber;
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const pagarConTarjeta = async () => {
     // TODO: cambiar la imagen de las instrucciones, utilizar un gif de internet que muestre el pago contactless.
+    // check
     try {
       const pagar = await axios.get(
         `http://${ipPOS}/sale?monto=${convertirNumero(
@@ -102,7 +114,11 @@ export const TarjetaModal = ({ closeModal, cuentaTotal }: ITarjetaModal) => {
             </h2>
           </div>
           <div className="flex flex-col items-center justify-center pt-[140px]">
-            <img src={imagen} alt="producto" className="w-1/2 h-1/2" />
+            <img
+              src="https://media1.giphy.com/media/Z4iefvSI2VEOTdud7r/giphy.gif"
+              alt="producto"
+              className="w-1/2 h-1/2"
+            />
           </div>
         </div>
       )}

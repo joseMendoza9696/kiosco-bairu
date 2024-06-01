@@ -17,7 +17,9 @@ interface IModal2 {
 
 export const Modal2 = ({ closeModal }: IModal2) => {
   // TODO: mostrar la descripcion del producto
+
   // TODO: habilitar el boton "cancelar". El de atrás esta deshabilitado si la opcion menu es obligatoria
+  // CHECK
 
   const dispatch = useDispatch();
 
@@ -248,13 +250,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
             <div className="flex items-center justify-between text-center  mx-2">
               <button
                 className="w-[211px] h-[122px] text-[30px] rounded-[20px] btn"
-                disabled={
-                  opcionMenuSeleccionado &&
-                  !!(
-                    opcionMenuSeleccionado.obligatorio &&
-                    opcionMenuSeleccionado.cantidadSeleccionada < 1
-                  )
-                }
+                // Remover la lógica de deshabilitación
                 onClick={() => {
                   if (opcionMenuSeleccionadoIndex > 0) {
                     setOpcionMenuSeleccionadoIndex(
