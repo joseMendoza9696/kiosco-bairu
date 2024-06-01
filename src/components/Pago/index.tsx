@@ -18,9 +18,6 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import { facturaCheck } from '../../utils/Functions.tsx';
 
 export const Pago = () => {
-  // TODO: UI/UX como en figma.
-  // TODO: cuando el pago sea confirmado utilizar un nuevo pages llamado PagoConfirmado
-
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
   const dispatch = useDispatch();
   const navigator = useNavigate();
@@ -45,7 +42,6 @@ export const Pago = () => {
 
     if (metodoDePago === 'EFECTIVO') {
       // Actualizar el estado para indicar que se ha seleccionado un método de pago
-      // TODO: abrir nueva pagina de PagoConfirmado.tsx. mandar la orden al backend, imprimir la orden, abrir la pagina de agradecimiento.
       // @ts-expect-error need to fix this
       document.getElementById('my_modal_5').close();
       navigator('/pagoconfirmado');

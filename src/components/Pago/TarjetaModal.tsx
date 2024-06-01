@@ -14,8 +14,6 @@ interface IPagoFallido {
 }
 
 const PagoFallido = ({ closeModal }: IPagoFallido) => {
-  // TODO: darle estilos a este componente
-  // check
   useEffect(() => {
     setTimeout(() => {
       closeModal();
@@ -60,8 +58,6 @@ export const TarjetaModal = ({ closeModal, cuentaTotal }: ITarjetaModal) => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const pagarConTarjeta = async () => {
-    // TODO: cambiar la imagen de las instrucciones, utilizar un gif de internet que muestre el pago contactless.
-    // check
     try {
       const pagar = await axios.get(
         `http://${ipPOS}/sale?monto=${convertirNumero(

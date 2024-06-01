@@ -20,8 +20,6 @@ export const Menu = () => {
     (state: RootState) => state.menuSeleccionReducer.categoriaSeleccionada,
   );
 
-  // TODO: seleccionar la posicion de la categoria. la posicion lo sacas de categoria seleccionada
-
   const [perfildata, setPerfilData] = useState<{
     contextStyle: { logo: string };
   } | null>(null);

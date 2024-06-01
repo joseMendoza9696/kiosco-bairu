@@ -4,8 +4,6 @@ import { actualizarDatosFactura } from '../../redux/actions/nuevaOrden.action';
 export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
   // TODO: que el contenido detrás del modal este opaco como los modals de tarjeta y QR.
 
-  // check
-
   const dispatch = useDispatch();
 
   const seguirConDatos = () => {

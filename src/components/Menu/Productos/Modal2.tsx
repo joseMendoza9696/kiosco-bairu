@@ -18,9 +18,6 @@ interface IModal2 {
 export const Modal2 = ({ closeModal }: IModal2) => {
   // TODO: mostrar la descripcion del producto
 
-  // TODO: habilitar el boton "cancelar". El de atrás esta deshabilitado si la opcion menu es obligatoria
-  // CHECK
-
   const dispatch = useDispatch();
 
   // ESTADOS DE REACT
