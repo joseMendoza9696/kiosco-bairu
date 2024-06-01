@@ -118,6 +118,8 @@ export const Modal2 = ({ closeModal }: IModal2) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     dispatch(actualizarCuentaTotal());
+    setCantidad(1);
+    setOpcionMenuSeleccionadoIndex(0);
     closeModal();
   };
 
