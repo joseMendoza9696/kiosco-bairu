@@ -9,6 +9,8 @@ import { useDispatch } from 'react-redux';
 import { agregarProducto } from '../../../redux/actions/nuevaOrden.action.ts';
 
 const Productos = () => {
+  // TODO: corregir el ancho (width) de las imagenes.
+
   const dispatch = useDispatch();
 
   const categoriaSeleccionada = useSelector(
