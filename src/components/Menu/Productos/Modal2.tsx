@@ -180,7 +180,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                   )}
                 </ul>
 
-                <p className="text-left pt-4 font-bold text-2xl flex ">
+                <div className="text-left pt-4 font-bold text-2xl flex ">
                   Paso {opcionMenuSeleccionadoIndex + 1} :
                   {
                     productoSeleccionado.opcionesMenu[
@@ -194,7 +194,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                         Seleccione al menos una opción.
                       </p>
                     )}
-                </p>
+                </div>
               </div>
             </div>
           </div>

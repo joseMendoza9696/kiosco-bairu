@@ -58,20 +58,25 @@ export const Pago = () => {
   useEffect(() => {
     const factura = facturaCheck();
     setConFactura(factura);
+    const modal = document.getElementById('my_modal_2') as HTMLDialogElement;
+    if (factura) {
+      modal?.showModal();
+    } else {
+      modal?.close();
+    }
   }, []);
 
   return (
     <>
       <dialog
-        open={conFactura}
-        id="my_modal_1"
+        id="my_modal_2"
         className="modal modal-bottom  transition-all duration-800"
       >
         {conFactura && (
           <FacturaModal
             closeModal={() => {
               // @ts-expect-error need to fix this
-              document.getElementById('my_modal_1').close();
+              document.getElementById('my_modal_2').close();
             }}
           />
         )}
