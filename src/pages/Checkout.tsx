@@ -13,6 +13,7 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 
 export const Checkout = () => {
   // TODO: agregar el botón "Vaciar canasta" como el figma. El botón redirecciona a la bienvenida y recarga la pagina.
+  // CHECK
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -85,7 +86,7 @@ export const Checkout = () => {
 
         <div className="flex flex-wrap mx-[56px]  overflow-auto overflow-y-auto max-h-[1000px] scroll-hidden">
           <button
-            className="btn btn-secondary "
+            className="btn btn-secondary ml-auto text-4xl font-bold rounded-[10px] mb-8"
             onClick={() => {
               navigate('/', { replace: true });
               window.location.reload();
@@ -115,8 +116,8 @@ export const Checkout = () => {
                         </h1>
 
                         {/* <button className=" btn btn-gosth text-[24px] font-bold">
-                          Modificar{' '}
-                        </button> */}
+                            Modificar{' '}
+                          </button> */}
                       </div>
                     </div>
                     <div className="text-[40px] flex flex-col justify-between">

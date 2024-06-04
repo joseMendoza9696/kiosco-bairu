@@ -54,6 +54,7 @@ const Productos = () => {
     }
     // @ts-expect-error need to fix this
     document.getElementById('my_modal_5').showModal();
+
     // MANDAR PRODUCTO A NUEVA ORDEN REDUCER
     const newOpcionesMenu = producto.opcionesMenu.map((opMen) => {
       const nuevoOpMen = {
@@ -117,7 +118,7 @@ const Productos = () => {
             <img
               src={producto.imagen}
               alt={producto.nombre}
-              className="w-[285px] h-[285px] rounded-t-xl object-cover"
+              className="w-full h-[285px] rounded-t-xl object-cover"
             />
             <div className="ml-4 py-4">
               <h2 className="text-[20px] font-semibold text-left ">
