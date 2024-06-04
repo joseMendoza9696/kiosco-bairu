@@ -9,12 +9,9 @@ import {
 } from '../../../redux/actions/nuevaOrden.action.ts';
 // import { Producto } from '../../../interfaces/menu.interface.ts';
 
-// simport { Producto } from '../../../interfaces/menu.interface.ts';
-
 interface IModal1 {
   closeModal: any;
 }
-// redes sociales feis y insta
 
 export const Modal1 = ({ closeModal }: IModal1) => {
   // TODO: mostrar la descripcion del producto
