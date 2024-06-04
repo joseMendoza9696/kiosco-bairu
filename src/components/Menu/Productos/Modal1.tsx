@@ -87,7 +87,6 @@ export const Modal1 = ({ closeModal }: IModal1) => {
           "
           >
             Descripcion del producto Descripcion del producto Descripcion del{' '}
-            {productoSeleccionado.descripcion}
           </p>
 
           <p className="text-center text-[30px] text-gray-500"></p>
