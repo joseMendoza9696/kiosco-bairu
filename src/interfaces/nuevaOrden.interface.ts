@@ -1,11 +1,11 @@
 export enum SELECCION {
-  MULTIPLE = "MULTIPLE",
-  UNICO = "UNICO",
+  MULTIPLE = 'MULTIPLE',
+  UNICO = 'UNICO',
 }
 
 export enum ENTREGA {
-  LLEVAR = "LLEVAR",
-  AQUI = "AQUI",
+  LLEVAR = 'LLEVAR',
+  AQUI = 'AQUI',
 }
 
 export interface Opcion {
@@ -32,6 +32,7 @@ export interface ProductoNuevaOrden {
   id: string;
   idSistema?: string;
   nombre: string;
+  descripcion: string;
   cantidad: number;
   precioOriginal: number;
   precioMasOpciones: number;

@@ -12,17 +12,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react/dist/iconify.js';
 
 export const Checkout = () => {
-  // TODO: agregar el botón "Vaciar canasta" como el figma. El botón redirecciona a la bienvenida y recarga la pagina.
-  // CHECK
+  // TODO: el tipo de entrega esta mal. Se debe jalar la informacion de nuevaOrden.tipoEntrega
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
-  const categorias = useSelector(
-    (state: RootState) => state.menuReducer.categorias,
-  );
-  console.log(categorias);
+  // const categorias = useSelector(
+  //   (state: RootState) => state.menuReducer.categorias,
+  // );
 
   const categoriaSeleccionada = useSelector(
     (state: RootState) => state.menuSeleccionReducer.categoriaSeleccionada,
@@ -31,7 +29,9 @@ export const Checkout = () => {
     (state: RootState) => state.menuReducer.categorias[categoriaSeleccionada],
   );
 
-  const [tipoEntrega, setTipoEntrega] = useState<string>('AQUI');
+  const [tipoEntrega, setTipoEntrega] = useState<string>(
+    nuevaOrden.tipoEntrega,
+  );
 
   const cambioTipoEntrega = () => {
     if (tipoEntrega === 'AQUI') {
