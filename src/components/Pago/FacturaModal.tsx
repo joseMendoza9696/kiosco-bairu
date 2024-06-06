@@ -27,7 +27,7 @@ export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
         <div className="flex items-center flex-col">
           <div className="flex items-center flex-col py-[300px] ">
             <h1 className="text-[60px] font-bold ">¿Datos de factura?</h1>
-            <form action="" className="">
+            <form action="">
               <div className="flex flex-col pt-[170px] w-full ">
                 <label htmlFor="nombre" className="text-[30px] font-bold my-10">
                   NIT
