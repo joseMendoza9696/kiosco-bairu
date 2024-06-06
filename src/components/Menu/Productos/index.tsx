@@ -79,6 +79,7 @@ const Productos = () => {
         id: producto.id,
         idSistema: producto.idSistema,
         nombre: producto.nombre,
+        descripcion: producto.descripcion,
         cantidad: 1,
         precioOriginal: producto.precio,
         precioMasOpciones: producto.precio,

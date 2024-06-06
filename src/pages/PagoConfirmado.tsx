@@ -12,9 +12,10 @@ import {
 import { CREAR_ORDEN, FACTURAR_ORDEN } from '../api/graphql/mutations';
 import { useMutation } from '@apollo/client';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const PagoConfirmado = () => {
+  const navigate = useNavigate();
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
 
   const [comandaNum, setComandaNum] = useState<string>('0');
@@ -79,8 +80,6 @@ export const PagoConfirmado = () => {
     const ordenVariables = crearOrdenVariables(nuevaOrden);
     // cuentaTotal: nuevaOrden.cuentaTotal;
 
-    console.log('orden variables...', ordenVariables);
-
     crearOrden({
       variables: {
         orden: ordenVariables,
@@ -130,7 +129,6 @@ export const PagoConfirmado = () => {
   };
 
   useEffect(() => {
-    console.log('nueva orden...', nuevaOrden);
     mandarOrden();
   }, []);
 
@@ -156,13 +154,14 @@ export const PagoConfirmado = () => {
             reinicie la orden.
           </div>
         </div>
-        <button className="btn btn-gosth w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16">
-          <Link
-            to="/"
-            className="w-full h-full flex items-center justify-center"
-          >
-            Reiniciar Orden
-          </Link>
+        <button
+          className="btn btn-secondary ml-auto text-4xl font-bold rounded-[10px] mb-8"
+          onClick={() => {
+            navigate('/', { replace: true });
+            window.location.reload();
+          }}
+        >
+          Reiniciar pedido{' '}
         </button>
       </>
     );
