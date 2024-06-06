@@ -13,6 +13,11 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 
 export const Checkout = () => {
   // TODO: el tipo de entrega esta mal. Se debe jalar la informacion de nuevaOrden.tipoEntrega
+  // TODO: "comer aqui" y "para llevar" son botones diferentes.
+  // TODO: cambiar el icono de la "x" por un basurero
+
+  // TODO: 1. mover este componente a la carpeta Checkout de components
+  // TODO: 2. crear modals 1 y 2 en la carpeta checkout. Cuando la gente haga click en modificar se abrir el modal correspondiente
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -18,6 +18,9 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import { facturaCheck } from '../../utils/Functions.tsx';
 
 export const Pago = () => {
+  // TODO: si nombre o telefono estan habilitados mostrar el modal DatosModal.tsx
+  // TODO: buscar un input bonito para el telefono y el código del país. Por defecto esta habilitado el de bolivia
+
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
   const dispatch = useDispatch();
   const navigator = useNavigate();

@@ -12,6 +12,8 @@ import { useLazyQuery } from '@apollo/client';
 import { PROFILE_QUERY } from './api/graphql/query.ts';
 
 function App() {
+  // TODO: instalar y configurar MixPanel
+
   const [token, setToken] = useState<string | null>(
     localStorage.getItem('token'),
   );

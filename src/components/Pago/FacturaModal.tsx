@@ -2,8 +2,7 @@ import { useDispatch } from 'react-redux';
 import { actualizarDatosFactura } from '../../redux/actions/nuevaOrden.action';
 
 export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
-  // TODO: que el contenido detrás del modal este opaco como los modals de tarjeta y QR.
-  // check
+  /// TODO: cambiar el texto de "Datos factura" a "¿Necesitas Factura?"
 
   const dispatch = useDispatch();
 
