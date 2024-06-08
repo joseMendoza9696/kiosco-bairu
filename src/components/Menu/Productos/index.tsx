@@ -9,9 +9,7 @@ import { useDispatch } from 'react-redux';
 import { agregarProducto } from '../../../redux/actions/nuevaOrden.action.ts';
 
 const Productos = () => {
-  // TODO: corregir el ancho (width) de las imagenes.
-  // check
-
+  // TODO: para los modal 1 y 2. agregar el boton de "agregar nota" como en el figma. a lado del boton "mas".
   const dispatch = useDispatch();
 
   const categoriaSeleccionada = useSelector(

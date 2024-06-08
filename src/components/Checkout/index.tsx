@@ -14,14 +14,8 @@ import { Modal1 } from './Modal1.tsx';
 import { Modal2 } from './Modal2.tsx';
 
 export const Checkout = () => {
-  // TODO: el tipo de entrega esta mal. Se debe jalar la informacion de nuevaOrden.tipoEntrega
-  // Check
   // TODO: "comer aqui" y "para llevar" son botones diferentes.
-  // Check
-  // TODO: cambiar el icono de la "x" por un basurero
-  // Check
-  // TODO: 1. mover este componente a la carpeta Checkout de components
-  // check
+  // TODO: dar mejor estilo al boton de "modificar"
   // TODO: 2. crear modals 1 y 2 en la carpeta checkout. Cuando la gente haga click en modificar se abrir el modal correspondiente
 
   const dispatch = useDispatch();

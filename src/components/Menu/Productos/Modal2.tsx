@@ -16,11 +16,6 @@ interface IModal2 {
 }
 
 export const Modal2 = ({ closeModal }: IModal2) => {
-  // TODO: mostrar la descripcion del producto
-  // check
-  // TODO: poner limite en las opciones para que no se desborde del card.
-  // check
-
   const dispatch = useDispatch();
 
   // ESTADOS DE REACT

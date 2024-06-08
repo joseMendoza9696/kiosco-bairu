@@ -14,9 +14,6 @@ interface IModal1 {
 }
 
 export const Modal1 = ({ closeModal }: IModal1) => {
-  // TODO: mostrar la descripcion del producto
-  // Check
-
   const dispatch = useDispatch();
 
   const productoSeleccionadoIndex =

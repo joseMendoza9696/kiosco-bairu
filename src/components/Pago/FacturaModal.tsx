@@ -2,9 +2,6 @@ import { useDispatch } from 'react-redux';
 import { actualizarDatosFactura } from '../../redux/actions/nuevaOrden.action';
 
 export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
-  // TODO: cambiar el texto de "Datos factura" a "¿Necesitas Factura?"
-  // CHECK: Cambiado
-
   const dispatch = useDispatch();
 
   const seguirConDatos = () => {

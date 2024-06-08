@@ -11,6 +11,7 @@ export const DatosPersonalesModal = ({
 }: {
   closeModal: () => void;
 }) => {
+  // TODO: no mostrar el codigo del pais, o que no se pueda borrar el codigo del pais.
   const dispatch = useDispatch();
 
   const actualizarDatosPersonales = () => {

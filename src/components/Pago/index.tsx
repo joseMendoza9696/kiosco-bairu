@@ -19,11 +19,6 @@ import { facturaCheck } from '../../utils/Functions.tsx';
 import { DatosPersonalesModal } from './DatosPersonalesModal.tsx';
 
 export const Pago = () => {
-  // TODO: si nombre o telefono estan habilitados mostrar el modal DatosModal.tsx
-  // check
-  // TODO: buscar un input bonito para el telefono y el código del país. Por defecto esta habilitado el de bolivia
-  // check
-
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
   const dispatch = useDispatch();
   const navigator = useNavigate();
@@ -57,8 +52,6 @@ export const Pago = () => {
 
   // SECCION DE BOTONES HABILITADOS
   const perfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
-
-  console.log(perfilLocalStorage);
 
   const pagoEfectivoHabilitado = perfilLocalStorage?.pago_efectivo;
   const pagoTarjetaHabilitado = perfilLocalStorage?.pago_tarjeta;

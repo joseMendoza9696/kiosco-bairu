@@ -14,10 +14,7 @@ import { actualizarTipoEntrega } from '../../redux/actions/nuevaOrden.action.ts'
 import { Link } from 'react-router-dom';
 
 export const Bienvenida = () => {
-  // TODO: cambiar el contenido de los iconos y las letras al color primario. Y utilizar in-shadow para el efecto de cortado
-  // CHECK: Cambiado
-  // TODO: el background de los botones "comer aquí" y "para llevar" es una imagen del banner del perfil activo. Dejar el mensaje de "powered by bairu.io"
-  // CHECK: Cambiado
+  // TODO: el in-shadow debe ser en el icono, no fuera del icono
 
   const dispatch = useDispatch();
 
