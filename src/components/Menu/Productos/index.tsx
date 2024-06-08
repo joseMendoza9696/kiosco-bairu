@@ -10,6 +10,7 @@ import { agregarProducto } from '../../../redux/actions/nuevaOrden.action.ts';
 
 const Productos = () => {
   // TODO: corregir el ancho (width) de las imagenes.
+  // check
 
   const dispatch = useDispatch();
 

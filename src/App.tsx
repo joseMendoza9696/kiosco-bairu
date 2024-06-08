@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { ProtectedRoute } from './utils/ProtectedRoute';
 import Login from './pages/Login';
 import { Menu } from '../src/components/Menu/index.tsx';
-import { Checkout } from './pages/Checkout.tsx';
+import { Checkout } from '../src/components/Checkout/index.tsx';
 import { Pago } from '../src/components/Pago/index.tsx';
 import { Agradecimiento } from './pages/Agradecimiento.tsx';
 import { PagoConfirmado } from './pages/PagoConfirmado.tsx';
