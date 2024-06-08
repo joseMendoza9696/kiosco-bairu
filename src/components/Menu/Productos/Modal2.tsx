@@ -17,7 +17,9 @@ interface IModal2 {
 
 export const Modal2 = ({ closeModal }: IModal2) => {
   // TODO: mostrar la descripcion del producto
+  // check
   // TODO: poner limite en las opciones para que no se desborde del card.
+  // check
 
   const dispatch = useDispatch();
 
@@ -143,11 +145,15 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           <img
             src={productoSeleccionado.imagen}
             alt={productoSeleccionado.nombre}
-            className="w-[490px] h-[490px] rounded-[30px] object-cover mx-auto mt-[50px] "
+            className="w-[390px] h-[390px] rounded-[30px] object-cover mx-auto mt-[50px] "
           />
-          <p className="font-bold text-center text-[65px] pt-[20px]">
+          <p className="font-bold text-center text-[65px] pt-[10px]">
             {productoSeleccionado.nombre}
           </p>
+          <div className="px-32 py-4 font-semibold text-secondary text-center text-[30px]">
+            {productoSeleccionado.descripcion}
+          </div>
+
           <p className="text-center text-[45px] text-primary font-bold">
             Bs. {productoSeleccionado.precioTotal}
           </p>
@@ -198,53 +204,52 @@ export const Modal2 = ({ closeModal }: IModal2) => {
               </div>
             </div>
           </div>
-          <div className="flex flex-wrap py-8 gap-y-8 overflow-auto overflow-y-auto max-h-[500px] scroll-hidden justify-center mt-4">
+          <div className="flex flex-wrap py-8 gap-y-8 overflow-auto max-h-[500px] justify-center mt-4 scroll-hidden">
             {opciones &&
               opciones.map((opcion, index) => (
-                <div key={opcion.id} className="relative">
-                  <div className="flex flex-wrap gap-y-8  mx-8 items-center justify-between ">
-                    <button
-                      className={`flex flex-col mr-[32px] h-[231px] w-[200px] rounded-md shadow-md relative ${opcion.seleccionado ? 'border-8 border-primary rounded-md  ' : ''}`}
-                      onClick={() => {
-                        if (opcion.seleccionado) {
-                          deseleccionarOpcionFunc(
-                            opcionMenuSeleccionadoIndex,
-                            index,
-                          );
-                        } else {
-                          seleccionarOpcionFunc(
-                            opcionMenuSeleccionadoIndex,
-                            index,
-                          );
-                        }
-                      }}
-                    >
-                      <img
-                        src={opcion.imagen}
-                        alt={opcion.nombre}
-                        className="w-[200px] h-[167px] rounded-xl object-cover"
-                      />
-                      <div className="ml-2">
-                        <h2 className="text-[20px] font-semibold text-left ">
-                          {opcion.nombre}
-                        </h2>
-                        <p className="text-left text-semibold text-lg">
-                          +Bs. {opcion.precio}
-                        </p>
+                <div key={opcion.id} className="relative mx-4">
+                  <button
+                    className={`flex flex-col h-[231px] w-[200px] rounded-md shadow-md relative overflow-hidden ${opcion.seleccionado ? 'border-8 border-primary' : ''}`}
+                    onClick={() => {
+                      if (opcion.seleccionado) {
+                        deseleccionarOpcionFunc(
+                          opcionMenuSeleccionadoIndex,
+                          index,
+                        );
+                      } else {
+                        seleccionarOpcionFunc(
+                          opcionMenuSeleccionadoIndex,
+                          index,
+                        );
+                      }
+                    }}
+                  >
+                    <img
+                      src={opcion.imagen}
+                      alt={opcion.nombre}
+                      className="w-full h-[167px] rounded-t-md object-cover"
+                    />
+                    <div className="p-2">
+                      <h2 className="text-[16px] font-semibold text-left truncate">
+                        {opcion.nombre}
+                      </h2>
+                      <p className="text-left font-semibold text-lg">
+                        +Bs. {opcion.precio}
+                      </p>
+                    </div>
+                    {opcion.seleccionado && (
+                      <div className="absolute top-0 right-0 mt-2 mr-2">
+                        <Icon
+                          icon="ei:check"
+                          className="text-primary w-[45px] h-[45px]"
+                        />
                       </div>
-                      {opcion.seleccionado && (
-                        <div className="absolute top-0 right-0 mt-2 mr-2">
-                          <Icon
-                            icon="ei:check"
-                            className="text-primary w-[45px] h-[45px] "
-                          />
-                        </div>
-                      )}
-                    </button>
-                  </div>
+                    )}
+                  </button>
                 </div>
               ))}
           </div>
+
           {/* BOTONES DE ANADIR ELIMINAR Y CANCELAR */}
           <div className="flex justify-between mx-16 fixed bottom-8 left-0 right-0">
             <div className="flex items-center justify-between text-center  mx-2">

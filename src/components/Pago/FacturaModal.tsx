@@ -2,7 +2,8 @@ import { useDispatch } from 'react-redux';
 import { actualizarDatosFactura } from '../../redux/actions/nuevaOrden.action';
 
 export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
-  /// TODO: cambiar el texto de "Datos factura" a "¿Necesitas Factura?"
+  // TODO: cambiar el texto de "Datos factura" a "¿Necesitas Factura?"
+  // CHECK: Cambiado
 
   const dispatch = useDispatch();
 
@@ -25,7 +26,7 @@ export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
       <div className="modal-box h-[1800px] dark:bg-white bg-[base-100] shadow-lg rounded-t-[90px] border-4">
         <div className="flex items-center flex-col">
           <div className="flex items-center flex-col py-[300px] ">
-            <h1 className="text-[60px] font-bold ">¿Datos de factura?</h1>
+            <h1 className="text-[60px] font-bold ">¿Necesitas Factura?</h1>
             <form action="">
               <div className="flex flex-col pt-[170px] w-full ">
                 <label htmlFor="nombre" className="text-[30px] font-bold my-10">

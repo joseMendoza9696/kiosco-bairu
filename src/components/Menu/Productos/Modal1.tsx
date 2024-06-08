@@ -15,6 +15,7 @@ interface IModal1 {
 
 export const Modal1 = ({ closeModal }: IModal1) => {
   // TODO: mostrar la descripcion del producto
+  // Check
 
   const dispatch = useDispatch();
 
@@ -73,20 +74,17 @@ export const Modal1 = ({ closeModal }: IModal1) => {
           <img
             src={productoSeleccionado.imagen}
             alt={productoSeleccionado.nombre}
-            className="w-[490px] h-[490px] rounded-[30px] object-cover mx-auto mt-[294px] "
+            className="w-[490px] h-[490px] rounded-[30px] object-cover mx-auto mt-[150px]"
           />
           <p className="font-bold text-center text-[65px] pt-[64px]">
             {productoSeleccionado.nombre}
           </p>
+          <div className="px-32 py-4">
+            <p className="font-semibold text-secondary text-center text-[30px] ">
+              {productoSeleccionado.descripcion}
+            </p>
+          </div>
 
-          <p
-            className="font-bold text-center text-[30px] 
-          "
-          >
-            {productoSeleccionado.descripcion}
-          </p>
-
-          <p className="text-center text-[30px] text-gray-500"></p>
           <p className="text-center text-[45px] text-primary font-bold">
             Bs. {productoSeleccionado.precioTotal}
           </p>
