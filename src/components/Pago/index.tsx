@@ -16,9 +16,11 @@ import { FacturaModal } from './FacturaModal';
 // UTILS
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { facturaCheck } from '../../utils/Functions.tsx';
+import { DatosPersonalesModal } from './DatosPersonalesModal.tsx';
 
 export const Pago = () => {
   // TODO: si nombre o telefono estan habilitados mostrar el modal DatosModal.tsx
+
   // TODO: buscar un input bonito para el telefono y el código del país. Por defecto esta habilitado el de bolivia
 
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
@@ -28,6 +30,7 @@ export const Pago = () => {
   const [qrModal, setQrModal] = useState<boolean>(false);
   const [tarjetaModal, setTarjetaModal] = useState<boolean>(false);
   const [conFactura, setConFactura] = useState<boolean>(false);
+  const [conDatosPersonales, setConDatosPersonales] = useState<boolean>(false);
 
   const seleccionarPago = (metodoDePago: string) => {
     // @ts-expect-error need to fix this
@@ -54,6 +57,8 @@ export const Pago = () => {
   // SECCION DE BOTONES HABILITADOS
   const perfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
 
+  console.log(perfilLocalStorage);
+
   const pagoEfectivoHabilitado = perfilLocalStorage?.pago_efectivo;
   const pagoTarjetaHabilitado = perfilLocalStorage?.pago_tarjeta;
   const pagoQrHabilitado = perfilLocalStorage?.pago_qr;
@@ -69,8 +74,37 @@ export const Pago = () => {
     }
   }, []);
 
+  const nombreHabilitado = perfilLocalStorage?.nombre;
+  const telefonoHabilitado = perfilLocalStorage?.telefono;
+
+  useEffect(() => {
+    setConDatosPersonales(nombreHabilitado || telefonoHabilitado);
+    const modal = document.getElementById('my_modal_3') as HTMLDialogElement;
+    if (nombreHabilitado || telefonoHabilitado) {
+      modal?.showModal();
+    } else {
+      modal?.close();
+    }
+  }, [nombreHabilitado, telefonoHabilitado]);
+
   return (
     <>
+      {/* MODAL DE DATOS PERSONALES */}
+      <dialog
+        id="my_modal_3"
+        className="modal modal-bottom  transition-all duration-800"
+      >
+        {conDatosPersonales && (
+          <DatosPersonalesModal
+            closeModal={() => {
+              // @ts-expect-error need to fix this
+              document.getElementById('my_modal_3').close();
+            }}
+          />
+        )}
+      </dialog>
+
+      {/* MODAL DE FACTURA */}
       <dialog
         id="my_modal_2"
         className="modal modal-bottom  transition-all duration-800"
