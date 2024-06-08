@@ -3,6 +3,8 @@ import {
   actualizarNombreCliente,
   actualizarNumeroTelefono,
 } from '../../redux/actions/nuevaOrden.action';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/high-res.css';
 
 export const DatosPersonalesModal = ({
   closeModal,
@@ -20,6 +22,7 @@ export const DatosPersonalesModal = ({
     dispatch(actualizarNombreCliente(nombre));
     // @ts-expect-error need to fix this
     dispatch(actualizarNumeroTelefono(telefono));
+    closeModal();
   };
 
   return (
@@ -40,18 +43,23 @@ export const DatosPersonalesModal = ({
                   className="w-[600px] text-[40px] appearance-none bg-transparent border-b-2 border-black py-1 px-2 leading-tight focus:outline-none "
                   autoComplete="off"
                 />
+
                 <label
                   htmlFor="telefono"
                   className="text-[30px] font-bold mb-5 my-16"
                 >
                   Teléfono
                 </label>
-                <input
-                  type="text"
-                  name="telefono"
-                  id="telefono"
-                  className="w-[600px] text-[40px]  appearance-none bg-transparent border-b-2 border-black py-1 px-2 leading-tight focus:outline-none"
-                  autoComplete="off"
+                <PhoneInput
+                  country={'bo'}
+                  inputProps={{
+                    type: 'tel',
+                    name: 'telefono',
+                    id: 'telefono',
+                    className:
+                      'w-[600px] text-[40px]  appearance-none bg-transparent border-b-2 border-black py-1 px-2 leading-tight focus:outline-none px-20',
+                    autoComplete: 'off',
+                  }}
                 />
               </div>
             </form>

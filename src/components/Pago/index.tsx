@@ -20,8 +20,9 @@ import { DatosPersonalesModal } from './DatosPersonalesModal.tsx';
 
 export const Pago = () => {
   // TODO: si nombre o telefono estan habilitados mostrar el modal DatosModal.tsx
-
+  // check
   // TODO: buscar un input bonito para el telefono y el código del país. Por defecto esta habilitado el de bolivia
+  // check
 
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
   const dispatch = useDispatch();
@@ -74,8 +75,8 @@ export const Pago = () => {
     }
   }, []);
 
-  const nombreHabilitado = perfilLocalStorage?.nombre;
-  const telefonoHabilitado = perfilLocalStorage?.telefono;
+  const nombreHabilitado = perfilLocalStorage.screens?.nombre;
+  const telefonoHabilitado = perfilLocalStorage.screens?.telefono;
 
   useEffect(() => {
     setConDatosPersonales(nombreHabilitado || telefonoHabilitado);
