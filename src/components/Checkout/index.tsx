@@ -10,11 +10,14 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { Icon } from '@iconify/react/dist/iconify.js';
+import { Modal1 } from './Modal1.tsx';
+import { Modal2 } from './Modal2.tsx';
 
 export const Checkout = () => {
   // TODO: el tipo de entrega esta mal. Se debe jalar la informacion de nuevaOrden.tipoEntrega
+  // Check
   // TODO: "comer aqui" y "para llevar" son botones diferentes.
-
+  // Check
   // TODO: cambiar el icono de la "x" por un basurero
   // Check
   // TODO: 1. mover este componente a la carpeta Checkout de components
@@ -35,10 +38,14 @@ export const Checkout = () => {
   const categoriaActual = useSelector(
     (state: RootState) => state.menuReducer.categorias[categoriaSeleccionada],
   );
+  const subcategoriaSeleccionada = useSelector(
+    (state: RootState) => state.menuSeleccionReducer.subcategoriaSeleccionada,
+  );
 
   const [tipoEntrega, setTipoEntrega] = useState<string>(
     nuevaOrden.tipoEntrega,
   );
+  const [modal2, setModal2] = useState<boolean>(false);
 
   const cambioTipoEntrega = () => {
     if (tipoEntrega === 'AQUI') {
@@ -60,6 +67,17 @@ export const Checkout = () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     dispatch(actualizarCuentaTotal());
+  };
+
+  const productos =
+    categoriaActual?.subcategorias[subcategoriaSeleccionada]?.productos;
+
+  const seleccionarModal = () => {
+    if (productos.length > 0) {
+      setModal2(true);
+    } else {
+      setModal2(false);
+    }
   };
 
   return (
@@ -123,8 +141,21 @@ export const Checkout = () => {
                           </p>
                         </h1>
                         <div className="px-4">
-                          <button className=" btn btn-gosth text-[24px] font-bold px-4">
-                            Modificar{' '}
+                          <dialog
+                            id="my_modal_5"
+                            className="modal modal-bottom transition-all duration-800"
+                          >
+                            {modal2 ? <Modal2 /> : <Modal1 />}
+                          </dialog>
+                          <button
+                            className="btn btn-ghost text-[24px] font-bold px-4"
+                            onClick={() => {
+                              // @ts-expect-error need to fix this
+                              document.getElementById('my_modal_5').showModal();
+                              seleccionarModal();
+                            }}
+                          >
+                            Modificar
                           </button>
                         </div>
                       </div>
