@@ -7,6 +7,7 @@ import {
   quitarUltimoProducto,
   actualizarCuentaTotal,
 } from '../../../redux/actions/nuevaOrden.action.ts';
+import { Icon } from '@iconify/react/dist/iconify.js';
 // import { Producto } from '../../../interfaces/menu.interface.ts';
 
 interface IModal1 {
@@ -85,8 +86,7 @@ export const Modal1 = ({ closeModal }: IModal1) => {
           <p className="text-center text-[45px] text-primary font-bold">
             Bs. {productoSeleccionado.precioTotal}
           </p>
-
-          <div className="flex justify-center  mt-4 mx-[130px] space-x-[70px]  items-center ">
+          <div className="flex justify-center mt-4 mx-[130px] space-x-[70px] items-center relative">
             <button
               className="btn btn-ghost btn-active w-[156px] h-[93px] text-[90px] font-bold rounded-2xl"
               onClick={() => {
@@ -97,13 +97,16 @@ export const Modal1 = ({ closeModal }: IModal1) => {
             </button>
             <span className="text-[40px] font-bold">{cantidad}</span>
             <button
-              className="btn pb-2 rounded-2xl btn-primary w-[156px] h-[93px] text-[90px] font-bold "
+              className="btn pb-2 rounded-2xl btn-primary w-[156px] h-[93px] text-[90px] font-bold"
               onClick={() => {
                 editarCantidad(1);
               }}
             >
               +
             </button>
+            <div className="absolute right-[-2px] top-1/2 transform -translate-y-1/2">
+              <Icon icon="akar-icons:edit" className="text-[70px]" />
+            </div>
           </div>
 
           <div className="text-center my-[127px] space-x-[100px] ">

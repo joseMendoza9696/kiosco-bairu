@@ -10,11 +10,12 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { Icon } from '@iconify/react/dist/iconify.js';
-import { Modal1 } from './Modal1.tsx';
-import { Modal2 } from './Modal2.tsx';
+// import { Modal1 } from './Modal1.tsx';
+// import { Modal2 } from './Modal2.tsx';
 
 export const Checkout = () => {
   // TODO: "comer aqui" y "para llevar" son botones diferentes.
+  // check
   // TODO: dar mejor estilo al boton de "modificar"
   // TODO: 2. crear modals 1 y 2 en la carpeta checkout. Cuando la gente haga click en modificar se abrir el modal correspondiente
 
@@ -32,14 +33,14 @@ export const Checkout = () => {
   const categoriaActual = useSelector(
     (state: RootState) => state.menuReducer.categorias[categoriaSeleccionada],
   );
-  const subcategoriaSeleccionada = useSelector(
-    (state: RootState) => state.menuSeleccionReducer.subcategoriaSeleccionada,
-  );
+  // const subcategoriaSeleccionada = useSelector(
+  //   (state: RootState) => state.menuSeleccionReducer.subcategoriaSeleccionada,
+  // );
 
   const [tipoEntrega, setTipoEntrega] = useState<string>(
     nuevaOrden.tipoEntrega,
   );
-  const [modal2, setModal2] = useState<boolean>(false);
+  // const [modal2, setModal2] = useState<boolean>(false);
 
   const cambioTipoEntrega = () => {
     if (tipoEntrega === 'AQUI') {
@@ -63,16 +64,16 @@ export const Checkout = () => {
     dispatch(actualizarCuentaTotal());
   };
 
-  const productos =
-    categoriaActual?.subcategorias[subcategoriaSeleccionada]?.productos;
+  // const productos =
+  //   categoriaActual?.subcategorias[subcategoriaSeleccionada]?.productos;
 
-  const seleccionarModal = () => {
-    if (productos.length > 0) {
-      setModal2(true);
-    } else {
-      setModal2(false);
-    }
-  };
+  // const seleccionarModal = () => {
+  //   if (productos.length > 0) {
+  //     setModal2(true);
+  //   } else {
+  //     setModal2(false);
+  //   }
+  // };
 
   return (
     <div className=" w-full ">
@@ -80,27 +81,30 @@ export const Checkout = () => {
         <h1 className="text-center text-primary font-bold text-[56px] pt-[116px] pb-[60px]">
           TU ORDEN
         </h1>
-        <div className=" w-full pb-8 ">
-          <div className="max-w-screen-xl w-11/2 m-auto ">
-            <label
-              htmlFor="Toggle3"
-              className=" items-center  flex justify-center cursor-pointer rounded-2xl  text-[24px] h-[96px] bg-primary mx-[124px] "
-            >
-              <input
-                id="Toggle3"
-                type="checkbox"
-                className="hidden peer"
-                value={tipoEntrega}
-                onChange={cambioTipoEntrega}
-                checked={tipoEntrega === 'AQUI'}
-              />
-              <span className="rounded-2xl bg-primary peer-checked:bg-white w-1/2 mx-4 h-[70px] font-semibold text-white peer-checked:text-primary text-[35px] text-center flex items-center justify-center">
+        <div className="w-full pb-8">
+          <div className="max-w-screen-xl w-11/12 m-auto">
+            <div className="flex justify-center items-center cursor-pointer rounded-2xl text-[24px] h-[96px] bg-primary mx-[124px]">
+              <button
+                className={`rounded-2xl w-1/2 mx-4 h-[70px] font-semibold text-[35px] text-center flex items-center justify-center ${
+                  tipoEntrega === 'AQUI'
+                    ? 'bg-white text-primary'
+                    : 'bg-primary text-white'
+                }`}
+                onClick={() => cambioTipoEntrega('AQUI')}
+              >
                 Comer Aquí
-              </span>
-              <span className=" rounded-2xl h-[70px] text-center font-semibold bg-white peer-checked:bg-primary w-1/2 mx-4 text-primary peer-checked:text-white text-[35px] flex items-center justify-center">
+              </button>
+              <button
+                className={`rounded-2xl w-1/2 mx-4 h-[70px] font-semibold text-[35px] text-center flex items-center justify-center ${
+                  tipoEntrega === 'LLEVAR'
+                    ? 'bg-white text-primary'
+                    : 'bg-primary text-white'
+                }`}
+                onClick={() => cambioTipoEntrega('LLEVAR')}
+              >
                 Para llevar
-              </span>
-            </label>
+              </button>
+            </div>
           </div>
         </div>
 

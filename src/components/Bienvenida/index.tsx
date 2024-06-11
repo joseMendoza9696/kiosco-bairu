@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom';
 
 export const Bienvenida = () => {
   // TODO: el in-shadow debe ser en el icono, no fuera del icono
+  // solo se ve cuadrado
 
   const dispatch = useDispatch();
 
@@ -128,10 +129,10 @@ export const Bienvenida = () => {
                 to="/menu"
                 className="w-full h-full flex items-center justify-center"
               >
-                <div className="flex flex-col items-center shadow-inner">
+                <div className="flex flex-col items-center ">
                   <Icon
                     icon="zondicons:location-food"
-                    className="text-[112px] mb-6 text-primary"
+                    className="text-[112px] mb-6 text-primary "
                   />
                   <span className="text-[36px] text-primary">Comer aquí</span>
                 </div>
@@ -152,7 +153,7 @@ export const Bienvenida = () => {
                 to="/menu"
                 className="w-full h-full flex items-center justify-center"
               >
-                <div className="flex flex-col items-center shadow-inner">
+                <div className="flex flex-col items-center ">
                   <Icon
                     icon="fa6-solid:basket-shopping"
                     className="text-[128px] mb-6 text-primary"

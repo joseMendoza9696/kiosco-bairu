@@ -285,6 +285,8 @@ export const Modal2 = ({ closeModal }: IModal2) => {
               >
                 +
               </button>
+              <Icon icon="akar-icons:edit" className="text-[50px]" />
+
               <button
                 disabled={
                   opcionMenuSeleccionado &&
