@@ -14,6 +14,7 @@ export const DatosPersonalesModal = ({
   closeModal: () => void;
 }) => {
   // TODO: no mostrar el codigo del pais, o que no se pueda borrar el codigo del pais.
+  // TODO: el nombre si o si debe estar llenado.
   const dispatch = useDispatch();
 
   const actualizarDatosPersonales = () => {

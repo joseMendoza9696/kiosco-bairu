@@ -14,8 +14,7 @@ import { actualizarTipoEntrega } from '../../redux/actions/nuevaOrden.action.ts'
 import { Link } from 'react-router-dom';
 
 export const Bienvenida = () => {
-  // TODO: el in-shadow debe ser en el icono, no fuera del icono
-  // solo se ve cuadrado
+  // TODO: quitar: opcidad, logo, mensaje, "powered by bairu.io". Imagen y botones only.
 
   const dispatch = useDispatch();
 

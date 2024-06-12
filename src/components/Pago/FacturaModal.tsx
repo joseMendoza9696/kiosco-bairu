@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux';
 import { actualizarDatosFactura } from '../../redux/actions/nuevaOrden.action';
 
 export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
+  // TODO: Si se hace click en "Seguir" -> NIT y Razon Social deben si o si ser llenados.
   const dispatch = useDispatch();
 
   const seguirConDatos = () => {

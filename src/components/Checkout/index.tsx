@@ -15,7 +15,6 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 
 export const Checkout = () => {
   // TODO: "comer aqui" y "para llevar" son botones diferentes.
-  // check
   // TODO: dar mejor estilo al boton de "modificar"
   // TODO: 2. crear modals 1 y 2 en la carpeta checkout. Cuando la gente haga click en modificar se abrir el modal correspondiente
 
@@ -42,7 +41,7 @@ export const Checkout = () => {
   );
   // const [modal2, setModal2] = useState<boolean>(false);
 
-  const cambioTipoEntrega = () => {
+  const cambioTipoEntrega = (tipoEntrega: string) => {
     if (tipoEntrega === 'AQUI') {
       setTipoEntrega('LLEVAR');
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
