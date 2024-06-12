@@ -8,11 +8,13 @@ import {
 import { thunk } from 'redux-thunk';
 import { menuReducer, menuSeleccionReducer } from './reducers/menu.reducer';
 import { nuevaOrdenReducer } from './reducers/nuevaOrden.reducer.ts';
+import { editarOrdenReducer } from './reducers/editarOrden.reducer.ts';
 
 const rootReducer = combineReducers({
   menuReducer,
   menuSeleccionReducer,
-  nuevaOrdenReducer
+  nuevaOrdenReducer,
+  editarOrdenReducer,
 });
 
 export const Store = createStore(rootReducer, applyMiddleware(thunk));
