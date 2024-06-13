@@ -1,13 +1,19 @@
 import { useDispatch } from 'react-redux';
 import { actualizarDatosFactura } from '../../redux/actions/nuevaOrden.action';
+import { useState } from 'react';
 
 export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
   // TODO: Si se hace click en "Seguir" -> NIT y Razon Social deben si o si ser llenados.
   const dispatch = useDispatch();
+  const [error, setError] = useState('');
 
   const seguirConDatos = () => {
     const nit = (document.getElementById('nombre') as HTMLInputElement)?.value;
     const razon = (document.getElementById('razon') as HTMLInputElement)?.value;
+    if (!nit || !razon) {
+      setError('NIT y Razón Social son obligatorios');
+      return;
+    }
     // @ts-expect-error need to fix this
     dispatch(actualizarDatosFactura(nit, razon, undefined));
     closeModal();
@@ -37,6 +43,8 @@ export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
                   className="w-[600px] text-[40px] appearance-none bg-transparent border-b-2 border-black py-1 px-2 leading-tight focus:outline-none "
                   autoComplete="off"
                 />
+                {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+
                 <label
                   htmlFor="razon"
                   className="text-[30px] font-bold mb-5 my-16"
@@ -50,6 +58,7 @@ export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
                   className="w-[600px] text-[40px]  appearance-none bg-transparent border-b-2 border-black py-1 px-2 leading-tight focus:outline-none"
                   autoComplete="off"
                 />
+                {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
               </div>
             </form>
           </div>

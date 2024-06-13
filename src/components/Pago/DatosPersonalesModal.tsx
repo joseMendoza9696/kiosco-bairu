@@ -6,29 +6,36 @@ import {
 import 'react-phone-number-input/style.css';
 
 import PhoneInput from 'react-phone-number-input';
-import { useState } from 'react';
 
+import { useState } from 'react';
+{
+}
 export const DatosPersonalesModal = ({
   closeModal,
 }: {
   closeModal: () => void;
 }) => {
-  // TODO: no mostrar el codigo del pais, o que no se pueda borrar el codigo del pais.
-  // TODO: el nombre si o si debe estar llenado.
   const dispatch = useDispatch();
+  const [value, setValue] = useState('');
+  const [error, setError] = useState('');
 
   const actualizarDatosPersonales = () => {
     const nombre = (document.getElementById('nombre') as HTMLInputElement)
       ?.value;
     const telefono = (document.getElementById('telefono') as HTMLInputElement)
       ?.value;
+
+    if (!nombre) {
+      setError('El nombre es obligatorio');
+      return;
+    }
+
     // @ts-expect-error need to fix this
     dispatch(actualizarNombreCliente(nombre));
     // @ts-expect-error need to fix this
     dispatch(actualizarNumeroTelefono(telefono));
     closeModal();
   };
-  const [value, setValue] = useState();
 
   return (
     <>
@@ -48,6 +55,9 @@ export const DatosPersonalesModal = ({
                   className="w-[600px] text-[40px] appearance-none bg-transparent border-b-2 border-black py-1 px-2 leading-tight focus:outline-none "
                   autoComplete="off"
                 />
+                {error && (
+                  <p className="text-secondary text-[20px] mt-2">{error}</p>
+                )}
 
                 <label
                   htmlFor="telefono"
@@ -60,6 +70,7 @@ export const DatosPersonalesModal = ({
                   defaultCountry="BO"
                   value={value}
                   id="telefono"
+                  // @ts-expect-error need to fix this
                   onChange={setValue}
                   className="text-[40px] appearance-none border-b-2 border-black py-1 px-2 leading-tight focus:outline-none"
                   autoComplete="off"

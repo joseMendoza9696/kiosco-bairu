@@ -15,6 +15,18 @@
 
 .scroll-hidden {
     -ms-overflow-style: none;
-    scrollbar-width: none;
-    
+    scrollbar-width: none;   
 }
+
+.PhoneInputInput {
+    background-color: white;
+    border: none;
+}
+
+.PhoneInputInput:focus {
+outline: none;}
+
+.PhoneInputCountrySelect{
+    font-size: 10px ;
+    height: 700px;
+    }
