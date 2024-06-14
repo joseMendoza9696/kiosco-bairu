@@ -16,15 +16,15 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 export const Checkout = () => {
   // TODO: "comer aqui" y "para llevar" son botones diferentes.
   // TODO: dar mejor estilo al boton de "modificar"
+  // TODO: poner el tipo de moneda en base a "moneda" del perfil activo -> del local storage
+
+  // TODO: utilizar el useSelector para editarOrden State.
   // TODO: 2. crear modals 1 y 2 en la carpeta checkout. Cuando la gente haga click en modificar se abrir el modal correspondiente
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
-  // const categorias = useSelector(
-  //   (state: RootState) => state.menuReducer.categorias,
-  // );
 
   const categoriaSeleccionada = useSelector(
     (state: RootState) => state.menuSeleccionReducer.categoriaSeleccionada,
@@ -32,9 +32,6 @@ export const Checkout = () => {
   const categoriaActual = useSelector(
     (state: RootState) => state.menuReducer.categorias[categoriaSeleccionada],
   );
-  // const subcategoriaSeleccionada = useSelector(
-  //   (state: RootState) => state.menuSeleccionReducer.subcategoriaSeleccionada,
-  // );
 
   const [tipoEntrega, setTipoEntrega] = useState<string>(
     nuevaOrden.tipoEntrega,

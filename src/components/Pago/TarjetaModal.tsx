@@ -37,6 +37,7 @@ const PagoFallido = ({ closeModal }: IPagoFallido) => {
 };
 
 export const TarjetaModal = ({ closeModal, cuentaTotal }: ITarjetaModal) => {
+  // TODO: poner el tipo de moneda en base a "moneda" del perfil activo -> del local storage
   const navigator = useNavigate();
 
   // const [esperandoPago, setEsperandoPago] = useState(true);

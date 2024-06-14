@@ -14,9 +14,6 @@ import { actualizarTipoEntrega } from '../../redux/actions/nuevaOrden.action.ts'
 import { Link } from 'react-router-dom';
 
 export const Bienvenida = () => {
-  // TODO: quitar: opcidad, logo, mensaje, "powered by bairu.io". Imagen y botones only.
-  // check
-
   const dispatch = useDispatch();
 
   const [profileData, setProfileData] = useState<{

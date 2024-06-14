@@ -19,6 +19,7 @@ import { facturaCheck } from '../../utils/Functions.tsx';
 import { DatosPersonalesModal } from './DatosPersonalesModal.tsx';
 
 export const Pago = () => {
+  // TODO: poner el tipo de moneda en base a "moneda" del perfil activo -> del local storage
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
   const dispatch = useDispatch();
   const navigator = useNavigate();

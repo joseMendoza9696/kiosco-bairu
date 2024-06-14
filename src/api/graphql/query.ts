@@ -30,6 +30,9 @@ export const PROFILE_QUERY = gql`
       pago_tarjeta
       pago_efectivo
       pago_qr
+      moneda
+      pais
+      notas_productos
       screens {
         factura
         llevar

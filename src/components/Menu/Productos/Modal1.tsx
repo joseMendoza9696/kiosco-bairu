@@ -15,6 +15,9 @@ interface IModal1 {
 }
 
 export const Modal1 = ({ closeModal }: IModal1) => {
+  // TODO: si notas_productos del perfil activo es true muestras el boton de agregar notas
+  // TODO: poner el tipo de moneda en base a "moneda" del perfil activo -> del local storage
+
   const dispatch = useDispatch();
 
   const productoSeleccionadoIndex =
