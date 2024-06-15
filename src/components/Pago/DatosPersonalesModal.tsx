@@ -43,10 +43,10 @@ export const DatosPersonalesModal = ({
     <>
       <div className="modal-box h-[1800px] dark:bg-white bg-[base-100] shadow-lg rounded-t-[90px] border-4">
         <div className="flex items-center flex-col">
-          <div className="flex items-center flex-col py-[300px] ">
+          <div className="flex items-center flex-col py-[240px] ">
             <h1 className="text-[60px] font-bold ">Ingresa tus datos</h1>
             <form action="">
-              <div className="flex flex-col pt-[170px] w-full ">
+              <div className="flex flex-col pt-[160px] w-full ">
                 <label htmlFor="nombre" className="text-[30px] font-bold my-10">
                   Nombre
                 </label>
@@ -58,7 +58,7 @@ export const DatosPersonalesModal = ({
                   autoComplete="off"
                 />
                 {error && (
-                  <p className="text-secondary text-[20px] mt-2">{error}</p>
+                  <p className="text-secondary text-xl mt-2">{error}</p>
                 )}
 
                 <label

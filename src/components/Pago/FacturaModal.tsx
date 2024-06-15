@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
   // TODO: hacer mas grande los warnings para nit y razon social.
+  // check
   const dispatch = useDispatch();
   const [error, setError] = useState('');
 
@@ -29,7 +30,7 @@ export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
     <>
       <div className="modal-box h-[1800px] dark:bg-white bg-[base-100] shadow-lg rounded-t-[90px] border-4">
         <div className="flex items-center flex-col">
-          <div className="flex items-center flex-col py-[300px] ">
+          <div className="flex items-center flex-col py-[240px] ">
             <h1 className="text-[60px] font-bold ">¿Necesitas Factura?</h1>
             <form action="">
               <div className="flex flex-col pt-[170px] w-full ">
@@ -43,7 +44,7 @@ export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
                   className="w-[600px] text-[40px] appearance-none bg-transparent border-b-2 border-black py-1 px-2 leading-tight focus:outline-none "
                   autoComplete="off"
                 />
-                {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+                {error && <p className="text-red-500 text-xl mt-2">{error}</p>}
 
                 <label
                   htmlFor="razon"
@@ -58,7 +59,7 @@ export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
                   className="w-[600px] text-[40px]  appearance-none bg-transparent border-b-2 border-black py-1 px-2 leading-tight focus:outline-none"
                   autoComplete="off"
                 />
-                {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+                {error && <p className="text-red-500 text-xl mt-2">{error}</p>}
               </div>
             </form>
           </div>

@@ -17,8 +17,14 @@ interface IModal2 {
 
 export const Modal2 = ({ closeModal }: IModal2) => {
   // TODO: si notas_productos del perfil activo es true muestras el boton de agregar notas
+  // check
+
   // TODO: poner el tipo de moneda en base a "moneda" del perfil activo -> del local storage
+  // check
+
   const dispatch = useDispatch();
+
+  const PerfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
 
   // ESTADOS DE REACT
   const [cantidad, setCantidad] = useState<number>(1);
@@ -131,6 +137,8 @@ export const Modal2 = ({ closeModal }: IModal2) => {
     setCantidad(1);
     setOpcionMenuSeleccionadoIndex(0);
   };
+  const notasProductos = PerfilLocalStorage?.notas_productos;
+  const monedaPerfil = PerfilLocalStorage?.moneda;
 
   return (
     <>
@@ -152,7 +160,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           </div>
 
           <p className="text-center text-[45px] text-primary font-bold">
-            Bs. {productoSeleccionado.precioTotal}
+            {monedaPerfil} {productoSeleccionado.precioTotal}
           </p>
           <div className="mx-auto">
             <div className="p-6 bg-accent rounded-xl overflow-x-auto">
@@ -231,7 +239,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                         {opcion.nombre}
                       </h2>
                       <p className="text-left font-semibold text-lg">
-                        +Bs. {opcion.precio}
+                        + {monedaPerfil} {opcion.precio}
                       </p>
                     </div>
                     {opcion.seleccionado && (
@@ -287,7 +295,9 @@ export const Modal2 = ({ closeModal }: IModal2) => {
               >
                 +
               </button>
-              <Icon icon="akar-icons:edit" className="text-[50px]" />
+              {notasProductos && (
+                <Icon icon="akar-icons:edit" className="text-[50px]" />
+              )}
 
               <button
                 disabled={

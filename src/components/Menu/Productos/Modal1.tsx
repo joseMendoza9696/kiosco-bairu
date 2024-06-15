@@ -16,9 +16,13 @@ interface IModal1 {
 
 export const Modal1 = ({ closeModal }: IModal1) => {
   // TODO: si notas_productos del perfil activo es true muestras el boton de agregar notas
+  // check
+
   // TODO: poner el tipo de moneda en base a "moneda" del perfil activo -> del local storage
+  // check
 
   const dispatch = useDispatch();
+  const PerfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
 
   const productoSeleccionadoIndex =
     useSelector((state: RootState) => state.nuevaOrdenReducer.productos)
@@ -53,6 +57,9 @@ export const Modal1 = ({ closeModal }: IModal1) => {
       return cantidadMinima;
     });
   };
+  const notasProductos = PerfilLocalStorage?.notas_productos;
+
+  const monedaPerfil = PerfilLocalStorage?.moneda;
 
   return (
     <>
@@ -87,7 +94,7 @@ export const Modal1 = ({ closeModal }: IModal1) => {
           </div>
 
           <p className="text-center text-[45px] text-primary font-bold">
-            Bs. {productoSeleccionado.precioTotal}
+            {monedaPerfil} {productoSeleccionado.precioTotal}
           </p>
           <div className="flex justify-center mt-4 mx-[130px] space-x-[70px] items-center relative">
             <button
@@ -107,9 +114,11 @@ export const Modal1 = ({ closeModal }: IModal1) => {
             >
               +
             </button>
-            <div className="absolute right-[-2px] top-1/2 transform -translate-y-1/2">
-              <Icon icon="akar-icons:edit" className="text-[70px]" />
-            </div>
+            {notasProductos && (
+              <div className="absolute right-[-2px] top-1/2 transform -translate-y-1/2">
+                <Icon icon="akar-icons:edit" className="text-[70px]" />
+              </div>
+            )}
           </div>
 
           <div className="text-center my-[127px] space-x-[100px] ">
