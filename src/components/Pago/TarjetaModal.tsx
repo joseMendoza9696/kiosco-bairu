@@ -38,6 +38,8 @@ const PagoFallido = ({ closeModal }: IPagoFallido) => {
 
 export const TarjetaModal = ({ closeModal, cuentaTotal }: ITarjetaModal) => {
   // TODO: poner el tipo de moneda en base a "moneda" del perfil activo -> del local storage
+  // check
+
   const navigator = useNavigate();
 
   // const [esperandoPago, setEsperandoPago] = useState(true);
@@ -96,6 +98,10 @@ export const TarjetaModal = ({ closeModal, cuentaTotal }: ITarjetaModal) => {
     }
   }, [ipPOS, cuentaTotal, pagarConTarjeta]);
 
+  const PerfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
+
+  const monedaPerfil = PerfilLocalStorage?.moneda;
+
   return (
     <>
       {mostrarErrorPago ? (
@@ -107,7 +113,7 @@ export const TarjetaModal = ({ closeModal, cuentaTotal }: ITarjetaModal) => {
               Pase su tarjeta por el lector{' '}
             </h1>
             <h2 className="text-center text-primary font-bold text-[50px]  py-8">
-              Total Bs. {cuentaTotal}
+              Total {monedaPerfil}. {cuentaTotal}
             </h2>
           </div>
           <div className="flex flex-col items-center justify-center pt-[140px]">

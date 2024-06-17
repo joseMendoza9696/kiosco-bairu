@@ -16,6 +16,8 @@ interface ISuscribirme {
 
 const Subscribirme = ({ transaccionID }: ISuscribirme) => {
   // TODO: poner el tipo de moneda en base a "moneda" del perfil activo -> del local storage
+  // check
+
   const navigator = useNavigate();
 
   useSubscription(PAGO_QR_CONFIRMACION, {
@@ -35,6 +37,8 @@ const Subscribirme = ({ transaccionID }: ISuscribirme) => {
 
   return <></>;
 };
+const PerfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
+const monedaPerfil = PerfilLocalStorage?.moneda;
 
 export const QrModal = ({ closeModal, cuentaTotal }: IQRModal) => {
   const [imagenQR, setImagenQR] = useState<string | undefined>();
@@ -80,7 +84,7 @@ export const QrModal = ({ closeModal, cuentaTotal }: IQRModal) => {
             Por favor, escanea este QR
           </h1>
           <h2 className="text-center text-primary font-bold text-[50px]  py-8">
-            Total Bs. {cuentaTotal}
+            Total {monedaPerfil} {cuentaTotal}
           </h2>
         </div>
         <div className="flex flex-col items-center justify-center pt-[140px]">

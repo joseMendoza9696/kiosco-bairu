@@ -20,6 +20,8 @@ import { DatosPersonalesModal } from './DatosPersonalesModal.tsx';
 
 export const Pago = () => {
   // TODO: poner el tipo de moneda en base a "moneda" del perfil activo -> del local storage
+  // check
+
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
   const dispatch = useDispatch();
   const navigator = useNavigate();
@@ -81,6 +83,10 @@ export const Pago = () => {
       modal?.close();
     }
   }, [nombreHabilitado, telefonoHabilitado]);
+
+  const PerfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
+
+  const monedaPerfil = PerfilLocalStorage?.moneda;
 
   return (
     <>
@@ -203,7 +209,8 @@ export const Pago = () => {
         {/* SECCION DE TOTAL */}
         <div className="py-32">
           <h1 className="text-center text-primary font-bold text-[56px]  ">
-            Total Bs.{nuevaOrden.cuentaTotal}
+            Total {monedaPerfil}
+            {nuevaOrden.cuentaTotal}
           </h1>
           <div className="text-center flex justify-between mx-40 pt-20">
             <button className="btn btn-gosth w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16">

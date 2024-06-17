@@ -10,6 +10,7 @@ import { agregarProducto } from '../../../redux/actions/nuevaOrden.action.ts';
 
 const Productos = () => {
   const dispatch = useDispatch();
+  const PerfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
 
   const categoriaSeleccionada = useSelector(
     (state: RootState) => state.menuSeleccionReducer.categoriaSeleccionada,
@@ -102,6 +103,7 @@ const Productos = () => {
     }
     return title;
   };
+  const monedaPerfil = PerfilLocalStorage?.moneda;
 
   return (
     <div className="text-center">
@@ -124,7 +126,7 @@ const Productos = () => {
                 {saltoDeLinea(producto.nombre)}
               </h2>
               <p className="text-left text-semibold text-lg">
-                Bs. {producto.precio}
+                {monedaPerfil} {producto.precio}
               </p>
               <p className="text-left text-gray-500 ">
                 {saltoDeLineaDescripcion(producto.descripcion)}

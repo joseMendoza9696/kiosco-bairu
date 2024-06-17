@@ -18,7 +18,6 @@ interface IModal2 {
 export const Modal2 = ({ closeModal }: IModal2) => {
   // TODO: si notas_productos del perfil activo es true muestras el boton de agregar notas
   // check
-
   // TODO: poner el tipo de moneda en base a "moneda" del perfil activo -> del local storage
   // check
 

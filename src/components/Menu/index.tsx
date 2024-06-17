@@ -11,6 +11,7 @@ import { Subcategorias } from './subcategorias';
 
 export const Menu = () => {
   // TODO: poner el tipo de moneda en base a "moneda" del perfil activo -> del local storage
+  // check
 
   const dispatch = useDispatch();
 
