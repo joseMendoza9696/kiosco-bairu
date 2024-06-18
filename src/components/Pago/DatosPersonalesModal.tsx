@@ -16,7 +16,9 @@ export const DatosPersonalesModal = ({
   closeModal: () => void;
 }) => {
   // TODO: el defaultCountry del phone input debe ser en base a "pais" del perfil activo del local storage.
+  // check
   // TODO: los warnings deben estar mas grandes
+  // check
 
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
@@ -39,6 +41,9 @@ export const DatosPersonalesModal = ({
     dispatch(actualizarNumeroTelefono(telefono));
     closeModal();
   };
+  const PerfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
+  const paisPerfil = PerfilLocalStorage?.pais;
+  const paisCodigo = paisPerfil ? paisPerfil.split('-')[0] : null;
 
   return (
     <>
@@ -59,7 +64,9 @@ export const DatosPersonalesModal = ({
                   autoComplete="off"
                 />
                 {error && (
-                  <p className="text-secondary text-xl mt-2">{error}</p>
+                  <p className="text-red-500 font-bold text-2xl mt-2">
+                    {error}
+                  </p>
                 )}
 
                 <label
@@ -70,7 +77,7 @@ export const DatosPersonalesModal = ({
                 </label>
                 <PhoneInput
                   international={false}
-                  defaultCountry="BO"
+                  defaultCountry={paisCodigo}
                   value={value}
                   id="telefono"
                   // @ts-expect-error need to fix this
