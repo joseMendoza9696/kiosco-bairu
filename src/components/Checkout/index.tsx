@@ -6,19 +6,24 @@ import {
   editarCantidadProducto,
   actualizarCuentaTotal,
 } from '../../redux/actions/nuevaOrden.action.ts';
+
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { Icon } from '@iconify/react/dist/iconify.js';
-// import { Modal1 } from './Modal1.tsx';
-// import { Modal2 } from './Modal2.tsx';
+import { Modal1 } from './Modal1.tsx';
+import { Modal2 } from './Modal2.tsx';
+
+// import { editarProductoOrden } from '../../redux/actions/editarOrden.action.ts';
 
 export const Checkout = () => {
   // TODO: "comer aqui" y "para llevar" son botones diferentes.
   // TODO: dar mejor estilo al boton de "modificar"
   // TODO: poner el tipo de moneda en base a "moneda" del perfil activo -> del local storage
+  // check
 
   // TODO: utilizar el useSelector para editarOrden State.
+
   // TODO: 2. crear modals 1 y 2 en la carpeta checkout. Cuando la gente haga click en modificar se abrir el modal correspondiente
 
   const dispatch = useDispatch();
@@ -36,7 +41,14 @@ export const Checkout = () => {
   const [tipoEntrega, setTipoEntrega] = useState<string>(
     nuevaOrden.tipoEntrega,
   );
-  // const [modal2, setModal2] = useState<boolean>(false);
+
+  const editarOrden = useSelector(
+    (state: RootState) => state.editarOrdenReducer,
+  );
+
+  console.log('editarOrden', editarOrden);
+
+  const [modal2, setModal2] = useState<boolean>(false);
 
   const cambioTipoEntrega = (tipoEntrega: string) => {
     if (tipoEntrega === 'AQUI') {
@@ -60,16 +72,23 @@ export const Checkout = () => {
     dispatch(actualizarCuentaTotal());
   };
 
-  // const productos =
-  //   categoriaActual?.subcategorias[subcategoriaSeleccionada]?.productos;
+  const PerfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
 
-  // const seleccionarModal = () => {
-  //   if (productos.length > 0) {
-  //     setModal2(true);
-  //   } else {
-  //     setModal2(false);
-  //   }
-  // };
+  const monedaPerfil = PerfilLocalStorage?.moneda;
+
+  //   const ProductoNuevaOrden = nuevaOrden.productos;
+
+  // dispatch(editarOrden({ producto: ProductoNuevaOrden, productoIndex: 0 }));
+
+  const productos = categoriaActual?.subcategorias[0]?.productos;
+
+  const seleccionarModal = () => {
+    if (productos.length > 0) {
+      setModal2(true);
+    } else {
+      setModal2(false);
+    }
+  };
 
   return (
     <div className=" w-full ">
@@ -134,29 +153,31 @@ export const Checkout = () => {
                             {producto.subcategoriaNombre}
                           </p>
                         </h1>
-                        {/*<div className="px-4">*/}
-                        {/*  <dialog*/}
-                        {/*    id="my_modal_5"*/}
-                        {/*    className="modal modal-bottom transition-all duration-800"*/}
-                        {/*  >*/}
-                        {/*    {modal2 ? <Modal2 /> : <Modal1 />}*/}
-                        {/*  </dialog>*/}
-                        {/*  <button*/}
-                        {/*    className="btn btn-ghost text-[24px] font-bold px-4"*/}
-                        {/*    onClick={() => {*/}
-                        {/*      // @ts-expect-error need to fix this*/}
-                        {/*      document.getElementById('my_modal_5').showModal();*/}
-                        {/*      seleccionarModal();*/}
-                        {/*    }}*/}
-                        {/*  >*/}
-                        {/*    Modificar*/}
-                        {/*  </button>*/}
-                        {/*</div>*/}
+                        <div className="px-4">
+                          <dialog
+                            id="my_modal_5"
+                            className="modal modal-bottom transition-all duration-800"
+                          >
+                            {modal2 ? <Modal2 /> : <Modal1 />}
+                          </dialog>
+                          <button
+                            className="btn btn-ghost text-[24px] font-bold px-4"
+                            onClick={() => {
+                              // @ts-expect-error need to fix this
+                              document.getElementById('my_modal_5').showModal();
+                              seleccionarModal();
+                            }}
+                          >
+                            Modificar
+                          </button>
+                        </div>
                       </div>
                     </div>
                     <div className="text-[40px] flex flex-col justify-between">
                       <div className="flex justify-end font-bold">
-                        <p>Bs. {producto.precioTotal}</p>
+                        <p>
+                          {monedaPerfil}. {producto.precioTotal}
+                        </p>
                       </div>
                       <div className="flex w-[300px] justify-between items-center">
                         <button
