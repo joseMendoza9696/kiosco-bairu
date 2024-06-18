@@ -15,9 +15,6 @@ interface ISuscribirme {
 }
 
 const Subscribirme = ({ transaccionID }: ISuscribirme) => {
-  // TODO: poner el tipo de moneda en base a "moneda" del perfil activo -> del local storage
-  // check
-
   const navigator = useNavigate();
 
   useSubscription(PAGO_QR_CONFIRMACION, {

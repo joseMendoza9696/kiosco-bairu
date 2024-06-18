@@ -16,6 +16,7 @@ export const DatosPersonalesModal = ({
   closeModal: () => void;
 }) => {
   // TODO: el defaultCountry del phone input debe ser en base a "pais" del perfil activo del local storage.
+  // TODO: los warnings deben estar mas grandes
 
   const dispatch = useDispatch();
   const [value, setValue] = useState('');

@@ -20,7 +20,6 @@ export const Checkout = () => {
   // TODO: "comer aqui" y "para llevar" son botones diferentes.
   // TODO: dar mejor estilo al boton de "modificar"
   // TODO: poner el tipo de moneda en base a "moneda" del perfil activo -> del local storage
-  // check
 
   // TODO: utilizar el useSelector para editarOrden State.
 

@@ -3,8 +3,6 @@ import { actualizarDatosFactura } from '../../redux/actions/nuevaOrden.action';
 import { useState } from 'react';
 
 export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
-  // TODO: hacer mas grande los warnings para nit y razon social.
-  // check
   const dispatch = useDispatch();
   const [error, setError] = useState('');
 
