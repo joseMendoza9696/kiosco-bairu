@@ -175,7 +175,7 @@ export const Checkout = () => {
                     <div className="text-[40px] flex flex-col justify-between">
                       <div className="flex justify-end font-bold">
                         <p>
-                          {monedaPerfil}. {producto.precioTotal}
+                          {monedaPerfil} {producto.precioTotal}
                         </p>
                       </div>
                       <div className="flex w-[300px] justify-between items-center">
@@ -232,7 +232,7 @@ export const Checkout = () => {
         {/* SECCION DE BOTONES */}
         <div className="fixed bottom-0 left-0 right-0 ">
           <h1 className="text-center text-primary font-bold text-[56px] ">
-            Total Bs.{nuevaOrden.cuentaTotal}
+            Total {monedaPerfil} {nuevaOrden.cuentaTotal}
           </h1>
           <div className="text-center my-[100px]  flex justify-between mx-40 ">
             <button className="btn btn-gosth w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16">
