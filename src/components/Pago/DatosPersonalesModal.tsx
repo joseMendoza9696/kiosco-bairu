@@ -15,11 +15,7 @@ export const DatosPersonalesModal = ({
 }: {
   closeModal: () => void;
 }) => {
-  // TODO: el defaultCountry del phone input debe ser en base a "pais" del perfil activo del local storage.
-  // check
-  // TODO: los warnings deben estar mas grandes
-  // check
-
+  // TODO: el boton volver deberia cerrar el modal y volver al checkout.
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
   const [error, setError] = useState('');

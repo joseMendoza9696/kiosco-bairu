@@ -19,7 +19,6 @@ import { Modal2 } from './Modal2.tsx';
 export const Checkout = () => {
   // TODO: "comer aqui" y "para llevar" son botones diferentes.
   // TODO: dar mejor estilo al boton de "modificar"
-  // TODO: poner el tipo de moneda en base a "moneda" del perfil activo -> del local storage
 
   // TODO: utilizar el useSelector para editarOrden State.
 
@@ -152,24 +151,24 @@ export const Checkout = () => {
                             {producto.subcategoriaNombre}
                           </p>
                         </h1>
-                        <div className="px-4">
-                          <dialog
-                            id="my_modal_5"
-                            className="modal modal-bottom transition-all duration-800"
-                          >
-                            {modal2 ? <Modal2 /> : <Modal1 />}
-                          </dialog>
-                          <button
-                            className="btn btn-ghost text-[24px] font-bold px-4"
-                            onClick={() => {
-                              // @ts-expect-error need to fix this
-                              document.getElementById('my_modal_5').showModal();
-                              seleccionarModal();
-                            }}
-                          >
-                            Modificar
-                          </button>
-                        </div>
+                        {/*<div className="px-4">*/}
+                        {/*  <dialog*/}
+                        {/*    id="my_modal_5"*/}
+                        {/*    className="modal modal-bottom transition-all duration-800"*/}
+                        {/*  >*/}
+                        {/*    {modal2 ? <Modal2 /> : <Modal1 />}*/}
+                        {/*  </dialog>*/}
+                        {/*  <button*/}
+                        {/*    className="btn btn-ghost text-[24px] font-bold px-4"*/}
+                        {/*    onClick={() => {*/}
+                        {/*      // @ts-expect-error need to fix this*/}
+                        {/*      document.getElementById('my_modal_5').showModal();*/}
+                        {/*      seleccionarModal();*/}
+                        {/*    }}*/}
+                        {/*  >*/}
+                        {/*    Modificar*/}
+                        {/*  </button>*/}
+                        {/*</div>*/}
                       </div>
                     </div>
                     <div className="text-[40px] flex flex-col justify-between">
