@@ -11,17 +11,17 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { Icon } from '@iconify/react/dist/iconify.js';
-import { Modal1 } from './Modal1.tsx';
-import { Modal2 } from './Modal2.tsx';
+// import { Modal1 } from './Modal1.tsx';
+// import { Modal2 } from './Modal2.tsx';
 
 // import { editarProductoOrden } from '../../redux/actions/editarOrden.action.ts';
 
 export const Checkout = () => {
   // TODO: "comer aqui" y "para llevar" son botones diferentes.
+  // check
   // TODO: dar mejor estilo al boton de "modificar"
 
   // TODO: utilizar el useSelector para editarOrden State.
-
   // TODO: 2. crear modals 1 y 2 en la carpeta checkout. Cuando la gente haga click en modificar se abrir el modal correspondiente
 
   const dispatch = useDispatch();
@@ -46,47 +46,25 @@ export const Checkout = () => {
 
   console.log('editarOrden', editarOrden);
 
-  const [modal2, setModal2] = useState<boolean>(false);
+  // const [modal2, setModal2] = useState<boolean>(false);
 
-  const cambioTipoEntrega = (tipoEntrega: string) => {
-    if (tipoEntrega === 'AQUI') {
-      setTipoEntrega('LLEVAR');
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      dispatch(actualizarTipoEntrega('LLEVAR'));
-    } else {
-      setTipoEntrega('AQUI');
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      dispatch(actualizarTipoEntrega('AQUI'));
-    }
+  const cambioTipoEntrega = (nuevoTipoEntrega: string) => {
+    setTipoEntrega(nuevoTipoEntrega);
+    // @ts-expect-error need to fix this
+    dispatch(actualizarTipoEntrega(nuevoTipoEntrega));
   };
+
   const editarCantidad = (index: number, incremento: number) => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
+    // @ts-expect-error need to fix this
     dispatch(editarCantidadProducto(index, incremento));
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
+
+    // @ts-expect-error need to fix this
     dispatch(actualizarCuentaTotal());
   };
 
   const PerfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
 
   const monedaPerfil = PerfilLocalStorage?.moneda;
-
-  //   const ProductoNuevaOrden = nuevaOrden.productos;
-
-  // dispatch(editarOrden({ producto: ProductoNuevaOrden, productoIndex: 0 }));
-
-  const productos = categoriaActual?.subcategorias[0]?.productos;
-
-  const seleccionarModal = () => {
-    if (productos.length > 0) {
-      setModal2(true);
-    } else {
-      setModal2(false);
-    }
-  };
 
   return (
     <div className=" w-full ">

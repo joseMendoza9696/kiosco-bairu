@@ -16,6 +16,7 @@ interface ISuscribirme {
 
 const Subscribirme = ({ transaccionID }: ISuscribirme) => {
   // TODO: poner la moneda correspondiente
+  // check
   const navigator = useNavigate();
 
   useSubscription(PAGO_QR_CONFIRMACION, {
