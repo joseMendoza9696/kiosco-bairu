@@ -26,7 +26,7 @@ export const PagoConfirmado = () => {
       onCompleted: (data) => {
         // console.log('Orden creada:', data);
 
-        const { comandaId, id } = data.KIOSCO_crearOrden;
+        const { comandaId, id, ticketPdf } = data.KIOSCO_crearOrden;
         setComandaNum(comandaId);
         abrirPaginaAgradecimiento(comandaId);
         setTimeout(() => {
@@ -34,7 +34,17 @@ export const PagoConfirmado = () => {
           window.location.href = '/';
         }, 15000);
 
-        facturar(nuevaOrden.metodoPago, id, comandaId).then();
+        if (ticketPdf !== null) {
+          imprimir(
+            comandaId,
+            ticketPdf,
+            nuevaOrden.metodoPago,
+            nuevaOrden.cuentaTotal,
+            nuevaOrden.nombreCliente,
+          ).then();
+        }
+
+        facturar(nuevaOrden.metodoPago, id, comandaId, ticketPdf).then();
       },
       onError: (error) => {
         console.log('error', error);
@@ -80,6 +90,8 @@ export const PagoConfirmado = () => {
     const ordenVariables = crearOrdenVariables(nuevaOrden);
     // cuentaTotal: nuevaOrden.cuentaTotal;
 
+    // console.log(ordenVariables);
+
     crearOrden({
       variables: {
         orden: ordenVariables,
@@ -92,10 +104,11 @@ export const PagoConfirmado = () => {
     metodoDePago: string,
     ordenId: string,
     comandaNumero: string,
+    ticketPdf: string | null,
   ) => {
     const factura = facturaCheck();
     const fechaHoy: Date = new Date();
-    if (metodoDePago === 'EFECTIVO') {
+    if (metodoDePago === 'EFECTIVO' && ticketPdf === null) {
       // imprimir la orden
       imprimir(
         comandaNumero,

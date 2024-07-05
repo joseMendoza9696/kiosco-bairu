@@ -8,12 +8,15 @@ import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
 
 import { useState } from 'react';
-{
-}
+
 export const DatosPersonalesModal = ({
   closeModal,
+  mostrarNombre,
+  mostrarTelefono,
 }: {
   closeModal: () => void;
+  mostrarNombre: boolean;
+  mostrarTelefono: boolean;
 }) => {
   // TODO: el boton volver deberia cerrar el modal y volver al checkout.
   const dispatch = useDispatch();
@@ -33,8 +36,10 @@ export const DatosPersonalesModal = ({
 
     // @ts-expect-error need to fix this
     dispatch(actualizarNombreCliente(nombre));
-    // @ts-expect-error need to fix this
-    dispatch(actualizarNumeroTelefono(telefono));
+    if (mostrarTelefono) {
+      // @ts-expect-error need to fix this
+      dispatch(actualizarNumeroTelefono(telefono));
+    }
     closeModal();
   };
   const PerfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
@@ -49,38 +54,49 @@ export const DatosPersonalesModal = ({
             <h1 className="text-[60px] font-bold ">Ingresa tus datos</h1>
             <form action="">
               <div className="flex flex-col pt-[160px] w-full ">
-                <label htmlFor="nombre" className="text-[30px] font-bold my-10">
-                  Nombre
-                </label>
-                <input
-                  type="text"
-                  name="nombre"
-                  id="nombre"
-                  className="w-[600px] text-[40px] appearance-none bg-transparent border-b-2 border-black py-1 px-2 leading-tight focus:outline-none "
-                  autoComplete="off"
-                />
-                {error && (
-                  <p className="text-red-500 font-bold text-2xl mt-2">
-                    {error}
-                  </p>
+                {mostrarNombre && (
+                  <>
+                    <label
+                      htmlFor="nombre"
+                      className="text-[30px] font-bold my-10"
+                    >
+                      Nombre
+                    </label>
+                    <input
+                      type="text"
+                      name="nombre"
+                      id="nombre"
+                      className="w-[600px] text-[40px] appearance-none bg-transparent border-b-2 border-black py-1 px-2 leading-tight focus:outline-none "
+                      autoComplete="off"
+                    />
+                    {error && (
+                      <p className="text-red-500 font-bold text-2xl mt-2">
+                        {error}
+                      </p>
+                    )}
+                  </>
                 )}
 
-                <label
-                  htmlFor="telefono"
-                  className="text-[30px] font-bold mb-5 my-16"
-                >
-                  Teléfono
-                </label>
-                <PhoneInput
-                  international={false}
-                  defaultCountry={paisCodigo}
-                  value={value}
-                  id="telefono"
-                  // @ts-expect-error need to fix this
-                  onChange={setValue}
-                  className="text-[40px] appearance-none border-b-2 border-black py-1 px-2 leading-tight focus:outline-none"
-                  autoComplete="off"
-                />
+                {mostrarTelefono && (
+                  <>
+                    <label
+                      htmlFor="telefono"
+                      className="text-[30px] font-bold mb-5 my-16"
+                    >
+                      Teléfono
+                    </label>
+                    <PhoneInput
+                      international={false}
+                      defaultCountry={paisCodigo}
+                      value={value}
+                      id="telefono"
+                      // @ts-expect-error need to fix this
+                      onChange={setValue}
+                      className="text-[40px] appearance-none border-b-2 border-black py-1 px-2 leading-tight focus:outline-none"
+                      autoComplete="off"
+                    />
+                  </>
+                )}
               </div>
             </form>
           </div>

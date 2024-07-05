@@ -94,6 +94,8 @@ export const Pago = () => {
       >
         {conDatosPersonales && (
           <DatosPersonalesModal
+            mostrarNombre={nombreHabilitado}
+            mostrarTelefono={telefonoHabilitado}
             closeModal={() => {
               // @ts-expect-error need to fix this
               document.getElementById('my_modal_3').close();

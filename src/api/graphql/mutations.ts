@@ -16,6 +16,7 @@ export const CREAR_ORDEN = gql`
     KIOSCO_crearOrden(orden: $orden, fecha: $fecha) {
       id
       comandaId
+      ticketPdf
     }
   }
 `;

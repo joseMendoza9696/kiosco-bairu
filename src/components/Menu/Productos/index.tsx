@@ -58,6 +58,7 @@ const Productos = () => {
     const newOpcionesMenu = producto.opcionesMenu.map((opMen) => {
       const nuevoOpMen = {
         id: opMen.id,
+        idSistema: opMen.idSistema,
         nombre: opMen.nombre,
         seleccion: opMen.seleccion,
         cantidadSeleccion: opMen.cantidadSeleccion,
