@@ -10,6 +10,7 @@ import {
 import { editarCantidadProducto } from '../../../redux/actions/nuevaOrden.action.ts';
 import { useDispatch, useSelector } from 'react-redux';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import { NotesProduct } from './NotesProduct.tsx';
 
 interface IModal2 {
   closeModal: any;
@@ -290,9 +291,9 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                 +
               </button>
               {notasProductos && (
-                <Icon icon="akar-icons:edit" className="text-[50px]" />
+                // <Icon icon="akar-icons:edit" className="text-[50px]" />
+                <NotesProduct.Modal2></NotesProduct.Modal2>
               )}
-
               <button
                 disabled={
                   opcionMenuSeleccionado &&
