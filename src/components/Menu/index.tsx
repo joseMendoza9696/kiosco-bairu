@@ -60,7 +60,7 @@ export const Menu = () => {
   return (
     <>
       <header className="mx-16 mt-10  fixed-top">
-        <div className="p-6  dark:bg-primary dark:text-gray-50 rounded-xl shadow-lg">
+        <div className="p-6 dark:bg-primary dark:text-gray-50 rounded-xl shadow-lg">
           <div className="container mx-auto">
             <div className="flex flex-col lg:flex-row items-center justify-center">
               <img
@@ -102,7 +102,7 @@ export const Menu = () => {
           <Subcategorias categoriaSeleccionada={categoriaSeleccionada} />
         </div>
 
-        <div className="max-w-6xl mx-auto py-8 overflow-y-auto">
+        <div className="max-w-6xl mx-auto py-10 overflow-y-auto pl-2">
           <Productos />
         </div>
       </main>

@@ -23,7 +23,8 @@ export default {
           secondary: '#FF9A01',
           accent: '#FFA8A8',
           neutral: '#fff4f8',
-          'base-100': '#fff4f8',
+          //background color =>
+          'base-100': '#FAFAFA',
         },
       },
       'light',

@@ -40,12 +40,12 @@ const Categoria: React.FC<CategoriasProps> = ({ categorias }) => {
           Nuestras categorías
         </h1>
       </div>
-      <div className="rounded-box w-full overflow-x-auto flex items-center justify-start carousel py-4">
-        <div className="carousel-item pl-16">
+      <div className="rounded-box w-full overflow-x-auto flex items-center justify-start carousel py-10">
+        <div className="carousel-item pl-12">
           {categorias.map((categoria: Categoria, index: number) => (
             <button
               key={categoria.id}
-              className={`mx-4 relative rounded-xl bg-white ${index === categoriaSeleccionada ? 'border-8 border-primary rounded-md' : ''}`}
+              className={`mx-4 relative rounded-xl bg-white ${index === categoriaSeleccionada ? 'border-4 border-primary rounded-md' : ''}`}
               onClick={() => handleClickCategoria(index)}
             >
               <div className="max-w-xs rounded-md shadow-md relative">
@@ -54,7 +54,7 @@ const Categoria: React.FC<CategoriasProps> = ({ categorias }) => {
                   alt={categoria.nombre}
                   className="w-[200px] h-[167px] rounded-xl object-cover"
                 />
-                <h2 className="text-[24px] text-left font-semibold p-1">
+                <h2 className="text-[24px] text-left font-semibold p-1 capitalize">
                   {saltoDeLinea(categoria.nombre)}
                 </h2>
                 {index === categoriaSeleccionada && (

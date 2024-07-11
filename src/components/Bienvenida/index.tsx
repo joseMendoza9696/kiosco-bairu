@@ -5,7 +5,6 @@ import {
   GET_MENU,
   PROFILE_QUERY,
 } from '../../api/graphql/query';
-import { Icon } from '@iconify/react';
 // REDUX
 import { useDispatch } from 'react-redux';
 import { guardarMenu } from '../../redux/actions/menu.action.ts';
@@ -108,7 +107,7 @@ export const Bienvenida = () => {
                 to="/menu"
                 className="w-full h-full flex items-center justify-center"
               >
-                <img src="/public/icons_bienvenida/dine-in.svg" alt="dine-in" />
+                <img src="/icons_bienvenida/dine-in.svg" alt="dine-in" />
               </Link>
             </button>
           )}
@@ -123,10 +122,7 @@ export const Bienvenida = () => {
               }}
             >
               <Link to="/menu">
-                <img
-                  src="/public/icons_bienvenida/delivery.svg"
-                  alt="img-delivery"
-                />
+                <img src="/icons_bienvenida/delivery.svg" alt="img-delivery" />
               </Link>
             </button>
           )}
