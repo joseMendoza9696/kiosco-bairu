@@ -97,6 +97,7 @@ export const Bienvenida = () => {
         <div className="flex justify-center items-end gap-24 mt-[60%]">
           {profileData?.screens.aqui && (
             <button
+              className="shadow-md"
               onClick={() => {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-expect-error
@@ -114,6 +115,7 @@ export const Bienvenida = () => {
 
           {profileData?.screens.llevar && (
             <button
+              className="shadow-md"
               onClick={() => {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-expect-error
