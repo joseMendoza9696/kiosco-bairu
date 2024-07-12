@@ -12,6 +12,8 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { Icon } from '@iconify/react/dist/iconify.js';
 // import { Modal1 } from './Modal1.tsx';
+import { Modal2 } from './Modal2.tsx';
+// import { Modal1 } from './Modal1.tsx';
 // import { Modal2 } from './Modal2.tsx';
 
 // import { editarProductoOrden } from '../../redux/actions/editarOrden.action.ts';
@@ -40,11 +42,9 @@ export const Checkout = () => {
     nuevaOrden.tipoEntrega,
   );
 
-  const editarOrden = useSelector(
-    (state: RootState) => state.editarOrdenReducer,
-  );
-
-  console.log('editarOrden', editarOrden);
+  // const editarOrden = useSelector(
+  //   (state: RootState) => state.editarOrdenReducer,
+  // );
 
   // const [modal2, setModal2] = useState<boolean>(false);
 
@@ -99,27 +99,27 @@ export const Checkout = () => {
           </div>
         </div>
 
-        <div className="flex flex-wrap mx-[56px]  overflow-auto overflow-y-auto max-h-[1000px] scroll-hidden">
+        <div className="flex flex-wrap mx-[50px]  overflow-auto overflow-y-auto max-h-[1000px] scroll-hidden">
           <button
-            className="btn btn-secondary ml-auto text-4xl font-bold rounded-[10px] mb-8"
+            className="btn btn-lg bg-[#FFD4DE] text-[#FF0816] ml-auto text-3xl font-bold rounded-[10px] mb-8"
             onClick={() => {
               navigate('/', { replace: true });
               window.location.reload();
             }}
           >
-            Vaciar Canasta{' '}
+            Vaciar canasta
           </button>
 
           {categoriaActual &&
             nuevaOrden.productos.map((producto, index) => (
               <div key={index}>
                 <div className="flex justify-center ">
-                  <div className="flex justify-between w-[98%] my-4  py-6 px-16 shadow-xl rounded-[40px] border-2 bg-white">
+                  <div className="flex justify-between w-[98%] my-4  py-6 px-14 shadow-xl rounded-[40px] border-2 bg-white">
                     <div className="flex w-[550px] space-between gap-5 ">
-                      <div>
+                      <div className="w-[125px]">
                         <img
                           src={producto.imagen}
-                          className="w-[200px] h-[200px] rounded-[20px] object-cover"
+                          className="w-[125px] h-[125px] rounded-[20px] object-cover"
                         />
                       </div>
                       <div className="flex flex-col justify-between ">
@@ -129,24 +129,18 @@ export const Checkout = () => {
                             {producto.subcategoriaNombre}
                           </p>
                         </h1>
-                        {/*<div className="px-4">*/}
-                        {/*  <dialog*/}
-                        {/*    id="my_modal_5"*/}
-                        {/*    className="modal modal-bottom transition-all duration-800"*/}
-                        {/*  >*/}
-                        {/*    {modal2 ? <Modal2 /> : <Modal1 />}*/}
-                        {/*  </dialog>*/}
-                        {/*  <button*/}
-                        {/*    className="btn btn-ghost text-[24px] font-bold px-4"*/}
-                        {/*    onClick={() => {*/}
-                        {/*      // @ts-expect-error need to fix this*/}
-                        {/*      document.getElementById('my_modal_5').showModal();*/}
-                        {/*      seleccionarModal();*/}
-                        {/*    }}*/}
-                        {/*  >*/}
-                        {/*    Modificar*/}
-                        {/*  </button>*/}
-                        {/*</div>*/}
+                        <button
+                          className="btn btn-outline btn-lg rounded-3xl text-3xl px-10 max-w-min"
+                          onClick={() =>
+                            (
+                              document.getElementById(
+                                'checkout2',
+                              ) as HTMLDialogElement
+                            ).showModal()
+                          }
+                        >
+                          Modificar
+                        </button>
                       </div>
                     </div>
                     <div className="text-[40px] flex flex-col justify-between">
@@ -155,9 +149,9 @@ export const Checkout = () => {
                           {monedaPerfil} {producto.precioTotal}
                         </p>
                       </div>
-                      <div className="flex w-[300px] justify-between items-center">
+                      <div className="flex w-[300px] justify-between items-center gap-3">
                         <button
-                          className="w-[70px] h-[70px] items-center  rounded-full  flex justify-center mx-2"
+                          className="w-[3.5rem] mr-3 items-center rounded-full flex justify-center"
                           onClick={() => {
                             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                             // @ts-expect-error
@@ -168,31 +162,37 @@ export const Checkout = () => {
                           }}
                         >
                           <Icon
+                            width="2rem"
+                            height="2rem"
                             icon="iconamoon:trash-duotone"
                             className="w-full h-full flex items-center justify-center"
                           />
                         </button>
                         <button
-                          className="w-[70px] h-[70px] items-center  rounded-full  flex justify-center mx-2"
+                          className="w-[3.5rem] items-center  rounded-full  flex justify-center"
                           onClick={() => {
                             editarCantidad(index, -1);
                           }}
                         >
                           <Icon
+                            width="2rem"
+                            height="2rem"
                             icon="zondicons:minus-outline"
                             className="w-full h-full flex items-center justify-center "
                           />
                         </button>
-                        <button className="w-[70px] h-[70px] items-center   flex justify-center mx-2">
+                        <button className="min-w-[4rem] items-center flex justify-center">
                           {producto.cantidad}
                         </button>
                         <button
-                          className="w-[70px] h-[70px] items-center  flex justify-center mx-2"
+                          className="w-[3.5rem] items-center  flex justify-center"
                           onClick={() => {
                             editarCantidad(index, 1);
                           }}
                         >
                           <Icon
+                            width="2rem"
+                            height="2rem"
                             icon="zondicons:add-outline"
                             className="w-full h-full flex items-center justify-center "
                           />
@@ -205,14 +205,15 @@ export const Checkout = () => {
             ))}
         </div>
         {/* SECCION DE TOTAL */}
-
+        {/* <Modal1></Modal1> */}
+        <Modal2></Modal2>
         {/* SECCION DE BOTONES */}
-        <div className="fixed bottom-0 left-0 right-0 ">
-          <h1 className="text-center text-primary font-bold text-[56px] ">
+        <div className="fixed bottom-0 left-0 w-full">
+          <h1 className="text-center text-primary font-bold text-[56px] pt-10">
             Total {monedaPerfil} {nuevaOrden.cuentaTotal}
           </h1>
-          <div className="text-center my-[100px]  flex justify-between mx-40 ">
-            <button className="btn btn-gosth w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16">
+          <div className="text-center flex justify-between mx-40 my-20">
+            <button className="btn btn-gosth w-[329px] h-[190px] text-5xl rounded-[20px] mb-16">
               <Link
                 to="/menu"
                 className="w-full h-full flex items-center justify-center"
@@ -220,10 +221,10 @@ export const Checkout = () => {
                 Volver
               </Link>
             </button>
-            <button className="btn btn-primary w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16">
+            <button className="btn btn-primary w-[329px] h-[190px] text-5xl rounded-[20px] mb-16">
               <Link
                 to="/payment"
-                className="w-full h-full flex items-center justify-center"
+                className="w-full h-full flex items-center justify-center text-white"
               >
                 Ir a pagar
               </Link>

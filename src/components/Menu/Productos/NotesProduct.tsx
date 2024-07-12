@@ -33,7 +33,7 @@ export const NotesProduct = ({ children }: Props) => {
             className="input input-bordered w-full max-w-md border-4 p-9"
           />
           <button
-            className="btn btn-error text-4xl btn-lg btn-wide"
+            className="btn btn-primary text-4xl btn-lg btn-wide"
             onClick={() =>
               (
                 document.getElementById('my_modal_notes') as HTMLDialogElement

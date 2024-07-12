@@ -17,6 +17,7 @@ export default {
           accent: '#F2F2F2',
           neutral: '#fff4f8',
           'base-100': '#fff4f8',
+          grayCustom: '#F2F2F2',
         },
         bigcake: {
           primary: '#00BED6',
@@ -25,6 +26,8 @@ export default {
           neutral: '#fff4f8',
           //background color =>
           'base-100': '#FAFAFA',
+          // gray 1 => steps component
+          // grayCustom: '#F2F2F2',
         },
       },
       'light',

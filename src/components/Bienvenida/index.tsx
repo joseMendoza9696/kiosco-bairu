@@ -54,7 +54,6 @@ export const Bienvenida = () => {
 
   const [getMenu] = useLazyQuery(GET_MENU, {
     onCompleted: (data) => {
-      console.log(data);
       localStorage.setItem('Menu', JSON.stringify(data.KIOSCO_getMenu));
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment

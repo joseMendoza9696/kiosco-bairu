@@ -147,18 +147,24 @@ export const Modal2 = ({ closeModal }: IModal2) => {
             alt={productoSeleccionado.nombre}
             className="w-[390px] h-[390px] rounded-[30px] object-cover mx-auto mt-[50px] "
           />
-          <p className="font-bold text-center text-[65px] pt-[10px]">
-            {productoSeleccionado.nombre}
-          </p>
-          <div className="px-32 py-4 font-semibold text-secondary text-center text-[30px]">
+          <div className="flex gap-5 justify-center">
+            <p className="font-bold text-center text-[65px] pt-[10px]">
+              {productoSeleccionado.nombre}
+            </p>
+            {notasProductos && (
+              // <Icon icon="akar-icons:edit" className="text-[50px]" />
+              <NotesProduct.Modal2></NotesProduct.Modal2>
+            )}
+          </div>
+          <div className="px-32 py-4 font-semibold text-[#A6A6AA] text-center text-[30px]">
             {productoSeleccionado.descripcion}
           </div>
 
           <p className="text-center text-[45px] text-primary font-bold">
             {monedaPerfil} {productoSeleccionado.precioTotal}
           </p>
-          <div className="mx-auto">
-            <div className="p-6 bg-accent rounded-xl overflow-x-auto">
+          <div className="mx-auto ">
+            <div className="p-6 bg-[#F2F2F2] rounded-xl overflow-x-auto">
               <div className="container ">
                 <ul
                   className={`steps grid grid-cols-${productoSeleccionado.opcionesMenu.length} ${productoSeleccionado.opcionesMenu.length === 1 ? 'justify-center' : ''}`}
@@ -209,7 +215,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
               opciones.map((opcion, index) => (
                 <div key={opcion.id} className="relative mx-4">
                   <button
-                    className={`flex flex-col h-[231px] w-[200px] rounded-md shadow-md relative overflow-hidden ${opcion.seleccionado ? 'border-8 border-primary' : ''}`}
+                    className={`flex flex-col h-[231px] w-[200px] rounded-md shadow-md relative overflow-hidden ${opcion.seleccionado ? 'border-4 border-primary' : ''}`}
                     onClick={() => {
                       if (opcion.seleccionado) {
                         deseleccionarOpcionFunc(
@@ -270,12 +276,12 @@ export const Modal2 = ({ closeModal }: IModal2) => {
               </button>
 
               <button
-                className=" mx-8 w-[156px] h-[93px] text-[90px] font-bold rounded-2xl btn"
+                className="mx-8 w-[156px] h-[93px] rounded-2xl btn"
                 onClick={() => {
                   editarCantidad(-1);
                 }}
               >
-                -
+                <Icon icon="icomoon-free:minus" width="3rem" height="3rem" />
               </button>
             </div>
             <div className="flex items-center">
@@ -283,17 +289,14 @@ export const Modal2 = ({ closeModal }: IModal2) => {
             </div>
             <div className="flex items-center">
               <button
-                className=" btn rounded-2xl btn-primary w-[156px] h-[93px] text-[90px] font-bold mx-8"
+                className=" btn rounded-2xl btn-primary w-[156px] h-[93px] mx-8 text-white"
                 onClick={() => {
                   editarCantidad(1);
                 }}
               >
-                +
+                <Icon icon="fa-solid:plus" width="3rem" height="3rem" />
               </button>
-              {notasProductos && (
-                // <Icon icon="akar-icons:edit" className="text-[50px]" />
-                <NotesProduct.Modal2></NotesProduct.Modal2>
-              )}
+
               <button
                 disabled={
                   opcionMenuSeleccionado &&
@@ -302,7 +305,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                     opcionMenuSeleccionado.cantidadSeleccionada < 1
                   )
                 }
-                className="btn btn-primary w-[211px] h-[122px] text-[30px] rounded-[20px] mx-8"
+                className="btn btn-primary w-[211px] h-[122px] text-[30px] rounded-[20px] mx-8 text-white"
                 onClick={() => {
                   if (
                     opcionMenuSeleccionadoIndex ===
