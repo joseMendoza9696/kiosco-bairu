@@ -11,7 +11,7 @@ export const NotesProduct = ({ children }: Props) => {
   return (
     <>
       <button
-        className=" absolute right-16"
+        className=" absolute -right-24"
         onClick={() =>
           (
             document.getElementById('my_modal_notes') as HTMLDialogElement

@@ -1,10 +1,21 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { NotesProduct } from '../Menu/Productos/NotesProduct';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+// import { useEffect } from 'react';
 
+// type Props = {
+// };
 export const Modal2 = () => {
+  const editOrder = useSelector((state: RootState) => state.editarOrdenReducer);
+  // console.log('modal2', editOrder);
+
   // TODO: poner el tipo de moneda en base a "moneda" del perfil activo -> del local storage
-  const options = Array.from({ length: 3 }, (_, i) => i);
-  console.log(options);
+  //? CURRENCY
+  const perfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
+  const currency = perfilLocalStorage.moneda;
+
+  // const options = Array.from({ length: 3 }, (_, i) => i);
 
   return (
     <dialog id="checkout2" className="modal modal-bottom">
@@ -25,8 +36,8 @@ export const Modal2 = () => {
         {/* product image */}
         <div className="flex justify-center mb-5">
           <img
-            src="/Imagen.png"
-            alt=""
+            src={editOrder.imagen}
+            alt={editOrder.nombre}
             className="w-[25rem] h-[25rem] rounded-3xl object-cover"
           />
         </div>
@@ -37,19 +48,22 @@ export const Modal2 = () => {
         </div>
         {/* description */}
         <p className="py-4 text-3xl text-center text-[#A6A6AA]">
-          Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
-          sint.
+          {editOrder.descripcion}
         </p>
         {/* price */}
-        <span className="block text-center text-5xl font-bold mb-5">
-          Bs. 23,00
+        <span className="block text-center text-primary text-5xl font-bold mb-5">
+          {currency} {editOrder.precioOriginal}
         </span>
         {/* component steps */}
         <div className="bg-[#F2F2F2] p-8 rounded-3xl mb-5">
           <ul className="steps w-full mb-3">
-            <li className={`step step-primary`} data-content={'✓'}></li>
-            <li className={`step step-primary`} data-content={'✓'}></li>
-            <li className={`step`} data-content={''}></li>
+            {/* {editOrder.opcionesMenu.map((option, i) => (
+              <li
+                key={option.id}
+                className={`step step-primary`}
+                data-content={'✓'}
+              ></li>
+            ))} */}
             <li className={`step`} data-content={''}></li>
           </ul>
           <p className="text-2xl font-semibold">
@@ -63,7 +77,7 @@ export const Modal2 = () => {
           {/* OPTIONS PRODUCT */}
           <div className="grid grid-cols-4 justify-items-center gap-3 h-[520px] overflow-y-auto mb-2">
             {/*  PRODUCT ITEMS */}
-            {options.map(() => (
+            {/* {options.map(() => (
               <button
                 // border-4 border-primary
                 className={`flex flex-col h-[231px] w-[200px] rounded-md shadow-lg relative overflow-hidden`}
@@ -88,7 +102,7 @@ export const Modal2 = () => {
                   </div>
                 )}
               </button>
-            ))}
+            ))} */}
           </div>
         </div>
         {/* BUTTONS cancel minus number plus procedd */}
@@ -105,7 +119,7 @@ export const Modal2 = () => {
             />
           </button>
           {/* AMOUNT */}
-          <span className="text-5xl font-bold">{`10`}</span>
+          <span className="text-5xl font-bold">{editOrder.cantidad}</span>
           {/* PLUS */}
           <button className="btn w-36 h-20 rounded-3xl text-white btn-primary">
             <Icon

@@ -11,12 +11,10 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { Icon } from '@iconify/react/dist/iconify.js';
-// import { Modal1 } from './Modal1.tsx';
 import { Modal2 } from './Modal2.tsx';
-// import { Modal1 } from './Modal1.tsx';
-// import { Modal2 } from './Modal2.tsx';
-
-// import { editarProductoOrden } from '../../redux/actions/editarOrden.action.ts';
+import { Modal1 } from './Modal1.tsx';
+import { ProductoNuevaOrden } from '../../interfaces/nuevaOrden.interface.ts';
+import { editarProductoOrden } from '../../redux/actions/editarOrden.action.ts';
 
 export const Checkout = () => {
   // TODO: "comer aqui" y "para llevar" son botones diferentes.
@@ -28,6 +26,18 @@ export const Checkout = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  //? handle state modal
+  // const [isModal2, setisModal2] = useState<boolean>(false);
+  const editProduct = (product: ProductoNuevaOrden, index: number) => {
+    // if (product.opcionesMenu.length > 0) {
+    //   setisModal2(true);
+    // } else {
+    //   setisModal2(false);
+    // }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    dispatch(editarProductoOrden(product, index));
+  };
 
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
 
@@ -131,13 +141,14 @@ export const Checkout = () => {
                         </h1>
                         <button
                           className="btn btn-outline btn-lg rounded-3xl text-3xl px-10 max-w-min"
-                          onClick={() =>
+                          onClick={() => {
+                            editProduct(producto, index);
                             (
                               document.getElementById(
-                                'checkout2',
+                                `${producto.opcionesMenu.length < 1 ? 'checkout1' : 'checkout2'}`,
                               ) as HTMLDialogElement
-                            ).showModal()
-                          }
+                            ).showModal();
+                          }}
                         >
                           Modificar
                         </button>
@@ -204,9 +215,10 @@ export const Checkout = () => {
               </div>
             ))}
         </div>
+        {/* MODALS ================================================= */}
+        <Modal2 />
+        <Modal1 />
         {/* SECCION DE TOTAL */}
-        {/* <Modal1></Modal1> */}
-        <Modal2></Modal2>
         {/* SECCION DE BOTONES */}
         <div className="fixed bottom-0 left-0 w-full">
           <h1 className="text-center text-primary font-bold text-[56px] pt-10">

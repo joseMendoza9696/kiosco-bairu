@@ -52,6 +52,8 @@ export function editarOrdenReducer(state = editarProductoState, action: any) {
         id: action.payload.producto.id,
         idSistema: action.payload.producto.idSistema,
         nombre: action.payload.producto.nombre,
+        //se añadio descripcion
+        descripcion: action.payload.producto.descripcion,
         cantidad: action.payload.producto.cantidad,
         precioOriginal: action.payload.producto.precioOriginal,
         precioMasOpciones: action.payload.producto.precioMasOpciones,
@@ -64,7 +66,7 @@ export function editarOrdenReducer(state = editarProductoState, action: any) {
       };
 
     case SELECCIONAR_OPCION_EDITAR:
-      let nuevoProducto = state;
+      const nuevoProducto = state;
       // actualizamos la opcion a seleccionado
       nuevoProducto.opcionesMenu[action.payload.opcionMenuIndex].opciones[
         action.payload.opcionIndex
@@ -93,7 +95,7 @@ export function editarOrdenReducer(state = editarProductoState, action: any) {
       };
 
     case DESELECCIONAR_OPCION_EDITAR:
-      let nuevoProducto2 = state;
+      const nuevoProducto2 = state;
       // actualizamos la opcion a seleccionado
       nuevoProducto2.opcionesMenu[action.payload.opcionMenuIndex].opciones[
         action.payload.opcionIndex

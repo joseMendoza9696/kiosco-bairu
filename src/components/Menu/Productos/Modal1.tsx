@@ -8,6 +8,7 @@ import {
   actualizarCuentaTotal,
 } from '../../../redux/actions/nuevaOrden.action.ts';
 import { NotesProduct } from './NotesProduct.tsx';
+import { Icon } from '@iconify/react/dist/iconify.js';
 // import { Producto } from '../../../interfaces/menu.interface.ts';
 
 interface IModal1 {
@@ -90,23 +91,25 @@ export const Modal1 = ({ closeModal }: IModal1) => {
           <p className="text-center text-[45px] text-primary font-bold">
             {monedaPerfil} {productoSeleccionado.precioTotal}
           </p>
-          <div className="flex justify-center mt-4 mx-[130px] gap-12 items-center relative">
+          <div className="flex justify-between items-center w-[45%] mx-auto relative">
             <button
-              className="btn btn-ghost btn-active w-[156px] h-[93px] text-[90px] font-bold rounded-2xl"
+              className="btn w-36 h-20 rounded-3xl"
               onClick={() => {
                 editarCantidad(-1);
               }}
             >
-              -
+              <Icon width="3rem" height="3rem" icon="icomoon-free:minus" />
             </button>
-            <span className="text-[40px] font-bold">{cantidad}</span>
-            <button
-              className="btn pb-2 rounded-2xl btn-primary w-[156px] h-[93px] text-[90px] font-bold"
-              onClick={() => {
-                editarCantidad(1);
-              }}
-            >
-              +
+            <span className="text-5xl font-bold">{cantidad}</span>
+            <button className="btn w-36 h-20 rounded-3xl text-white btn-primary">
+              <Icon
+                width="3rem"
+                height="3rem"
+                icon="icomoon-free:plus"
+                onClick={() => {
+                  editarCantidad(1);
+                }}
+              />
             </button>
             {notasProductos && (
               // <div className="absolute right-[-2px] top-1/2 transform -translate-y-1/2">
