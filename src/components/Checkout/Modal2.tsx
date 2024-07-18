@@ -1,29 +1,88 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { NotesProduct } from '../Menu/Productos/NotesProduct';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
+import { useState } from 'react';
+import {
+  Opcion,
+  OpcionMenuNuevaOrden,
+} from '../../interfaces/nuevaOrden.interface';
+import {
+  deseleccionarOpcionEditar,
+  seleccionarOpcionEditar,
+} from '../../redux/actions/editarOrden.action';
+import { EditarProductoInterface } from '../../interfaces/editarOrden.interface';
 // import { useEffect } from 'react';
 
 // type Props = {
 // };
 export const Modal2 = () => {
-  const editOrder = useSelector((state: RootState) => state.editarOrdenReducer);
-  // console.log('modal2', editOrder);
+  //!control steps
+  const [stepsIndex, setstepsIndex] = useState<number>(0);
+  const dispatch = useDispatch();
 
-  // TODO: poner el tipo de moneda en base a "moneda" del perfil activo -> del local storage
+  //! get order to edit
+  const editOrder: EditarProductoInterface = useSelector(
+    (state: RootState) => state.editarOrdenReducer,
+  );
+
+  //? get options product
+  const optionsProduct = useSelector((state: RootState) => {
+    return state.editarOrdenReducer.opcionesMenu[stepsIndex]?.opciones;
+  });
+
+  //? OPCIONES REQUERIDAS
+  const isRequired = editOrder?.opcionesMenu[stepsIndex].obligatorio ?? false;
+  //? limit selection | count options selected
+  const limitOptions =
+    editOrder?.opcionesMenu[stepsIndex].cantidadSeleccion ?? 1;
+  const optionsSelected =
+    editOrder?.opcionesMenu[stepsIndex].cantidadSeleccionada ?? 1;
+  console.log(editOrder.opcionesMenu);
+
+  //? select/deselect product functions
+  const selectProduct = (menuIndex: number, optionIndex: number) => {
+    if (optionsSelected < limitOptions) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      dispatch(seleccionarOpcionEditar(menuIndex, optionIndex));
+    }
+  };
+  const deselectProduct = (menuIndex: number, optionIndex: number) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    dispatch(deseleccionarOpcionEditar(menuIndex, optionIndex));
+  };
+
+  //? ADD/NEXT BUTTON
+  const addBtn = () => {
+    if (stepsIndex === editOrder.opcionesMenu.length - 1) {
+    } else {
+      setstepsIndex((i) => i + 1);
+    }
+  };
+  //? BACK/CANCEL BUTTON
+  const closeBtn = () => {
+    if (stepsIndex) {
+      setstepsIndex(stepsIndex - 1);
+    } else {
+      (document.getElementById('checkout2') as HTMLDialogElement).close();
+    }
+  };
+
   //? CURRENCY
+
   const perfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
   const currency = perfilLocalStorage.moneda;
-
-  const closeBtn = () => {
-    (document.getElementById('checkout2') as HTMLDialogElement).close();
-  };
   return (
     <dialog id="checkout2" className="modal modal-bottom">
       <div className="modal-box bg-base-100 rounded-t-[90px] h-[87%] px-24 pt-36">
         {/* button close modal */}
         <form method="dialog" className="absolute top-0 left-[calc(50%-86px)]">
-          <button className="btn rounded-t-none rounded-b-3xl h-28 w-48">
+          <button
+            className="btn rounded-t-none rounded-b-3xl h-28 w-48"
+            onClick={() => setstepsIndex(0)}
+          >
             <Icon
               icon="material-symbols-light:close"
               width="48px"
@@ -55,52 +114,67 @@ export const Modal2 = () => {
         {/* component steps */}
         <div className="bg-[#F2F2F2] p-8 rounded-3xl mb-5">
           <ul className="steps w-full mb-3">
-            {/* {editOrder.opcionesMenu.map((option, i) => (
-              <li
-                key={option.id}
-                className={`step step-primary`}
-                data-content={'✓'}
-              ></li>
-            ))} */}
-            <li className={`step`} data-content={''}></li>
+            {editOrder.opcionesMenu.map(
+              (_option: OpcionMenuNuevaOrden, i: number) => (
+                <li
+                  key={i}
+                  className={`step ${i <= stepsIndex ? 'step-primary' : ''}`}
+                  data-content={`${i <= stepsIndex ? '✓' : ''}`}
+                ></li>
+              ),
+            )}
           </ul>
           <p className="text-2xl font-semibold">
-            Paso {`1`} {`temperatura`}:{' '}
-            <span className="pl-8 text-primary">
-              Seleccione al menos una opción.
-            </span>
+            Paso {stepsIndex + 1} {editOrder.opcionesMenu?.[stepsIndex]?.nombre}
+            :{' '}
+            {isRequired && !limitOptions && (
+              <span className="pl-8 text-primary">
+                Seleccione al menos una opción.
+              </span>
+            )}
           </p>
         </div>
         <div>
           {/* OPTIONS PRODUCT */}
           <div className="grid grid-cols-4 justify-items-center gap-3 h-[32.5rem] overflow-y-auto mb-2">
             {/*  PRODUCT ITEMS */}
-            {/* {options.map(() => (
-              <button
-                // border-4 border-primary
-                className={`flex flex-col h-[14.4375rem] w-[12.5rem] rounded-md shadow-lg relative overflow-hidden`}
-              >
-                <img
-                  src={`/src/assets/imagepromo.png`}
-                  alt="jksdfa"
-                  className="w-full h-[10.4375rem] object-cover"
-                />
-                <div className="p-2">
-                  <h2 className="text-lg font-semibold text-left capitalize">{`aguacate`}</h2>
-                  <p className="text-left font-semibold text-lg">
-                    + {`MXN`} {`56.00`}
-                  </p>
-                </div>
-                {true && (
-                  <div className="absolute top-0 right-0 mt-2 mr-2">
-                    <Icon
-                      icon="ei:check"
-                      className="text-primary w-[2.8125rem] h-[2.8125rem]"
-                    />
+            {optionsProduct &&
+              optionsProduct.map((option: Opcion, i: number) => (
+                <button
+                  key={i}
+                  // border-4 border-primary
+                  className={`flex flex-col h-[15rem] w-[12.5rem] rounded-md shadow-lg relative overflow-hidden ${option.seleccionado ? 'border-4 border-primary' : ''}`}
+                  onClick={() => {
+                    if (option.seleccionado) {
+                      deselectProduct(stepsIndex, i);
+                    } else {
+                      selectProduct(stepsIndex, i);
+                    }
+                  }}
+                >
+                  <img
+                    src={option.imagen}
+                    alt={option.nombre}
+                    className="w-full h-[10.4375rem] object-cover"
+                  />
+                  <div className="p-2">
+                    <h2 className="text-lg font-semibold text-left capitalize">
+                      {option.nombre}
+                    </h2>
+                    <p className="text-left font-semibold text-lg">
+                      + {currency} {option.precio}
+                    </p>
                   </div>
-                )}
-              </button>
-            ))} */}
+                  {option.seleccionado && (
+                    <div className="absolute top-0 right-0 mt-2 mr-2">
+                      <Icon
+                        icon="ei:check"
+                        className="text-primary w-[2.8125rem] h-[2.8125rem]"
+                      />
+                    </div>
+                  )}
+                </button>
+              ))}
           </div>
         </div>
         {/* BUTTONS cancel minus number plus procedd */}
@@ -109,7 +183,9 @@ export const Modal2 = () => {
           <button
             className="btn text-5xl w-56 rounded-3xl h-28 font-semibold"
             onClick={closeBtn}
-          >{`Cancelar`}</button>
+          >
+            {stepsIndex ? 'Atrás' : 'Cerrar'}
+          </button>
           {/* MINUS */}
           <button className="btn w-36 h-20 rounded-3xl">
             <Icon
@@ -131,7 +207,15 @@ export const Modal2 = () => {
             />
           </button>
           {/* ADD, CONTINUE */}
-          <button className="btn text-5xl w-56 rounded-3xl h-28 text-white font-semibold btn-primary">{`Siguente`}</button>
+          <button
+            // disabled={!!(isRequired && !optionsSelected)}
+            className="btn text-5xl w-56 rounded-3xl h-28 text-white font-semibold btn-primary"
+            onClick={addBtn}
+          >
+            {stepsIndex === editOrder.opcionesMenu.length - 1
+              ? 'Añadir'
+              : 'Siguente'}
+          </button>
         </div>
       </div>
     </dialog>

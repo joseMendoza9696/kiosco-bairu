@@ -26,8 +26,7 @@ export const Checkout = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  //? handle state modal
-  // const [isModal2, setisModal2] = useState<boolean>(false);
+  //? send product to edit
   const editProduct = (product: ProductoNuevaOrden, index: number) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error

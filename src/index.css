@@ -7,7 +7,7 @@
 } */
 @font-face {
   font-family: 'hiragino';
-  src: url('../public/fonts/hiragino-kaku-gothic-pro-w3.otf');
+  src: url('/fonts/hiragino-kaku-gothic-pro-w3.otf');
 }
 
 .scroll-hidden::-webkit-scrollbar {
