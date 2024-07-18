@@ -111,12 +111,7 @@ export const Modal1 = ({ closeModal }: IModal1) => {
                 }}
               />
             </button>
-            {notasProductos && (
-              // <div className="absolute right-[-2px] top-1/2 transform -translate-y-1/2">
-              //   <Icon icon="akar-icons:edit" className="text-[70px]" />
-              // </div>
-              <NotesProduct></NotesProduct>
-            )}
+            {notasProductos && <NotesProduct></NotesProduct>}
           </div>
 
           <div className="text-center my-[127px] space-x-[100px] ">

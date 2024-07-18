@@ -15,8 +15,9 @@ export const Modal2 = () => {
   const perfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
   const currency = perfilLocalStorage.moneda;
 
-  // const options = Array.from({ length: 3 }, (_, i) => i);
-
+  const closeBtn = () => {
+    (document.getElementById('checkout2') as HTMLDialogElement).close();
+  };
   return (
     <dialog id="checkout2" className="modal modal-bottom">
       <div className="modal-box bg-base-100 rounded-t-[5.625rem] h-[87%] px-24 pt-36">
@@ -108,7 +109,10 @@ export const Modal2 = () => {
         {/* BUTTONS cancel minus number plus procedd */}
         <div className=" bottom-6 w-full flex justify-between items-center">
           {/* BACK, CANCEL */}
-          <button className="btn text-5xl w-56 rounded-3xl h-28 font-semibold">{`Cancelar`}</button>
+          <button
+            className="btn text-5xl w-56 rounded-3xl h-28 font-semibold"
+            onClick={closeBtn}
+          >{`Cancelar`}</button>
           {/* MINUS */}
           <button className="btn w-36 h-20 rounded-3xl">
             <Icon

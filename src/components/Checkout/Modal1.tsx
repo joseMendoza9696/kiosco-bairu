@@ -16,6 +16,11 @@ export const Modal1 = () => {
   //? GET CURRENCY
   const perfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
   const currency = perfilLocalStorage.moneda;
+
+  //!cancel button
+  const closeBtn = () => {
+    (document.getElementById('checkout1') as HTMLDialogElement).close();
+  };
   return (
     <dialog id="checkout1" className="modal modal-bottom">
       <div className="modal-box bg-base-100 rounded-t-[5.625rem] h-[87%] px-24 pt-44">
@@ -41,7 +46,9 @@ export const Modal1 = () => {
           />
         </div>
         {/* name product and notes */}
-        <h2 className="font-bold text-7xl text-center">{editOrder.nombre}</h2>
+        <h2 className="font-bold text-7xl text-center mb-8">
+          {editOrder.nombre}
+        </h2>
         {/* description */}
         {editOrder.descripcion && (
           <p className="py-4 text-3xl text-center text-[#A6A6AA] mb-8">
@@ -69,9 +76,12 @@ export const Modal1 = () => {
         {/* BUTTONS cancel minus number plus procedd */}
         <div className="w-[85%] mx-auto flex justify-between items-center">
           {/* BACK, CANCEL */}
-          <button className="btn text-5xl w-80 rounded-3xl h-44 font-semibold">{`Cancelar`}</button>
+          <button
+            className="btn text-5xl w-80 rounded-3xl h-44 font-semibold"
+            onClick={closeBtn}
+          >{`Cancelar`}</button>
           {/* ADD, CONTINUE */}
-          <button className="btn text-5xl w-80 rounded-3xl h-44 text-white font-semibold btn-primary">{`Siguente`}</button>
+          <button className="btn text-5xl w-80 rounded-3xl h-44 text-white font-semibold btn-primary">{`Actualizar`}</button>
         </div>
       </div>
     </dialog>

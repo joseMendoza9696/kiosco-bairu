@@ -29,11 +29,6 @@ export const Checkout = () => {
   //? handle state modal
   // const [isModal2, setisModal2] = useState<boolean>(false);
   const editProduct = (product: ProductoNuevaOrden, index: number) => {
-    // if (product.opcionesMenu.length > 0) {
-    //   setisModal2(true);
-    // } else {
-    //   setisModal2(false);
-    // }
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     dispatch(editarProductoOrden(product, index));
