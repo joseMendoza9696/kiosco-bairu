@@ -7,7 +7,7 @@ import {
   quitarUltimoProducto,
   actualizarCuentaTotal,
 } from '../../../redux/actions/nuevaOrden.action.ts';
-import { Icon } from '@iconify/react/dist/iconify.js';
+import { NotesProduct } from './NotesProduct.tsx';
 // import { Producto } from '../../../interfaces/menu.interface.ts';
 
 interface IModal1 {
@@ -90,7 +90,7 @@ export const Modal1 = ({ closeModal }: IModal1) => {
           <p className="text-center text-[45px] text-primary font-bold">
             {monedaPerfil} {productoSeleccionado.precioTotal}
           </p>
-          <div className="flex justify-center mt-4 mx-[130px] space-x-[70px] items-center relative">
+          <div className="flex justify-center mt-4 mx-[130px] gap-12 items-center relative">
             <button
               className="btn btn-ghost btn-active w-[156px] h-[93px] text-[90px] font-bold rounded-2xl"
               onClick={() => {
@@ -109,9 +109,10 @@ export const Modal1 = ({ closeModal }: IModal1) => {
               +
             </button>
             {notasProductos && (
-              <div className="absolute right-[-2px] top-1/2 transform -translate-y-1/2">
-                <Icon icon="akar-icons:edit" className="text-[70px]" />
-              </div>
+              // <div className="absolute right-[-2px] top-1/2 transform -translate-y-1/2">
+              //   <Icon icon="akar-icons:edit" className="text-[70px]" />
+              // </div>
+              <NotesProduct></NotesProduct>
             )}
           </div>
 
