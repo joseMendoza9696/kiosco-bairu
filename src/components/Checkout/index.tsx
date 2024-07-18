@@ -72,7 +72,7 @@ export const Checkout = () => {
   const monedaPerfil = PerfilLocalStorage?.moneda;
 
   return (
-    <div className=" w-full ">
+    <div className="w-full">
       <div className="max-w-screen-xl w-11/2 m-auto">
         <h1 className="text-center text-primary font-bold text-[56px] pt-[116px] pb-[60px]">
           TU ORDEN

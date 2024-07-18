@@ -2,31 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-
+/* :root {
+  font-family: 'font-bairu', sans-serif;
+} */
 @font-face {
-    font-family: 'font-bairu';
-    src: url('../src/fonts/hiragino-kaku-gothic-pro-w3.otf') format('opentype');
+  font-family: 'hiragino';
+  src: url('../public/fonts/hiragino-kaku-gothic-pro-w3.otf');
 }
 
 .scroll-hidden::-webkit-scrollbar {
-    width: 0;
-    height: 0;
+  width: 0;
+  height: 0;
 }
 
 .scroll-hidden {
-    -ms-overflow-style: none;
-    scrollbar-width: none;   
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .PhoneInputInput {
-    background-color: white;
-    border: none;
+  background-color: white;
+  border: none;
 }
 
 .PhoneInputInput:focus {
-outline: none;}
+  outline: none;
+}
 
-.PhoneInputCountrySelect{
-    font-size: 10px ;
-    height: 700px;
-    }
+.PhoneInputCountrySelect {
+  font-size: 10px;
+  height: 700px;
+}

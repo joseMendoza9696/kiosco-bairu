@@ -122,11 +122,11 @@ const Productos = () => {
               alt={producto.nombre}
               className="w-full h-[285px] rounded-t-xl object-cover"
             />
-            <div className="p-4 min-h-[140px]">
-              <h2 className="text-3xl font-bold text-left ">
+            <div className="p-4">
+              <h2 className="text-2xl font-extrabold text-left mb-2">
                 {saltoDeLinea(producto.nombre)}
               </h2>
-              <p className="text-left text-semibold text-lg">
+              <p className="text-left font-bold text-lg mb-2">
                 {monedaPerfil} {producto.precio}
               </p>
               <p className="text-left text-gray-500 ">

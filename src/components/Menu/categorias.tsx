@@ -36,7 +36,7 @@ const Categoria: React.FC<CategoriasProps> = ({ categorias }) => {
   return (
     <>
       <div className="text-center pt-10 ">
-        <h1 className="text-[48px] font-bold text-primary">
+        <h1 className="text-5xl font-black text-primary">
           Nuestras categorías
         </h1>
       </div>
@@ -54,7 +54,7 @@ const Categoria: React.FC<CategoriasProps> = ({ categorias }) => {
                   alt={categoria.nombre}
                   className="w-[200px] h-[167px] rounded-xl object-cover"
                 />
-                <h2 className="text-[24px] text-left font-semibold p-1 capitalize">
+                <h2 className="text-2xl text-left font-semibold p-1 capitalize">
                   {saltoDeLinea(categoria.nombre)}
                 </h2>
                 {index === categoriaSeleccionada && (
