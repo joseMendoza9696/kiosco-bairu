@@ -3,6 +3,10 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLazyQuery, useSubscription } from '@apollo/client';
+import { GET_TARJETA } from '../../api/graphql/query.ts';
+import { PAGO_TARJETA_CONFIRMACION } from '../../api/graphql/subscriptions.ts';
+// APOLLO GRAPHQL
 
 interface ITarjetaModal {
   closeModal: any;
@@ -12,6 +16,41 @@ interface ITarjetaModal {
 interface IPagoFallido {
   closeModal: any;
 }
+
+interface ISuscribirme {
+  transaccionID: string;
+  setMostrarErrorPago: any;
+}
+
+const Subscribirme = ({ transaccionID, setMostrarErrorPago }: ISuscribirme) => {
+  // TODO: poner la moneda correspondiente
+  // check
+  const navigator = useNavigate();
+
+  useSubscription(PAGO_TARJETA_CONFIRMACION, {
+    variables: {
+      transaccionID: transaccionID,
+    },
+    onSubscriptionComplete: () => {
+      console.log('suscrito');
+    },
+    onSubscriptionData: (data) => {
+      // console.log('Pago realizado...', data);
+      if (
+        data.subscriptionData.data.KIOSCO_pagoTarjetaConfirmacion.estado ===
+        'APPROVED'
+      ) {
+        // @ts-expect-error need to fix this
+        document.getElementById('my_modal_5').close();
+        navigator('/pagoconfirmado');
+      } else {
+        setMostrarErrorPago(true);
+      }
+    },
+  });
+
+  return <></>;
+};
 
 const PagoFallido = ({ closeModal }: IPagoFallido) => {
   useEffect(() => {
@@ -38,8 +77,10 @@ const PagoFallido = ({ closeModal }: IPagoFallido) => {
 
 export const TarjetaModal = ({ closeModal, cuentaTotal }: ITarjetaModal) => {
   const navigator = useNavigate();
+  const PerfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
+  const monedaPerfil = PerfilLocalStorage?.moneda;
 
-  // const [esperandoPago, setEsperandoPago] = useState(true);
+  const [transaccionID, setTransaccionID] = useState<string | undefined>();
   const [mostrarErrorPago, setMostrarErrorPago] = useState(false);
   const [ipPOS, setIpPOS] = useState<string>('');
 
@@ -57,7 +98,7 @@ export const TarjetaModal = ({ closeModal, cuentaTotal }: ITarjetaModal) => {
   }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const pagarConTarjeta = async () => {
+  const pagarConTarjetaLocal = async () => {
     try {
       const pagar = await axios.get(
         `http://${ipPOS}/sale?monto=${convertirNumero(
@@ -81,23 +122,55 @@ export const TarjetaModal = ({ closeModal, cuentaTotal }: ITarjetaModal) => {
     }
   };
 
+  const [tarjetaPaymentRequest] = useLazyQuery(GET_TARJETA, {
+    fetchPolicy: 'no-cache',
+    onCompleted: (data) => {
+      setTransaccionID(data.KIOSCO_getPagoTarjeta.transaction_id);
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+
+  useEffect(() => {
+    let infoKiosco: any = localStorage.getItem('InfoKiosco');
+    infoKiosco = JSON.parse(infoKiosco);
+    if (cuentaTotal > 0 && ipPOS !== '') {
+      // console.log(infoKiosco);
+      switch (infoKiosco.pago_tarjeta_info.empresa) {
+        case 'LINKSER':
+          pagarConTarjetaLocal().then();
+          break;
+        default:
+          break;
+      }
+    }
+  }, [ipPOS, cuentaTotal, pagarConTarjetaLocal]);
+
+  // USE EFFECT PRINCIPAL
   useEffect(() => {
     let infoKiosco: any = localStorage.getItem('InfoKiosco');
     infoKiosco = JSON.parse(infoKiosco);
     if (infoKiosco !== undefined) {
-      setIpPOS(infoKiosco.pago_tarjeta_info.ipLocal);
+      switch (infoKiosco.pago_tarjeta_info.empresa) {
+        case 'CLIP':
+          console.log('cuenta total ...', typeof cuentaTotal);
+          tarjetaPaymentRequest({
+            variables: {
+              pedido: {
+                precio: cuentaTotal,
+              },
+            },
+          }).then();
+          break;
+        case 'LINKSER':
+          setIpPOS(infoKiosco.pago_tarjeta_info.ipLocal);
+          break;
+        default:
+          break;
+      }
     }
   }, []);
-
-  useEffect(() => {
-    if (cuentaTotal > 0 && ipPOS !== '') {
-      pagarConTarjeta().then();
-    }
-  }, [ipPOS, cuentaTotal, pagarConTarjeta]);
-
-  const PerfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
-
-  const monedaPerfil = PerfilLocalStorage?.moneda;
 
   return (
     <>
@@ -120,6 +193,12 @@ export const TarjetaModal = ({ closeModal, cuentaTotal }: ITarjetaModal) => {
               className="w-1/2 h-1/2"
             />
           </div>
+          {transaccionID !== undefined && (
+            <Subscribirme
+              transaccionID={transaccionID}
+              setMostrarErrorPago={setMostrarErrorPago}
+            />
+          )}
         </div>
       )}
     </>

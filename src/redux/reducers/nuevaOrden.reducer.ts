@@ -47,7 +47,10 @@ export function nuevaOrdenReducer(state = initialNuevaOrdenState, action: any) {
         (a, b) => a + b.precioTotal,
         0,
       );
-      return { ...state, cuentaTotal: nuevaCuentaTotal1 };
+      return {
+        ...state,
+        cuentaTotal: parseFloat(nuevaCuentaTotal1.toFixed(2)),
+      };
 
     case QUITAR_ULTIMO_PRODUCTO:
       const nuevosProductos2 = state.productos;
@@ -101,7 +104,7 @@ export function nuevaOrdenReducer(state = initialNuevaOrdenState, action: any) {
       return {
         ...state,
         productos: nuevosProductos4,
-        cuentaTotal: nuevaCuentaTotal4,
+        cuentaTotal: parseFloat(nuevaCuentaTotal4.toFixed(2)),
       };
 
     case EDITAR_CANTIDAD_PRODUCTO:

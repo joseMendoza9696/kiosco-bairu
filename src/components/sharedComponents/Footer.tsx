@@ -33,10 +33,12 @@ export const Footer = () => {
   }
 
   return (
-    <footer className="fixed bottom-0 w-full text-[30px] text-center py-4 bg-primary">
-      <h1 className="font-bold text-3xl text-black dark:text-white">
-        POWERED BY BAIRÜ.IO
-      </h1>
-    </footer>
+    <>
+      {/*<footer className="fixed bottom-0 w-full text-[30px] text-center py-4 bg-primary">*/}
+      {/*  <h1 className="font-bold text-3xl text-black dark:text-white">*/}
+      {/*    POWERED BY BAIRÜ.IO*/}
+      {/*  </h1>*/}
+      {/*</footer>*/}
+    </>
   );
 };
