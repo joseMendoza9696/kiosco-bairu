@@ -9,7 +9,10 @@ import {
 } from '../../interfaces/nuevaOrden.interface';
 import {
   deseleccionarOpcionEditar,
+  restarCantidadProductoEditar,
   seleccionarOpcionEditar,
+  sumarCantidadProductoEditar,
+  vaciarEditarProductoOrden,
 } from '../../redux/actions/editarOrden.action';
 import { EditarProductoInterface } from '../../interfaces/editarOrden.interface';
 // import { useEffect } from 'react';
@@ -32,13 +35,11 @@ export const Modal2 = () => {
   });
 
   //? OPCIONES REQUERIDAS
-  const isRequired = editOrder?.opcionesMenu[stepsIndex].obligatorio ?? false;
+  const isRequired = editOrder?.opcionesMenu[stepsIndex].obligatorio;
   //? limit selection | count options selected
-  const limitOptions =
-    editOrder?.opcionesMenu[stepsIndex].cantidadSeleccion ?? 1;
+  const limitOptions = editOrder?.opcionesMenu[stepsIndex].cantidadSeleccion;
   const optionsSelected =
-    editOrder?.opcionesMenu[stepsIndex].cantidadSeleccionada ?? 1;
-  console.log(editOrder.opcionesMenu);
+    editOrder?.opcionesMenu[stepsIndex].cantidadSeleccionada;
 
   //? select/deselect product functions
   const selectProduct = (menuIndex: number, optionIndex: number) => {
@@ -57,6 +58,9 @@ export const Modal2 = () => {
   //? ADD/NEXT BUTTON
   const addBtn = () => {
     if (stepsIndex === editOrder.opcionesMenu.length - 1) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      dispatch(vaciarEditarProductoOrden());
     } else {
       setstepsIndex((i) => i + 1);
     }
@@ -67,6 +71,9 @@ export const Modal2 = () => {
       setstepsIndex(stepsIndex - 1);
     } else {
       (document.getElementById('checkout2') as HTMLDialogElement).close();
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      dispatch(vaciarEditarProductoOrden());
     }
   };
 
@@ -125,9 +132,8 @@ export const Modal2 = () => {
             )}
           </ul>
           <p className="text-2xl font-semibold">
-            Paso {stepsIndex + 1} {editOrder.opcionesMenu?.[stepsIndex]?.nombre}
-            :{' '}
-            {isRequired && !limitOptions && (
+            Paso {stepsIndex + 1} {editOrder.opcionesMenu[stepsIndex].nombre}:{' '}
+            {!!(isRequired && !optionsSelected) && (
               <span className="pl-8 text-primary">
                 Seleccione al menos una opción.
               </span>
@@ -187,7 +193,16 @@ export const Modal2 = () => {
             {stepsIndex ? 'Atrás' : 'Cerrar'}
           </button>
           {/* MINUS */}
-          <button className="btn w-36 h-20 rounded-3xl">
+          {/*//!EDITAR AQUI */}
+          <button
+            onClick={() =>
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-expect-error
+              dispatch(restarCantidadProductoEditar())
+            }
+            className="btn w-36 h-20 rounded-3xl"
+            disabled={editOrder.cantidad <= 1}
+          >
             <Icon
               width="48px"
               height="48px"
@@ -198,7 +213,15 @@ export const Modal2 = () => {
           {/* AMOUNT */}
           <span className="text-5xl font-bold">{editOrder.cantidad}</span>
           {/* PLUS */}
-          <button className="btn w-36 h-20 rounded-3xl text-white btn-primary">
+          {/*//!EDITAR AQUI */}
+          <button
+            className="btn w-36 h-20 rounded-3xl text-white btn-primary"
+            onClick={() =>
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-expect-error
+              dispatch(sumarCantidadProductoEditar())
+            }
+          >
             <Icon
               width="48px"
               height="48px"
@@ -208,12 +231,12 @@ export const Modal2 = () => {
           </button>
           {/* ADD, CONTINUE */}
           <button
-            // disabled={!!(isRequired && !optionsSelected)}
+            disabled={!!(isRequired && !optionsSelected)}
             className="btn text-5xl w-56 rounded-3xl h-28 text-white font-semibold btn-primary"
             onClick={addBtn}
           >
             {stepsIndex === editOrder.opcionesMenu.length - 1
-              ? 'Añadir'
+              ? 'Actualizar'
               : 'Siguente'}
           </button>
         </div>

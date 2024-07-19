@@ -130,6 +130,7 @@ export function nuevaOrdenReducer(state = initialNuevaOrdenState, action: any) {
         id: action.payload.id,
         idSistema: action.payload.idSistema,
         nombre: action.payload.nombre,
+        descripcion: action.payload.producto.descripcion,
         cantidad: action.payload.cantidad,
         precioOriginal: action.payload.precioOriginal,
         precioMasOpciones: action.payload.precioMasOpciones,

@@ -7,7 +7,7 @@ import {
   actualizarCuentaTotal,
 } from '../../redux/actions/nuevaOrden.action.ts';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { Icon } from '@iconify/react/dist/iconify.js';
@@ -17,12 +17,21 @@ import { ProductoNuevaOrden } from '../../interfaces/nuevaOrden.interface.ts';
 import { editarProductoOrden } from '../../redux/actions/editarOrden.action.ts';
 
 export const Checkout = () => {
-  // TODO: "comer aqui" y "para llevar" son botones diferentes.
-  // check
-  // TODO: dar mejor estilo al boton de "modificar"
+  const getOrderEdit = useSelector(
+    (state: RootState) => state.editarOrdenReducer,
+  );
 
-  // TODO: utilizar el useSelector para editarOrden State.
-  // TODO: 2. crear modals 1 y 2 en la carpeta checkout. Cuando la gente haga click en modificar se abrir el modal correspondiente
+  // check if getorderEdit it contains
+  useEffect(() => {
+    if (getOrderEdit.id) {
+      // openModal
+      (
+        document.getElementById(
+          `${getOrderEdit.opcionesMenu.length < 1 ? 'checkout1' : 'checkout2'}`,
+        ) as HTMLDialogElement
+      ).showModal();
+    }
+  }, [getOrderEdit.id, getOrderEdit]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -46,12 +55,6 @@ export const Checkout = () => {
     nuevaOrden.tipoEntrega,
   );
 
-  // const editarOrden = useSelector(
-  //   (state: RootState) => state.editarOrdenReducer,
-  // );
-
-  // const [modal2, setModal2] = useState<boolean>(false);
-
   const cambioTipoEntrega = (nuevoTipoEntrega: string) => {
     setTipoEntrega(nuevoTipoEntrega);
     // @ts-expect-error need to fix this
@@ -73,6 +76,9 @@ export const Checkout = () => {
   return (
     <div className="w-full">
       <div className="max-w-screen-xl w-11/2 m-auto">
+        {/* MODALS ================================================= */}
+        {getOrderEdit.id && !getOrderEdit.opcionesMenu.length && <Modal1 />}
+        {getOrderEdit.id && getOrderEdit.opcionesMenu.length && <Modal2 />}
         <h1 className="text-center text-primary font-bold text-[56px] pt-[116px] pb-[60px]">
           TU ORDEN
         </h1>
@@ -113,7 +119,6 @@ export const Checkout = () => {
           >
             Vaciar canasta
           </button>
-
           {categoriaActual &&
             nuevaOrden.productos.map((producto, index) => (
               <div key={index}>
@@ -137,11 +142,6 @@ export const Checkout = () => {
                           className="btn btn-outline btn-lg rounded-3xl text-3xl px-10 max-w-min"
                           onClick={() => {
                             editProduct(producto, index);
-                            (
-                              document.getElementById(
-                                `${producto.opcionesMenu.length < 1 ? 'checkout1' : 'checkout2'}`,
-                              ) as HTMLDialogElement
-                            ).showModal();
                           }}
                         >
                           Modificar
@@ -209,9 +209,6 @@ export const Checkout = () => {
               </div>
             ))}
         </div>
-        {/* MODALS ================================================= */}
-        <Modal2 />
-        <Modal1 />
         {/* SECCION DE TOTAL */}
         {/* SECCION DE BOTONES */}
         <div className="fixed bottom-0 left-0 w-full">

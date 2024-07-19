@@ -1,16 +1,15 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { NotesProduct } from '../Menu/Productos/NotesProduct';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
-// import { useEffect } from 'react';
-
-// type Props = {
-//   content?: ProductoNuevaOrden | null;
-// };
+import {
+  restarCantidadProductoEditar,
+  sumarCantidadProductoEditar,
+} from '../../redux/actions/editarOrden.action';
 
 export const Modal1 = () => {
+  const dispatch = useDispatch();
   const editOrder = useSelector((state: RootState) => state.editarOrdenReducer);
-  // console.log('modal1', infoProduct);
 
   // TODO: poner el tipo de moneda en base a "moneda" del perfil activo -> del local storage
   //? GET CURRENCY
@@ -62,13 +61,27 @@ export const Modal1 = () => {
         {/*//! OPTIONS PRODUCT */}
         <div className="flex justify-between items-center w-[45%] mx-auto relative mb-28">
           {/* MINUS */}
-          <button className="btn w-36 h-20 rounded-3xl">
+          <button
+            className="btn w-36 h-20 rounded-3xl"
+            onClick={() =>
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-expect-error
+              dispatch(restarCantidadProductoEditar())
+            }
+          >
             <Icon width="3rem" height="3rem" icon="icomoon-free:minus" />
           </button>
           {/* AMOUNT */}
           <span className="text-5xl font-bold">{editOrder.cantidad}</span>
           {/* PLUS */}
-          <button className="btn w-36 h-20 rounded-3xl text-white btn-primary">
+          <button
+            className="btn w-36 h-20 rounded-3xl text-white btn-primary"
+            onClick={() =>
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-expect-error
+              dispatch(sumarCantidadProductoEditar())
+            }
+          >
             <Icon width="3rem" height="3rem" icon="icomoon-free:plus" />
           </button>
           {true && <NotesProduct></NotesProduct>}

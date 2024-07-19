@@ -10,6 +10,9 @@ import {
   EDITAR_PRODUCTO_ORDEN,
   SELECCIONAR_OPCION_EDITAR,
   DESELECCIONAR_OPCION_EDITAR,
+  VACIAR_EDITAR_PRODUCTO_ORDEN,
+  RESTAR_CANTIDAD_PRODUCTO_EDITAR,
+  SUMAR_CANTIDAD_PRODUCTO_EDITAR,
 } from '../actions/editarOrden.action.ts';
 
 export const editarProductoState: EditarProductoInterface = {
@@ -64,6 +67,22 @@ export function editarOrdenReducer(state = editarProductoState, action: any) {
         subcategoriaNombre: action.payload.producto.subcategoriaNombre,
         opcionesMenu: action.payload.producto.opcionesMenu,
       };
+    //editar cantidad y por separado otro action de actualizar precio total
+    case SUMAR_CANTIDAD_PRODUCTO_EDITAR:
+      const getProduct = state;
+      getProduct.cantidad = getProduct.cantidad + 1;
+      getProduct.precioTotal = calcularPrecioTotal(getProduct);
+      return {
+        ...getProduct,
+      };
+
+    case RESTAR_CANTIDAD_PRODUCTO_EDITAR:
+      const getProduct2 = state;
+      if (state.cantidad > 1) {
+        getProduct2.cantidad = getProduct2.cantidad - 1;
+        getProduct2.precioTotal = calcularPrecioTotal(getProduct2);
+      }
+      return { ...getProduct2 };
 
     case SELECCIONAR_OPCION_EDITAR:
       const nuevoProducto = state;
@@ -120,6 +139,11 @@ export function editarOrdenReducer(state = editarProductoState, action: any) {
         subcategoriaId: nuevoProducto2.subcategoriaId,
         subcategoriaNombre: nuevoProducto2.subcategoriaNombre,
         opcionesMenu: nuevoProducto2.opcionesMenu,
+      };
+
+    case VACIAR_EDITAR_PRODUCTO_ORDEN:
+      return {
+        ...editarProductoState,
       };
 
     default:
