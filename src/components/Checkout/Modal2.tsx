@@ -9,16 +9,12 @@ import {
 } from '../../interfaces/nuevaOrden.interface';
 import {
   deseleccionarOpcionEditar,
-  restarCantidadProductoEditar,
+  modificarCantidadProducto,
   seleccionarOpcionEditar,
-  sumarCantidadProductoEditar,
   vaciarEditarProductoOrden,
 } from '../../redux/actions/editarOrden.action';
 import { EditarProductoInterface } from '../../interfaces/editarOrden.interface';
-// import { useEffect } from 'react';
 
-// type Props = {
-// };
 export const Modal2 = () => {
   //!control steps
   const [stepsIndex, setstepsIndex] = useState<number>(0);
@@ -74,11 +70,11 @@ export const Modal2 = () => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       dispatch(vaciarEditarProductoOrden());
+      setstepsIndex(0);
     }
   };
 
   //? CURRENCY
-
   const perfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
   const currency = perfilLocalStorage.moneda;
   return (
@@ -88,7 +84,12 @@ export const Modal2 = () => {
         <form method="dialog" className="absolute top-0 left-[calc(50%-86px)]">
           <button
             className="btn rounded-t-none rounded-b-3xl h-28 w-48"
-            onClick={() => setstepsIndex(0)}
+            onClick={() => {
+              setstepsIndex(0);
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-expect-error
+              dispatch(vaciarEditarProductoOrden());
+            }}
           >
             <Icon
               icon="material-symbols-light:close"
@@ -116,7 +117,7 @@ export const Modal2 = () => {
         </p>
         {/* price */}
         <span className="block text-center text-primary text-5xl font-bold mb-5">
-          {currency} {editOrder.precioOriginal}
+          {currency} {editOrder.precioTotal}
         </span>
         {/* component steps */}
         <div className="bg-[#F2F2F2] p-8 rounded-3xl mb-5">
@@ -198,7 +199,7 @@ export const Modal2 = () => {
             onClick={() =>
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-expect-error
-              dispatch(restarCantidadProductoEditar())
+              dispatch(modificarCantidadProducto(-1))
             }
             className="btn w-36 h-20 rounded-3xl"
             disabled={editOrder.cantidad <= 1}
@@ -219,7 +220,7 @@ export const Modal2 = () => {
             onClick={() =>
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-expect-error
-              dispatch(sumarCantidadProductoEditar())
+              dispatch(modificarCantidadProducto(1))
             }
           >
             <Icon

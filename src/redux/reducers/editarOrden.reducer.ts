@@ -1,18 +1,10 @@
-// import { EditarProductoInterface } from "../../../interfaces/Restaurantes/editarOrden.interface";
-// import {
-//   EDITAR_PRODUCTO_ORDEN,
-//   SELECCIONAR_OPCION_EDITAR,
-//   DESELECCIONAR_OPCION_EDITAR,
-// } from "../../actions/Restaurantes/editarProducto.action";
-
 import { EditarProductoInterface } from '../../interfaces/editarOrden.interface.ts';
 import {
   EDITAR_PRODUCTO_ORDEN,
   SELECCIONAR_OPCION_EDITAR,
   DESELECCIONAR_OPCION_EDITAR,
   VACIAR_EDITAR_PRODUCTO_ORDEN,
-  RESTAR_CANTIDAD_PRODUCTO_EDITAR,
-  SUMAR_CANTIDAD_PRODUCTO_EDITAR,
+  MODIFICAR_CANTIDAD_PRODUCTO,
 } from '../actions/editarOrden.action.ts';
 
 export const editarProductoState: EditarProductoInterface = {
@@ -55,7 +47,6 @@ export function editarOrdenReducer(state = editarProductoState, action: any) {
         id: action.payload.producto.id,
         idSistema: action.payload.producto.idSistema,
         nombre: action.payload.producto.nombre,
-        //se añadio descripcion
         descripcion: action.payload.producto.descripcion,
         cantidad: action.payload.producto.cantidad,
         precioOriginal: action.payload.producto.precioOriginal,
@@ -67,22 +58,24 @@ export function editarOrdenReducer(state = editarProductoState, action: any) {
         subcategoriaNombre: action.payload.producto.subcategoriaNombre,
         opcionesMenu: action.payload.producto.opcionesMenu,
       };
-    //editar cantidad y por separado otro action de actualizar precio total
-    case SUMAR_CANTIDAD_PRODUCTO_EDITAR:
+
+    case MODIFICAR_CANTIDAD_PRODUCTO:
+      // tener copia del producto
       const getProduct = state;
-      getProduct.cantidad = getProduct.cantidad + 1;
-      getProduct.precioTotal = calcularPrecioTotal(getProduct);
+      // guardara la cantidad + el nuevo monto
+      const newAmount = Math.max(
+        getProduct.cantidad + action.payload.agregar,
+        1,
+      );
+      //hacer reasignacion de cantidad al objeto
+      getProduct.cantidad = newAmount;
+      //obtener calculo del precio total desde getproduct
+      const totalPrice = calcularPrecioTotal(getProduct);
       return {
         ...getProduct,
+        precioTotal: totalPrice,
+        cantidad: newAmount,
       };
-
-    case RESTAR_CANTIDAD_PRODUCTO_EDITAR:
-      const getProduct2 = state;
-      if (state.cantidad > 1) {
-        getProduct2.cantidad = getProduct2.cantidad - 1;
-        getProduct2.precioTotal = calcularPrecioTotal(getProduct2);
-      }
-      return { ...getProduct2 };
 
     case SELECCIONAR_OPCION_EDITAR:
       const nuevoProducto = state;

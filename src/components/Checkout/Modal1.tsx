@@ -3,8 +3,8 @@ import { NotesProduct } from '../Menu/Productos/NotesProduct';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import {
-  restarCantidadProductoEditar,
-  sumarCantidadProductoEditar,
+  modificarCantidadProducto,
+  vaciarEditarProductoOrden,
 } from '../../redux/actions/editarOrden.action';
 
 export const Modal1 = () => {
@@ -15,8 +15,14 @@ export const Modal1 = () => {
   //? GET CURRENCY
   const perfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
   const currency = perfilLocalStorage.moneda;
+  //! update button
 
   //!cancel button
+  const updateBtn = () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    dispatch(vaciarEditarProductoOrden());
+  };
   const closeBtn = () => {
     (document.getElementById('checkout1') as HTMLDialogElement).close();
   };
@@ -28,7 +34,14 @@ export const Modal1 = () => {
           method="dialog"
           className="absolute top-0 left-[calc(50%-5.375rem)]"
         >
-          <button className="btn rounded-t-none rounded-b-3xl h-28 w-48">
+          <button
+            className="btn rounded-t-none rounded-b-3xl h-28 w-48"
+            onClick={() => {
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-expect-error
+              dispatch(vaciarEditarProductoOrden());
+            }}
+          >
             <Icon
               icon="material-symbols-light:close"
               width="3rem"
@@ -56,17 +69,18 @@ export const Modal1 = () => {
         )}
         {/* price */}
         <span className="block text-center text-5xl font-bold mb-16">
-          {currency} {editOrder.precioOriginal}
+          {currency} {editOrder.precioTotal}
         </span>
         {/*//! OPTIONS PRODUCT */}
         <div className="flex justify-between items-center w-[45%] mx-auto relative mb-28">
           {/* MINUS */}
           <button
+            disabled={editOrder.cantidad <= 1}
             className="btn w-36 h-20 rounded-3xl"
             onClick={() =>
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-expect-error
-              dispatch(restarCantidadProductoEditar())
+              dispatch(modificarCantidadProducto(-1))
             }
           >
             <Icon width="3rem" height="3rem" icon="icomoon-free:minus" />
@@ -79,7 +93,7 @@ export const Modal1 = () => {
             onClick={() =>
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-expect-error
-              dispatch(sumarCantidadProductoEditar())
+              dispatch(modificarCantidadProducto(1))
             }
           >
             <Icon width="3rem" height="3rem" icon="icomoon-free:plus" />
@@ -94,7 +108,10 @@ export const Modal1 = () => {
             onClick={closeBtn}
           >{`Cancelar`}</button>
           {/* ADD, CONTINUE */}
-          <button className="btn text-5xl w-80 rounded-3xl h-44 text-white font-semibold btn-primary">{`Actualizar`}</button>
+          <button
+            className="btn text-5xl w-80 rounded-3xl h-44 text-white font-semibold btn-primary"
+            onClick={updateBtn}
+          >{`Actualizar`}</button>
         </div>
       </div>
     </dialog>

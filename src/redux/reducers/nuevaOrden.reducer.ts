@@ -64,7 +64,7 @@ export function nuevaOrdenReducer(state = initialNuevaOrdenState, action: any) {
       nuevosProductos3[index].opcionesMenu[
         action.payload.opcionMenuIndex
       ].opciones[action.payload.opcionIndex].seleccionado = true;
-      // // actualizamos el precio total
+      // actualizamos el precio total
       nuevosProductos3[index].precioTotal = calcularPrecioTotal(
         nuevosProductos3[index],
       );

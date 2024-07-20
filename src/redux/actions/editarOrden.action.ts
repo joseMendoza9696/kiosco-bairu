@@ -8,6 +8,7 @@ export const VACIAR_EDITAR_PRODUCTO_ORDEN = 'VACIAR_EDITAR_PRODUCTO_ORDEN';
 export const RESTAR_CANTIDAD_PRODUCTO_EDITAR =
   'RESTAR_CANTIDAD_PRODUCTO_EDITAR';
 export const SUMAR_CANTIDAD_PRODUCTO_EDITAR = 'SUMAR_CANTIDAD_PRODUCTO_EDITAR';
+export const MODIFICAR_CANTIDAD_PRODUCTO = 'MODIFICAR_CANTIDAD_PRODUCTO';
 
 //envio del objeto entero del producto + posicion en el carrito
 export const editarProductoOrden =
@@ -18,18 +19,14 @@ export const editarProductoOrden =
     });
   };
 
-// sumar cantidad
-export const sumarCantidadProductoEditar = () => (dispatch: any) => {
-  dispatch({
-    type: SUMAR_CANTIDAD_PRODUCTO_EDITAR,
-  });
-};
-//restar cantidad
-export const restarCantidadProductoEditar = () => (dispatch: any) => {
-  dispatch({
-    type: RESTAR_CANTIDAD_PRODUCTO_EDITAR,
-  });
-};
+export const modificarCantidadProducto =
+  (agregar: number) => (dispatch: any) => {
+    dispatch({
+      type: MODIFICAR_CANTIDAD_PRODUCTO,
+      payload: { agregar },
+    });
+  };
+
 // poner como seleccionado un producto: bool
 export const seleccionarOpcionEditar =
   (opcionMenuIndex: number, opcionIndex: number) => (dispatch: any) => {
@@ -48,7 +45,7 @@ export const deseleccionarOpcionEditar =
     });
   };
 
-//
+// restablece los valores a predeterminado
 export const vaciarEditarProductoOrden = () => (dispatch: any) => {
   dispatch({ type: VACIAR_EDITAR_PRODUCTO_ORDEN });
 };
