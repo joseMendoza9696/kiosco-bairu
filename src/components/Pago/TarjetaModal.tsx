@@ -64,7 +64,7 @@ export const TarjetaModal = ({ closeModal, cuentaTotal }: ITarjetaModal) => {
           cuentaTotal,
         )}&cod_moneda=068`,
         {
-          timeout: 5000,
+          timeout: 15000,
         },
       );
       // setEsperandoPago(true);
