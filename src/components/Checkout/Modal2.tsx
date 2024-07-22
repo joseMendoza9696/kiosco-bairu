@@ -76,12 +76,13 @@ export const Modal2 = () => {
 
   //? CURRENCY
   const perfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
-  const currency = perfilLocalStorage.moneda;
+  const currencyLocal = perfilLocalStorage.moneda;
+  const storageNotes = perfilLocalStorage.notas_productos;
   return (
     <dialog id="checkout2" className="modal modal-bottom">
-      <div className="modal-box bg-base-100 rounded-t-[90px] h-[87%] px-24 pt-36">
+      <div className="modal-box bg-base-100 rounded-t-[90px] h-[87%] px-24 pt-36 relative">
         {/* button close modal */}
-        <form method="dialog" className="absolute top-0 left-[calc(50%-86px)]">
+        <form method="dialog" className="absolute top-0 left-[calc(50%-96px)]">
           <button
             className="btn rounded-t-none rounded-b-3xl h-28 w-48"
             onClick={() => {
@@ -109,7 +110,7 @@ export const Modal2 = () => {
         {/* name product and notes */}
         <div className="flex gap-6 justify-center">
           <h2 className="font-bold text-6xl text-center">{editOrder.nombre}</h2>
-          <NotesProduct.Modal2></NotesProduct.Modal2>
+          {storageNotes && <NotesProduct.Modal2 />}
         </div>
         {/* description */}
         <p className="py-4 text-3xl text-center text-[#A6A6AA]">
@@ -117,7 +118,7 @@ export const Modal2 = () => {
         </p>
         {/* price */}
         <span className="block text-center text-primary text-5xl font-bold mb-5">
-          {currency} {editOrder.precioTotal}
+          {currencyLocal} {editOrder.precioTotal}
         </span>
         {/* component steps */}
         <div className="bg-[#F2F2F2] p-8 rounded-3xl mb-5">
@@ -141,51 +142,49 @@ export const Modal2 = () => {
             )}
           </p>
         </div>
-        <div>
-          {/* OPTIONS PRODUCT */}
-          <div className="grid grid-cols-4 justify-items-center gap-3 h-[32.5rem] overflow-y-auto mb-2">
-            {/*  PRODUCT ITEMS */}
-            {optionsProduct &&
-              optionsProduct.map((option: Opcion, i: number) => (
-                <button
-                  key={i}
-                  // border-4 border-primary
-                  className={`flex flex-col h-[15rem] w-[12.5rem] rounded-md shadow-lg relative overflow-hidden ${option.seleccionado ? 'border-4 border-primary' : ''}`}
-                  onClick={() => {
-                    if (option.seleccionado) {
-                      deselectProduct(stepsIndex, i);
-                    } else {
-                      selectProduct(stepsIndex, i);
-                    }
-                  }}
-                >
-                  <img
-                    src={option.imagen}
-                    alt={option.nombre}
-                    className="w-full h-[10.4375rem] object-cover"
-                  />
-                  <div className="p-2">
-                    <h2 className="text-lg font-semibold text-left capitalize">
-                      {option.nombre}
-                    </h2>
-                    <p className="text-left font-semibold text-lg">
-                      + {currency} {option.precio}
-                    </p>
+        {/* OPTIONS PRODUCT */}
+        <div className="grid grid-cols-4 justify-items-center gap-3 h-[32.5rem] overflow-y-auto mb-2">
+          {/*  PRODUCT ITEMS */}
+          {optionsProduct &&
+            optionsProduct.map((option: Opcion, i: number) => (
+              <button
+                key={i}
+                // border-4 border-primary
+                className={`flex flex-col h-[15rem] w-[12.5rem] rounded-md shadow-lg relative overflow-hidden ${option.seleccionado ? 'border-4 border-primary' : ''}`}
+                onClick={() => {
+                  if (option.seleccionado) {
+                    deselectProduct(stepsIndex, i);
+                  } else {
+                    selectProduct(stepsIndex, i);
+                  }
+                }}
+              >
+                <img
+                  src={option.imagen}
+                  alt={option.nombre}
+                  className="w-full h-[10.4375rem] object-cover"
+                />
+                <div className="p-2">
+                  <h2 className="text-lg font-semibold text-left capitalize">
+                    {option.nombre}
+                  </h2>
+                  <p className="text-left font-semibold text-lg">
+                    + {currencyLocal} {option.precio}
+                  </p>
+                </div>
+                {option.seleccionado && (
+                  <div className="absolute top-0 right-0 mt-2 mr-2">
+                    <Icon
+                      icon="ei:check"
+                      className="text-primary w-[2.8125rem] h-[2.8125rem]"
+                    />
                   </div>
-                  {option.seleccionado && (
-                    <div className="absolute top-0 right-0 mt-2 mr-2">
-                      <Icon
-                        icon="ei:check"
-                        className="text-primary w-[2.8125rem] h-[2.8125rem]"
-                      />
-                    </div>
-                  )}
-                </button>
-              ))}
-          </div>
+                )}
+              </button>
+            ))}
         </div>
         {/* BUTTONS cancel minus number plus procedd */}
-        <div className=" bottom-6 w-full flex justify-between items-center">
+        <div className="bottom-9 flex justify-between items-center absolute w-[55.3125rem]">
           {/* BACK, CANCEL */}
           <button
             className="btn text-5xl w-56 rounded-3xl h-28 font-semibold"
@@ -194,7 +193,6 @@ export const Modal2 = () => {
             {stepsIndex ? 'Atrás' : 'Cerrar'}
           </button>
           {/* MINUS */}
-          {/*//!EDITAR AQUI */}
           <button
             onClick={() =>
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -214,7 +212,6 @@ export const Modal2 = () => {
           {/* AMOUNT */}
           <span className="text-5xl font-bold">{editOrder.cantidad}</span>
           {/* PLUS */}
-          {/*//!EDITAR AQUI */}
           <button
             className="btn w-36 h-20 rounded-3xl text-white btn-primary"
             onClick={() =>

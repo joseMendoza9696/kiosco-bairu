@@ -15,6 +15,8 @@ export const Menu = () => {
   const categorias = useSelector(
     (state: RootState) => state.menuReducer.categorias,
   );
+  // const leerEstado = useSelector((state: RootState) => state.nuevaOrdenReducer);
+  // console.log(leerEstado);
 
   const categoriaSeleccionada = useSelector(
     (state: RootState) => state.menuSeleccionReducer.categoriaSeleccionada,

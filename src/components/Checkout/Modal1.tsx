@@ -12,17 +12,18 @@ export const Modal1 = () => {
   const editOrder = useSelector((state: RootState) => state.editarOrdenReducer);
 
   // TODO: poner el tipo de moneda en base a "moneda" del perfil activo -> del local storage
-  //? GET CURRENCY
   const perfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
-  const currency = perfilLocalStorage.moneda;
-  //! update button
+  //? GET CURRENCY Local
+  const currencyLocal = perfilLocalStorage.moneda;
+  const storageNotes = perfilLocalStorage.notas_productos;
 
-  //!cancel button
+  //! update button
   const updateBtn = () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     dispatch(vaciarEditarProductoOrden());
   };
+  //!cancel button
   const closeBtn = () => {
     (document.getElementById('checkout1') as HTMLDialogElement).close();
   };
@@ -69,7 +70,7 @@ export const Modal1 = () => {
         )}
         {/* price */}
         <span className="block text-center text-5xl font-bold mb-16">
-          {currency} {editOrder.precioTotal}
+          {currencyLocal} {editOrder.precioTotal}
         </span>
         {/*//! OPTIONS PRODUCT */}
         <div className="flex justify-between items-center w-[45%] mx-auto relative mb-28">
@@ -98,9 +99,9 @@ export const Modal1 = () => {
           >
             <Icon width="3rem" height="3rem" icon="icomoon-free:plus" />
           </button>
-          {true && <NotesProduct></NotesProduct>}
+          {storageNotes && <NotesProduct></NotesProduct>}
         </div>
-        {/* BUTTONS cancel minus number plus procedd */}
+        {/* BUTTONS cancel minus amount plus procedd */}
         <div className="w-[85%] mx-auto flex justify-between items-center">
           {/* BACK, CANCEL */}
           <button
