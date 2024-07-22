@@ -79,7 +79,7 @@ export const Checkout = () => {
         {/* MODALS ================================================= */}
         {getOrderEdit.id && !getOrderEdit.opcionesMenu.length && <Modal1 />}
         {getOrderEdit.id && getOrderEdit.opcionesMenu.length && <Modal2 />}
-        <h1 className="text-center text-primary font-bold text-[56px] pt-[116px] pb-[60px]">
+        <h1 className="text-center text-primary font-bold text-6xl pt-[116px] pb-[60px]">
           TU ORDEN
         </h1>
         <div className="w-full pb-8">
@@ -131,13 +131,13 @@ export const Checkout = () => {
                           className="w-[125px] h-[125px] rounded-[20px] object-cover"
                         />
                       </div>
-                      <div className="flex flex-col justify-between ">
-                        <h1 className=" text-[40px] font-semibold">
+                      <div className="flex flex-col justify-between">
+                        <h1 className="text-4xl font-semibold text-ellipsis">
                           {producto.nombre}
-                          <p className="text-[28px] font-bold text-primary">
-                            {producto.subcategoriaNombre}
-                          </p>
                         </h1>
+                        <p className="text-2xl text-primary mb-2">
+                          {producto.subcategoriaNombre}
+                        </p>
                         <button
                           className="btn btn-outline btn-lg rounded-3xl text-3xl px-10 max-w-min"
                           onClick={() => {
@@ -148,7 +148,7 @@ export const Checkout = () => {
                         </button>
                       </div>
                     </div>
-                    <div className="text-[40px] flex flex-col justify-between">
+                    <div className="text-4xl flex flex-col justify-between">
                       <div className="flex justify-end font-bold">
                         <p>
                           {monedaPerfil} {producto.precioTotal}

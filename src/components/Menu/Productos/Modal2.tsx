@@ -168,7 +168,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
             />
           </div>
           {/* name product and notes */}
-          <div className="flex gap-6 justify-center">
+          <div className="flex gap-6 justify-center items-start">
             <h2 className="font-bold text-6xl text-center">
               {productoSeleccionado.nombre}
             </h2>
@@ -179,7 +179,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
             {productoSeleccionado.descripcion}
           </p>
           {/* price */}
-          <span className="block text-center text-primary text-5xl font-bold mb-5">
+          <span className="block text-center text-primary text-4xl font-semibold mb-5">
             {monedaPerfil} {productoSeleccionado.precioTotal}
           </span>
           {/* component steps */}
@@ -195,7 +195,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                 ),
               )}
             </ul>
-            <p className="text-2xl font-semibold">
+            <p className="text-2xl">
               Paso {opcionMenuSeleccionadoIndex + 1}{' '}
               {
                 productoSeleccionado.opcionesMenu[opcionMenuSeleccionadoIndex]
@@ -350,7 +350,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           <div className="bottom-9 flex justify-between items-center absolute w-[55.3125rem]">
             {/* BACK, CANCEL */}
             <button
-              className="btn text-5xl w-56 rounded-3xl h-28 font-semibold"
+              className="btn text-4xl w-56 rounded-3xl h-28 font-semibold"
               onClick={() => {
                 if (opcionMenuSeleccionadoIndex > 0) {
                   setOpcionMenuSeleccionadoIndex(
@@ -399,7 +399,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                   opcionMenuSeleccionado.cantidadSeleccionada < 1
                 )
               }
-              className="btn text-5xl w-56 rounded-3xl h-28 text-white font-semibold btn-primary"
+              className="btn text-4xl w-56 rounded-3xl h-28 text-white font-semibold btn-primary"
               onClick={() => {
                 if (
                   opcionMenuSeleccionadoIndex ===

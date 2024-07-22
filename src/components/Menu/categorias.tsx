@@ -36,9 +36,7 @@ const Categoria: React.FC<CategoriasProps> = ({ categorias }) => {
   return (
     <>
       <div className="text-center pt-10 ">
-        <h1 className="text-5xl font-black text-primary">
-          Nuestras categorías
-        </h1>
+        <h1 className="text-5xl font-bold text-primary">Nuestras categorías</h1>
       </div>
       <div className="rounded-box w-full overflow-x-auto flex items-center justify-start carousel py-10">
         <div className="carousel-item pl-12">

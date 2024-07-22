@@ -32,6 +32,7 @@ export const initialNuevaOrdenState: NuevaOrdenInterface = {
 };
 
 export function nuevaOrdenReducer(state = initialNuevaOrdenState, action: any) {
+  //todo: crear action y reducer de notas case: nota
   switch (action.type) {
     case AGREGAR_PRODUCTO:
       const nuevosProductos = state.productos;

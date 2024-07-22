@@ -31,6 +31,7 @@ export interface OpcionMenuNuevaOrden {
 export interface ProductoNuevaOrden {
   id: string;
   idSistema?: string;
+  nota?: string;
   nombre: string;
   descripcion: string;
   cantidad: number;
@@ -74,6 +75,7 @@ export interface OpcionMenuOrden {
 export interface ProductoOrden {
   id: string;
   idSistema?: string;
+  nota?: string;
   nombre: string;
   cantidad: number;
   precioUnitario: number;

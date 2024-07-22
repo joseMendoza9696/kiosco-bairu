@@ -78,7 +78,7 @@ export const Menu = () => {
 
       <main className="overflow-hidden">
         <div className="flex items-center justify-between pl-16">
-          <h1 className="text-5xl font-black text-primary">
+          <h1 className="text-5xl font-bold text-primary">
             Escoge tu producto
           </h1>
           {/* <button className="btn btn-secondary w-16 h-16 btn-circle mr-16">

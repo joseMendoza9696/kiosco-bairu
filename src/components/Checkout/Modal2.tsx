@@ -108,7 +108,7 @@ export const Modal2 = () => {
           />
         </div>
         {/* name product and notes */}
-        <div className="flex gap-6 justify-center">
+        <div className="flex gap-6 justify-center items-start">
           <h2 className="font-bold text-6xl text-center">{editOrder.nombre}</h2>
           {storageNotes && <NotesProduct.Modal2 />}
         </div>
@@ -133,7 +133,7 @@ export const Modal2 = () => {
               ),
             )}
           </ul>
-          <p className="text-2xl font-semibold">
+          <p className="text-2xl">
             Paso {stepsIndex + 1} {editOrder.opcionesMenu[stepsIndex].nombre}:{' '}
             {!!(isRequired && !optionsSelected) && (
               <span className="pl-8 text-primary">
@@ -187,7 +187,7 @@ export const Modal2 = () => {
         <div className="bottom-9 flex justify-between items-center absolute w-[55.3125rem]">
           {/* BACK, CANCEL */}
           <button
-            className="btn text-5xl w-56 rounded-3xl h-28 font-semibold"
+            className="btn text-4xl w-56 rounded-3xl h-28 font-semibold"
             onClick={closeBtn}
           >
             {stepsIndex ? 'Atrás' : 'Cerrar'}
@@ -230,7 +230,7 @@ export const Modal2 = () => {
           {/* ADD, CONTINUE */}
           <button
             disabled={!!(isRequired && !optionsSelected)}
-            className="btn text-5xl w-56 rounded-3xl h-28 text-white font-semibold btn-primary"
+            className="btn text-4xl w-56 rounded-3xl h-28 text-white font-semibold btn-primary"
             onClick={addBtn}
           >
             {stepsIndex === editOrder.opcionesMenu.length - 1
