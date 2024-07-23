@@ -2,13 +2,14 @@
 
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  theme: {
+    fontFamily: {
+      hiragino: ['hiragino', 'sans-serif'],
+    },
+  },
 
   plugins: [require('daisyui')],
-
   daisyui: {
-    fontFamily: {
-      custom: ['font-bairu', 'sans-serif'],
-    },
     themes: [
       {
         sbarro: {
@@ -17,13 +18,17 @@ export default {
           accent: '#F2F2F2',
           neutral: '#fff4f8',
           'base-100': '#fff4f8',
+          grayCustom: '#F2F2F2',
         },
         bigcake: {
           primary: '#00BED6',
           secondary: '#FF9A01',
           accent: '#FFA8A8',
           neutral: '#fff4f8',
-          'base-100': '#fff4f8',
+          //background color =>
+          'base-100': '#FAFAFA',
+          // gray 1 => steps component
+          // grayCustom: '#F2F2F2',
         },
       },
       'light',

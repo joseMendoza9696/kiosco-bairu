@@ -17,6 +17,7 @@ import {
   ACTUALIZAR_NOMBRE_CLIENTE,
   ACTUALIZAR_TIPO_ENTREGA,
   ACTUALIZAR_NUMERO_TELEFONO,
+  AGREGAR_NOTA_PRODUCTO,
 } from '../actions/nuevaOrden.action.ts';
 
 export const initialNuevaOrdenState: NuevaOrdenInterface = {
@@ -32,6 +33,7 @@ export const initialNuevaOrdenState: NuevaOrdenInterface = {
 };
 
 export function nuevaOrdenReducer(state = initialNuevaOrdenState, action: any) {
+  //todo: crear action y reducer de notas case: nota
   switch (action.type) {
     case AGREGAR_PRODUCTO:
       const nuevosProductos = state.productos;
@@ -60,6 +62,14 @@ export function nuevaOrdenReducer(state = initialNuevaOrdenState, action: any) {
         productos: nuevosProductos2,
       };
 
+    case AGREGAR_NOTA_PRODUCTO:
+      const nuevosProductos8 = state.productos;
+      nuevosProductos8[nuevosProductos8.length - 1].nota = action.payload.nota;
+      return {
+        ...state,
+        productos: nuevosProductos8,
+      };
+
     case SELECCIONAR_OPCION:
       const nuevosProductos3 = state.productos;
       const index = nuevosProductos3.length - 1;
@@ -67,7 +77,7 @@ export function nuevaOrdenReducer(state = initialNuevaOrdenState, action: any) {
       nuevosProductos3[index].opcionesMenu[
         action.payload.opcionMenuIndex
       ].opciones[action.payload.opcionIndex].seleccionado = true;
-      // // actualizamos el precio total
+      // actualizamos el precio total
       nuevosProductos3[index].precioTotal = calcularPrecioTotal(
         nuevosProductos3[index],
       );
@@ -133,6 +143,7 @@ export function nuevaOrdenReducer(state = initialNuevaOrdenState, action: any) {
         id: action.payload.id,
         idSistema: action.payload.idSistema,
         nombre: action.payload.nombre,
+        descripcion: action.payload.producto.descripcion,
         cantidad: action.payload.cantidad,
         precioOriginal: action.payload.precioOriginal,
         precioMasOpciones: action.payload.precioMasOpciones,

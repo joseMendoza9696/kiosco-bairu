@@ -15,6 +15,8 @@ export const Menu = () => {
   const categorias = useSelector(
     (state: RootState) => state.menuReducer.categorias,
   );
+  // const leerEstado = useSelector((state: RootState) => state.nuevaOrdenReducer);
+  // console.log(leerEstado);
 
   const categoriaSeleccionada = useSelector(
     (state: RootState) => state.menuSeleccionReducer.categoriaSeleccionada,
@@ -60,7 +62,7 @@ export const Menu = () => {
   return (
     <>
       <header className="mx-16 mt-10  fixed-top">
-        <div className="p-6  dark:bg-primary dark:text-gray-50 rounded-xl shadow-lg">
+        <div className="p-6 dark:bg-primary dark:text-gray-50 rounded-xl shadow-lg">
           <div className="container mx-auto">
             <div className="flex flex-col lg:flex-row items-center justify-center">
               <img
@@ -76,7 +78,7 @@ export const Menu = () => {
 
       <main className="overflow-hidden">
         <div className="flex items-center justify-between pl-16">
-          <h1 className="text-4xl font-bold text-primary">
+          <h1 className="text-5xl font-bold text-primary">
             Escoge tu producto
           </h1>
           {/* <button className="btn btn-secondary w-16 h-16 btn-circle mr-16">
@@ -102,7 +104,7 @@ export const Menu = () => {
           <Subcategorias categoriaSeleccionada={categoriaSeleccionada} />
         </div>
 
-        <div className="max-w-6xl mx-auto py-8 overflow-y-auto">
+        <div className="max-w-6xl mx-auto py-10 overflow-y-auto pl-2">
           <Productos />
         </div>
       </main>

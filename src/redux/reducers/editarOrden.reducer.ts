@@ -1,15 +1,10 @@
-// import { EditarProductoInterface } from "../../../interfaces/Restaurantes/editarOrden.interface";
-// import {
-//   EDITAR_PRODUCTO_ORDEN,
-//   SELECCIONAR_OPCION_EDITAR,
-//   DESELECCIONAR_OPCION_EDITAR,
-// } from "../../actions/Restaurantes/editarProducto.action";
-
 import { EditarProductoInterface } from '../../interfaces/editarOrden.interface.ts';
 import {
   EDITAR_PRODUCTO_ORDEN,
   SELECCIONAR_OPCION_EDITAR,
   DESELECCIONAR_OPCION_EDITAR,
+  VACIAR_EDITAR_PRODUCTO_ORDEN,
+  MODIFICAR_CANTIDAD_PRODUCTO,
 } from '../actions/editarOrden.action.ts';
 
 export const editarProductoState: EditarProductoInterface = {
@@ -52,6 +47,7 @@ export function editarOrdenReducer(state = editarProductoState, action: any) {
         id: action.payload.producto.id,
         idSistema: action.payload.producto.idSistema,
         nombre: action.payload.producto.nombre,
+        descripcion: action.payload.producto.descripcion,
         cantidad: action.payload.producto.cantidad,
         precioOriginal: action.payload.producto.precioOriginal,
         precioMasOpciones: action.payload.producto.precioMasOpciones,
@@ -63,8 +59,26 @@ export function editarOrdenReducer(state = editarProductoState, action: any) {
         opcionesMenu: action.payload.producto.opcionesMenu,
       };
 
+    case MODIFICAR_CANTIDAD_PRODUCTO:
+      // tener copia del producto
+      const getProduct = state;
+      // guardara la cantidad + el nuevo monto
+      const newAmount = Math.max(
+        getProduct.cantidad + action.payload.agregar,
+        1,
+      );
+      //hacer reasignacion de cantidad al objeto
+      getProduct.cantidad = newAmount;
+      //obtener calculo del precio total desde getproduct
+      const totalPrice = calcularPrecioTotal(getProduct);
+      return {
+        ...getProduct,
+        precioTotal: totalPrice,
+        cantidad: newAmount,
+      };
+
     case SELECCIONAR_OPCION_EDITAR:
-      let nuevoProducto = state;
+      const nuevoProducto = state;
       // actualizamos la opcion a seleccionado
       nuevoProducto.opcionesMenu[action.payload.opcionMenuIndex].opciones[
         action.payload.opcionIndex
@@ -93,7 +107,7 @@ export function editarOrdenReducer(state = editarProductoState, action: any) {
       };
 
     case DESELECCIONAR_OPCION_EDITAR:
-      let nuevoProducto2 = state;
+      const nuevoProducto2 = state;
       // actualizamos la opcion a seleccionado
       nuevoProducto2.opcionesMenu[action.payload.opcionMenuIndex].opciones[
         action.payload.opcionIndex
@@ -118,6 +132,11 @@ export function editarOrdenReducer(state = editarProductoState, action: any) {
         subcategoriaId: nuevoProducto2.subcategoriaId,
         subcategoriaNombre: nuevoProducto2.subcategoriaNombre,
         opcionesMenu: nuevoProducto2.opcionesMenu,
+      };
+
+    case VACIAR_EDITAR_PRODUCTO_ORDEN:
+      return {
+        ...editarProductoState,
       };
 
     default:

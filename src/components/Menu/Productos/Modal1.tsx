@@ -1,13 +1,15 @@
 // REDUX
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../redux/store.ts';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   editarCantidadProducto,
   quitarUltimoProducto,
   actualizarCuentaTotal,
+  agregarNotaProducto,
 } from '../../../redux/actions/nuevaOrden.action.ts';
 import { NotesProduct } from './NotesProduct.tsx';
+import { Icon } from '@iconify/react/dist/iconify.js';
 // import { Producto } from '../../../interfaces/menu.interface.ts';
 
 interface IModal1 {
@@ -15,6 +17,19 @@ interface IModal1 {
 }
 
 export const Modal1 = ({ closeModal }: IModal1) => {
+  //notes
+  const [noteModal, setnoteModal] = useState<string>('');
+  useEffect(() => {
+    if (noteModal) {
+      agregarNota(noteModal);
+    }
+  }, [noteModal]);
+
+  const agregarNota = (nota: string) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    dispatch(agregarNotaProducto(nota, productoSeleccionadoIndex));
+  };
   const dispatch = useDispatch();
   const PerfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
 
@@ -32,7 +47,6 @@ export const Modal1 = ({ closeModal }: IModal1) => {
   const [cantidad, setCantidad] = useState<number>(1);
 
   // FUNCTIONS
-
   const agregarProductoACanasta = () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
@@ -58,67 +72,80 @@ export const Modal1 = ({ closeModal }: IModal1) => {
   return (
     <>
       {productoSeleccionado && (
-        <div className="modal-box h-[1800px] bg-[base-100] shadow-lg rounded-t-[90px]">
-          <button
-            className="btn btn-square w-24"
-            onClick={() => {
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-expect-error
-              dispatch(quitarUltimoProducto());
-
-              closeModal();
-              setCantidad(1);
-            }}
+        <div className="modal-box bg-base-100 rounded-t-[5.625rem] h-[87%] px-24 pt-44">
+          {/* button close modal */}
+          <form
+            method="dialog"
+            className="absolute top-0 left-[calc(50%-5.375rem)]"
           >
-            X
-          </button>
-
-          <img
-            src={productoSeleccionado.imagen}
-            alt={productoSeleccionado.nombre}
-            className="w-[490px] h-[490px] rounded-[30px] object-cover mx-auto mt-[150px]"
-          />
-          <p className="font-bold text-center text-[65px] pt-[64px]">
+            <button
+              className="btn rounded-t-none rounded-b-3xl h-28 w-48"
+              onClick={() => {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-expect-error
+                dispatch(quitarUltimoProducto());
+                setCantidad(1);
+              }}
+            >
+              <Icon
+                icon="material-symbols-light:close"
+                width="3rem"
+                height="3rem"
+              />
+            </button>
+          </form>
+          {/* product image */}
+          <div className="flex justify-center mb-10">
+            <img
+              src={productoSeleccionado.imagen}
+              alt={productoSeleccionado.nombre}
+              className="w-[31rem] h-[31rem] rounded-3xl object-cover"
+            />
+          </div>
+          {/* name product and notes */}
+          <h2 className="font-bold text-7xl text-center mb-8">
             {productoSeleccionado.nombre}
-          </p>
-          <div className="px-32 py-4">
-            <p className="font-semibold text-secondary text-center text-[30px] ">
+          </h2>
+          {/* description */}
+          {productoSeleccionado.descripcion && (
+            <p className="py-4 text-3xl text-center text-[#A6A6AA] mb-8">
               {productoSeleccionado.descripcion}
             </p>
-          </div>
-
-          <p className="text-center text-[45px] text-primary font-bold">
+          )}
+          {/* price */}
+          <span className="block text-center text-5xl font-bold mb-16">
             {monedaPerfil} {productoSeleccionado.precioTotal}
-          </p>
-          <div className="flex justify-center mt-4 mx-[130px] gap-12 items-center relative">
+          </span>
+          {/*//! OPTIONS PRODUCT */}
+          <div className="flex justify-between items-center w-[45%] mx-auto relative mb-28">
+            {/* MINUS */}
             <button
-              className="btn btn-ghost btn-active w-[156px] h-[93px] text-[90px] font-bold rounded-2xl"
+              disabled={cantidad <= 1}
+              className="btn w-36 h-20 rounded-3xl"
               onClick={() => {
                 editarCantidad(-1);
               }}
             >
-              -
+              <Icon width="3rem" height="3rem" icon="icomoon-free:minus" />
             </button>
-            <span className="text-[40px] font-bold">{cantidad}</span>
+            {/* AMOUNT */}
+            <span className="text-5xl font-bold">{cantidad}</span>
+            {/* PLUS */}
             <button
-              className="btn pb-2 rounded-2xl btn-primary w-[156px] h-[93px] text-[90px] font-bold"
+              className="btn w-36 h-20 rounded-3xl text-white btn-primary"
               onClick={() => {
                 editarCantidad(1);
               }}
             >
-              +
+              <Icon width="3rem" height="3rem" icon="icomoon-free:plus" />
             </button>
-            {notasProductos && (
-              // <div className="absolute right-[-2px] top-1/2 transform -translate-y-1/2">
-              //   <Icon icon="akar-icons:edit" className="text-[70px]" />
-              // </div>
-              <NotesProduct></NotesProduct>
-            )}
+            {notasProductos && <NotesProduct getNote={setnoteModal} />}
           </div>
-
-          <div className="text-center my-[127px] space-x-[100px] ">
+          {/* BUTTONS: cancel minus amount plus add */}
+          <div className="w-[85%] mx-auto flex justify-between items-center">
+            {/* CANCEL */}
             <button
-              className="btn btn-gosth w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16"
+              className="btn text-5xl w-80 rounded-3xl h-44 font-semibold"
               onClick={() => {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-expect-error
@@ -129,8 +156,9 @@ export const Modal1 = ({ closeModal }: IModal1) => {
             >
               Cancelar
             </button>
+            {/* ADD */}
             <button
-              className="btn btn-primary w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16"
+              className="btn text-5xl w-80 rounded-3xl h-44 text-white font-semibold btn-primary"
               onClick={agregarProductoACanasta}
             >
               Añadir

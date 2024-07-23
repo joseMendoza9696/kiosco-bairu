@@ -1,17 +1,17 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { ReactNode, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 type Props = {
   children?: ReactNode;
-  // closeModal?: any;
+  getNote?: Dispatch<SetStateAction<string>>;
 };
-export const NotesProduct = ({ children }: Props) => {
-  //   const [isOpen, setIsOpen] = useState<boolean>(false);
+export const NotesProduct = ({ children, getNote }: Props) => {
   const [note, setNote] = useState<string>('');
 
   return (
     <>
       <button
-        className=" absolute right-16"
+        className=" absolute -right-24"
         onClick={() =>
           (
             document.getElementById('my_modal_notes') as HTMLDialogElement
@@ -30,28 +30,30 @@ export const NotesProduct = ({ children }: Props) => {
             onChange={(e) => setNote(e.target.value)}
             value={note}
             placeholder="Nota..."
-            className="input input-bordered w-full max-w-md border-4 p-9"
+            className="input input-bordered w-full max-w-md border-4 p-9 text-4xl"
           />
           <button
-            className="btn btn-error text-4xl btn-lg btn-wide"
-            onClick={() =>
+            className="btn bg-primary text-4xl btn-lg btn-wide"
+            onClick={() => {
               (
                 document.getElementById('my_modal_notes') as HTMLDialogElement
-              ).close()
-            }
+              ).close();
+              if (getNote) {
+                getNote(note);
+              }
+            }}
           >
             Añadir
           </button>
         </div>
         <form method="dialog" className="modal-backdrop">
-          <button></button>
+          <button onClick={() => setNote('')}></button>
         </form>
       </dialog>
     </>
   );
 };
-const Modal2 = ({ children }: Props) => {
-  // const [isOpen, setIsOpen] = useState<boolean>(false);
+const Modal2 = ({ children, getNote }: Props) => {
   const [note, setNote] = useState<string>('');
 
   return (
@@ -75,21 +77,24 @@ const Modal2 = ({ children }: Props) => {
             onChange={(e) => setNote(e.target.value)}
             value={note}
             placeholder="Nota..."
-            className="input input-bordered w-full max-w-md border-4 p-9"
+            className="input input-bordered w-full max-w-md border-4 p-9 text-4xl"
           />
           <button
-            className="btn btn-error text-4xl btn-lg btn-wide"
-            onClick={() =>
+            className="btn bg-primary text-4xl btn-lg btn-wide"
+            onClick={() => {
               (
                 document.getElementById('my_modal_notes') as HTMLDialogElement
-              ).close()
-            }
+              ).close();
+              if (getNote) {
+                getNote(note);
+              }
+            }}
           >
             Añadir
           </button>
         </div>
         <form method="dialog" className="modal-backdrop">
-          <button></button>
+          <button onClick={() => setNote('')}></button>
         </form>
       </dialog>
     </>
