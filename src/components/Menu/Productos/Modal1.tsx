@@ -17,7 +17,19 @@ interface IModal1 {
 }
 
 export const Modal1 = ({ closeModal }: IModal1) => {
+  //notes
   const [noteModal, setnoteModal] = useState<string>('');
+  useEffect(() => {
+    if (noteModal) {
+      agregarNota(noteModal);
+    }
+  }, [noteModal]);
+
+  const agregarNota = (nota: string) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    dispatch(agregarNotaProducto(nota, productoSeleccionadoIndex));
+  };
   const dispatch = useDispatch();
   const PerfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
 
@@ -56,17 +68,6 @@ export const Modal1 = ({ closeModal }: IModal1) => {
   const notasProductos = PerfilLocalStorage?.notas_productos;
 
   const monedaPerfil = PerfilLocalStorage?.moneda;
-  useEffect(() => {
-    if (noteModal) {
-      agregarNota(noteModal);
-    }
-  }, [noteModal]);
-
-  const agregarNota = (nota: string) => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    dispatch(agregarNotaProducto(nota, productoSeleccionadoIndex));
-  };
 
   return (
     <>

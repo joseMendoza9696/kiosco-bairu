@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // REDUX
 import { RootState } from '../../../redux/store.ts';
 import {
   actualizarCuentaTotal,
+  agregarNotaProducto,
   deseleccionarOpcion,
   quitarUltimoProducto,
   seleccionarOpcion,
@@ -21,6 +22,19 @@ interface IModal2 {
 }
 
 export const Modal2 = ({ closeModal }: IModal2) => {
+  const [noteModal, setnoteModal] = useState<string>('');
+  useEffect(() => {
+    if (noteModal) {
+      agregarNota(noteModal);
+    }
+  }, [noteModal]);
+  const agregarNota = (nota: string) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+
+    dispatch(agregarNotaProducto(nota, productoSeleccionadoIndex));
+  };
+
   const dispatch = useDispatch();
 
   const PerfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
@@ -172,7 +186,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
             <h2 className="font-bold text-6xl text-center">
               {productoSeleccionado.nombre}
             </h2>
-            {notasProductos && <NotesProduct.Modal2 />}
+            {notasProductos && <NotesProduct.Modal2 getNote={setnoteModal} />}
           </div>
           {/* description */}
           <p className="py-4 text-3xl text-center text-[#A6A6AA]">

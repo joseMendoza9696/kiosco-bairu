@@ -13,8 +13,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { Modal2 } from './Modal2.tsx';
 import { Modal1 } from './Modal1.tsx';
-import { ProductoNuevaOrden } from '../../interfaces/nuevaOrden.interface.ts';
-import { editarProductoOrden } from '../../redux/actions/editarOrden.action.ts';
+// EDIT PRODUCT
+// import { ProductoNuevaOrden } from '../../interfaces/nuevaOrden.interface.ts';
+// import { editarProductoOrden } from '../../redux/actions/editarOrden.action.ts';
 
 export const Checkout = () => {
   const getOrderEdit = useSelector(
@@ -36,11 +37,11 @@ export const Checkout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   //? send product to edit
-  const editProduct = (product: ProductoNuevaOrden, index: number) => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    dispatch(editarProductoOrden(product, index));
-  };
+  // const editProduct = (product: ProductoNuevaOrden, index: number) => {
+  //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //   // @ts-expect-error
+  //   dispatch(editarProductoOrden(product, index));
+  // };
 
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
 
@@ -73,12 +74,10 @@ export const Checkout = () => {
 
   const monedaPerfil = PerfilLocalStorage?.moneda;
 
-  console.log('nuevaOrden', nuevaOrden);
-
   return (
     <div className="w-full">
       <div className="max-w-screen-xl w-11/2 m-auto">
-        {/* MODALS ================================================= */}
+        {/* MODALS ============================= if truthy/falsy */}
         {getOrderEdit.id && !getOrderEdit.opcionesMenu.length && <Modal1 />}
         {getOrderEdit.id && getOrderEdit.opcionesMenu.length && <Modal2 />}
         <h1 className="text-center text-primary font-bold text-6xl pt-[116px] pb-[60px]">
@@ -127,10 +126,10 @@ export const Checkout = () => {
                 <div className="flex justify-center ">
                   <div className="flex justify-between w-[98%] my-4  py-6 px-14 shadow-xl rounded-[40px] border-2 bg-white">
                     <div className="flex w-[550px] space-between gap-5 ">
-                      <div className="w-[125px]">
+                      <div className="w-[125px] h-[125px] object-left">
                         <img
                           src={producto.imagen}
-                          className="w-[125px] h-[125px] rounded-[20px] object-cover"
+                          className="rounded-[20px] w-[125px] h-[125px] object-cover"
                         />
                       </div>
                       <div className="flex flex-col justify-between">
@@ -140,14 +139,15 @@ export const Checkout = () => {
                         <p className="text-2xl text-primary mb-2">
                           {producto.subcategoriaNombre}
                         </p>
-                        <button
+                        {/* BUTTON MODIFICAR */}
+                        {/* <button
                           className="btn btn-outline btn-lg rounded-3xl text-3xl px-10 max-w-min"
                           onClick={() => {
                             editProduct(producto, index);
                           }}
                         >
                           Modificar
-                        </button>
+                        </button> */}
                       </div>
                     </div>
                     <div className="text-4xl flex flex-col justify-between">
