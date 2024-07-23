@@ -8,3 +8,12 @@ export const PAGO_QR_CONFIRMACION = gql`
     }
   }
 `;
+
+export const PAGO_TARJETA_CONFIRMACION = gql`
+  subscription KIOSCO_pagoTarjetaConfirmacion($transaccionID: String!) {
+    KIOSCO_pagoTarjetaConfirmacion(transaccionID: $transaccionID) {
+      estado
+      mensaje
+    }
+  }
+`;
