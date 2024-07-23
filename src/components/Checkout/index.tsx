@@ -73,6 +73,8 @@ export const Checkout = () => {
 
   const monedaPerfil = PerfilLocalStorage?.moneda;
 
+  console.log('nuevaOrden', nuevaOrden);
+
   return (
     <div className="w-full">
       <div className="max-w-screen-xl w-11/2 m-auto">

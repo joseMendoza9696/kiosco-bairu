@@ -17,6 +17,7 @@ import {
   ACTUALIZAR_NOMBRE_CLIENTE,
   ACTUALIZAR_TIPO_ENTREGA,
   ACTUALIZAR_NUMERO_TELEFONO,
+  AGREGAR_NOTA_PRODUCTO,
 } from '../actions/nuevaOrden.action.ts';
 
 export const initialNuevaOrdenState: NuevaOrdenInterface = {
@@ -56,6 +57,14 @@ export function nuevaOrdenReducer(state = initialNuevaOrdenState, action: any) {
       return {
         ...state,
         productos: nuevosProductos2,
+      };
+
+    case AGREGAR_NOTA_PRODUCTO:
+      const nuevosProductos8 = state.productos;
+      nuevosProductos8[nuevosProductos8.length - 1].nota = action.payload.nota;
+      return {
+        ...state,
+        productos: nuevosProductos8,
       };
 
     case SELECCIONAR_OPCION:

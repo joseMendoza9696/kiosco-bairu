@@ -1,11 +1,12 @@
 // REDUX
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../redux/store.ts';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   editarCantidadProducto,
   quitarUltimoProducto,
   actualizarCuentaTotal,
+  agregarNotaProducto,
 } from '../../../redux/actions/nuevaOrden.action.ts';
 import { NotesProduct } from './NotesProduct.tsx';
 import { Icon } from '@iconify/react/dist/iconify.js';
@@ -16,6 +17,7 @@ interface IModal1 {
 }
 
 export const Modal1 = ({ closeModal }: IModal1) => {
+  const [noteModal, setnoteModal] = useState<string>('');
   const dispatch = useDispatch();
   const PerfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
 
@@ -54,6 +56,17 @@ export const Modal1 = ({ closeModal }: IModal1) => {
   const notasProductos = PerfilLocalStorage?.notas_productos;
 
   const monedaPerfil = PerfilLocalStorage?.moneda;
+  useEffect(() => {
+    if (noteModal) {
+      agregarNota(noteModal);
+    }
+  }, [noteModal]);
+
+  const agregarNota = (nota: string) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    dispatch(agregarNotaProducto(nota, productoSeleccionadoIndex));
+  };
 
   return (
     <>
@@ -125,7 +138,7 @@ export const Modal1 = ({ closeModal }: IModal1) => {
             >
               <Icon width="3rem" height="3rem" icon="icomoon-free:plus" />
             </button>
-            {notasProductos && <NotesProduct></NotesProduct>}
+            {notasProductos && <NotesProduct getNote={setnoteModal} />}
           </div>
           {/* BUTTONS: cancel minus amount plus add */}
           <div className="w-[85%] mx-auto flex justify-between items-center">

@@ -1,11 +1,12 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { ReactNode, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 type Props = {
   children?: ReactNode;
+  getNote?: Dispatch<SetStateAction<string>>;
   // closeModal?: any;
 };
-export const NotesProduct = ({ children }: Props) => {
-  //   const [isOpen, setIsOpen] = useState<boolean>(false);
+export const NotesProduct = ({ children, getNote }: Props) => {
   const [note, setNote] = useState<string>('');
 
   return (
@@ -34,11 +35,14 @@ export const NotesProduct = ({ children }: Props) => {
           />
           <button
             className="btn btn-primary text-4xl btn-lg btn-wide"
-            onClick={() =>
+            onClick={() => {
               (
                 document.getElementById('my_modal_notes') as HTMLDialogElement
-              ).close()
-            }
+              ).close();
+              if (getNote) {
+                getNote(note);
+              }
+            }}
           >
             Añadir
           </button>
