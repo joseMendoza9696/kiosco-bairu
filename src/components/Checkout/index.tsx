@@ -153,7 +153,10 @@ export const Checkout = () => {
                     <div className="text-4xl flex flex-col justify-between">
                       <div className="flex justify-end font-bold">
                         <p>
-                          {monedaPerfil} {producto.precioTotal}
+                          {monedaPerfil}{' '}
+                          {parseFloat(producto.precioTotal.toString()).toFixed(
+                            2,
+                          )}
                         </p>
                       </div>
                       <div className="flex w-[300px] justify-between items-center gap-3">
@@ -215,7 +218,8 @@ export const Checkout = () => {
         {/* SECCION DE BOTONES */}
         <div className="fixed bottom-0 left-0 w-full">
           <h1 className="text-center text-primary font-bold text-[56px] pt-10">
-            Total {monedaPerfil} {nuevaOrden.cuentaTotal}
+            Total {monedaPerfil}{' '}
+            {parseFloat(nuevaOrden.cuentaTotal.toString()).toFixed(2)}
           </h1>
           <div className="text-center flex justify-between mx-40 my-20">
             <button className="btn btn-gosth w-[329px] h-[190px] text-5xl rounded-[20px] mb-16">
