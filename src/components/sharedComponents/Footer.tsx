@@ -14,7 +14,8 @@ export const Footer = () => {
       <footer className="fixed bottom-0 w-full text-[30px] text-center py-4 bg-white rounded-t-[60px] border-8 border-primary border-b-0">
         <div className="h-[235px] font-bold flex justify-between items-center mx-11">
           <span className="text-5xl">
-            {monedaPerfil} {nuevaOrden.cuentaTotal}
+            {monedaPerfil}{' '}
+            {parseFloat(nuevaOrden.cuentaTotal.toString()).toFixed(2)}
           </span>
           <span className="text-5xl text-gray-500">
             Productos: {nuevaOrden.productos.length}
