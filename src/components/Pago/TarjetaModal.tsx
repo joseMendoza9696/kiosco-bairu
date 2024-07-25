@@ -61,16 +61,16 @@ const PagoFallido = ({ closeModal }: IPagoFallido) => {
   }, []);
 
   return (
-    <div className="modal-box h-[1800px] bg-[base-100] shadow-lg rounded-t-[90px]">
-      <div className="flex items-center flex-col  ">
+    <div className="modal-box md:h-[95%] bg-[base-100] rounded-t-[90px] md:pt-[5rem] lg:pt-[10rem] flex flex-col md:gap-20 items-center">
+      <div className="md:h-[15%] lg:h-[16%] ">
         <Icon
           icon="icon-park-solid:close-one"
-          className="text-red-500 text-[200px]"
+          className="text-red-500 h-full w-full"
         />
-        <h1 className="text-[60px] font-bold ">
-          ERROR EN EL PAGO CON TARJETA, INTENTE OTRO MÉTODO DE PAGO
-        </h1>
       </div>
+      <h1 className="text-center md:text-5xl lg:text-6xl font-bold ">
+        ERROR EN EL PAGO CON TARJETA, INTENTE OTRO MÉTODO DE PAGO
+      </h1>
     </div>
   );
 };
@@ -177,20 +177,19 @@ export const TarjetaModal = ({ closeModal, cuentaTotal }: ITarjetaModal) => {
       {mostrarErrorPago ? (
         <PagoFallido closeModal={closeModal} />
       ) : (
-        <div className="modal-box h-[1800px] bg-[base-100] shadow-lg rounded-t-[90px]">
-          <div className="flex items-center flex-col  ">
-            <h1 className="text-[60px] font-bold pt-[160px]">
-              Pase su tarjeta por el lector{' '}
-            </h1>
-            <h2 className="text-center text-primary font-bold text-[50px]  py-8">
-              Total {monedaPerfil}. {cuentaTotal}
-            </h2>
-          </div>
-          <div className="flex flex-col items-center justify-center pt-[140px]">
+        <div className="modal-box md:h-[95%] bg-[base-100] rounded-t-[90px] md:pt-[8rem] lg:pt-[15rem] flex flex-col md:gap-28">
+          <h1 className="font-bold text-center md:text-5xl lg:text-7xl">
+            Pase su tarjeta por el lector{' '}
+          </h1>
+          <h2 className="text-center text-primary font-bold md:text-6xl">
+            Total {monedaPerfil}
+            {cuentaTotal}
+          </h2>
+          <div className="md:h-[40%]">
             <img
               src="https://media1.giphy.com/media/Z4iefvSI2VEOTdud7r/giphy.gif"
               alt="producto"
-              className="w-1/2 h-1/2"
+              className="h-full mx-auto"
             />
           </div>
           {transaccionID !== undefined && (
