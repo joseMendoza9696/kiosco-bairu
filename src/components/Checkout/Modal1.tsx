@@ -29,14 +29,11 @@ export const Modal1 = () => {
   };
   return (
     <dialog id="checkout1" className="modal modal-bottom">
-      <div className="modal-box bg-base-100 rounded-t-[5.625rem] h-[87%] px-24 pt-44">
+      <div className="modal-box bg-base-100 rounded-t-[5.625rem] md:h-[90%] lg:h-[87%] md:px-10 md:pt-24 lg:px-24 lg:pt-44">
         {/* button close modal */}
-        <form
-          method="dialog"
-          className="absolute top-0 left-[calc(50%-5.375rem)]"
-        >
+        <form method="dialog">
           <button
-            className="btn rounded-t-none rounded-b-3xl h-28 w-48"
+            className="btn rounded-t-none rounded-b-3xl absolute top-0 md:left-[calc(50%-5rem)] lg:left-[calc(50%-5.375rem)] md:h-20 md:w-40 lg:h-28 lg:w-48 text-5xl"
             onClick={() => {
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-expect-error
@@ -51,53 +48,49 @@ export const Modal1 = () => {
           </button>
         </form>
         {/* product image */}
-        <div className="flex justify-center mb-10">
-          <img
-            src={editOrder.imagen}
-            alt={editOrder.nombre}
-            className="w-[31rem] h-[31rem] rounded-3xl object-cover"
-          />
+        <div className="rounded-3xl object-contain mx-auto md:w-[22rem] lg:w-[25rem] md:mb-4 lg:mb-10">
+          <img src={editOrder.imagen} alt={editOrder.nombre} />
         </div>
-        {/* name product and notes */}
-        <h2 className="font-bold text-7xl text-center mb-8">
+        {/* name product */}
+        <h2 className="font-bold md:text-5xl lg:text-7xl text-center md:mb-4 lg:mb-8">
           {editOrder.nombre}
         </h2>
         {/* description */}
         {editOrder.descripcion && (
-          <p className="py-4 text-3xl text-center text-[#A6A6AA] mb-8">
+          <p className=" text-3xl text-center text-[#A6A6AA] md:mb-4 lg:mb-8">
             {editOrder.descripcion}
           </p>
         )}
         {/* price */}
-        <span className="block text-center text-5xl font-bold mb-16">
+        <span className="block text-center md:text-4xl lg:text-5xl font-bold md:mb-8 lg:mb-16">
           {currencyLocal} {editOrder.precioTotal}
         </span>
         {/*//! OPTIONS PRODUCT */}
-        <div className="flex justify-between items-center w-[45%] mx-auto relative mb-28">
+        <div className="flex justify-between items-center w-[55%] mx-auto relative md:mb-14 lg:mb-28">
           {/* MINUS */}
           <button
             disabled={editOrder.cantidad <= 1}
-            className="btn w-36 h-20 rounded-3xl"
+            className="btn h-max box-content flex justify-center md:py-[0.3em] md:px-[1em] lg:py-[0.4em] md:text-5xl lg:text-6xl rounded-3xl"
             onClick={() =>
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-expect-error
               dispatch(modificarCantidadProducto(-1))
             }
           >
-            <Icon width="3rem" height="3rem" icon="icomoon-free:minus" />
+            <Icon icon="icomoon-free:minus" />
           </button>
           {/* AMOUNT */}
           <span className="text-5xl font-bold">{editOrder.cantidad}</span>
           {/* PLUS */}
           <button
-            className="btn w-36 h-20 rounded-3xl text-white btn-primary"
+            className="btn h-max box-content flex justify-center md:py-[0.3em] md:px-[1em] lg:py-[0.4em] md:text-5xl lg:text-6xl rounded-3xl text-white btn-primary"
             onClick={() =>
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-expect-error
               dispatch(modificarCantidadProducto(1))
             }
           >
-            <Icon width="3rem" height="3rem" icon="icomoon-free:plus" />
+            <Icon icon="icomoon-free:plus" />
           </button>
           {storageNotes && <NotesProduct></NotesProduct>}
         </div>

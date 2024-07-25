@@ -11,14 +11,14 @@ export const NotesProduct = ({ children, getNote }: Props) => {
   return (
     <>
       <button
-        className=" absolute -right-24"
+        className="absolute md:-right-28 lg:-right-32"
         onClick={() =>
           (
             document.getElementById('my_modal_notes') as HTMLDialogElement
           ).showModal()
         }
       >
-        <Icon icon="akar-icons:edit" className="text-[70px]" />
+        <Icon icon="akar-icons:edit" className="md:text-7xl lg:text-8xl" />
         {children}
       </button>
       {/* window */}
@@ -65,7 +65,7 @@ const Modal2 = ({ children, getNote }: Props) => {
           ).showModal()
         }
       >
-        <Icon icon="akar-icons:edit" className="text-[70px]" />
+        <Icon icon="akar-icons:edit" className="md:text-5xl lg:text-7xl" />
         {children}
       </button>
       {/* window */}

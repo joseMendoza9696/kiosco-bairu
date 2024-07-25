@@ -91,29 +91,30 @@ export const Bienvenida = () => {
           backgroundColor: profileData?.banner ? '' : 'var(--bg-primary)',
         }}
       ></div>
-      <div className="relative z-10 flex flex-col justify-center items-center h-full">
-        <div className="flex justify-center items-end gap-24 mt-[60%]">
+      <div className="relative ">
+        <div className=" flex justify-evenly md:mt-[75%] lg:mt-[90%]">
           {profileData?.screens.aqui && (
             <button
-              className="shadow-md"
+              className="shadow-md md:h-[17rem] lg:h-[25rem]"
               onClick={() => {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-expect-error
                 dispatch(actualizarTipoEntrega('AQUI'));
               }}
             >
-              <Link
-                to="/menu"
-                className="w-full h-full flex items-center justify-center"
-              >
-                <img src="/icons_bienvenida/dine-in.svg" alt="dine-in" />
+              <Link to="/menu">
+                <img
+                  src="/icons_bienvenida/dine-in.svg"
+                  alt="dine-in"
+                  className="h-full"
+                />
               </Link>
             </button>
           )}
 
           {profileData?.screens.llevar && (
             <button
-              className="shadow-md"
+              className="shadow-md md:h-[17rem] lg:h-[25rem]"
               onClick={() => {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-expect-error
@@ -121,7 +122,11 @@ export const Bienvenida = () => {
               }}
             >
               <Link to="/menu">
-                <img src="/icons_bienvenida/delivery.svg" alt="img-delivery" />
+                <img
+                  src="/icons_bienvenida/delivery.svg"
+                  alt="img-delivery"
+                  className="h-full"
+                />
               </Link>
             </button>
           )}

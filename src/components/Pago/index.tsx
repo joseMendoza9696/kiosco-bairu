@@ -119,57 +119,50 @@ export const Pago = () => {
         )}
       </dialog>
 
-      <div className="flex items-center flex-col pt-[132px] ">
-        <h1 className="text-[60px] font-bold ">¿Cómo desea pagar?</h1>
+      <div className="flex flex-col items-center md:pt-[15%] md:gap-20">
+        <h1 className="md:text-5xl lg:text-7xl font-bold">
+          ¿Cómo desea pagar?
+        </h1>
+        <h1 className="text-center text-primary font-bold md:text-4xl lg:text-5xl">
+          Total {monedaPerfil}
+          {nuevaOrden.cuentaTotal}
+        </h1>
         {/* SECCION DE BOTONES */}
-        <div className="w-[90%] flex items-center flex-wrap justify-center pt-[347px]">
-          <div className="w-1/2 flex justify-center ">
-            {pagoEfectivoHabilitado && (
-              <button
-                className="btn btn-primary w-[300px] h-[300px] rounded-[20px] flex flex-col items-center justify-center"
-                onClick={() => {
-                  seleccionarPago('EFECTIVO');
-                }}
-              >
-                <Icon icon="fa:dollar" className="w-[120px] h-[120px]" />
-                <p className="text-3xl">Efectivo</p>
-              </button>
-            )}
-          </div>
-
-          <div className="w-1/2 flex justify-center -ml-16">
-            {pagoQrHabilitado && (
-              <button
-                className="btn btn-primary w-[300px] h-[300px] rounded-[20px] flex flex-col items-center justify-center"
-                onClick={() => {
-                  seleccionarPago('QR');
-                }}
-              >
-                <Icon
-                  icon="material-symbols:qr-code"
-                  className="w-[120px] h-[120px]"
-                />
-                <p className="text-3xl">QR</p>
-              </button>
-            )}
-          </div>
-          <div className="w-1/2 flex justify-center pt-16">
-            {pagoTarjetaHabilitado && (
-              <button
-                className="btn btn-primary w-[300px] h-[300px] rounded-[20px] flex flex-col items-center justify-center"
-                onClick={() => {
-                  seleccionarPago('TARJETA');
-                }}
-              >
-                {' '}
-                <Icon
-                  icon="bi:credit-card-fill"
-                  className="w-[120px] h-[120px]"
-                />
-                <p className="text-3xl">Tarjeta</p>
-              </button>
-            )}
-          </div>
+        <div className="flex flex-wrap md:gap-12 justify-center">
+          {pagoEfectivoHabilitado && (
+            <button
+              className="btn btn-primary box-content h-max flex flex-col md:text-3xl lg:text-5xl md:py-[1.5em] md:w-[8em] lg:py-[1em] lg:w-[8em] "
+              onClick={() => {
+                seleccionarPago('EFECTIVO');
+              }}
+            >
+              <Icon icon="fa:dollar" height="3em" />
+              <p>Efectivo</p>
+            </button>
+          )}
+          {pagoQrHabilitado && (
+            <button
+              className="btn btn-primary box-content h-max flex flex-col md:text-3xl lg:text-5xl md:py-[1.5em] md:w-[8em] lg:py-[1em] lg:w-[8em] "
+              onClick={() => {
+                seleccionarPago('QR');
+              }}
+            >
+              <Icon icon="material-symbols:qr-code" height="3em" />
+              <p>QR</p>
+            </button>
+          )}
+          {pagoTarjetaHabilitado && (
+            <button
+              className="btn btn-primary box-content h-max flex flex-col md:text-3xl lg:text-5xl md:py-[1.5em] md:w-[8em] lg:py-[1em] lg:w-[8em] "
+              onClick={() => {
+                seleccionarPago('TARJETA');
+              }}
+            >
+              {' '}
+              <Icon icon="bi:credit-card-fill" height="3em" />
+              <p>Tarjeta</p>
+            </button>
+          )}
         </div>
         {/* FIN DE SECCION DE BOTONES */}
 
@@ -206,22 +199,9 @@ export const Pago = () => {
         {/* FIN DE SECCION DEL MODAL  */}
 
         {/* SECCION DE TOTAL */}
-        <div className="py-32">
-          <h1 className="text-center text-primary font-bold text-[56px]  ">
-            Total {monedaPerfil}
-            {nuevaOrden.cuentaTotal}
-          </h1>
-          <div className="text-center flex justify-between mx-40 pt-20">
-            <button className="btn btn-gosth w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16">
-              <Link
-                to="/checkout"
-                className="w-full h-full flex items-center justify-center"
-              >
-                Volver
-              </Link>
-            </button>
-          </div>
-        </div>
+        <button className="btn md:text-5xl lg:text-7xl h-max md:py-[1em] md:w-[6em]">
+          <Link to="/checkout">Volver</Link>
+        </button>
         {/* FIN DE SECCION DE TOTAL */}
       </div>
     </>

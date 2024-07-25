@@ -80,11 +80,11 @@ export const Modal2 = () => {
   const storageNotes = perfilLocalStorage.notas_productos;
   return (
     <dialog id="checkout2" className="modal modal-bottom">
-      <div className="modal-box bg-base-100 rounded-t-[90px] h-[87%] px-24 pt-36 relative">
+      <div className="relative modal-box bg-base-100 rounded-t-[5.6rem] md:h-[92%] lg:h-[87%] md:px-10 md:pt-24 lg:px-24 lg:pt-44">
         {/* button close modal */}
-        <form method="dialog" className="absolute top-0 left-[calc(50%-96px)]">
+        <form method="dialog">
           <button
-            className="btn rounded-t-none rounded-b-3xl h-28 w-48"
+            className="btn rounded-t-none rounded-b-3xl absolute top-0 md:left-[calc(50%-5rem)] lg:left-[calc(50%-5.375rem)] md:h-20 md:w-40 lg:h-28 lg:w-48 text-5xl"
             onClick={() => {
               setstepsIndex(0);
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -100,20 +100,18 @@ export const Modal2 = () => {
           </button>
         </form>
         {/* product image */}
-        <div className="flex justify-center mb-5">
-          <img
-            src={editOrder.imagen}
-            alt={editOrder.nombre}
-            className="w-[400px] h-[400px] rounded-3xl object-cover"
-          />
+        <div className="rounded-3xl object-contain mx-auto md:w-[18rem] lg:w-[24rem] md:mb-4 lg:mb-10">
+          <img src={editOrder.imagen} alt={editOrder.nombre} />
         </div>
         {/* name product and notes */}
         <div className="flex gap-6 justify-center items-start">
-          <h2 className="font-bold text-6xl text-center">{editOrder.nombre}</h2>
+          <h2 className="font-bold md:text-5xl lg:text-7xl text-center md:mb-4 lg:mb-8">
+            {editOrder.nombre}
+          </h2>
           {storageNotes && <NotesProduct.Modal2 />}
         </div>
         {/* description */}
-        <p className="py-4 text-3xl text-center text-[#A6A6AA]">
+        <p className="md:text-xl lg:text-3xl text-center text-[#A6A6AA] md:mb-4 lg:mb-8">
           {editOrder.descripcion}
         </p>
         {/* price */}
