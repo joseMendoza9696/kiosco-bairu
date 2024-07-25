@@ -33,7 +33,8 @@ export const Subcategorias = ({ categoriaSeleccionada }: ISubcategoria) => {
                 key={subcategoria.id}
                 className={`mx-4 relative rounded-xl p-4 dark:text-white ${
                   index === subcategoriaSeleccionada
-                    ? 'bg-primary rounded-md'
+                    ? //change color button category
+                      'bg-primary rounded-md'
                     : 'bg-secondary'
                 }`}
                 onClick={() => SubcategoriaSeleccionada(index)}

@@ -2,31 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
+/* :root {
+  font-family: 'font-bairu', sans-serif;
+} */
+@font-face {
+  font-family: 'hiragino';
+  src: url('/fonts/hiragino-kaku-gothic-pro-w3.otf') format('opentype');
+  font-weight: 300; /* Ligera */
+  font-style: normal;
+}
 
 @font-face {
-    font-family: 'font-bairu';
-    src: url('../src/fonts/hiragino-kaku-gothic-pro-w3.otf') format('opentype');
+  font-family: 'hiragino';
+  src: url('/fonts/hiragino-maru-gothic-pron-w4.otf') format('opentype');
+  font-weight: 400; /* Regular */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'hiragino';
+  src: url('/fonts/hiragino-kaku-gothic-pro-w6.otf') format('opentype');
+  font-weight: 600; /* Semi-bold */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'hiragino';
+  src: url('/fonts/hiragino-kaku-gothic-stdn-w8.otf') format('opentype');
+  font-weight: 800; /* Extra-bold */
+  font-style: normal;
 }
 
 .scroll-hidden::-webkit-scrollbar {
-    width: 0;
-    height: 0;
+  width: 0;
+  height: 0;
 }
 
 .scroll-hidden {
-    -ms-overflow-style: none;
-    scrollbar-width: none;   
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .PhoneInputInput {
-    background-color: white;
-    border: none;
+  background-color: white;
+  border: none;
 }
 
 .PhoneInputInput:focus {
-outline: none;}
+  outline: none;
+}
 
-.PhoneInputCountrySelect{
-    font-size: 10px ;
-    height: 700px;
-    }
+.PhoneInputCountrySelect {
+  font-size: 10px;
+  height: 700px;
+}

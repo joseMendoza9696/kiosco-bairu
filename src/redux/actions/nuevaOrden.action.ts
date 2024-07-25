@@ -1,20 +1,23 @@
 import { EditarProductoInterface } from '../../interfaces/editarOrden.interface.ts';
-import { ENTREGA, ProductoNuevaOrden } from '../../interfaces/nuevaOrden.interface.ts';
+import {
+  ENTREGA,
+  ProductoNuevaOrden,
+} from '../../interfaces/nuevaOrden.interface.ts';
 
-
-export const AGREGAR_PRODUCTO = "AGREGAR_PRODUCTO";
-export const ACTUALIZAR_CUENTA_TOTAL = "ACTUALIZAR_CUENTA_TOTAL";
-export const QUITAR_ULTIMO_PRODUCTO = "QUITAR_ULTIMO_PRODUCTO";
-export const SELECCIONAR_OPCION = "SELECCIONAR_OPCION";
-export const DESELECCIONAR_OPCION = "DESELECCIONAR_OPCION";
-export const ELIMINAR_PRODUCTO = "ELIMINAR_PRODUCTO";
-export const EDITAR_CANTIDAD_PRODUCTO = "EDITAR_CANTIDAD_PRODUCTO";
-export const EDITAR_PRODUCTO = "EDITAR_PRODUCTO";
-export const ACTUALIZAR_DATOS_FACTURA = "ACTUALIZAR_DATOS_FACTURA";
-export const ACTUALIZAR_METODO_DE_PAGO = "ACTUALIZAR_METODO_DE_PAGO";
-export const ACTUALIZAR_NOMBRE_CLIENTE = "ACTUALIZAR_NOMBRE_CLIENTE";
-export const ACTUALIZAR_TIPO_ENTREGA = "ACTUALIZAR_TIPO_ENTREGA";
-export const ACTUALIZAR_NUMERO_TELEFONO = "ACTUALIZAR_NUMERO_TELEFONO";
+export const AGREGAR_PRODUCTO = 'AGREGAR_PRODUCTO';
+export const ACTUALIZAR_CUENTA_TOTAL = 'ACTUALIZAR_CUENTA_TOTAL';
+export const QUITAR_ULTIMO_PRODUCTO = 'QUITAR_ULTIMO_PRODUCTO';
+export const SELECCIONAR_OPCION = 'SELECCIONAR_OPCION';
+export const DESELECCIONAR_OPCION = 'DESELECCIONAR_OPCION';
+export const ELIMINAR_PRODUCTO = 'ELIMINAR_PRODUCTO';
+export const EDITAR_CANTIDAD_PRODUCTO = 'EDITAR_CANTIDAD_PRODUCTO';
+export const EDITAR_PRODUCTO = 'EDITAR_PRODUCTO';
+export const ACTUALIZAR_DATOS_FACTURA = 'ACTUALIZAR_DATOS_FACTURA';
+export const ACTUALIZAR_METODO_DE_PAGO = 'ACTUALIZAR_METODO_DE_PAGO';
+export const ACTUALIZAR_NOMBRE_CLIENTE = 'ACTUALIZAR_NOMBRE_CLIENTE';
+export const ACTUALIZAR_TIPO_ENTREGA = 'ACTUALIZAR_TIPO_ENTREGA';
+export const ACTUALIZAR_NUMERO_TELEFONO = 'ACTUALIZAR_NUMERO_TELEFONO';
+export const AGREGAR_NOTA_PRODUCTO = 'AGREGAR_NOTA_PRODUCTO';
 
 export const agregarProducto =
   (producto: ProductoNuevaOrden) => (dispatch: any) => {
@@ -77,12 +80,12 @@ export const editarProducto =
 
 export const actualizarDatosFactura =
   (nit: string, razonSocial: string, correo: string | undefined) =>
-    (dispatch: any) => {
-      dispatch({
-        type: ACTUALIZAR_DATOS_FACTURA,
-        payload: { nit, razonSocial, correo },
-      });
-    };
+  (dispatch: any) => {
+    dispatch({
+      type: ACTUALIZAR_DATOS_FACTURA,
+      payload: { nit, razonSocial, correo },
+    });
+  };
 
 export const actualizarMetodoDePago = (metodo: string) => (dispatch: any) => {
   dispatch({
@@ -110,5 +113,13 @@ export const actualizarNumeroTelefono =
     dispatch({
       type: ACTUALIZAR_NUMERO_TELEFONO,
       payload: numeroTelefono,
+    });
+  };
+
+export const agregarNotaProducto =
+  (nota: string, index: number) => (dispatch: any) => {
+    dispatch({
+      type: AGREGAR_NOTA_PRODUCTO,
+      payload: { nota, index },
     });
   };

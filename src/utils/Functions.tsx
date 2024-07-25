@@ -34,6 +34,7 @@ export const crearOrdenVariables = (nuevaOrden: NuevaOrdenInterface) => {
       productos.push({
         id: prod.id,
         idSistema: prod.idSistema,
+        nota: prod.nota,
         nombre: prod.nombre,
         cantidad: prod.cantidad,
         precioUnitario: prod.precioOriginal,

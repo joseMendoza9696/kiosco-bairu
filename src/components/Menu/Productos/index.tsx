@@ -58,6 +58,7 @@ const Productos = () => {
     const newOpcionesMenu = producto.opcionesMenu.map((opMen) => {
       const nuevoOpMen = {
         id: opMen.id,
+        idSistema: opMen.idSistema,
         nombre: opMen.nombre,
         seleccion: opMen.seleccion,
         cantidadSeleccion: opMen.cantidadSeleccion,
@@ -107,11 +108,11 @@ const Productos = () => {
 
   return (
     <div className="text-center">
-      <div className="grid grid-cols-3 mx-[56px] py-8 gap-6 overflow-auto overflow-y-auto max-h-[1200px] scroll-hidden ">
+      <div className="grid grid-cols-3 mx-[56px] gap-y-8 gap-x-4 overflow-auto overflow-y-auto max-h-[1200px] scroll-hidden">
         {productos.map((producto: Producto) => (
           <button
             key={producto.id}
-            className=" mr-[16px] rounded-xl shadow-md border-2 bg-white"
+            className="rounded-lg shadow-md border-2 bg-white"
             onClick={() => {
               seleccionarProducto(producto);
             }}
@@ -121,11 +122,11 @@ const Productos = () => {
               alt={producto.nombre}
               className="w-full h-[285px] rounded-t-xl object-cover"
             />
-            <div className="ml-4 py-4">
-              <h2 className="text-[20px] font-semibold text-left ">
+            <div className="p-4">
+              <h2 className="text-2xl font-bold text-left mb-2">
                 {saltoDeLinea(producto.nombre)}
               </h2>
-              <p className="text-left text-semibold text-lg">
+              <p className="text-left font-semibold text-lg mb-2">
                 {monedaPerfil} {producto.precio}
               </p>
               <p className="text-left text-gray-500 ">
