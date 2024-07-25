@@ -9,6 +9,14 @@ export const GET_QR = gql`
   }
 `;
 
+export const GET_TARJETA = gql`
+  query KIOSCO_getPagoTarjeta($pedido: PedidoTarjetaInput!) {
+    KIOSCO_getPagoTarjeta(pedido: $pedido) {
+      transaction_id
+    }
+  }
+`;
+
 export const GET_INFO_KIOSCO = gql`
   query {
     KIOSCO_getInfoKiosco {
