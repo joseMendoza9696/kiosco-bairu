@@ -221,13 +221,13 @@ export const Modal2 = ({ closeModal }: IModal2) => {
             </p>
           </div>
           {/* OPTIONS PRODUCT */}
-          <div className="overflow-y-auto scroll-hidden grid md:grid-cols-3 lg:grid-cols-4 justify-items-center md:max-h-[22rem] lg:gap-3 lg:max-h-[24rem] md:gap-y-3 mb-2">
+          <div className="overflow-y-auto scroll-hidden grid md:grid-cols-3 lg:grid-cols-4 justify-items-center md:max-h-[22rem] lg:max-h-[24rem]">
             {/*  PRODUCT ITEMS */}
             {opciones &&
               opciones.map((option: Opcion, i: number) => (
                 <button
                   key={option.id}
-                  className={` md:w-[13.5rem] lg:w-[12.5rem] rounded-md shadow-lg relative overflow-hidden ${option.seleccionado ? 'border-4 border-primary' : ''}`}
+                  className={` md:w-[13.5rem] lg:w-[12.5rem] rounded-md shadow-lg relative overflow-hidden md:mb-[1rem] ${option.seleccionado ? 'border-4 border-primary' : ''}`}
                   onClick={() => {
                     if (option.seleccionado) {
                       deseleccionarOpcionFunc(opcionMenuSeleccionadoIndex, i);
@@ -264,8 +264,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           <div className="md:bottom-8 lg:bottom-9 flex justify-between items-center absolute md:w-[90%] lg:w-[82%]">
             {/* BACK, CANCEL */}
             <button
-              //224 x 112
-              className="box-content btn font-semibold md:text-3xl lg:text-5xl rounded-3xl md:py-[0.7em] md:w-[5em]  lg:py-[1em] lg:w-[4.4em]"
+              className="box-content btn font-semibold md:text-2xl lg:text-4xl rounded-3xl md:py-[1.2em] md:w-[5.5em] lg:py-[1.5em] lg:w-[5.4em]"
               onClick={() => {
                 if (opcionMenuSeleccionadoIndex > 0) {
                   setOpcionMenuSeleccionadoIndex(
@@ -281,7 +280,6 @@ export const Modal2 = ({ closeModal }: IModal2) => {
             {/* MINUS */}
             <button
               onClick={() => editarCantidad(-1)}
-              //144 x 80
               className="box-content h-max btn md:py-[0.2em] md:w-[1.5em] md:rounded-2xl lg:rounded-3xl md:text-5xl lg:text-6xl"
               disabled={productoSeleccionado.cantidad <= 1}
             >
@@ -307,7 +305,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                   opcionMenuSeleccionado.cantidadSeleccionada < 1
                 )
               }
-              className="box-content text-white btn-primary btn font-semibold md:text-3xl lg:text-5xl rounded-3xl md:py-[0.7em] md:w-[5em] lg:py-[1em] lg:w-[4.4em]"
+              className="box-content text-white btn-primary btn font-semibold md:text-2xl lg:text-4xl rounded-3xl md:py-[1.2em] md:w-[5.5em] lg:py-[1.5em] lg:w-[5.4em]"
               onClick={() => {
                 if (
                   opcionMenuSeleccionadoIndex ===

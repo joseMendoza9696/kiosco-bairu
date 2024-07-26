@@ -151,7 +151,7 @@ export const Checkout = () => {
                 </div>
                 {/* botones */}
                 <div className="flex flex-col justify-between items-end">
-                  <p className="font-bold md:text-3xl lg:text-4xl">
+                  <p className="font-medium md:text-3xl lg:text-4xl">
                     {monedaPerfil}{' '}
                     {parseFloat(producto.precioTotal.toString()).toFixed(2)}
                   </p>
@@ -200,10 +200,10 @@ export const Checkout = () => {
           {parseFloat(nuevaOrden.cuentaTotal.toString()).toFixed(2)}
         </h1>
         <div className="text-center flex justify-evenly">
-          <button className="box-content btn md:py-[1.4em] md:w-[6em] md:text-4xl lg:text-6xl lg:rounded-3xl ">
+          <button className="box-content btn md:py-[1.5em] md:w-[6.5em] md:text-3xl lg:text-5xl md:rounded-3xl ">
             <Link to="/menu">Volver</Link>
           </button>
-          <button className="box-content btn text-white btn-primary md:py-[1.4em] md:w-[6em] md:text-4xl lg:text-6xl lg:rounded-3xl">
+          <button className="box-content btn text-white btn-primary md:py-[1.5em] md:w-[6.5em] md:text-3xl lg:text-5xl md:rounded-3xl">
             <Link to="/payment">Ir a pagar</Link>
           </button>
         </div>

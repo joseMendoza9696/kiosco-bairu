@@ -109,12 +109,10 @@ const Productos = () => {
     return title;
   };
   const monedaPerfil = PerfilLocalStorage?.moneda;
-  // ? carrito + subcategoria TRUE: md:max-h-[40vh] lg:max-h-[50vh]  FALSE: md:max-h-[49vh] lg:max-h-[59vh]
-  // ? solo Carrito sin subcategoria TRUE: md:max-h-[48vh] lg:max-h-[56vh]   FALSE:  md:max-h-[57vh] lg:max-h-[65vh]
   return (
     <div className="text-center">
       <div
-        className={`flex flex-wrap justify-between overflow-y-auto scroll-hidden md:mx-[7vw] lg:mx-[5.5vw] ${
+        className={`flex flex-wrap justify-evenly overflow-y-auto scroll-hidden md:mx-[7vw] lg:mx-[5.5vw] ${
           carrito && categoriaActual.subcategorias.length > 1
             ? 'md:max-h-[40vh] lg:max-h-[50vh]'
             : carrito

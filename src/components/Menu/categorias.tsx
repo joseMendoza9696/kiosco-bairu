@@ -52,7 +52,7 @@ const Categoria: React.FC<CategoriasProps> = ({ categorias }) => {
                 <img
                   src={categoria.imagen}
                   alt={categoria.nombre}
-                  className="md:w-[160px] md:h-[160px] lg:w-auto lg:h-[200px] rounded-xl object-contain"
+                  className="md:w-[160px] md:h-[160px] lg:w-auto lg:h-[200px] rounded-xl object-cover"
                 />
                 <h2 className="md:text-xl lg:text-2xl text-left font-semibold p-1 capitalize whitespace-nowrap  overflow-hidden">
                   {saltoDeLinea(categoria.nombre)}

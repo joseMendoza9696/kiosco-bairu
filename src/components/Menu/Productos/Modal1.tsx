@@ -143,7 +143,7 @@ export const Modal1 = ({ closeModal }: IModal1) => {
             {/* CANCEL */}
             <button
               //320 x 176
-              className="btn box-content md:text-4xl lg:text-5xl md:py-[1.5em] md:w-[6em] rounded-3xl font-semibold"
+              className="btn box-content font-semibold rounded-3xl md:text-3xl lg:text-4xl md:py-[1.8em] md:w-[7em] lg:w-[7.5em] "
               onClick={() => {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-expect-error
@@ -156,7 +156,7 @@ export const Modal1 = ({ closeModal }: IModal1) => {
             </button>
             {/* ADD */}
             <button
-              className="btn box-content md:text-4xl lg:text-5xl md:py-[1.5em] md:w-[6em] rounded-3xl text-white font-semibold btn-primary"
+              className="btn box-content text-white font-semibold rounded-3xl btn-primary md:text-3xl lg:text-4xl md:py-[1.8em] md:w-[7em] lg:w-[7.5em]   "
               onClick={agregarProductoACanasta}
             >
               Añadir
