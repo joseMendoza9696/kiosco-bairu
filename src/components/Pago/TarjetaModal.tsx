@@ -181,7 +181,7 @@ export const TarjetaModal = ({ closeModal, cuentaTotal }: ITarjetaModal) => {
           <h1 className="font-bold text-center md:text-5xl lg:text-7xl">
             Pase su tarjeta por el lector{' '}
           </h1>
-          <h2 className="text-center text-primary font-bold md:text-6xl">
+          <h2 className="text-center text-primary font-bold md:text-4xl lg:text-6xl">
             Total {monedaPerfil}
             {cuentaTotal}
           </h2>

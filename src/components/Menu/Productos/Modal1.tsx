@@ -109,6 +109,7 @@ export const Modal1 = ({ closeModal }: IModal1) => {
           )}
           {/* price */}
           <span className="block text-center md:text-4xl lg:text-5xl  font-bold md:mb-8 lg:mb-16 text-primary">
+            {monedaPerfil}{' '}
             {parseFloat(productoSeleccionado.precioTotal.toString()).toFixed(2)}
           </span>
           {/*//! OPTIONS PRODUCT */}

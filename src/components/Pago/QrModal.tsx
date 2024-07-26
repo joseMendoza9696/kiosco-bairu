@@ -69,42 +69,43 @@ export const QrModal = ({ closeModal, cuentaTotal }: IQRModal) => {
 
   return (
     <>
-      <div className="modal-box h-[1800px] bg-[base-100] shadow-lg rounded-t-[90px] ">
-        <div className="flex items-center flex-col  ">
+      <div className="modal-box bg-base-100 rounded-t-[5.625rem] md:h-[92%] lg:h-[87%] md:px-10 lg:px-24 md:pt-[18%] lg:pt-[20%] text-center  ">
+        <form method="dialog">
           <button
-            className="btn btn-square w-24 flex item"
+            className="btn rounded-t-none rounded-b-3xl absolute top-0 md:left-[calc(50%-5rem)] lg:left-[calc(50%-5.375rem)] md:h-20 md:w-40 lg:h-28 lg:w-48 text-5xl"
             onClick={() => {
               closeModal();
             }}
           >
-            X
+            <Icon icon="material-symbols-light:close" />
           </button>
-          <h1 className="text-[60px] font-bold pt-[160px]">
-            Por favor, escanea este QR
-          </h1>
-          <h2 className="text-center text-primary font-bold text-[50px]  py-8">
-            Total {monedaPerfil} {cuentaTotal}
-          </h2>
-        </div>
-        <div className="flex flex-col items-center justify-center pt-[140px]">
+        </form>
+        <h1 className="font-bold md:text-5xl md:mb-[3%]">
+          Por favor, escanea este QR
+        </h1>
+        <h2 className="text-center text-primary font-bold md:text-4xl md:mb-[3%] lg:mb-[5%] ">
+          Total {monedaPerfil} {cuentaTotal}
+        </h2>
+        <div className="flex items-center justify-center md:mb-14 lg:mb-28 md:h-[30rem] lg:h-[40rem] ">
           {QRloading ? (
-            <Icon icon="svg-spinners:blocks-wave" className="text-5xl" />
+            <Icon
+              icon="svg-spinners:blocks-wave"
+              className="w-max md:h-[40%] "
+            />
           ) : (
             imagenQR !== undefined && (
-              <img src={imagenQR} alt="QR Code" className="w-1/2 h-1/2" />
+              <img src={imagenQR} alt="QR Code" className="h-full" />
             )
           )}
         </div>
-        <div className="text-center flex justify-center mx-40 pt-[200px]">
-          <button
-            className="btn btn-gosth w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16"
-            onClick={() => {
-              closeModal();
-            }}
-          >
-            Volver
-          </button>
-        </div>
+        <button
+          className="btn rounded-3xl h-max box-content md:py-[1.5em] md:w-[6em] md:text-4xl lg:text-6xl"
+          onClick={() => {
+            closeModal();
+          }}
+        >
+          Volver
+        </button>
         {transaccionID !== undefined && (
           <Subscribirme transaccionID={transaccionID} />
         )}

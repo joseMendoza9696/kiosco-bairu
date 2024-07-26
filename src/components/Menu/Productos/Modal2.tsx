@@ -187,6 +187,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
           </p>
           {/* price */}
           <span className="block text-center text-primary md:text-4xl lg:text-5xl font-semibold md:mb-4">
+            {monedaPerfil}{' '}
             {parseFloat(productoSeleccionado.precioTotal.toString()).toFixed(2)}
           </span>
           {/* component steps */}
