@@ -116,7 +116,8 @@ export const Modal2 = () => {
         </p>
         {/* price */}
         <span className="block text-center text-primary text-5xl font-bold mb-5">
-          {currencyLocal} {editOrder.precioTotal}
+          {currencyLocal}{' '}
+          {parseFloat(editOrder.precioTotal.toString()).toFixed(2)}
         </span>
         {/* component steps */}
         <div className="bg-[#F2F2F2] p-8 rounded-3xl mb-5">

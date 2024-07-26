@@ -63,7 +63,7 @@ export const Modal1 = () => {
         )}
         {/* price */}
         <span className="block text-center md:text-4xl lg:text-5xl font-bold md:mb-8 lg:mb-16">
-          {currencyLocal} {editOrder.precioTotal}
+          {currencyLocal} {parseFloat(editOrder.precioTotal).toFixed(2)}
         </span>
         {/*//! OPTIONS PRODUCT */}
         <div className="flex justify-between items-center w-[55%] mx-auto relative md:mb-14 lg:mb-28">

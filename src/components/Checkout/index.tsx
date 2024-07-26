@@ -152,7 +152,8 @@ export const Checkout = () => {
                 {/* botones */}
                 <div className="flex flex-col justify-between">
                   <p className="font-bold text-right md:text-3xl lg:text-4xl">
-                    {monedaPerfil} {producto.precioTotal}
+                    {monedaPerfil}{' '}
+                    {parseFloat(producto.precioTotal.toString()).toFixed(2)}
                   </p>
                   <div className="md:text-6xl flex md:gap-4 lg:gap-7">
                     <button
@@ -195,7 +196,8 @@ export const Checkout = () => {
       {/* SECCION DE BOTONES */}
       <div className="fixed left-0 w-screen md:bottom-16 lg:bottom-28 md:text-5xl lg:text-6xl">
         <h1 className="text-center text-primary font-bold md:mb-10 lg:mb-14">
-          Total {monedaPerfil} {nuevaOrden.cuentaTotal}
+          Total {monedaPerfil}{' '}
+          {parseFloat(nuevaOrden.cuentaTotal.toString()).toFixed(2)}
         </h1>
         <div className="text-center flex justify-evenly">
           <button className="box-content btn md:py-[1.4em] md:w-[6em] md:text-4xl lg:text-6xl lg:rounded-3xl ">
