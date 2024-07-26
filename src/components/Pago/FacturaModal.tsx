@@ -26,55 +26,61 @@ export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
 
   return (
     <>
-      <div className="modal-box h-[1800px] dark:bg-white bg-[base-100] shadow-lg rounded-t-[90px] border-4">
-        <div className="flex items-center flex-col">
-          <div className="flex items-center flex-col py-[240px] ">
-            <h1 className="text-[60px] font-bold ">¿Necesitas Factura?</h1>
-            <form action="">
-              <div className="flex flex-col pt-[170px] w-full ">
-                <label htmlFor="nombre" className="text-[30px] font-bold my-10">
-                  NIT
-                </label>
-                <input
-                  type="text"
-                  name="nit"
-                  id="nombre"
-                  className="w-[600px] text-[40px] appearance-none bg-transparent border-b-2 border-black py-1 px-2 leading-tight focus:outline-none "
-                  autoComplete="off"
-                />
-                {error && <p className="text-red-500 text-xl mt-2">{error}</p>}
-
-                <label
-                  htmlFor="razon"
-                  className="text-[30px] font-bold mb-5 my-16"
-                >
-                  Razón Social
-                </label>
-                <input
-                  type="text"
-                  name="razon"
-                  id="razon"
-                  className="w-[600px] text-[40px]  appearance-none bg-transparent border-b-2 border-black py-1 px-2 leading-tight focus:outline-none"
-                  autoComplete="off"
-                />
-                {error && <p className="text-red-500 text-xl mt-2">{error}</p>}
-              </div>
-            </form>
-          </div>
-          <div className="text-center my-[127px] space-x-[100px]  flex justify-between mx-40 ">
-            <button
-              className="btn btn-gosth w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16"
-              onClick={seguirSinDatos}
-            >
-              Seguir sin datos
-            </button>
-            <button
-              className="btn btn-primary w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16"
-              onClick={seguirConDatos}
-            >
-              Seguir
-            </button>
-          </div>
+      <div className="modal-box flex flex-col  items-center dark:bg-white bg-base-100 rounded-t-[5rem] md:h-[93%] md:pt-[20%] md:gap-48 lg:gap-56 ">
+        <h1 className="font-bold md:text-4xl lg:text-5xl">
+          ¿Necesitas Factura?
+        </h1>
+        <form className="w-[60%]">
+          <label
+            htmlFor="nombre"
+            className="font-bold flex flex-col md:text-2xl lg:text-3xl md:mb-[5%] md:gap-5 "
+          >
+            NIT
+            <input
+              className="appearance-none bg-transparent border-b-2 border-black leading-tight focus:outline-none md:font-normal "
+              type="text"
+              name="nit"
+              id="nombre"
+              autoComplete="off"
+            />
+            {error && (
+              <p className="text-red-500 mt-2 md:text-xl lg:text-2xl">
+                {error}
+              </p>
+            )}
+          </label>
+          <label
+            htmlFor="razon"
+            className="font-bold flex flex-col md:text-2xl lg:text-3xl md:gap-5 "
+          >
+            Razón Social
+            <input
+              className="appearance-none bg-transparent border-b-2 border-black leading-tight focus:outline-none md:font-normal "
+              type="text"
+              name="razon"
+              id="razon"
+              autoComplete="off"
+            />
+            {error && (
+              <p className="text-red-500 mt-2 md:text-xl lg:text-2xl">
+                {error}
+              </p>
+            )}
+          </label>
+        </form>
+        <div className="flex items-center md:gap-20 ">
+          <button
+            className="btn rounded-[1em] box-content h-max md:py-[2em] md:w-[8em] md:text-2xl lg:text-4xl "
+            onClick={seguirSinDatos}
+          >
+            Seguir sin datos
+          </button>
+          <button
+            className="btn btn-primary rounded-[1em] box-content h-max md:py-[2.35em] md:w-[8em] md:text-2xl lg:text-4xl "
+            onClick={seguirConDatos}
+          >
+            Seguir
+          </button>
         </div>
       </div>
     </>
