@@ -116,12 +116,12 @@ export const Checkout = () => {
           Vaciar canasta
         </button>
       </div>
-      <div className="flex flex-col md:gap-y-4 md:max-h-[50vh] overflow-hidden overflow-y-auto lg:max-h-[1000px] scroll-hidden">
+      <div className="flex flex-col md:max-h-[50vh] overflow-y-auto lg:max-h-[52vh] scroll-hidden">
         {categoriaActual &&
           nuevaOrden.productos.map((producto, index) => (
             <div
               key={index}
-              className="rounded-2xl bg-white shadow-xl md:py-5 md:px-4"
+              className="rounded-2xl bg-white shadow-2xl md:py-5 md:px-4 md:mx-1 md:mb-5"
             >
               <div className="flex justify-between">
                 <div className="flex gap-x-2">
@@ -150,8 +150,8 @@ export const Checkout = () => {
                   </div>
                 </div>
                 {/* botones */}
-                <div className="flex flex-col justify-between">
-                  <p className="font-bold text-right md:text-3xl lg:text-4xl">
+                <div className="flex flex-col justify-between items-end">
+                  <p className="font-bold md:text-3xl lg:text-4xl">
                     {monedaPerfil}{' '}
                     {parseFloat(producto.precioTotal.toString()).toFixed(2)}
                   </p>
