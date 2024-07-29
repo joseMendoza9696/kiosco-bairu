@@ -142,8 +142,7 @@ export const Modal1 = ({ closeModal }: IModal1) => {
           <div className="mx-auto flex justify-between items-center md:w-[83%] lg:w-[85%]">
             {/* CANCEL */}
             <button
-              //320 x 176
-              className="btn box-content font-semibold rounded-3xl md:text-3xl lg:text-4xl md:py-[1.8em] md:w-[7em] lg:w-[7.5em] "
+              className="btn box-content font-semibold rounded-3xl md:text-3xl lg:text-4xl md:py-[1.8em] md:w-[7em] lg:w-[7.5em]"
               onClick={() => {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-expect-error
@@ -156,7 +155,7 @@ export const Modal1 = ({ closeModal }: IModal1) => {
             </button>
             {/* ADD */}
             <button
-              className="btn box-content text-white font-semibold rounded-3xl btn-primary md:text-3xl lg:text-4xl md:py-[1.8em] md:w-[7em] lg:w-[7.5em]   "
+              className="btn box-content text-white font-semibold rounded-3xl btn-primary md:text-3xl lg:text-4xl md:py-[1.8em] md:w-[7em] lg:w-[7.5em]"
               onClick={agregarProductoACanasta}
             >
               Añadir

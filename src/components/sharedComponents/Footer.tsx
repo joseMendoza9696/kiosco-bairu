@@ -2,12 +2,18 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store.ts';
 import { Link } from 'react-router-dom';
+import { ProductoNuevaOrden } from '../../interfaces/nuevaOrden.interface.ts';
 
 export const Footer = () => {
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
   const PerfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
 
   const monedaPerfil = PerfilLocalStorage.moneda || 'Bs.';
+  //count cantidad
+  const amountTotal = nuevaOrden.productos.reduce(
+    (acc, e: ProductoNuevaOrden) => acc + e.cantidad,
+    0,
+  );
 
   if (nuevaOrden.productos.length > 0) {
     return (
@@ -17,7 +23,7 @@ export const Footer = () => {
             {monedaPerfil} {nuevaOrden.cuentaTotal.toFixed(2)}
           </span>
           <span className="md:text-2xl lg:text-4xl text-gray-500">
-            Productos: {nuevaOrden.productos.length}
+            Cantidad: {amountTotal}
           </span>
           <Link
             to="/checkout"

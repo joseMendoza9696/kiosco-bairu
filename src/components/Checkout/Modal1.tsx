@@ -29,7 +29,7 @@ export const Modal1 = () => {
   };
   return (
     <dialog id="checkout1" className="modal modal-bottom">
-      <div className="modal-box bg-base-100 rounded-t-[5.625rem] md:h-[90%] lg:h-[87%] md:px-10 md:pt-24 lg:px-24 lg:pt-44">
+      <div className="modal-box bg-base-100 rounded-t-[5.625rem] md:h-[92%] lg:h-[87%] md:px-10 md:pt-24 lg:px-24 lg:pt-44">
         {/* button close modal */}
         <form method="dialog">
           <button
@@ -40,16 +40,16 @@ export const Modal1 = () => {
               dispatch(vaciarEditarProductoOrden());
             }}
           >
-            <Icon
-              icon="material-symbols-light:close"
-              width="3rem"
-              height="3rem"
-            />
+            <Icon icon="material-symbols-light:close" />
           </button>
         </form>
         {/* product image */}
-        <div className="rounded-3xl object-contain mx-auto md:w-[22rem] lg:w-[25rem] md:mb-4 lg:mb-10">
-          <img src={editOrder.imagen} alt={editOrder.nombre} />
+        <div className="object-cover md:h-[26rem] lg:h-[25rem] md:mb-4 lg:mb-10">
+          <img
+            src={editOrder.imagen}
+            className="h-full overfl
+            alt={editOrder.nombre}ow-hidden object-center mx-auto rounded-3xl"
+          />
         </div>
         {/* name product */}
         <h2 className="font-bold md:text-5xl lg:text-7xl text-center md:mb-4 lg:mb-8">
@@ -57,12 +57,12 @@ export const Modal1 = () => {
         </h2>
         {/* description */}
         {editOrder.descripcion && (
-          <p className=" text-3xl text-center text-[#A6A6AA] md:mb-4 lg:mb-8">
+          <p className="md:text-2xl lg:text-3xl text-center text-[#A6A6AA] md:mb-4 lg:mb-8">
             {editOrder.descripcion}
           </p>
         )}
         {/* price */}
-        <span className="block text-center md:text-4xl lg:text-5xl font-bold md:mb-8 lg:mb-16">
+        <span className="block text-center md:text-4xl lg:text-5xl  font-bold md:mb-8 lg:mb-16 text-primary">
           {currencyLocal} {parseFloat(editOrder.precioTotal).toFixed(2)}
         </span>
         {/*//! OPTIONS PRODUCT */}
@@ -98,12 +98,12 @@ export const Modal1 = () => {
         <div className="w-[85%] mx-auto flex justify-between items-center">
           {/* BACK, CANCEL */}
           <button
-            className="btn text-5xl w-80 rounded-3xl h-44 font-semibold"
+            className="btn box-content font-semibold rounded-3xl md:text-3xl lg:text-4xl md:py-[1.8em] md:w-[7em] lg:w-[7.5em]"
             onClick={closeBtn}
           >{`Cancelar`}</button>
           {/* ADD, CONTINUE */}
           <button
-            className="btn text-5xl w-80 rounded-3xl h-44 text-white font-semibold btn-primary"
+            className="btn box-content text-white font-semibold rounded-3xl btn-primary md:text-3xl lg:text-4xl md:py-[1.8em] md:w-[7em] lg:w-[7.5em]"
             onClick={updateBtn}
           >{`Actualizar`}</button>
         </div>

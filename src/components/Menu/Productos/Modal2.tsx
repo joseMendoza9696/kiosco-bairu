@@ -239,7 +239,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
                   <img
                     src={option.imagen}
                     alt={option.nombre}
-                    className="w-full h-[10.4375rem] object-cover object-top"
+                    className="w-full h-[10.4rem] object-cover object-top"
                   />
                   <div className="p-2">
                     <h2 className="text-lg font-semibold text-left capitalize">
