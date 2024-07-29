@@ -209,7 +209,7 @@ export const Pago = () => {
         <div className="py-32">
           <h1 className="text-center text-primary font-bold text-[56px]  ">
             Total {monedaPerfil}
-            {nuevaOrden.cuentaTotal}
+            {parseFloat(nuevaOrden.cuentaTotal.toString()).toFixed(2)}
           </h1>
           <div className="text-center flex justify-between mx-40 pt-20">
             <button className="btn btn-gosth w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16">
