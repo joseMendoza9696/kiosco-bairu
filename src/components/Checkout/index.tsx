@@ -76,7 +76,7 @@ export const Checkout = () => {
   // console.log(nuevaOrden.productos[0]?.cantidad);
 
   return (
-    <div className="md:px-7 lg:px-16">
+    <div className="md:px-7 lg:px-16 h-screen">
       {/* MODALS ============================= if truthy/falsy */}
       {!!(getOrderEdit.id && !getOrderEdit.opcionesMenu.length) && <Modal1 />}
       {!!(getOrderEdit.id && getOrderEdit.opcionesMenu.length) && <Modal2 />}
@@ -122,7 +122,7 @@ export const Checkout = () => {
           nuevaOrden.productos.map((producto, index) => (
             <div
               key={index}
-              className="rounded-2xl bg-white shadow-xl md:py-5 md:px-4 md:mx-2 md:mb-6"
+              className="rounded-2xl shadow-[0_4px_4px_0_#00000060] bg-white md:py-5 md:px-4 md:mx-2 md:mb-4"
             >
               <div className="flex justify-between">
                 <div className="flex gap-x-2">

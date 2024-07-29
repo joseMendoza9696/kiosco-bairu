@@ -47,17 +47,17 @@ export const DatosPersonalesModal = ({
   const paisCodigo = paisPerfil ? paisPerfil.split('-')[0] : null;
 
   return (
-    <div className="modal-box flex items-center flex-col rounded-t-[5.7rem] md:h-[95%] md:pt-[10rem] md:gap-52 lg:gap-72">
-      <h1 className="md:text-5xl lg:text-7xl font-bold ">Ingresa tus datos</h1>
-      <form>
+    <div className="modal-box flex items-center flex-col rounded-t-[5.7rem] md:h-[90%] lg:h-[85%] md:pt-[10rem] md:gap-52 lg:gap-72">
+      <h1 className="md:text-4xl lg:text-5xl font-bold ">Ingresa tus datos</h1>
+      <form className="min-w-[70%]">
         {mostrarNombre && (
           <label
             htmlFor="nombre"
-            className="md:text-3xl lg:text-5xl font-bold flex flex-col md:gap-3 md:mb-[4rem] "
+            className="md:text-2xl lg:text-4xl font-bold flex flex-col md:gap-3 md:mb-[4rem] "
           >
             Nombre
             <input
-              className="bg-transparent border-b-2 border-black leading-tight focus:outline-none md:text-3xl lg:text-5xl "
+              className="bg-transparent border-b-2 border-black leading-tight focus:outline-none font-medium md:text-3xl lg:text-4xl "
               type="text"
               name="nombre"
               id="nombre"
@@ -74,11 +74,11 @@ export const DatosPersonalesModal = ({
         {mostrarTelefono && (
           <label
             htmlFor="telefono"
-            className="md:text-3xl lg:text-5xl font-bold flex flex-col md:gap-3"
+            className="md:text-2xl lg:text-4xl font-bold flex flex-col md:gap-3"
           >
             Teléfono
             <PhoneInput
-              className="border-b-2 border-black leading-tight focus:outline-none md:text-3xl lg:text-5xl overflow-hidden"
+              className="border-b-2 border-black leading-tight focus:outline-none font-medium md:text-3xl lg:text-4xl overflow-hidden"
               // @ts-expect-error need to fix this
               onChange={setValue}
               international={false}
@@ -92,13 +92,13 @@ export const DatosPersonalesModal = ({
       </form>
       <div className="flex md:gap-24 lg:gap-48">
         <button
-          className="btn box-content rounded-2xl h-max md:text-4xl lg:text-6xl md:py-[1.3em] md:w-[5em] "
+          className="btn box-content rounded-2xl h-max md:text-2xl lg:text-4xl md:py-[2em] md:w-[7.5em] "
           onClick={closeModal}
         >
           Volver
         </button>
         <button
-          className="btn btn-primary box-content rounded-2xl h-max md:text-4xl lg:text-6xl md:py-[1.3em] md:w-[5em] "
+          className="btn btn-primary box-content rounded-2xl h-max md:text-2xl lg:text-4xl md:py-[2em] md:w-[7.5em] "
           onClick={actualizarDatosPersonales}
         >
           Seguir

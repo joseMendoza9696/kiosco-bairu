@@ -125,8 +125,7 @@ export const Pago = () => {
             ¿Cómo desea pagar?
           </h1>
           <h1 className="text-center text-primary font-bold md:text-4xl lg:text-5xl">
-            Total {monedaPerfil}
-            {nuevaOrden.cuentaTotal}
+            Total {`${monedaPerfil}. `} {nuevaOrden.cuentaTotal}
           </h1>
         </div>
         {/* SECCION DE BOTONES */}
@@ -201,9 +200,11 @@ export const Pago = () => {
         {/* FIN DE SECCION DEL MODAL  */}
 
         {/* SECCION DE TOTAL */}
-        <button className="btn md:text-5xl lg:text-7xl h-max md:py-[1em] md:w-[6em] rounded-2xl">
-          <Link to="/checkout">Volver</Link>
-        </button>
+        <Link to="/checkout">
+          <button className="btn md:text-3xl lg:text-4xl h-max md:py-[2.5em] md:w-[9em] rounded-2xl">
+            Volver
+          </button>
+        </Link>
         {/* FIN DE SECCION DE TOTAL */}
       </div>
     </>

@@ -26,18 +26,18 @@ export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
 
   return (
     <>
-      <div className="modal-box flex flex-col  items-center dark:bg-white bg-base-100 rounded-t-[5rem] md:h-[93%] md:pt-[20%] md:gap-48 lg:gap-56 ">
+      <div className="modal-box flex flex-col items-center justify-evenly dark:bg-white bg-base-100 rounded-t-[5rem] md:h-[90%] lg:h-[85%] md:gap-48 lg:gap-56 md:py-[5%]">
         <h1 className="font-bold md:text-4xl lg:text-5xl">
           ¿Necesitas Factura?
         </h1>
         <form className="w-[60%]">
           <label
             htmlFor="nombre"
-            className="font-bold flex flex-col md:text-2xl lg:text-3xl md:mb-[5%] md:gap-5 "
+            className="font-bold flex flex-col md:text-2xl lg:text-3xl md:mb-[15%] md:gap-5"
           >
             NIT
             <input
-              className="appearance-none bg-transparent border-b-2 border-black leading-tight focus:outline-none md:font-normal "
+              className="appearance-none bg-transparent border-b-2 border-black leading-tight focus:outline-none md:font-normal md:text-3xl lg:text-4xl"
               type="text"
               name="nit"
               id="nombre"
@@ -55,7 +55,7 @@ export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
           >
             Razón Social
             <input
-              className="appearance-none bg-transparent border-b-2 border-black leading-tight focus:outline-none md:font-normal "
+              className="appearance-none bg-transparent border-b-2 border-black leading-tight focus:outline-none md:font-normal md:text-3xl lg:text-4xl"
               type="text"
               name="razon"
               id="razon"
@@ -70,13 +70,13 @@ export const FacturaModal = ({ closeModal }: { closeModal: () => void }) => {
         </form>
         <div className="flex items-center md:gap-20 ">
           <button
-            className="btn rounded-[1em] box-content h-max md:py-[2em] md:w-[8em] md:text-2xl lg:text-4xl "
+            className="btn rounded-[1em] box-content h-max md:py-[1.8em] md:w-[8.7em] md:text-2xl lg:text-4xl "
             onClick={seguirSinDatos}
           >
             Seguir sin datos
           </button>
           <button
-            className="btn btn-primary rounded-[1em] box-content h-max md:py-[2.35em] md:w-[8em] md:text-2xl lg:text-4xl "
+            className="btn btn-primary rounded-[1em] box-content h-max md:py-[2.2em] md:w-[8.7em] md:text-2xl lg:text-4xl "
             onClick={seguirConDatos}
           >
             Seguir
