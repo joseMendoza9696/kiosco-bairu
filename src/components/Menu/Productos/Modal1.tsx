@@ -117,7 +117,6 @@ export const Modal1 = ({ closeModal }: IModal1) => {
             {/* MINUS */}
             <button
               disabled={cantidad <= 1}
-              //w-36 h-20 144 x 80
               className="btn h-max box-content flex justify-center md:py-[0.3em] md:px-[1em] lg:py-[0.4em] md:text-5xl lg:text-6xl rounded-3xl"
               onClick={() => {
                 editarCantidad(-1);

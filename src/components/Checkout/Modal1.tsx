@@ -47,8 +47,8 @@ export const Modal1 = () => {
         <div className="object-cover md:h-[26rem] lg:h-[25rem] md:mb-4 lg:mb-10">
           <img
             src={editOrder.imagen}
-            className="h-full overfl
-            alt={editOrder.nombre}ow-hidden object-center mx-auto rounded-3xl"
+            alt={editOrder.nombre}
+            className="h-full overflow-hidden object-center mx-auto rounded-3xl"
           />
         </div>
         {/* name product */}
@@ -95,7 +95,7 @@ export const Modal1 = () => {
           {storageNotes && <NotesProduct></NotesProduct>}
         </div>
         {/* BUTTONS cancel minus amount plus procedd */}
-        <div className="w-[85%] mx-auto flex justify-between items-center">
+        <div className="mx-auto flex justify-between items-center md:w-[83%] lg:w-[85%]">
           {/* BACK, CANCEL */}
           <button
             className="btn box-content font-semibold rounded-3xl md:text-3xl lg:text-4xl md:py-[1.8em] md:w-[7em] lg:w-[7.5em]"
