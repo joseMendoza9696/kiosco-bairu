@@ -24,13 +24,15 @@ export const NotesProduct = ({ children, getNote }: Props) => {
       {/* window */}
       <dialog id="my_modal_notes" className="modal">
         <div className="modal-box  rounded-3xl flex flex-col items-center gap-12 w-[70%]">
-          <h3 className="font-bold text-5xl mt-10">Notas adicionales</h3>
+          <h3 className="font-bold md:text-4xl lg:text-5xl mt-10">
+            Notas adicionales
+          </h3>
           <input
             type="text"
             onChange={(e) => setNote(e.target.value)}
             value={note}
             placeholder="Nota..."
-            className="input input-bordered w-full max-w-md border-4 p-9 text-4xl"
+            className="input input-bordered w-full max-w-md border-4 p-9 md:text-3xl lg:text-4xl"
           />
           <button
             className="btn bg-primary text-4xl btn-lg btn-wide"
@@ -71,16 +73,18 @@ const Modal2 = ({ children, getNote }: Props) => {
       {/* window */}
       <dialog id="my_modal_notes" className="modal">
         <div className="modal-box  rounded-3xl flex flex-col items-center gap-12 w-[70%]">
-          <h3 className="font-bold text-5xl mt-10">Notas adicionales</h3>
+          <h3 className="font-bold md:text-4xl lg:text-5xl mt-10">
+            Notas adicionales
+          </h3>
           <input
             type="text"
             onChange={(e) => setNote(e.target.value)}
             value={note}
             placeholder="Nota..."
-            className="input input-bordered w-full max-w-md border-4 p-9 text-4xl"
+            className="input input-bordered w-full max-w-md border-4 p-9 md:text-3xl lg:text-4xl "
           />
           <button
-            className="btn bg-primary text-4xl btn-lg btn-wide"
+            className="btn h-max bg-primary text-4xl btn-lg btn-wide"
             onClick={() => {
               (
                 document.getElementById('my_modal_notes') as HTMLDialogElement
