@@ -122,7 +122,7 @@ export const Modal2 = () => {
         </span>
         {/* component steps */}
         <div className="bg-[#F2F2F2] md:p-4 lg:p-8 rounded-3xl mb-5 text-start">
-          <ul className="steps w-full mb-3">
+          <ul className="steps w-full md:mb-3">
             {editOrder.opcionesMenu.map(
               (_option: OpcionMenuNuevaOrden, i: number) => (
                 <li
@@ -205,7 +205,9 @@ export const Modal2 = () => {
             <Icon width="48px" height="48px" icon="icomoon-free:minus" />
           </button>
           {/* AMOUNT */}
-          <span className="text-5xl font-bold">{editOrder.cantidad}</span>
+          <span className="md:text-3xl lg:text-5xl font-bold">
+            {editOrder.cantidad}
+          </span>
           {/* PLUS */}
           <button
             className="text-white btn-primary box-content h-max btn md:py-[0.2em] md:w-[1.5em] md:rounded-2xl lg:rounded-3xl md:text-5xl lg:text-6xl"
