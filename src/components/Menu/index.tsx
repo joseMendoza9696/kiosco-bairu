@@ -61,24 +61,18 @@ export const Menu = () => {
 
   return (
     <>
-      <header className="mx-16 mt-10  fixed-top">
-        <div className="p-6 dark:bg-primary dark:text-gray-50 rounded-xl shadow-lg">
-          <div className="container mx-auto">
-            <div className="flex flex-col lg:flex-row items-center justify-center">
-              <img
-                src={perfildata?.contextStyle.logo}
-                alt="logo"
-                className="rounded-full h-[80px] w-[80px] mr-4"
-              />
-            </div>
-          </div>
-        </div>
+      <header className="mx-16 md:my-[3%] dark:bg-primary fixed-top rounded-xl shadow-lg md:h-[5.5rem] lg:h-[6.5rem] py-3 flex justify-center">
+        <img
+          src={perfildata?.contextStyle.logo}
+          alt="logo"
+          className="rounded-full object-fill"
+        />
       </header>
       <Categoria categorias={categorias} />
 
       <main className="overflow-hidden">
-        <div className="flex items-center justify-between pl-16">
-          <h1 className="text-5xl font-bold text-primary">
+        <div className="flex items-center justify-between pl-16 md:mb-[3%]">
+          <h1 className="md:text-3xl lg:text-5xl font-bold text-primary">
             Escoge tu producto
           </h1>
           {/* <button className="btn btn-secondary w-16 h-16 btn-circle mr-16">
@@ -100,11 +94,11 @@ export const Menu = () => {
         </div>
 
         {/* CHECK */}
-        <div className="max-w-6xl mx-auto  overflow-y-auto">
+        <div className="w-screen">
           <Subcategorias categoriaSeleccionada={categoriaSeleccionada} />
         </div>
 
-        <div className="max-w-6xl mx-auto py-10 overflow-y-auto pl-2">
+        <div className="w-screen pl-2">
           <Productos />
         </div>
       </main>

@@ -4,7 +4,7 @@ import {
   actualizarNumeroTelefono,
 } from '../../redux/actions/nuevaOrden.action';
 import 'react-phone-number-input/style.css';
-
+import { useNavigate } from 'react-router-dom';
 import PhoneInput from 'react-phone-number-input';
 
 import { useState } from 'react';
@@ -18,7 +18,7 @@ export const DatosPersonalesModal = ({
   mostrarNombre: boolean;
   mostrarTelefono: boolean;
 }) => {
-  // TODO: el boton volver deberia cerrar el modal y volver al checkout.
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
   const [error, setError] = useState('');
@@ -46,76 +46,69 @@ export const DatosPersonalesModal = ({
   const paisPerfil = PerfilLocalStorage?.pais;
   const paisCodigo = paisPerfil ? paisPerfil.split('-')[0] : null;
 
-  return (
-    <>
-      <div className="modal-box h-[1800px] dark:bg-white bg-[base-100] shadow-lg rounded-t-[90px] border-4">
-        <div className="flex items-center flex-col">
-          <div className="flex items-center flex-col py-[240px] ">
-            <h1 className="text-[60px] font-bold ">Ingresa tus datos</h1>
-            <form action="">
-              <div className="flex flex-col pt-[160px] w-full ">
-                {mostrarNombre && (
-                  <>
-                    <label
-                      htmlFor="nombre"
-                      className="text-[30px] font-bold my-10"
-                    >
-                      Nombre
-                    </label>
-                    <input
-                      type="text"
-                      name="nombre"
-                      id="nombre"
-                      className="w-[600px] text-[40px] appearance-none bg-transparent border-b-2 border-black py-1 px-2 leading-tight focus:outline-none "
-                      autoComplete="off"
-                    />
-                    {error && (
-                      <p className="text-red-500 font-bold text-2xl mt-2">
-                        {error}
-                      </p>
-                    )}
-                  </>
-                )}
+  const botonVolver = () => {
+    navigate('/checkout', { replace: true });
+    closeModal();
+  };
 
-                {mostrarTelefono && (
-                  <>
-                    <label
-                      htmlFor="telefono"
-                      className="text-[30px] font-bold mb-5 my-16"
-                    >
-                      Teléfono
-                    </label>
-                    <PhoneInput
-                      international={false}
-                      defaultCountry={paisCodigo}
-                      value={value}
-                      id="telefono"
-                      // @ts-expect-error need to fix this
-                      onChange={setValue}
-                      className="text-[40px] appearance-none border-b-2 border-black py-1 px-2 leading-tight focus:outline-none"
-                      autoComplete="off"
-                    />
-                  </>
-                )}
-              </div>
-            </form>
-          </div>
-          <div className="text-center my-[127px] space-x-[100px]  flex justify-between mx-40 ">
-            <button
-              className="btn btn-gosth w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16"
-              onClick={closeModal}
-            >
-              Volver{' '}
-            </button>
-            <button
-              className="btn btn-primary w-[329px] h-[190px] text-[30px] rounded-[20px] mb-16"
-              onClick={actualizarDatosPersonales}
-            >
-              Seguir
-            </button>
-          </div>
-        </div>
+  return (
+    <div className="modal-box flex items-center flex-col rounded-t-[5.7rem] md:h-[90%] lg:h-[85%] md:pt-[10rem] md:gap-52 lg:gap-72">
+      <h1 className="md:text-4xl lg:text-5xl font-bold ">Ingresa tus datos</h1>
+      <form className="min-w-[70%]">
+        {mostrarNombre && (
+          <label
+            htmlFor="nombre"
+            className="md:text-2xl lg:text-4xl font-bold flex flex-col md:gap-3 md:mb-[4rem] "
+          >
+            Nombre
+            <input
+              className="bg-transparent border-b-2 border-black leading-tight focus:outline-none font-medium md:text-3xl lg:text-4xl "
+              type="text"
+              name="nombre"
+              id="nombre"
+              autoComplete="off"
+            />
+            {error && (
+              <p className="text-red-500 font-bold md:text-2xl lg:text-3xl mt-2">
+                {error}
+              </p>
+            )}
+          </label>
+        )}
+
+        {mostrarTelefono && (
+          <label
+            htmlFor="telefono"
+            className="md:text-2xl lg:text-4xl font-bold flex flex-col md:gap-3"
+          >
+            Teléfono
+            <PhoneInput
+              className="border-b-2 border-black leading-tight focus:outline-none font-medium md:text-3xl lg:text-4xl overflow-hidden"
+              // @ts-expect-error need to fix this
+              onChange={setValue}
+              international={false}
+              defaultCountry={paisCodigo}
+              value={value}
+              id="telefono"
+              autoComplete="off"
+            />
+          </label>
+        )}
+      </form>
+      <div className="flex md:gap-24 lg:gap-48">
+        <button
+          className="btn box-content rounded-2xl h-max md:text-2xl lg:text-4xl md:py-[2em] md:w-[7.5em] "
+          onClick={botonVolver}
+        >
+          Volver
+        </button>
+        <button
+          className="btn btn-primary box-content rounded-2xl h-max md:text-2xl lg:text-4xl md:py-[2em] md:w-[7.5em] "
+          onClick={actualizarDatosPersonales}
+        >
+          Seguir
+        </button>
       </div>
-    </>
+    </div>
   );
 };

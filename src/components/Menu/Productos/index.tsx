@@ -9,6 +9,10 @@ import { useDispatch } from 'react-redux';
 import { agregarProducto } from '../../../redux/actions/nuevaOrden.action.ts';
 
 const Productos = () => {
+  const carrito = useSelector(
+    (state: RootState) => state.nuevaOrdenReducer.productos.length,
+  );
+
   const dispatch = useDispatch();
   const PerfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
 
@@ -105,14 +109,23 @@ const Productos = () => {
     return title;
   };
   const monedaPerfil = PerfilLocalStorage?.moneda;
-
   return (
     <div className="text-center">
-      <div className="grid grid-cols-3 mx-[56px] gap-y-8 gap-x-4 overflow-auto overflow-y-auto max-h-[1200px] scroll-hidden">
+      <div
+        className={`flex flex-wrap justify-evenly overflow-y-auto scroll-hidden md:mx-[7vw] lg:mx-[5.5vw] ${
+          carrito && categoriaActual.subcategorias.length > 1
+            ? 'md:max-h-[40vh] lg:max-h-[50vh]'
+            : carrito
+              ? 'md:max-h-[48vh] lg:max-h-[56vh]'
+              : categoriaActual.subcategorias.length > 1
+                ? 'md:max-h-[49vh] lg:max-h-[59vh]'
+                : 'md:max-h-[57vh] lg:max-h-[65vh]'
+        }`}
+      >
         {productos.map((producto: Producto) => (
           <button
             key={producto.id}
-            className="rounded-lg shadow-md border-2 bg-white"
+            className="rounded-lg shadow-md border-2 bg-white flex flex-col mb-3 w-[32%]"
             onClick={() => {
               seleccionarProducto(producto);
             }}
@@ -120,18 +133,20 @@ const Productos = () => {
             <img
               src={producto.imagen}
               alt={producto.nombre}
-              className="w-full h-[285px] rounded-t-xl object-cover"
+              className="w-full md:h-[13rem] lg:h-[285px] rounded-t-xl object-cover"
             />
             <div className="p-4">
-              <h2 className="text-2xl font-bold text-left mb-2">
+              <h2 className="lg:text-2xl md:text-xl font-bold text-left mb-2">
                 {saltoDeLinea(producto.nombre)}
               </h2>
-              <p className="text-left font-semibold text-lg mb-2">
+              <p className="text-left font-semibold  lg:text-lg mb-2">
                 {monedaPerfil} {producto.precio}
               </p>
-              <p className="text-left text-gray-500 ">
-                {saltoDeLineaDescripcion(producto.descripcion)}
-              </p>
+              {producto.descripcion && (
+                <p className="text-left text-gray-500 ">
+                  {saltoDeLineaDescripcion(producto.descripcion)}
+                </p>
+              )}
             </div>
           </button>
         ))}

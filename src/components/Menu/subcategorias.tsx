@@ -26,12 +26,12 @@ export const Subcategorias = ({ categoriaSeleccionada }: ISubcategoria) => {
   return (
     <>
       {subcategorias.length > 1 ? (
-        <div className="rounded-box overflow-x-auto flex items-center carousel pt-6">
+        <div className="rounded-box overflow-x-auto flex items-center carousel md:mb-[3%]">
           <div className="carousel-item pl-16">
             {subcategorias.map((subcategoria, index: number) => (
               <button
                 key={subcategoria.id}
-                className={`mx-4 relative rounded-xl p-4 dark:text-white ${
+                className={`mr-4 relative rounded-xl p-4 dark:text-white ${
                   index === subcategoriaSeleccionada
                     ? //change color button category
                       'bg-primary rounded-md'

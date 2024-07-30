@@ -18,6 +18,7 @@ import {
   ACTUALIZAR_TIPO_ENTREGA,
   ACTUALIZAR_NUMERO_TELEFONO,
   AGREGAR_NOTA_PRODUCTO,
+  ACTUALIZAR_PRODUCTO_ORDEN,
 } from '../actions/nuevaOrden.action.ts';
 
 export const initialNuevaOrdenState: NuevaOrdenInterface = {
@@ -142,6 +143,7 @@ export function nuevaOrdenReducer(state = initialNuevaOrdenState, action: any) {
       nuevosProductos6[action.payload.nuevaOrdenProductosIndex] = {
         id: action.payload.id,
         idSistema: action.payload.idSistema,
+        nota: action.payload.nota,
         nombre: action.payload.nombre,
         descripcion: action.payload.producto.descripcion,
         cantidad: action.payload.cantidad,
@@ -176,6 +178,20 @@ export function nuevaOrdenReducer(state = initialNuevaOrdenState, action: any) {
 
     case ACTUALIZAR_NUMERO_TELEFONO:
       return { ...state, numeroTelefono: action.payload };
+
+    case ACTUALIZAR_PRODUCTO_ORDEN:
+      //obtener copia del stado
+      const nuevosProductos9 = state.productos;
+      //hacer el reemplazo por el nuevo producto editado
+      nuevosProductos9.splice(
+        action.payload.index,
+        1,
+        action.payload.productModified,
+      );
+      return {
+        ...state,
+        productos: nuevosProductos9,
+      };
 
     default:
       return state;

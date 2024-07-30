@@ -18,6 +18,7 @@ export const ACTUALIZAR_NOMBRE_CLIENTE = 'ACTUALIZAR_NOMBRE_CLIENTE';
 export const ACTUALIZAR_TIPO_ENTREGA = 'ACTUALIZAR_TIPO_ENTREGA';
 export const ACTUALIZAR_NUMERO_TELEFONO = 'ACTUALIZAR_NUMERO_TELEFONO';
 export const AGREGAR_NOTA_PRODUCTO = 'AGREGAR_NOTA_PRODUCTO';
+export const ACTUALIZAR_PRODUCTO_ORDEN = 'ACTUALIZAR_PRODUCTO_ORDEN';
 
 export const agregarProducto =
   (producto: ProductoNuevaOrden) => (dispatch: any) => {
@@ -121,5 +122,13 @@ export const agregarNotaProducto =
     dispatch({
       type: AGREGAR_NOTA_PRODUCTO,
       payload: { nota, index },
+    });
+  };
+// reinsertar producto editado al array para checkout
+export const actualizarProductoOrden =
+  (productModified: ProductoNuevaOrden, index: number) => (dispatch: any) => {
+    dispatch({
+      type: ACTUALIZAR_PRODUCTO_ORDEN,
+      payload: { productModified, index },
     });
   };

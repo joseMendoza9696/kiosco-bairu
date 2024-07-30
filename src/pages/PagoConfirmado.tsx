@@ -144,53 +144,53 @@ export const PagoConfirmado = () => {
   useEffect(() => {
     mandarOrden();
   }, []);
-
   if (crearOrdenLoading) {
     return (
-      <div className=" w-full h-[1919px] flex items-center flex-col py-80">
-        <div className="text-[50px] text-center font-bold">Cargando...</div>
-        <Icon icon="svg-spinners:blocks-wave" className=" text-[200px]" />
+      <div className="w-screen h-screen flex flex-col items-center md:pt-[30%] md:gap-16">
+        <div className="md:text-5xl lg:text-7xl text-center font-bold">
+          Cargando...
+        </div>
+        <Icon
+          icon="svg-spinners:blocks-wave"
+          className="md:h-[15%] lg:h-[20%] md:w-max"
+        />
       </div>
     );
   }
   if (crearOrdenError) {
     return (
-      <>
-        <div className=" w-full h-[1919px] flex items-center flex-col py-80  ">
-          <Icon
-            icon="icon-park-solid:close-one"
-            className="text-red-500 text-[100px]"
-          />
+      <div className="flex flex-col items-center md:gap-7 lg:gap-16 md:pt-14">
+        <Icon
+          icon="icon-park-solid:close-one"
+          className="text-red-500 md:h-[20%]  md:w-[20%] "
+        />
 
-          <div className="text-[30px] text-center font-bold ">
-            Error al procesar la orden. Comuníquese con el administrador y
-            reinicie la orden.
-          </div>
+        <div className="md:text-3xl lg:text-6xl text-center font-bold ">
+          Error al procesar la orden. Comuníquese con el administrador y
+          reinicie la orden.
         </div>
         <button
-          className="btn btn-secondary ml-auto text-4xl font-bold rounded-[10px] mb-8"
+          className="box-content btn btn-secondary md:text-3xl lg:text-4xl font-bold rounded-xl md:p-[0.5em] w-fit"
           onClick={() => {
             navigate('/', { replace: true });
             window.location.reload();
           }}
         >
-          Reiniciar pedido{' '}
+          Reiniciar pedido
         </button>
-      </>
+      </div>
     );
   }
 
   return (
-    <>
-      <div className=" w-full h-[1919px] flex items-center flex-col py-80">
-        <Icon
-          icon="lets-icons:check-fill"
-          className="text-green-500 text-[200px]"
-        />
-        <div className="text-[100px] text-center font-bold">
-          Pago Confirmado
-        </div>
-      </div>
-    </>
+    <div className="w-screen h-screen flex flex-col items-center">
+      <Icon
+        icon="lets-icons:check-fill"
+        className="text-green-500 md:h-[30%] md:w-[30%] "
+      />
+      <h1 className="md:text-7xl lg:text-8xl text-center font-bold">
+        Pago Confirmado
+      </h1>
+    </div>
   );
 };
