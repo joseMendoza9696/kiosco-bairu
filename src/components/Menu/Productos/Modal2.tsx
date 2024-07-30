@@ -11,7 +11,7 @@ import {
 import { editarCantidadProducto } from '../../../redux/actions/nuevaOrden.action.ts';
 import { useDispatch, useSelector } from 'react-redux';
 import { Icon } from '@iconify/react/dist/iconify.js';
-import { NotesProduct } from './NotesProduct.tsx';
+// import { NotesProduct } from './NotesProduct.tsx';
 import {
   Opcion,
   OpcionMenuNuevaOrden,
@@ -149,8 +149,9 @@ export const Modal2 = ({ closeModal }: IModal2) => {
     dispatch(quitarUltimoProducto());
     setCantidad(1);
     setOpcionMenuSeleccionadoIndex(0);
+    // setnoteModal('');
   };
-  const notasProductos = PerfilLocalStorage?.notas_productos;
+  // const notasProductos = PerfilLocalStorage?.notas_productos;
   const monedaPerfil = PerfilLocalStorage?.moneda;
 
   return (
@@ -179,7 +180,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
             <h2 className="font-bold md:text-4xl lg:text-6xl text-center">
               {productoSeleccionado.nombre}
             </h2>
-            {notasProductos && <NotesProduct.Modal2 getNote={setnoteModal} />}
+            {/* {notasProductos && <NotesProduct.Modal2 editNote={setnoteModal} />} */}
           </div>
           {/* description */}
           <p className="md:text-xl lg:text-3xl text-center text-[#A6A6AA] md:mb-2 lg:mb-4">

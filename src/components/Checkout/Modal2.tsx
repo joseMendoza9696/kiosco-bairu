@@ -1,5 +1,4 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
-import { NotesProduct } from '../Menu/Productos/NotesProduct';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { useState } from 'react';
@@ -14,6 +13,7 @@ import {
   vaciarEditarProductoOrden,
 } from '../../redux/actions/editarOrden.action';
 import { EditarProductoInterface } from '../../interfaces/editarOrden.interface';
+import { actualizarProductoOrden } from '../../redux/actions/nuevaOrden.action';
 
 export const Modal2 = () => {
   //!control steps
@@ -54,6 +54,30 @@ export const Modal2 = () => {
   //? ADD/NEXT BUTTON
   const addBtn = () => {
     if (stepsIndex === editOrder.opcionesMenu.length - 1) {
+      const productToSend = {
+        id: editOrder.id,
+        idSistema: editOrder.idSistema,
+        nota: editOrder.nota,
+        nombre: editOrder.nombre,
+        descripcion: editOrder.descripcion,
+        cantidad: editOrder.cantidad,
+        precioOriginal: editOrder.precioOriginal,
+        precioMasOpciones: editOrder.precioMasOpciones,
+        precioTotal: editOrder.precioTotal,
+        imagen: editOrder.imagen,
+        categoriaId: editOrder.categoriaId,
+        subcategoriaId: editOrder.subcategoriaId,
+        subcategoriaNombre: editOrder.subcategoriaNombre,
+        opcionesMenu: editOrder.opcionesMenu,
+      };
+      dispatch(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        actualizarProductoOrden(
+          productToSend,
+          editOrder.nuevaOrdenProductosIndex,
+        ),
+      );
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       dispatch(vaciarEditarProductoOrden());
@@ -77,7 +101,7 @@ export const Modal2 = () => {
   //? CURRENCY
   const perfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
   const currencyLocal = perfilLocalStorage.moneda;
-  const storageNotes = perfilLocalStorage.notas_productos;
+  // const storageNotes = perfilLocalStorage.notas_productos;
   return (
     <dialog id="checkout2" className="modal modal-bottom">
       <div className="relative modal-box bg-base-100 rounded-t-[5.6rem] md:h-[93%] lg:h-[87%] md:px-8 md:pt-24 lg:px-20 lg:pt-36">
@@ -109,7 +133,9 @@ export const Modal2 = () => {
             {editOrder.nombre}
           </h2>
           {/* falta pasar state prop */}
-          {storageNotes && <NotesProduct.Modal2 />}
+          {/* {storageNotes && (
+            <NotesProduct.Modal2>{editOrder.nota}</NotesProduct.Modal2>
+          )} */}
         </div>
         {/* description */}
         <p className="md:text-xl lg:text-3xl text-center text-[#A6A6AA] md:mb-2 lg:mb-4">

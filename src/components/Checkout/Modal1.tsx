@@ -1,31 +1,57 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
-import { NotesProduct } from '../Menu/Productos/NotesProduct';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import {
   modificarCantidadProducto,
   vaciarEditarProductoOrden,
 } from '../../redux/actions/editarOrden.action';
+import { actualizarProductoOrden } from '../../redux/actions/nuevaOrden.action';
 
 export const Modal1 = () => {
-  const dispatch = useDispatch();
   const editOrder = useSelector((state: RootState) => state.editarOrdenReducer);
+  const dispatch = useDispatch();
 
-  // TODO: poner el tipo de moneda en base a "moneda" del perfil activo -> del local storage
   const perfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
   //? GET CURRENCY Local
   const currencyLocal = perfilLocalStorage.moneda;
-  const storageNotes = perfilLocalStorage.notas_productos;
+  // const storageNotes = perfilLocalStorage.notas_productos;
 
   //! update button
   const updateBtn = () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    dispatch(vaciarEditarProductoOrden());
+    //seleccionamos los datos a enviar
+    const productToSend = {
+      id: editOrder.id,
+      idSistema: editOrder.idSistema,
+      nota: editOrder.nota,
+      nombre: editOrder.nombre,
+      descripcion: editOrder.descripcion,
+      cantidad: editOrder.cantidad,
+      precioOriginal: editOrder.precioOriginal,
+      precioMasOpciones: editOrder.precioMasOpciones,
+      precioTotal: editOrder.precioTotal,
+      imagen: editOrder.imagen,
+      categoriaId: editOrder.categoriaId,
+      subcategoriaId: editOrder.subcategoriaId,
+      subcategoriaNombre: editOrder.subcategoriaNombre,
+      opcionesMenu: editOrder.opcionesMenu,
+    };
+
+    dispatch(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      actualizarProductoOrden(
+        productToSend,
+        editOrder.nuevaOrdenProductosIndex,
+      ),
+    );
+    closeBtn();
   };
   //!cancel button
   const closeBtn = () => {
     (document.getElementById('checkout1') as HTMLDialogElement).close();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    dispatch(vaciarEditarProductoOrden());
   };
   return (
     <dialog id="checkout1" className="modal modal-bottom">
@@ -92,7 +118,9 @@ export const Modal1 = () => {
           >
             <Icon icon="icomoon-free:plus" />
           </button>
-          {storageNotes && <NotesProduct></NotesProduct>}
+          {/* {storageNotes && (
+            <NotesProduct editNote={setnote}>{note}</NotesProduct>
+          )} */}
         </div>
         {/* BUTTONS cancel minus amount plus procedd */}
         <div className="mx-auto flex justify-between items-center md:w-[83%] lg:w-[85%]">

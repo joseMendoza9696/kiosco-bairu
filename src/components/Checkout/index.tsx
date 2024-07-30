@@ -73,8 +73,6 @@ export const Checkout = () => {
 
   const monedaPerfil = PerfilLocalStorage?.moneda;
 
-  // console.log(nuevaOrden.productos[0]?.cantidad);
-
   return (
     <div className="md:px-7 lg:px-16 h-screen">
       {/* MODALS ============================= if truthy/falsy */}
