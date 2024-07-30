@@ -74,7 +74,7 @@ export const Checkout = () => {
   const monedaPerfil = PerfilLocalStorage?.moneda;
 
   return (
-    <div className="md:px-7 lg:px-16 h-screen">
+    <div className="md:px-7 lg:px-16">
       {/* MODALS ============================= if truthy/falsy */}
       {!!(getOrderEdit.id && !getOrderEdit.opcionesMenu.length) && <Modal1 />}
       {!!(getOrderEdit.id && getOrderEdit.opcionesMenu.length) && <Modal2 />}
@@ -120,7 +120,7 @@ export const Checkout = () => {
           nuevaOrden.productos.map((producto, index) => (
             <div
               key={index}
-              className="rounded-2xl shadow-[0_4px_4px_0_#00000060] bg-white md:py-5 md:px-4 md:mx-2 md:mb-4"
+              className="rounded-2xl border-8 shadow border-b-0 bg-white md:py-5 md:px-4 md:mx-2 md:mb-4"
             >
               <div className="flex justify-between">
                 <div className="flex gap-x-2">
