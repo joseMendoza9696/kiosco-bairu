@@ -4,7 +4,7 @@ import {
   actualizarNumeroTelefono,
 } from '../../redux/actions/nuevaOrden.action';
 import 'react-phone-number-input/style.css';
-
+import { useNavigate } from 'react-router-dom';
 import PhoneInput from 'react-phone-number-input';
 
 import { useState } from 'react';
@@ -18,7 +18,7 @@ export const DatosPersonalesModal = ({
   mostrarNombre: boolean;
   mostrarTelefono: boolean;
 }) => {
-  // TODO: el boton volver deberia cerrar el modal y volver al checkout.
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
   const [error, setError] = useState('');
@@ -45,6 +45,11 @@ export const DatosPersonalesModal = ({
   const PerfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
   const paisPerfil = PerfilLocalStorage?.pais;
   const paisCodigo = paisPerfil ? paisPerfil.split('-')[0] : null;
+
+  const botonVolver = () => {
+    navigate('/checkout', { replace: true });
+    closeModal();
+  };
 
   return (
     <div className="modal-box flex items-center flex-col rounded-t-[5.7rem] md:h-[90%] lg:h-[85%] md:pt-[10rem] md:gap-52 lg:gap-72">
@@ -93,7 +98,7 @@ export const DatosPersonalesModal = ({
       <div className="flex md:gap-24 lg:gap-48">
         <button
           className="btn box-content rounded-2xl h-max md:text-2xl lg:text-4xl md:py-[2em] md:w-[7.5em] "
-          onClick={closeModal}
+          onClick={botonVolver}
         >
           Volver
         </button>
