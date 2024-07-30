@@ -125,7 +125,7 @@ export const Pago = () => {
             ¿Cómo desea pagar?
           </h1>
           <h1 className="text-center text-primary font-bold md:text-4xl lg:text-5xl">
-            Total {`${monedaPerfil}. `} {nuevaOrden.cuentaTotal}
+            Total {`${monedaPerfil} `} {nuevaOrden.cuentaTotal}
           </h1>
         </div>
         {/* SECCION DE BOTONES */}
