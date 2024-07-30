@@ -14,8 +14,8 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import { Modal2 } from './Modal2.tsx';
 import { Modal1 } from './Modal1.tsx';
 // EDIT PRODUCT
-// import { ProductoNuevaOrden } from '../../interfaces/nuevaOrden.interface.ts';
-// import { editarProductoOrden } from '../../redux/actions/editarOrden.action.ts';
+import { ProductoNuevaOrden } from '../../interfaces/nuevaOrden.interface.ts';
+import { editarProductoOrden } from '../../redux/actions/editarOrden.action.ts';
 
 export const Checkout = () => {
   const getOrderEdit = useSelector(
@@ -37,11 +37,11 @@ export const Checkout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   //? send product to edit
-  // const editProduct = (product: ProductoNuevaOrden, index: number) => {
-  //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //   // @ts-expect-error
-  //   dispatch(editarProductoOrden(product, index));
-  // };
+  const editProduct = (product: ProductoNuevaOrden, index: number) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    dispatch(editarProductoOrden(product, index));
+  };
 
   const nuevaOrden = useSelector((state: RootState) => state.nuevaOrdenReducer);
 
@@ -65,7 +65,6 @@ export const Checkout = () => {
   const editarCantidad = (index: number, incremento: number) => {
     // @ts-expect-error need to fix this
     dispatch(editarCantidadProducto(index, incremento));
-
     // @ts-expect-error need to fix this
     dispatch(actualizarCuentaTotal());
   };
@@ -77,8 +76,8 @@ export const Checkout = () => {
   return (
     <div className="md:px-7 lg:px-16">
       {/* MODALS ============================= if truthy/falsy */}
-      {getOrderEdit.id && !getOrderEdit.opcionesMenu.length && <Modal1 />}
-      {getOrderEdit.id && getOrderEdit.opcionesMenu.length && <Modal2 />}
+      {!!(getOrderEdit.id && !getOrderEdit.opcionesMenu.length) && <Modal1 />}
+      {!!(getOrderEdit.id && getOrderEdit.opcionesMenu.length) && <Modal2 />}
       <h1 className="text-center text-primary font-bold md:text-5xl lg:text-6xl md:mt-14 md:mb-10 lg:mt-28 lg:mb-14">
         TU ORDEN
       </h1>
@@ -116,12 +115,12 @@ export const Checkout = () => {
           Vaciar canasta
         </button>
       </div>
-      <div className="flex flex-col md:gap-y-4 md:max-h-[50vh] overflow-hidden overflow-y-auto lg:max-h-[1000px] scroll-hidden">
+      <div className="flex flex-col md:max-h-[50vh] overflow-y-auto lg:max-h-[52vh] scroll-hidden">
         {categoriaActual &&
           nuevaOrden.productos.map((producto, index) => (
             <div
               key={index}
-              className="rounded-2xl bg-white shadow-xl md:py-5 md:px-4"
+              className="rounded-2xl border-8 shadow border-b-0 bg-white md:py-5 md:px-4 md:mx-2 md:mb-4"
             >
               <div className="flex justify-between">
                 <div className="flex gap-x-2">
@@ -139,19 +138,19 @@ export const Checkout = () => {
                       {producto.subcategoriaNombre}
                     </p>
                     {/* BUTTON MODIFICAR */}
-                    {/* <button
+                    <button
                       className="box-content btn btn-outline rounded-3xl md:text-2xl lg:text-3xl md:py-[0.1em] md:px-[1em] max-w-min"
                       onClick={() => {
                         editProduct(producto, index);
                       }}
                     >
                       Modificar
-                    </button> */}
+                    </button>
                   </div>
                 </div>
                 {/* botones */}
-                <div className="flex flex-col justify-between">
-                  <p className="font-bold text-right md:text-3xl lg:text-4xl">
+                <div className="flex flex-col justify-between items-end">
+                  <p className="font-medium md:text-3xl lg:text-4xl">
                     {monedaPerfil}{' '}
                     {parseFloat(producto.precioTotal.toString()).toFixed(2)}
                   </p>
@@ -170,7 +169,6 @@ export const Checkout = () => {
                       <Icon icon="iconamoon:trash-duotone" />
                     </button>
                     <button
-                      className=""
                       onClick={() => {
                         editarCantidad(index, -1);
                       }}
@@ -179,7 +177,6 @@ export const Checkout = () => {
                     </button>
                     <button className="md:text-3xl">{producto.cantidad}</button>
                     <button
-                      className=""
                       onClick={() => {
                         editarCantidad(index, 1);
                       }}
@@ -200,12 +197,16 @@ export const Checkout = () => {
           {parseFloat(nuevaOrden.cuentaTotal.toString()).toFixed(2)}
         </h1>
         <div className="text-center flex justify-evenly">
-          <button className="box-content btn md:py-[1.4em] md:w-[6em] md:text-4xl lg:text-6xl lg:rounded-3xl ">
-            <Link to="/menu">Volver</Link>
-          </button>
-          <button className="box-content btn text-white btn-primary md:py-[1.4em] md:w-[6em] md:text-4xl lg:text-6xl lg:rounded-3xl">
-            <Link to="/payment">Ir a pagar</Link>
-          </button>
+          <Link to="/menu">
+            <button className="box-content btn md:py-[1.5em] md:w-[6.5em] md:text-3xl lg:text-5xl md:rounded-3xl ">
+              Volver
+            </button>
+          </Link>
+          <Link to="/payment">
+            <button className="box-content btn text-white btn-primary md:py-[1.5em] md:w-[6.5em] md:text-3xl lg:text-5xl md:rounded-3xl">
+              Ir a pagar
+            </button>
+          </Link>
         </div>
       </div>
     </div>

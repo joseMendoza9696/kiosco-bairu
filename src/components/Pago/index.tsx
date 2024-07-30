@@ -119,19 +119,20 @@ export const Pago = () => {
         )}
       </dialog>
 
-      <div className="flex flex-col items-center md:pt-[15%] md:gap-20">
-        <h1 className="md:text-5xl lg:text-7xl font-bold">
-          ¿Cómo desea pagar?
-        </h1>
-        <h1 className="text-center text-primary font-bold md:text-4xl lg:text-5xl">
-          Total {monedaPerfil}
-          {nuevaOrden.cuentaTotal}
-        </h1>
+      <div className="flex flex-col h-[90vh] items-center justify-evenly md:pt-[15%] md:gap-20">
+        <div>
+          <h1 className="md:text-4xl lg:text-5xl font-bold md:mb-12">
+            ¿Cómo desea pagar?
+          </h1>
+          <h1 className="text-center text-primary font-bold md:text-4xl lg:text-5xl">
+            Total {`${monedaPerfil}. `} {nuevaOrden.cuentaTotal}
+          </h1>
+        </div>
         {/* SECCION DE BOTONES */}
         <div className="flex flex-wrap md:gap-12 justify-center">
           {pagoEfectivoHabilitado && (
             <button
-              className="btn btn-primary box-content h-max flex flex-col md:text-3xl lg:text-5xl md:py-[1.5em] md:w-[8em] lg:py-[1em] lg:w-[8em] "
+              className="btn btn-primary box-content h-max flex flex-col md:text-3xl lg:text-5xl md:py-[2em] md:w-[8em] lg:py-[1em] lg:w-[8em] md:rounded-xl "
               onClick={() => {
                 seleccionarPago('EFECTIVO');
               }}
@@ -142,7 +143,7 @@ export const Pago = () => {
           )}
           {pagoQrHabilitado && (
             <button
-              className="btn btn-primary box-content h-max flex flex-col md:text-3xl lg:text-5xl md:py-[1.5em] md:w-[8em] lg:py-[1em] lg:w-[8em] "
+              className="btn btn-primary box-content h-max flex flex-col md:text-3xl lg:text-5xl md:py-[2em] md:w-[8em] lg:py-[1em] lg:w-[8em] md:rounded-xl "
               onClick={() => {
                 seleccionarPago('QR');
               }}
@@ -153,7 +154,7 @@ export const Pago = () => {
           )}
           {pagoTarjetaHabilitado && (
             <button
-              className="btn btn-primary box-content h-max flex flex-col md:text-3xl lg:text-5xl md:py-[1.5em] md:w-[8em] lg:py-[1em] lg:w-[8em] "
+              className="btn btn-primary box-content h-max flex flex-col md:text-3xl lg:text-5xl md:py-[2em] md:w-[8em] lg:py-[1em] lg:w-[8em] md:rounded-xl "
               onClick={() => {
                 seleccionarPago('TARJETA');
               }}
@@ -199,9 +200,11 @@ export const Pago = () => {
         {/* FIN DE SECCION DEL MODAL  */}
 
         {/* SECCION DE TOTAL */}
-        <button className="btn md:text-5xl lg:text-7xl h-max md:py-[1em] md:w-[6em]">
-          <Link to="/checkout">Volver</Link>
-        </button>
+        <Link to="/checkout">
+          <button className="btn md:text-3xl lg:text-4xl h-max md:py-[2.5em] md:w-[9em] rounded-2xl">
+            Volver
+          </button>
+        </Link>
         {/* FIN DE SECCION DE TOTAL */}
       </div>
     </>

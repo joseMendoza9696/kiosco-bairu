@@ -188,7 +188,7 @@ export const PagoConfirmado = () => {
         icon="lets-icons:check-fill"
         className="text-green-500 md:h-[30%] md:w-[30%] "
       />
-      <h1 className="md:text-8xl lg:text-9xl text-center font-bold">
+      <h1 className="md:text-7xl lg:text-8xl text-center font-bold">
         Pago Confirmado
       </h1>
     </div>
