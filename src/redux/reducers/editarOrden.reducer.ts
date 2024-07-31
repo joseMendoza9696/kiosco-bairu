@@ -81,16 +81,26 @@ export function editarOrdenReducer(state = editarProductoState, action: any) {
 
     case SELECCIONAR_OPCION_EDITAR:
       const nuevoProducto = state;
+      const { opcionMenuIndex, opcionIndex } = action.payload;
+      const opcionesMenu = nuevoProducto.opcionesMenu[opcionMenuIndex];
+      if (
+        opcionesMenu.cantidadSeleccionada === opcionesMenu.cantidadSeleccion
+      ) {
+        // Reemplazar la última selección
+        for (let i = opcionesMenu.opciones.length - 1; i >= 0; i--) {
+          if (opcionesMenu.opciones[i].seleccionado) {
+            opcionesMenu.opciones[i].seleccionado = false;
+            break;
+          }
+        }
+      } else {
+        // incrementar cantidad seleccionada
+        opcionesMenu.cantidadSeleccionada++;
+      }
       // actualizamos la opcion a seleccionado
-      nuevoProducto.opcionesMenu[action.payload.opcionMenuIndex].opciones[
-        action.payload.opcionIndex
-      ].seleccionado = true;
+      opcionesMenu.opciones[opcionIndex].seleccionado = true;
       // actualizamos el precio total
       nuevoProducto.precioTotal = calcularPrecioTotal(nuevoProducto);
-      // actualizamos la cantidad seleccionada
-      nuevoProducto.opcionesMenu[action.payload.opcionMenuIndex]
-        .cantidadSeleccionada++;
-      // return nuevoProducto;
       return {
         ...state,
         nuevaOrdenProductosIndex: nuevoProducto.nuevaOrdenProductosIndex,

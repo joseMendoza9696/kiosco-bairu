@@ -33,17 +33,14 @@ export const Modal2 = () => {
   //? OPCIONES REQUERIDAS
   const isRequired = editOrder?.opcionesMenu[stepsIndex].obligatorio;
   //? limit selection | count options selected
-  const limitOptions = editOrder?.opcionesMenu[stepsIndex].cantidadSeleccion;
   const optionsSelected =
     editOrder?.opcionesMenu[stepsIndex].cantidadSeleccionada;
 
   //? select/deselect product functions
   const selectProduct = (menuIndex: number, optionIndex: number) => {
-    if (optionsSelected < limitOptions) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      dispatch(seleccionarOpcionEditar(menuIndex, optionIndex));
-    }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    dispatch(seleccionarOpcionEditar(menuIndex, optionIndex));
   };
   const deselectProduct = (menuIndex: number, optionIndex: number) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

@@ -71,22 +71,38 @@ export function nuevaOrdenReducer(state = initialNuevaOrdenState, action: any) {
         productos: nuevosProductos8,
       };
 
-    case SELECCIONAR_OPCION:
-      const nuevosProductos3 = state.productos;
+    case SELECCIONAR_OPCION: {
+      const nuevosProductos3 = [...state.productos];
       const index = nuevosProductos3.length - 1;
-      // seleccionamos la opcion del opcionMenu correspondiente
-      nuevosProductos3[index].opcionesMenu[
-        action.payload.opcionMenuIndex
-      ].opciones[action.payload.opcionIndex].seleccionado = true;
-      // actualizamos el precio total
+      const { opcionMenuIndex, opcionIndex } = action.payload;
+      const opcionesMenu =
+        nuevosProductos3[index].opcionesMenu[opcionMenuIndex];
+
+      if (
+        opcionesMenu.cantidadSeleccionada === opcionesMenu.cantidadSeleccion
+      ) {
+        // Reemplazar la última selección
+        for (let i = opcionesMenu.opciones.length - 1; i >= 0; i--) {
+          if (opcionesMenu.opciones[i].seleccionado) {
+            opcionesMenu.opciones[i].seleccionado = false;
+            break;
+          }
+        }
+      } else {
+        // Incrementar la cantidad seleccionada
+        opcionesMenu.cantidadSeleccionada++;
+      }
+
+      // Seleccionar la nueva opción
+      opcionesMenu.opciones[opcionIndex].seleccionado = true;
+
+      // Actualizar el precio total
       nuevosProductos3[index].precioTotal = calcularPrecioTotal(
         nuevosProductos3[index],
       );
-      // actualizamos la cantidad seleccionada
-      nuevosProductos3[index].opcionesMenu[action.payload.opcionMenuIndex]
-        .cantidadSeleccionada++;
 
       return { ...state, productos: nuevosProductos3 };
+    }
 
     case DESELECCIONAR_OPCION:
       const nuevosProductos7 = state.productos;
