@@ -120,7 +120,7 @@ export const Checkout = () => {
           nuevaOrden.productos.map((producto, index) => (
             <div
               key={index}
-              className="rounded-2xl border-8 shadow border-b-0 bg-white md:py-5 md:px-4 md:mx-2 md:mb-4"
+              className="rounded-2xl border-8 shadow border-b-0 border-r-2 bg-white md:py-5 md:px-4 md:mx-2 md:mb-4"
             >
               <div className="flex justify-between">
                 <div className="flex gap-x-2">

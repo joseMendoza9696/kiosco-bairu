@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 // REDUX
 import { RootState } from '../../../redux/store.ts';
 import {
   actualizarCuentaTotal,
-  agregarNotaProducto,
   deseleccionarOpcion,
   quitarUltimoProducto,
   seleccionarOpcion,
@@ -22,18 +21,18 @@ interface IModal2 {
 }
 
 export const Modal2 = ({ closeModal }: IModal2) => {
-  const [noteModal, setnoteModal] = useState<string>('');
-  useEffect(() => {
-    if (noteModal) {
-      agregarNota(noteModal);
-    }
-  }, [noteModal]);
-  const agregarNota = (nota: string) => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
+  // const [noteModal, setnoteModal] = useState<string>('');
+  // useEffect(() => {
+  //   if (noteModal) {
+  //     agregarNota(noteModal);
+  //   }
+  // }, [noteModal]);
+  // const agregarNota = (nota: string) => {
+  //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //   // @ts-expect-error
 
-    dispatch(agregarNotaProducto(nota, productoSeleccionadoIndex));
-  };
+  //   dispatch(agregarNotaProducto(nota, productoSeleccionadoIndex));
+  // };
 
   const dispatch = useDispatch();
 
@@ -113,11 +112,9 @@ export const Modal2 = ({ closeModal }: IModal2) => {
       typeof cantidadSeleccionadaOpcionMenu === 'number' &&
       typeof cantidadMaximaSeleccion === 'number'
     ) {
-      if (cantidadSeleccionadaOpcionMenu < cantidadMaximaSeleccion) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        dispatch(seleccionarOpcion(indexOpcionMenu, indexOpcion));
-      }
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      dispatch(seleccionarOpcion(indexOpcionMenu, indexOpcion));
     }
   };
 

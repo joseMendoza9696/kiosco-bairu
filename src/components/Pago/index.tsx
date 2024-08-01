@@ -125,7 +125,7 @@ export const Pago = () => {
             ¿Cómo desea pagar?
           </h1>
           <h1 className="text-center text-primary font-bold md:text-4xl lg:text-5xl">
-            Total {`${monedaPerfil}. `} {nuevaOrden.cuentaTotal}
+            Total {`${monedaPerfil} `} {nuevaOrden.cuentaTotal}
           </h1>
         </div>
         {/* SECCION DE BOTONES */}
@@ -200,11 +200,20 @@ export const Pago = () => {
         {/* FIN DE SECCION DEL MODAL  */}
 
         {/* SECCION DE TOTAL */}
-        <Link to="/checkout">
-          <button className="btn md:text-3xl lg:text-4xl h-max md:py-[2.5em] md:w-[9em] rounded-2xl">
-            Volver
-          </button>
-        </Link>
+        <div className="py-32">
+          <h1 className="text-center text-primary font-bold text-[56px]  ">
+            Total {monedaPerfil}
+            {parseFloat(nuevaOrden.cuentaTotal.toString()).toFixed(2)}
+          </h1>
+          <div className="text-center flex justify-between mx-40 pt-20">
+            <Link to="/checkout">
+              <button className="btn md:text-3xl lg:text-4xl h-max md:py-[2.5em] md:w-[9em] rounded-2xl">
+                Volver
+              </button>
+            </Link>
+          </div>
+        </div>
+
         {/* FIN DE SECCION DE TOTAL */}
       </div>
     </>
