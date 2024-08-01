@@ -5,7 +5,7 @@ import {
 } from '../../redux/actions/nuevaOrden.action';
 import 'react-phone-number-input/style.css';
 import { useNavigate } from 'react-router-dom';
-import PhoneInput from 'react-phone-number-input';
+import PhoneInput, { getCountryCallingCode } from 'react-phone-number-input';
 
 import { useState } from 'react';
 
@@ -18,6 +18,11 @@ export const DatosPersonalesModal = ({
   mostrarNombre: boolean;
   mostrarTelefono: boolean;
 }) => {
+  //LOCAL STORAGE
+  const PerfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
+  const paisPerfil = PerfilLocalStorage?.pais;
+  const paisCodigo = paisPerfil ? paisPerfil.split('-')[0] : null;
+  //IMPORTS
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
@@ -28,6 +33,8 @@ export const DatosPersonalesModal = ({
       ?.value;
     const telefono = (document.getElementById('telefono') as HTMLInputElement)
       ?.value;
+    //country code + phone number
+    const codeAndNumber = `${getCountryCallingCode(paisCodigo)} ${telefono}`;
 
     if (!nombre) {
       setError('El nombre es obligatorio');
@@ -38,13 +45,10 @@ export const DatosPersonalesModal = ({
     dispatch(actualizarNombreCliente(nombre));
     if (mostrarTelefono) {
       // @ts-expect-error need to fix this
-      dispatch(actualizarNumeroTelefono(telefono));
+      dispatch(actualizarNumeroTelefono(codeAndNumber));
     }
     closeModal();
   };
-  const PerfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
-  const paisPerfil = PerfilLocalStorage?.pais;
-  const paisCodigo = paisPerfil ? paisPerfil.split('-')[0] : null;
 
   const botonVolver = () => {
     navigate('/checkout', { replace: true });
