@@ -34,7 +34,7 @@ export const DatosPersonalesModal = ({
     const telefono = (document.getElementById('telefono') as HTMLInputElement)
       ?.value;
     //country code + phone number
-    const codeAndNumber = `${getCountryCallingCode(paisCodigo)} ${telefono}`;
+    const codeAndNumber = `${getCountryCallingCode(paisCodigo)}-${telefono.replace(/\s/g, '')}`;
 
     if (!nombre) {
       setError('El nombre es obligatorio');

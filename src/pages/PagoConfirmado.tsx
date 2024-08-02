@@ -90,14 +90,14 @@ export const PagoConfirmado = () => {
     const ordenVariables = crearOrdenVariables(nuevaOrden);
     // cuentaTotal: nuevaOrden.cuentaTotal;
 
-    // console.log(ordenVariables);
+    console.log(ordenVariables);
 
-    crearOrden({
-      variables: {
-        orden: ordenVariables,
-        fecha: new Date().toISOString(),
-      },
-    }).then();
+    // crearOrden({
+    //   variables: {
+    //     orden: ordenVariables,
+    //     fecha: new Date().toISOString(),
+    //   },
+    // }).then();
   };
 
   const facturar = async (

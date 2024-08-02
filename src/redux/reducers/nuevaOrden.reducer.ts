@@ -194,9 +194,8 @@ export function nuevaOrdenReducer(state = initialNuevaOrdenState, action: any) {
 
     case ACTUALIZAR_NUMERO_TELEFONO:
       const getNumber = action.payload;
-      const formatNumber = getNumber.replaceAll(' ', '-');
 
-      return { ...state, numeroTelefono: formatNumber };
+      return { ...state, numeroTelefono: getNumber };
 
     case ACTUALIZAR_PRODUCTO_ORDEN:
       //obtener copia del stado
