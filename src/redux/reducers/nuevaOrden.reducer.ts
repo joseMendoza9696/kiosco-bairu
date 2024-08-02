@@ -193,7 +193,9 @@ export function nuevaOrdenReducer(state = initialNuevaOrdenState, action: any) {
       return { ...state, tipoEntrega: action.payload };
 
     case ACTUALIZAR_NUMERO_TELEFONO:
-      return { ...state, numeroTelefono: action.payload };
+      const getNumber = action.payload;
+
+      return { ...state, numeroTelefono: getNumber };
 
     case ACTUALIZAR_PRODUCTO_ORDEN:
       //obtener copia del stado

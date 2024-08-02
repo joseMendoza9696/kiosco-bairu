@@ -89,7 +89,6 @@ export const PagoConfirmado = () => {
   const mandarOrden = () => {
     const ordenVariables = crearOrdenVariables(nuevaOrden);
     // cuentaTotal: nuevaOrden.cuentaTotal;
-
     // console.log(ordenVariables);
 
     crearOrden({
