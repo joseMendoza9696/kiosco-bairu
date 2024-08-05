@@ -14,6 +14,7 @@ import {
 } from '../../redux/actions/editarOrden.action';
 import { EditarProductoInterface } from '../../interfaces/editarOrden.interface';
 import { actualizarProductoOrden } from '../../redux/actions/nuevaOrden.action';
+import { NotesProduct } from '../sharedComponents/NotesProduct';
 
 export const Modal2 = () => {
   //!control steps
@@ -48,13 +49,20 @@ export const Modal2 = () => {
     dispatch(deseleccionarOpcionEditar(menuIndex, optionIndex));
   };
 
+  //notes
+  const [noteModal, setnoteModal] = useState<string>(editOrder.nota!);
+  const handleNoteChange = (newNote: string) => {
+    setnoteModal(newNote);
+  };
+  //notes
+
   //? ADD/NEXT BUTTON
   const addBtn = () => {
     if (stepsIndex === editOrder.opcionesMenu.length - 1) {
       const productToSend = {
         id: editOrder.id,
         idSistema: editOrder.idSistema,
-        nota: editOrder.nota,
+        nota: noteModal,
         nombre: editOrder.nombre,
         descripcion: editOrder.descripcion,
         cantidad: editOrder.cantidad,
@@ -98,7 +106,7 @@ export const Modal2 = () => {
   //? CURRENCY
   const perfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
   const currencyLocal = perfilLocalStorage.moneda;
-  // const storageNotes = perfilLocalStorage.notas_productos;
+  const storageNotes = perfilLocalStorage.notas_productos;
   return (
     <dialog id="checkout2" className="modal modal-bottom">
       <div className="relative modal-box bg-base-100 rounded-t-[5.6rem] md:h-[93%] lg:h-[87%] md:px-8 md:pt-24 lg:px-20 lg:pt-36">
@@ -129,10 +137,9 @@ export const Modal2 = () => {
           <h2 className="font-bold md:text-4xl lg:text-6xl text-center">
             {editOrder.nombre}
           </h2>
-          {/* falta pasar state prop */}
-          {/* {storageNotes && (
-            <NotesProduct.Modal2>{editOrder.nota}</NotesProduct.Modal2>
-          )} */}
+          {storageNotes && (
+            <NotesProduct value={noteModal} onChange={handleNoteChange} />
+          )}
         </div>
         {/* description */}
         <p className="md:text-xl lg:text-3xl text-center text-[#A6A6AA] md:mb-2 lg:mb-4">

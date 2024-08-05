@@ -6,6 +6,8 @@ import {
   vaciarEditarProductoOrden,
 } from '../../redux/actions/editarOrden.action';
 import { actualizarProductoOrden } from '../../redux/actions/nuevaOrden.action';
+import { useState } from 'react';
+import { NotesProduct } from '../sharedComponents/NotesProduct';
 
 export const Modal1 = () => {
   const editOrder = useSelector((state: RootState) => state.editarOrdenReducer);
@@ -14,15 +16,21 @@ export const Modal1 = () => {
   const perfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
   //? GET CURRENCY Local
   const currencyLocal = perfilLocalStorage.moneda;
-  // const storageNotes = perfilLocalStorage.notas_productos;
+  const storageNotes = perfilLocalStorage.notas_productos;
 
+  //notes
+  const [noteModal, setnoteModal] = useState<string>(editOrder.nota);
+  const handleNoteChange = (newNote: string) => {
+    setnoteModal(newNote);
+  };
+  //notes
   //! update button
   const updateBtn = () => {
     //seleccionamos los datos a enviar
     const productToSend = {
       id: editOrder.id,
       idSistema: editOrder.idSistema,
-      nota: editOrder.nota,
+      nota: noteModal,
       nombre: editOrder.nombre,
       descripcion: editOrder.descripcion,
       cantidad: editOrder.cantidad,
@@ -118,9 +126,9 @@ export const Modal1 = () => {
           >
             <Icon icon="icomoon-free:plus" />
           </button>
-          {/* {storageNotes && (
-            <NotesProduct editNote={setnote}>{note}</NotesProduct>
-          )} */}
+          {storageNotes && (
+            <NotesProduct value={noteModal} onChange={handleNoteChange} />
+          )}
         </div>
         {/* BUTTONS cancel minus amount plus procedd */}
         <div className="mx-auto flex justify-between items-center md:w-[83%] lg:w-[85%]">

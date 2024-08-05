@@ -6,15 +6,23 @@ import {
   editarCantidadProducto,
   quitarUltimoProducto,
   actualizarCuentaTotal,
+  agregarNotaProducto,
 } from '../../../redux/actions/nuevaOrden.action.ts';
 import { Icon } from '@iconify/react/dist/iconify.js';
-// import { Producto } from '../../../interfaces/menu.interface.ts';
+import { NotesProduct } from '../../sharedComponents/NotesProduct.tsx';
 
 interface IModal1 {
   closeModal: any;
 }
 
 export const Modal1 = ({ closeModal }: IModal1) => {
+  //notes
+  const [noteModal, setnoteModal] = useState<string>('');
+  const handleNoteChange = (newNote: string) => {
+    setnoteModal(newNote);
+  };
+  //notes
+
   const dispatch = useDispatch();
   const PerfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
 
@@ -36,6 +44,10 @@ export const Modal1 = ({ closeModal }: IModal1) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     dispatch(actualizarCuentaTotal());
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    dispatch(agregarNotaProducto(noteModal));
+
     closeModal();
     setCantidad(1);
   };
@@ -50,7 +62,7 @@ export const Modal1 = ({ closeModal }: IModal1) => {
       return cantidadMinima;
     });
   };
-  // const notasProductos = PerfilLocalStorage?.notas_productos;
+  const notasProductos = PerfilLocalStorage?.notas_productos;
 
   const monedaPerfil = PerfilLocalStorage?.moneda;
 
@@ -120,54 +132,9 @@ export const Modal1 = ({ closeModal }: IModal1) => {
             >
               <Icon icon="icomoon-free:plus" />
             </button>
-
-            {/* {notasProductos && (
-              <button
-                className="absolute md:-right-28 lg:-right-32"
-                onClick={() => {
-                  (
-                    document.getElementById(
-                      'my_modal_notes1',
-                    ) as HTMLDialogElement
-                  ).showModal();
-                  setnoteModal('');
-                }}
-              >
-                <Icon
-                  icon="akar-icons:edit"
-                  className="md:text-7xl lg:text-8xl"
-                />
-              </button>
+            {notasProductos && (
+              <NotesProduct value={noteModal} onChange={handleNoteChange} />
             )}
-            <dialog id="my_modal_notes1" className="modal">
-              <div className="modal-box  rounded-3xl flex flex-col items-center gap-12 w-[70%]">
-                <h3 className="font-bold md:text-4xl lg:text-5xl mt-10">
-                  Notas adicionales
-                </h3>
-                <input
-                  type="text"
-                  onChange={(e) => setnoteModal(e.target.value)}
-                  value={noteModal}
-                  placeholder="Nota..."
-                  className="input input-bordered w-full max-w-md border-4 p-9 md:text-3xl lg:text-4xl"
-                />
-                <button
-                  className="btn bg-primary text-4xl btn-lg btn-wide"
-                  onClick={() => {
-                    (
-                      document.getElementById(
-                        'my_modal_notes1',
-                      ) as HTMLDialogElement
-                    ).close();
-                  }}
-                >
-                  Añadir
-                </button>
-              </div>
-              <form method="dialog" className="modal-backdrop">
-                <button onClick={() => setnoteModal('')}></button>
-              </form>
-            </dialog> */}
           </div>
           {/* BUTTONS: cancel minus amount plus add */}
           <div className="mx-auto flex justify-between items-center md:w-[83%] lg:w-[85%]">
