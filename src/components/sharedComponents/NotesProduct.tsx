@@ -47,7 +47,7 @@ export const NotesProduct: React.FC<TextInputProps> = ({
         className={modal2 ? '' : 'absolute md:-right-28 lg:-right-32'}
         onClick={() => setisVisible((e) => !e)}
       >
-        <Icon icon="akar-icons:edit" className="md:text-7xl lg:text-8xl" />
+        <Icon icon="akar-icons:edit" className="md:text-6xl lg:text-8xl" />
       </button>
       {/* window */}
       {isVisible && (

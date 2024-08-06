@@ -177,7 +177,11 @@ export const Modal2 = ({ closeModal }: IModal2) => {
               {productoSeleccionado.nombre}
             </h2>
             {notasProductos && (
-              <NotesProduct value={noteModal} onChange={handleNoteChange} />
+              <NotesProduct
+                value={noteModal}
+                onChange={handleNoteChange}
+                modal2
+              />
             )}
           </div>
           {/* description */}

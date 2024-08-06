@@ -138,7 +138,11 @@ export const Modal2 = () => {
             {editOrder.nombre}
           </h2>
           {storageNotes && (
-            <NotesProduct value={noteModal} onChange={handleNoteChange} />
+            <NotesProduct
+              value={noteModal}
+              onChange={handleNoteChange}
+              modal2
+            />
           )}
         </div>
         {/* description */}
