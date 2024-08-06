@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { RootState } from '../../../redux/store.ts';
 import {
   actualizarCuentaTotal,
+  agregarNotaProducto,
   deseleccionarOpcion,
   quitarUltimoProducto,
   seleccionarOpcion,
@@ -15,24 +16,19 @@ import {
   Opcion,
   OpcionMenuNuevaOrden,
 } from '../../../interfaces/nuevaOrden.interface.ts';
+import { NotesProduct } from '../../sharedComponents/NotesProduct.tsx';
 
 interface IModal2 {
   closeModal: any;
 }
 
 export const Modal2 = ({ closeModal }: IModal2) => {
-  // const [noteModal, setnoteModal] = useState<string>('');
-  // useEffect(() => {
-  //   if (noteModal) {
-  //     agregarNota(noteModal);
-  //   }
-  // }, [noteModal]);
-  // const agregarNota = (nota: string) => {
-  //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //   // @ts-expect-error
-
-  //   dispatch(agregarNotaProducto(nota, productoSeleccionadoIndex));
-  // };
+  //notes
+  const [noteModal, setnoteModal] = useState<string>('');
+  const handleNoteChange = (newNote: string) => {
+    setnoteModal(newNote);
+  };
+  //notes
 
   const dispatch = useDispatch();
 
@@ -134,6 +130,9 @@ export const Modal2 = ({ closeModal }: IModal2) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     dispatch(actualizarCuentaTotal());
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    dispatch(agregarNotaProducto(noteModal));
     setCantidad(1);
     setOpcionMenuSeleccionadoIndex(0);
     closeModal();
@@ -148,7 +147,7 @@ export const Modal2 = ({ closeModal }: IModal2) => {
     setOpcionMenuSeleccionadoIndex(0);
     // setnoteModal('');
   };
-  // const notasProductos = PerfilLocalStorage?.notas_productos;
+  const notasProductos = PerfilLocalStorage?.notas_productos;
   const monedaPerfil = PerfilLocalStorage?.moneda;
 
   return (
@@ -177,7 +176,13 @@ export const Modal2 = ({ closeModal }: IModal2) => {
             <h2 className="font-bold md:text-4xl lg:text-6xl text-center">
               {productoSeleccionado.nombre}
             </h2>
-            {/* {notasProductos && <NotesProduct.Modal2 editNote={setnoteModal} />} */}
+            {notasProductos && (
+              <NotesProduct
+                value={noteModal}
+                onChange={handleNoteChange}
+                modal2
+              />
+            )}
           </div>
           {/* description */}
           <p className="md:text-xl lg:text-3xl text-center text-[#A6A6AA] md:mb-2 lg:mb-4">

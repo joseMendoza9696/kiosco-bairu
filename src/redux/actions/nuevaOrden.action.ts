@@ -117,13 +117,12 @@ export const actualizarNumeroTelefono =
     });
   };
 
-export const agregarNotaProducto =
-  (nota: string, index: number) => (dispatch: any) => {
-    dispatch({
-      type: AGREGAR_NOTA_PRODUCTO,
-      payload: { nota, index },
-    });
-  };
+export const agregarNotaProducto = (nota: string) => (dispatch: any) => {
+  dispatch({
+    type: AGREGAR_NOTA_PRODUCTO,
+    payload: { nota },
+  });
+};
 // reinsertar producto editado al array para checkout
 export const actualizarProductoOrden =
   (productModified: ProductoNuevaOrden, index: number) => (dispatch: any) => {
