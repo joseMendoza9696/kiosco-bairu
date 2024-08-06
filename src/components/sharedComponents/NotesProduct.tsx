@@ -70,7 +70,7 @@ export const NotesProduct: React.FC<TextInputProps> = ({
               className="input input-bordered w-full max-w-md border-4 p-9 md:text-3xl lg:text-4xl"
             />
             <button
-              className="btn bg-primary text-4xl btn-lg btn-wide"
+              className="btn bg-primary text-4xl btn-lg btn-wide text-white"
               onClick={handleAddNote}
             >
               Añadir
