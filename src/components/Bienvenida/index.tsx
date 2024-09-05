@@ -80,57 +80,53 @@ export const Bienvenida = () => {
     getPerfil().then();
     getInfoKiosco().then();
     getMenu().then();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div className="relative mx-auto p-4 h-screen">
-      <div
-        className="absolute inset-0 bg-center bg-cover z-0 "
-        style={{
-          backgroundImage: `url(${profileData?.banner || ''})`,
-          backgroundColor: profileData?.banner ? '' : 'var(--bg-primary)',
-        }}
-      ></div>
-      <div className="relative ">
-        <div className=" flex justify-evenly md:mt-[75%] lg:mt-[90%]">
-          {profileData?.screens.aqui && (
+    <div
+      className="min-h-dvh w-full bg-cover bg-top flex items-end"
+      style={{
+        backgroundImage: `url(${profileData?.banner || ''})`,
+        backgroundColor: profileData?.banner ? '' : 'var(--bg-primary)',
+      }}
+    >
+      <div className="flex justify-evenly items-center w-full mb-[22vh]">
+        {profileData?.screens.aqui && (
+          <Link to="/menu">
             <button
-              className="shadow-md md:h-[17rem] lg:h-[25rem]"
               onClick={() => {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-expect-error
                 dispatch(actualizarTipoEntrega('AQUI'));
               }}
             >
-              <Link to="/menu">
-                <img
-                  src="/icons_bienvenida/dine-in.svg"
-                  alt="dine-in"
-                  className="h-full"
-                />
-              </Link>
+              <img
+                src="/icons_bienvenida/dine-in.svg"
+                alt="dine-in"
+                className="w-[17rem] lg:w-[20rem]"
+              />
             </button>
-          )}
+          </Link>
+        )}
 
-          {profileData?.screens.llevar && (
+        {profileData?.screens.llevar && (
+          <Link to="/menu">
             <button
-              className="shadow-md md:h-[17rem] lg:h-[25rem]"
               onClick={() => {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-expect-error
                 dispatch(actualizarTipoEntrega('LLEVAR'));
               }}
             >
-              <Link to="/menu">
-                <img
-                  src="/icons_bienvenida/delivery.svg"
-                  alt="img-delivery"
-                  className="h-full"
-                />
-              </Link>
+              <img
+                src="/icons_bienvenida/delivery.svg"
+                alt="img-delivery"
+                className="w-[17rem] lg:w-[20rem]"
+              />
             </button>
-          )}
-        </div>
+          </Link>
+        )}
       </div>
     </div>
   );
