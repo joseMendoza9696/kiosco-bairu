@@ -84,9 +84,12 @@ export const imprimir = async (
       type: 'json',
       properties: ['Monto'],
       header: `
-                <h1>Orden: #${comandaNumero} ${
-                  nombreCliente !== '' ? ` - ${nombreCliente}` : ''
-                }</h1>
+                <h1>Orden: #${comandaNumero} 
+                ${nombreCliente !== '' ? ` - ${nombreCliente}` : ''}</h1>
+                
+                <h3>Fecha: ${new Date().toLocaleString()}</h3>
+                <h3>Hora: ${new Date().toLocaleTimeString()} </h3>
+          
                 <h2>Método de pago: ${metodoPago}</h2>
               `,
     });
