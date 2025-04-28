@@ -92,7 +92,7 @@ export const Bienvenida = () => {
         }}
       ></div>
       <div className="relative ">
-        <div className=" flex justify-evenly md:mt-[75%] lg:mt-[90%]">
+        <div className=" flex justify-evenly md:mt-[75%] lg:mt-[50%]">
           {profileData?.screens.aqui && (
             <button
               className="shadow-md md:h-[17rem] lg:h-[25rem]"

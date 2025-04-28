@@ -34,15 +34,15 @@ export const PagoConfirmado = () => {
           window.location.href = '/';
         }, 15000);
 
-        if (ticketPdf !== null) {
-          imprimir(
-            comandaId,
-            ticketPdf,
-            nuevaOrden.metodoPago,
-            nuevaOrden.cuentaTotal,
-            nuevaOrden.nombreCliente,
-          ).then();
-        }
+        // if (ticketPdf !== null) {
+        //   imprimir(
+        //     comandaId,
+        //     ticketPdf,
+        //     nuevaOrden.metodoPago,
+        //     nuevaOrden.cuentaTotal,
+        //     nuevaOrden.nombreCliente,
+        //   ).then();
+        // }
 
         facturar(nuevaOrden.metodoPago, id, comandaId, ticketPdf).then();
       },
@@ -55,23 +55,23 @@ export const PagoConfirmado = () => {
     onCompleted: async (data) => {
       // console.log('factura...', data);
       const { facturaPdf } = data.KIOSCO_facturarOrden;
-      imprimir(
-        '0',
-        facturaPdf,
-        nuevaOrden.metodoPago,
-        nuevaOrden.cuentaTotal,
-        nuevaOrden.nombreCliente,
-      ).then();
+      // imprimir(
+      //   '0',
+      //   facturaPdf,
+      //   nuevaOrden.metodoPago,
+      //   nuevaOrden.cuentaTotal,
+      //   nuevaOrden.nombreCliente,
+      // ).then();
     },
     onError: async (error) => {
       console.log('ERROR factura...', error);
-      imprimir(
-        comandaNum,
-        'S/N',
-        nuevaOrden.metodoPago,
-        nuevaOrden.cuentaTotal,
-        nuevaOrden.nombreCliente,
-      ).then();
+      // imprimir(
+      //   comandaNum,
+      //   'S/N',
+      //   nuevaOrden.metodoPago,
+      //   nuevaOrden.cuentaTotal,
+      //   nuevaOrden.nombreCliente,
+      // ).then();
     },
   });
 
@@ -109,13 +109,13 @@ export const PagoConfirmado = () => {
     const fechaHoy: Date = new Date();
     if (metodoDePago === 'EFECTIVO' && ticketPdf === null) {
       // imprimir la orden
-      imprimir(
-        comandaNumero,
-        'S/N',
-        metodoDePago,
-        nuevaOrden.cuentaTotal,
-        nuevaOrden.nombreCliente,
-      ).then();
+      // imprimir(
+      //   comandaNumero,
+      //   'S/N',
+      //   metodoDePago,
+      //   nuevaOrden.cuentaTotal,
+      //   nuevaOrden.nombreCliente,
+      // ).then();
     } else {
       if (factura) {
         // facturamos la orden

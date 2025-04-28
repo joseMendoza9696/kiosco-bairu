@@ -70,6 +70,8 @@ export const Checkout = () => {
   };
 
   const PerfilLocalStorage = JSON.parse(localStorage.getItem('Perfil') || '{}');
+  const aqui = PerfilLocalStorage?.screens?.aqui;
+  const llevar = PerfilLocalStorage?.screens?.llevar;
 
   const monedaPerfil = PerfilLocalStorage?.moneda;
 
@@ -83,26 +85,32 @@ export const Checkout = () => {
       </h1>
       {/* BUTTON para aqui / para llevar */}
       <div className="bg-primary flex items-center justify-between cursor-pointer md:mx-[5em] lg:mx-auto md:mb-5 lg:mb-8 md:rounded-xl lg:rounded-2xl md:py-[0.4em] md:px-[0.5em] ">
-        <button
-          className={`rounded-2xl w-1/2 font-semibold text-center md:text-3xl lg:text-4xl md:py-[0.4em] gap-2 ${
-            tipoEntrega === 'AQUI'
-              ? 'bg-white text-primary'
-              : 'bg-primary text-white'
-          }`}
-          onClick={() => cambioTipoEntrega('AQUI')}
-        >
-          Comer Aquí
-        </button>
-        <button
-          className={`rounded-2xl w-1/2 font-semibold text-center md:text-3xl lg:text-4xl md:py-[0.4em] gap-2 ${
-            tipoEntrega === 'LLEVAR'
-              ? 'bg-white text-primary'
-              : 'bg-primary text-white'
-          }`}
-          onClick={() => cambioTipoEntrega('LLEVAR')}
-        >
-          Para llevar
-        </button>
+        {aqui && (
+          <button
+            className={`rounded-2xl w-1/2 font-semibold text-center md:text-3xl lg:text-4xl md:py-[0.4em] gap-2 ${
+              tipoEntrega === 'AQUI'
+                ? 'bg-white text-primary'
+                : 'bg-primary text-white'
+            }`}
+            onClick={() => cambioTipoEntrega('AQUI')}
+            disabled={!aqui}
+          >
+            Comer aquí
+          </button>
+        )}
+        {llevar && (
+          <button
+            className={`rounded-2xl w-1/2 font-semibold text-center md:text-3xl lg:text-4xl md:py-[0.4em] gap-2 ${
+              tipoEntrega === 'LLEVAR'
+                ? 'bg-white text-primary'
+                : 'bg-primary text-white'
+            }`}
+            onClick={() => cambioTipoEntrega('LLEVAR')}
+            disabled={!llevar}
+          >
+            Para llevar
+          </button>
+        )}
       </div>
       <div className="text-right md:mb-4 lg:mb-8">
         <button
